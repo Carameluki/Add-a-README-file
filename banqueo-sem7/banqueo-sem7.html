@@ -4,13 +4,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Zilla+Slab:wght@500;700&display=swap">
 <style>
-/* Layout: una columna tipo "hoja de historia clínica", barra de filtros pegajosa, tarjetas de pregunta con marcas de resaltador para los datos chiquitos */
+/* Layout: una columna tipo hoja de examen, barra de filtros pegajosa, viñeta clínica + 5 alternativas como en el examen teórico final */
 :root{
   --paper:#F2F5F6; --card:#FFFFFF; --ink:#14222E; --muted:#56687A; --line:#D3DDE3;
   --accent:#0D6670; --accent-soft:#E0EFF0;
   --mark:#FFE14D; --mark-ink:#2E2600;
   --ok:#1C7343; --ok-soft:#E1F3E8; --bad:#B0261C; --bad-soft:#FBE6E4;
-  --c-des:#9A4A3F; --c-obe:#A86A12; --c-cf:#B8336A; --c-enc:#6655A0; --c-an:#2A7894; --c-mix:#4B5A66;
+  --vig:#F7F9FA;
+  --c-des:#9A4A3F; --c-obe:#A86A12; --c-cf:#B8336A; --c-enc:#6655A0; --c-an:#2A7894;
   --f-display:"Zilla Slab", Georgia, "Times New Roman", serif;
   --f-body:"Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -20,7 +21,8 @@
   --accent:#5EC2CB; --accent-soft:#16343A;
   --mark:#C9A635; --mark-ink:#171200;
   --ok:#62CF8F; --ok-soft:#14301F; --bad:#FF8B80; --bad-soft:#3A1916;
-  --c-des:#E08B7E; --c-obe:#E3A94D; --c-cf:#F07AA8; --c-enc:#A898E6; --c-an:#6CC1DD; --c-mix:#A3B2BD;
+  --vig:#111B22;
+  --c-des:#E08B7E; --c-obe:#E3A94D; --c-cf:#F07AA8; --c-enc:#A898E6; --c-an:#6CC1DD;
   color-scheme:dark;
 }}
 :root[data-theme="dark"]{
@@ -28,7 +30,8 @@
   --accent:#5EC2CB; --accent-soft:#16343A;
   --mark:#C9A635; --mark-ink:#171200;
   --ok:#62CF8F; --ok-soft:#14301F; --bad:#FF8B80; --bad-soft:#3A1916;
-  --c-des:#E08B7E; --c-obe:#E3A94D; --c-cf:#F07AA8; --c-enc:#A898E6; --c-an:#6CC1DD; --c-mix:#A3B2BD;
+  --vig:#111B22;
+  --c-des:#E08B7E; --c-obe:#E3A94D; --c-cf:#F07AA8; --c-enc:#A898E6; --c-an:#6CC1DD;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -70,9 +73,10 @@ nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(-
 .q{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;display:grid;gap:12px;min-width:0}
 .qhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px}
 .case{font-weight:700;display:inline-flex;align-items:center;gap:6px}
-.slide{font-family:var(--f-mono);color:var(--muted)}
+.src{font-family:var(--f-mono);color:var(--muted);border:1px solid var(--line);border-radius:3px;padding:1px 6px}
 .tiny{background:var(--mark);color:var(--mark-ink);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:2px;transform:rotate(-1deg)}
 .qnum{font-family:var(--f-mono);color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}
+.vig{margin:0;background:var(--vig);border:1px solid var(--line);border-radius:6px;padding:10px 12px;font-size:15px;text-wrap:pretty}
 .qtext{font-weight:700;font-size:17px;margin:0;text-wrap:pretty}
 .opts{display:grid;gap:6px}
 .opt{font:inherit;text-align:left;display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:start;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:9px 10px;cursor:pointer}
@@ -94,19 +98,16 @@ nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(-
 
 .repaso{display:grid;gap:16px;margin-top:16px}
 .rcard{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;min-width:0}
-.rcard h2{font-family:var(--f-display);font-size:24px;margin:0 0 4px;display:flex;align-items:center;gap:8px}
-.rcard .dx{margin:0 0 12px;color:var(--muted);font-size:14px}
-.dl{display:grid;grid-template-columns:minmax(120px,32%) 1fr;border-top:1px solid var(--line)}
+.rcard h2{font-family:var(--f-display);font-size:24px;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.dl{display:grid;grid-template-columns:minmax(120px,30%) 1fr;border-top:1px solid var(--line)}
 .dl dt,.dl dd{margin:0;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
 .dl dt{font-weight:700;padding-right:12px;color:var(--muted)}
 .dl dd{font-variant-numeric:tabular-nums}
 .dl dd mark{background:var(--mark);color:var(--mark-ink);padding:0 3px}
-.ojo{margin-top:12px;font-size:14px;border:1px dashed var(--line);border-radius:6px;padding:10px 12px}
-.ojo b{color:var(--bad)}
 
 .prompt{margin-top:16px;display:grid;gap:12px}
 .prompt p{margin:0;max-width:65ch}
-pre.ptxt{white-space:pre-wrap;word-wrap:break-word;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:0;max-height:none}
+pre.ptxt{white-space:pre-wrap;word-wrap:break-word;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:0}
 .copied{font-size:13px;color:var(--ok);font-weight:700}
 
 button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -120,16 +121,16 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 
 <div class="wrap">
   <header class="top">
-    <div class="eyebrow">Externado de Pediatría 2026-II · Semana 7 · 5 casos</div>
-    <h1>Banqueo de <span class="hl">casos clínicos</span></h1>
-    <p class="lede">Preguntas sacadas diapositiva por diapositiva, incluidos los datos que salen chiquitos en las infografías. Las marcadas con resaltador son <strong>datos chiquitos</strong>: los que el doctor suele tomar.</p>
+    <div class="eyebrow">Externado de Pediatría 2026-II · Semana 7 · Formato examen teórico final</div>
+    <h1>Banqueo de <span class="hl">la enfermedad</span></h1>
+    <p class="lede">Casos nuevos con 5 alternativas, al estilo “señale lo MÁS CORRECTO”. Las preguntas son sobre la enfermedad (criterios, clasificación, diferenciales, dosis y manejo), tomando lo que se expuso en los PPT y completándolo con las guías. Las marcadas con resaltador son <strong>detalles finos</strong>.</p>
     <div class="stats" id="stats"></div>
   </header>
 
   <nav class="tabs" role="tablist">
     <button role="tab" id="tab-q" aria-selected="true" data-tab="q">Preguntas</button>
-    <button role="tab" id="tab-r" aria-selected="false" data-tab="r">Repaso rápido</button>
-    <button role="tab" id="tab-p" aria-selected="false" data-tab="p">Prompt para otros casos</button>
+    <button role="tab" id="tab-r" aria-selected="false" data-tab="r">Lo que hay que saber</button>
+    <button role="tab" id="tab-p" aria-selected="false" data-tab="p">Prompt para otros temas</button>
   </nav>
 
   <section id="panel-q">
@@ -140,7 +141,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
           <button id="mode-study" aria-pressed="true">Estudio</button>
           <button id="mode-exam" aria-pressed="false">Simulacro de 20</button>
         </div>
-        <label class="toggle"><input type="checkbox" id="onlyTiny"> Solo datos chiquitos</label>
+        <label class="toggle"><input type="checkbox" id="onlyTiny"> Solo detalles finos</label>
         <label class="toggle"><input type="checkbox" id="onlyWrong"> Solo las que fallé</label>
         <button class="btn" id="shuffle">Barajar</button>
         <button class="btn" id="reset">Borrar progreso</button>
@@ -158,7 +159,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 
   <section id="panel-p" hidden>
     <div class="prompt">
-      <p>Copia este prompt y pégalo junto con los PDF o PPT de los demás casos de la semana 7. Está hecho para que la IA lea también el texto pequeño de imágenes y tablas, y para que los distractores usen datos de los otros casos.</p>
+      <p>Copia este prompt y pégalo junto con los PDF o PPT de los demás temas. Ya está ajustado al estilo de tu doctor: casos nuevos, 5 alternativas y preguntas sobre la enfermedad, no sobre los datos del paciente del PPT.</p>
       <div class="row"><button class="btn primary" id="copyPrompt">Copiar prompt</button><span class="copied" id="copied" hidden>Copiado</span></div>
       <pre class="ptxt" id="promptText"></pre>
     </div>
@@ -168,414 +169,256 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 <script>
 const CASES = {
   des:{name:'Desnutrición infantil', short:'Desnutrición', color:'var(--c-des)'},
-  obe:{name:'Obesidad', short:'Obesidad', color:'var(--c-obe)'},
+  obe:{name:'Obesidad infantil', short:'Obesidad', color:'var(--c-obe)'},
   cf:{name:'Convulsión febril', short:'Convulsión febril', color:'var(--c-cf)'},
-  enc:{name:'Encefalitis por HSV-1', short:'Encefalitis', color:'var(--c-enc)'},
-  an:{name:'Anorexia nerviosa', short:'Anorexia', color:'var(--c-an)'},
-  mix:{name:'Preguntas cruzadas', short:'Cruzadas', color:'var(--c-mix)'}
+  enc:{name:'Encefalitis (HSV)', short:'Encefalitis', color:'var(--c-enc)'},
+  an:{name:'Anorexia nerviosa y TCA', short:'Anorexia', color:'var(--c-an)'}
 };
 
-/* o[0] siempre es la respuesta correcta; las alternativas se barajan al mostrarse */
+/* v = viñeta, q = enunciado, o[0] = correcta (se baraja al mostrar), src = de dónde sale */
 const Q = [
 /* ================= DESNUTRICIÓN ================= */
-{c:'des',t:1,s:'2',q:'¿De dónde es natural y procedente el paciente del caso de desnutrición?',o:['Barranca','Huacho','Lima','Huaral'],e:'Varón de 2 años (24 meses), natural y procedente de Barranca, traído por su madre.'},
-{c:'des',t:0,s:'2',q:'¿Cómo eran las deposiciones que motivaron la consulta?',o:['Líquidas, fétidas, con restos de alimentos, sin moco ni sangre, 3 a 4 veces al día','Líquidas con moco y sangre, 8 a 10 veces al día','Semilíquidas y acólicas, 1 a 2 veces al día','Líquidas, explosivas, con moco, más de 6 veces al día'],e:'Diarrea de 1 mes de evolución: líquidas, fétidas, con restos de alimentos, sin moco ni sangre, 3–4 veces/día.'},
-{c:'des',t:1,s:'2',q:'Según el relato, ¿qué síntomas NIEGA el paciente?',o:['Vómitos y fiebre','Dolor abdominal y fiebre','Hiporexia y vómitos','Dolor abdominal e hiporexia'],e:'Se acompaña de hiporexia y dolor abdominal ocasional. Niega vómitos y fiebre. La madre refiere que “está cada vez más flaco y decaído”.'},
-{c:'des',t:0,s:'2',q:'¿Cuánto tiempo de enfermedad tenía el paciente desnutrido?',o:['1 mes','1 semana','3 meses','6 meses'],e:'Motivo de consulta: “Tiene diarrea hace un mes y está cada vez más flaco”.'},
-{c:'des',t:1,s:'3',q:'¿Qué antecedente perinatal tenía el paciente?',o:['1.ª gestación, parto eutócico a término, 2450 g (bajo peso al nacer)','Prematuro de 34 semanas, 2450 g','Parto por cesárea, 3100 g','Macrosómico de 4100 g'],e:'Producto de 1.ª gestación, parto eutócico a término. Peso al nacer 2450 g = bajo peso al nacer (< 2500 g).'},
-{c:'des',t:1,s:'3',q:'¿Hasta qué edad recibió lactancia materna exclusiva?',o:['Solo hasta los 3 meses','Hasta los 6 meses','Hasta los 4 meses','No recibió lactancia materna'],e:'LME solo hasta los 3 meses; lactancia hasta el año. La recomendación del caso es LME hasta los 6 meses.'},
-{c:'des',t:1,s:'3',q:'¿Con qué inició la alimentación complementaria a los 6 meses?',o:['Sopas de verduras, arroz e hígado','Papillas espesas de hígado y sangrecita','Fórmula de continuación','Purés de frutas y cereales'],e:'Inició con sopas. Por eso la recomendación final dice: alimentación complementaria ESPESA, con alimentos de origen animal: NO sopas.'},
-{c:'des',t:1,s:'3',q:'¿Desde qué edad y con qué frecuencia recibió huevo y pollo?',o:['Desde los 9 meses, 3 veces por semana','Desde los 6 meses, a diario','Desde el año, 1 vez por semana','Desde los 12 meses, 3 veces por semana'],e:'Huevo y pollo desde los 9 meses, 3 veces por semana.'},
-{c:'des',t:1,s:'3',q:'Desde el año de edad, la alimentación del paciente fue:',o:['Dieta familiar en escaso volumen; rechaza fórmulas','Lactancia materna exclusiva','Fórmula láctea exclusiva','Dieta familiar abundante con comida chatarra'],e:'Desde el año: dieta familiar en escaso volumen, rechaza fórmulas.'},
-{c:'des',t:1,s:'3',q:'Hitos del desarrollo descritos en el caso de desnutrición:',o:['Se sentó a los 6 meses y camina a los 17 meses','Se sentó a los 9 meses y camina a los 12 meses','Se sentó a los 6 meses y camina a los 12 meses','Todavía no camina'],e:'Camina a los 17 meses (marcha tardía). Por eso se pide interconsulta a Estimulación temprana.'},
-{c:'des',t:0,s:'3',q:'Estado de vacunación del paciente desnutrido:',o:['Vacunas incompletas, solo hasta el año','Esquema completo para la edad','Nunca vacunado','Completo salvo influenza'],e:'Vacunas incompletas (solo hasta el año).'},
-{c:'des',t:1,s:'3',q:'Sobre la anemia previa del paciente:',o:['Anemia a los 6 meses con tratamiento irregular (solo 1 mes)','Anemia al año, tratada 6 meses completos','Nunca tuvo anemia','Anemia a los 6 meses que requirió transfusión'],e:'Anemia a los 6 meses, con tratamiento irregular (solo 1 mes).'},
-{c:'des',t:1,s:'3',q:'¿Por qué fue hospitalizado previamente?',o:['Bronquiolitis a los 9 meses','Neumonía al año','Deshidratación por diarrea a los 6 meses','Convulsión febril a los 18 meses'],e:'Hospitalizado por bronquiolitis a los 9 meses. Además, diarreas frecuentes.'},
-{c:'des',t:1,s:'3',q:'¿Qué datos de familia y vivienda se consignan?',o:['Madre trabaja en un call center; vivienda de material noble con agua de cisterna; crían aves','Vivienda de esteras sin servicios; madre ama de casa','Agua de red pública; crían cuyes','Vive con abuelos en la sierra; agua de río'],e:'Madre trabaja en un call center. Vivienda de material noble en Barranca, agua de cisterna, crían aves (riesgo de parasitosis).'},
-{c:'des',t:1,s:'4',q:'Funciones vitales del paciente desnutrido:',o:['FC 118, FR 30, T 36,0 °C, SatO2 97 %','FC 160, FR 35, T 39,2 °C, SatO2 98 %','FC 42, FR 14, T 35,6 °C, SatO2 99 %','FC 118, FR 24, T 38,8 °C, SatO2 98 %'],e:'Cuidado al mezclar casos: FC 160 / T 39,2 es Lucía (convulsión febril); FC 42 es la anorexia; FC 118 / T 38,8 es la encefalitis.'},
-{c:'des',t:0,s:'4',q:'En el examen físico del paciente desnutrido, ¿qué hallazgo NO estaba presente?',o:['Edema bilateral con fóvea','Cabello ralo y seco','TCSC muy disminuido con pliegues sueltos en glúteos y muslos','Abdomen excavado con RHA aumentados'],e:'Despierto, pálido, hipoactivo, SIN edemas. La ausencia de edema es clave para tipificarlo como marasmo.'},
-{c:'des',t:1,s:'4',q:'¿Qué se encontró en la boca del paciente?',o:['Lengua lisa y roja con fisuras en las comisuras','Lengua geográfica y mucosas secas','Encías sangrantes y petequias en paladar','Aftas orales múltiples'],e:'Glositis (lengua lisa y roja) + queilitis angular (fisuras en comisuras): orientan a déficit de micronutrientes (hierro, complejo B).'},
-{c:'des',t:1,s:'4',q:'El abdomen del paciente desnutrido se describió como:',o:['Excavado, timpánico, RHA aumentados','Globuloso con hepatomegalia','Distendido con matidez desplazable','Blando, depresible, RHA disminuidos'],e:'Abdomen excavado, timpánico, RHA aumentados (diarrea activa). La hepatomegalia sería de kwashiorkor.'},
-{c:'des',t:1,s:'4',q:'Piel y perfusión del paciente desnutrido:',o:['Piel pálida y seca, llenado capilar < 2 s, mucosas húmedas','Piel ictérica, llenado > 3 s','Dermatosis en pintura descascarada','Piel moteada, mucosas secas'],e:'Piel pálida y seca, llenado capilar < 2 s, mucosas húmedas (no deshidratado).'},
-{c:'des',t:0,s:'4',q:'Antropometría del paciente desnutrido:',o:['Peso 7,5 kg; talla 76 cm; P/T Z −3,4; PB 11,6 cm','Peso 9,5 kg; talla 80 cm; P/T Z −2,4; PB 12,6 cm','Peso 7,5 kg; talla 86 cm; P/T Z −2,1; PB 11,2 cm','Peso 6,5 kg; talla 76 cm; P/T Z −1,4; PB 13 cm'],e:'Peso 7,5 kg (P/E < −3 DE), talla 76 cm (T/E < −3 DE), P/T Z −3,4 (severa), PB 11,6 cm.'},
-{c:'des',t:1,s:'4',q:'El perímetro braquial de 11,6 cm, por sí solo, clasificaría al paciente como:',o:['Desnutrición aguda moderada (11,5–12,4 cm)','Desnutrición aguda severa (< 11,5 cm)','Normal (≥ 12,5 cm)','Riesgo nutricional sin desnutrición'],e:'El PB marca moderada, pero el P/T Z −3,4 (< −3) marca severa. Se clasifica por el indicador más grave: desnutrición aguda SEVERA.'},
-{c:'des',t:0,s:'5',q:'Interpretación de Hb 10,6 g/dL, VCM 70 fL y HCM 20 pg:',o:['Anemia leve microcítica hipocrómica (ferropénica)','Anemia moderada macrocítica','Anemia severa normocítica','Sin anemia, solo microcitosis'],e:'Hb 10,6 (ref ≥ 11) anemia leve; VCM 70 (75–90) microcitosis; HCM 20 (25–30) hipocromía → anemia ferropénica leve.'},
-{c:'des',t:1,s:'5',q:'¿Cómo se interpretó la glucosa de 60 mg/dL en el caso de desnutrición?',o:['Límite bajo (hipoglucemia se define como < 54 mg/dL)','Hipoglucemia severa','Normal alta','Hiperglucemia de estrés'],e:'Glucosa 60 mg/dL: “límite bajo”, con referencia de hipoglucemia < 54 mg/dL.'},
-{c:'des',t:0,s:'5 y 6',q:'Potasio del paciente desnutrido y su manejo:',o:['3,2 mmol/L (bajo); se aporta potasio 3–4 mmol/kg/día','4,1 mmol/L (normal); no requiere','2,5 mmol/L; corrección IV en bolo','3,2 mmol/L; solo se corrige con ReSoMal'],e:'K 3,2 mmol/L (ref 3,5–5,0) → hipopotasemia. En estabilización: potasio 3–4 mmol/kg/día.'},
-{c:'des',t:1,s:'5 y 9',q:'Albúmina del paciente desnutrido:',o:['3,6 g/dL, normal: apoya marasmo','2,1 g/dL, muy baja: apoya kwashiorkor','3,6 g/dL, baja','No se solicitó'],e:'Albúmina 3,6 (ref 3,5–5,0). En la tabla: marasmo “normal o poco baja (M.A.: 3,6)”; kwashiorkor “muy baja”.'},
-{c:'des',t:0,s:'5',q:'PCR y función renal del paciente desnutrido:',o:['PCR 8 mg/L (normal); urea/creatinina 20/0,3 mg/dL (normales)','PCR 80 mg/L; creatinina 1,2','PCR 18 mg/L; urea 40','PCR negativa; no se pidió función renal'],e:'PCR 8 mg/L (ref < 10): normal. Urea/creatinina 20/0,3: normales.'},
-{c:'des',t:1,s:'5',q:'Coprofuncional: pH 5,5, sustancias reductoras ++, grasas ++, leucocitos < 5/campo. ¿Qué indica?',o:['Malabsorción de carbohidratos (lactosa) y de grasas, sin diarrea invasiva','Diarrea invasiva bacteriana','Resultado normal','Enfermedad celíaca confirmada'],e:'pH ácido + sustancias reductoras = malabsorción de azúcares (lactosa); grasas ++ = esteatorrea (Giardia). Leucocitos < 5 descartan diarrea invasiva. Por eso F-75 BAJA EN LACTOSA.'},
-{c:'des',t:1,s:'5',q:'Hallazgo en el examen de orina del paciente desnutrido:',o:['Cuerpos cetónicos +, sin leucocituria','Leucocituria y nitritos +','Proteinuria ++','Glucosuria'],e:'Orina: cuerpos cetónicos + (ayuno/catabolismo), sin leucocituria.'},
-{c:'des',t:0,s:'5',q:'¿Con qué examen se identificó la causa de la diarrea crónica?',o:['Parasitológico seriado: quistes de Giardia lamblia','Coprocultivo: Shigella','Test de Graham: Enterobius','Reacción inflamatoria en heces'],e:'Parasitológico seriado: quistes de Giardia lamblia → diarrea crónica por Giardia.'},
-{c:'des',t:0,s:'6',q:'Diagnóstico nutricional completo del caso:',o:['Desnutrición aguda severa tipo marasmo sobre desnutrición crónica severa','Kwashiorkor marasmático','Desnutrición crónica leve','Desnutrición aguda moderada tipo kwashiorkor'],e:'Dx: DAS tipo marasmo sobre desnutrición crónica severa · diarrea crónica por Giardia lamblia · anemia ferropénica leve · hipopotasemia.'},
-{c:'des',t:0,s:'8',q:'Según la clasificación usada en el caso, ¿cuál es la combinación correcta?',o:['Etiología mixta · evolución crónica reagudizada · intensidad severa','Etiología primaria · evolución aguda · intensidad moderada','Etiología secundaria · evolución crónica · intensidad leve','Etiología mixta · evolución aguda · intensidad moderada'],e:'Mixta: dieta pobre + diarrea crónica por Giardia e infecciones repetidas. Crónica reagudizada: T/E < −3 y P/T < −3.'},
-{c:'des',t:0,s:'8',q:'En la clasificación por evolución, ¿qué indicador define la aguda y cuál la crónica?',o:['Aguda: Peso/Talla · Crónica: Talla/Edad','Aguda: Talla/Edad · Crónica: Peso/Talla','Aguda: Peso/Edad · Crónica: IMC/Edad','Aguda: PB · Crónica: Peso/Edad'],e:'Aguda = P/T (emaciación). Crónica = T/E (talla baja).'},
-{c:'des',t:1,s:'8',q:'La tabla OMS de clasificación de desnutrición del caso aplica para niños de:',o:['6 a 59 meses','0 a 24 meses','2 a 5 años','5 a 19 años'],e:'Tabla “OMS, 6 a 59 meses”.'},
-{c:'des',t:0,s:'8',q:'Según la OMS, ¿cuál NO es criterio de desnutrición aguda severa?',o:['Perímetro braquial de 11,5 a 12,4 cm','P/T Z < −3','Perímetro braquial < 11,5 cm','Edema bilateral con fóvea'],e:'11,5–12,4 cm es moderada. Severa: P/T < −3, PB < 11,5 cm o edema bilateral con fóvea.'},
-{c:'des',t:1,s:'8',q:'Clasificación de Waterlow. Un P/T del 75 % del ideal (percentil 50) corresponde a:',o:['Grado II (70–80 %)','Grado I (80–90 %)','Grado III (< 70 %)','Normal'],e:'Waterlow P/T: I 80–90 · II 70–80 · III < 70.'},
-{c:'des',t:1,s:'8',q:'Waterlow para Talla/Edad: el grado III corresponde a:',o:['< 85 %','< 70 %','85–90 %','90–95 %'],e:'Waterlow T/E: I 90–95 · II 85–90 · III < 85.'},
-{c:'des',t:0,s:'9',q:'¿Cuál es característica del kwashiorkor y NO del marasmo?',o:['Hepatomegalia por hígado graso y dermatosis en “pintura descascarada”','Aspecto “piel y huesos”, cara de viejo','Tejido subcutáneo muy disminuido','Déficit principal de energía (todo)'],e:'Kwashiorkor: déficit de proteínas, cara de luna, edema con fóvea, TCSC conservado, hepatomegalia, albúmina muy baja.'},
-{c:'des',t:1,s:'9',q:'Cabello en el kwashiorkor según la tabla del caso:',o:['Despigmentado, se arranca fácil','Ralo y seco','Normal','Grueso y oscuro'],e:'Ralo y seco = marasmo (como el paciente). Despigmentado y se arranca fácil = kwashiorkor.'},
-{c:'des',t:0,s:'9',q:'¿Cómo se llama al niño que tiene a la vez emaciación y edema?',o:['Kwashiorkor marasmático','Marasmo edematoso puro','Kwashiorkor simple','Desnutrición crónica reagudizada'],e:'“Si un niño tiene las dos cosas, emaciación y edema, se llama kwashiorkor marasmático”.'},
-{c:'des',t:0,s:'6',q:'Fase de estabilización (días 1–7): fórmula indicada',o:['F-75 baja en lactosa, cada 2 h, 80–100 kcal/kg/día','F-100 cada 4 h, 150–220 kcal/kg/día','Leche entera a libre demanda','F-75 cada 6 h, 50 kcal/kg/día'],e:'Estabilización días 1–7: F-75 baja en lactosa, cada 2 h (80–100 kcal/kg/día).'},
-{c:'des',t:1,s:'6',q:'¿Qué significa ReSoMal y cuándo se indicó?',o:['Solución de Rehidratación Oral para la Desnutrición; tras cada deposición líquida','Solución de rehidratación con sodio máximo; en bolo inicial','Rehidratación sérica; cada 6 h','SRO estándar de la OMS; solo si hay shock'],e:'ReSoMal = Solución de Rehidratación Oral para la Desnutrición (menos sodio, más potasio). Se da tras cada deposición líquida.'},
-{c:'des',t:0,s:'6',q:'Antimicrobianos indicados en la estabilización:',o:['Amoxicilina VO por 5 días + metronidazol 15 mg/kg/día por 5 días','Ceftriaxona IV 7 días + albendazol','Cotrimoxazol 3 días','Solo metronidazol 30 mg/kg/día por 10 días'],e:'Amoxicilina VO 5 días (antibiótico de rutina en DAS) + metronidazol 15 mg/kg/día por 5 días (Giardia).'},
-{c:'des',t:0,s:'6',q:'Micronutrientes en la estabilización. ¿Cuál NO se debe dar?',o:['Hierro','Zinc','Ácido fólico','Vitamina A'],e:'Zinc, ácido fólico y vitamina A, SIN hierro en estabilización. El hierro se inicia en rehabilitación.'},
-{c:'des',t:0,s:'6',q:'Rehabilitación (semanas 2–6): ¿cuándo se inicia F-100 y cuándo el hierro?',o:['F-100 cuando vuelve el apetito; hierro 3 mg/kg/día cuando empieza a ganar peso','F-100 y hierro desde el día 1','F-100 a la semana 6; hierro al alta','F-100 cuando cede la diarrea; hierro 6 mg/kg/día desde el ingreso'],e:'F-100 cuando vuelve el apetito; hierro 3 mg/kg/día cuando empieza a ganar peso; estimulación y educación a la madre.'},
-{c:'des',t:1,s:'6',q:'F-100 en la fase de rehabilitación aporta:',o:['150–220 kcal/kg/día','80–100 kcal/kg/día','100–120 kcal/kg/día','250–300 kcal/kg/día'],e:'F-100: 150–220 kcal/kg/día. F-75: 80–100 kcal/kg/día.'},
-{c:'des',t:1,s:'6',q:'¿Qué interconsulta NO es de rutina según el caso?',o:['Gastroenterología: solo si la diarrea sigue tras tratar Giardia','Nutrición','Servicio social','Estimulación temprana'],e:'Interconsultas: Nutrición, Servicio social, Estimulación temprana (marcha tardía). Gastroenterología: NO de rutina.'},
-{c:'des',t:1,s:'7',q:'Porcentaje de niños peruanos de 6 a 35 meses con anemia citado en el caso:',o:['43,4 %','12,1 %','23,2 %','6,6 %'],e:'43,4 % anemia (6–35 meses) y 12,1 % desnutrición crónica (< 5 años). Fuente: INEI, ENDES 2025.'},
-{c:'des',t:1,s:'7',q:'Prevalencia de desnutrición crónica en niños peruanos menores de 5 años citada:',o:['12,1 %','43,4 %','23,2 %','17,5 %'],e:'12,1 % (ENDES 2025). El 23,2 % es la cifra mundial.'},
-{c:'des',t:1,s:'7',q:'A nivel mundial, ¿cuántos niños < 5 años tienen desnutrición crónica según el caso?',o:['150 millones (23,2 %)','42,8 millones (6,6 %)','12,2 millones','45 millones'],e:'150 mill. con desnutrición crónica (23,2 %); 42,8 mill. con emaciación (6,6 %); 12,2 mill. con emaciación severa (UNICEF/OMS/BM 2025, datos 2024).'},
-{c:'des',t:1,s:'7',q:'Según el caso, ¿qué proporción de las muertes en menores de 5 años se asocia a desnutrición?',o:['Casi la mitad','Un 10 %','Un tercio','Tres cuartos'],e:'“Casi la mitad de las muertes en menores de 5 años se asocia a desnutrición”.'},
-{c:'des',t:0,s:'10',q:'Según las conclusiones, ¿cómo se recupera el niño?',o:['El peso se recupera en semanas; la talla, muy lentamente','Peso y talla se recuperan en semanas','La talla se recupera antes que el peso','Ninguno se recupera después de los 2 años'],e:'Conclusión textual: “El peso se recupera en semanas; la talla, muy lentamente”.'},
-{c:'des',t:0,s:'10',q:'La desnutrición severa se maneja con:',o:['Los 10 pasos de la OMS, sin hierro en la estabilización','Hospitalización solo si hay edema','Hierro desde el día 1','Dieta hiperproteica inmediata'],e:'Los 10 pasos de la OMS (Ashworth, “Ten steps to recovery”), sin hierro en la estabilización.'},
-{c:'des',t:1,s:'10',q:'Recomendación del caso sobre el control CRED:',o:['En cada control, medir y graficar peso y talla para detectar la caída antes de que sea severa','Pesar solo cada 6 meses','Medir solo el perímetro braquial','Controlar hemoglobina mensual'],e:'“En cada control CRED, medir y graficar peso y talla: detectar la caída antes de que sea severa”.'},
+{c:'des',t:0,src:'PPT',v:'Lactante varón de 18 meses con diarrea de 3 semanas y pérdida de peso. Peso/talla: −3,2 DE; talla/edad: −2,4 DE; perímetro braquial: 11,8 cm. Sin edemas.',q:'Señale el diagnóstico nutricional MÁS CORRECTO:',o:['Desnutrición aguda severa con talla baja (desnutrición crónica)','Desnutrición aguda moderada, porque el perímetro braquial está entre 11,5 y 12,4 cm','Desnutrición crónica severa, porque la talla/edad es menor de −2 DE','Desnutrición global, porque se combinan peso y talla','Kwashiorkor, por la diarrea crónica'],e:'Se clasifica por el indicador más grave: P/T < −3 = severa, aunque el PB marque moderada. T/E < −2 es talla baja; la talla baja SEVERA es < −3.'},
+{c:'des',t:0,src:'Banco + guía',q:'Según la clasificación del estado nutricional (OMS 2006, puntaje Z) en niños de 29 días a 5 años, señale el enunciado MÁS CORRECTO:',o:['Desnutrición aguda o emaciado: peso para la talla < −2 a −3','Sobrepeso: peso para la edad > +3','Talla baja severa: talla para la edad < −2 a −3','Peso para la talla normal: +2 a −1','Desnutrición aguda severa: peso para la edad < −3'],e:'P/T < −2 a −3 = aguda (moderada); < −3 = severa. El sobrepeso se mide con P/T (> +2), no con P/E. Talla baja < −2 a −3; severa < −3. P/T normal: −2 a +2.'},
+{c:'des',t:0,src:'PPT',q:'Respecto a los criterios OMS de desnutrición aguda severa en niños de 6 a 59 meses, señale lo MÁS CORRECTO:',o:['Basta un solo criterio: P/T < −3 DE, perímetro braquial < 11,5 cm o edema bilateral con fóvea','Se requieren al menos dos de los tres criterios','Un perímetro braquial de 11,5 a 12,4 cm define desnutrición severa','El edema unilateral con fóvea es criterio de severidad','El peso para la edad < −3 DE define desnutrición aguda severa'],e:'Cualquiera de los tres basta. PB 11,5–12,4 = moderada. El edema tiene que ser BILATERAL. El P/E no define desnutrición aguda.'},
+{c:'des',t:0,src:'PPT',v:'Preescolar de 2 años con edema bilateral con fóvea en pies y piernas, cara redondeada, cabello despigmentado que se desprende con facilidad, hepatomegalia y lesiones de piel descamativas.',q:'Señale lo MÁS CORRECTO:',o:['Kwashiorkor: predomina el déficit proteico y la albúmina suele estar muy baja','Marasmo: el tejido celular subcutáneo suele estar conservado','Kwashiorkor: el hígado suele ser de tamaño normal, sin esteatosis','Marasmo: el edema se debe a hipoalbuminemia severa','Kwashiorkor marasmático: cursa con edema sin emaciación'],e:'Kwashiorkor: déficit proteico, edema con fóvea, cara de luna, hígado graso, dermatosis en “pintura descascarada”, albúmina muy baja. El kwashiorkor marasmático tiene emaciación Y edema.'},
+{c:'des',t:1,src:'Guía',v:'En el cabello de un niño con kwashiorkor se observan bandas alternadas de color claro y oscuro, que reflejan periodos de mala y buena nutrición.',q:'Este hallazgo se denomina:',o:['Signo de la bandera','Signo de Wimberger','Signo de Russell','Signo de Darier','Signo de Nikolsky'],e:'Signo de la bandera: bandas despigmentadas alternas en el cabello (kwashiorkor). Russell = callosidades en nudillos (vómito autoinducido).'},
+{c:'des',t:1,src:'PPT + guía',v:'Lactante de 14 meses emaciado, con aspecto de “piel y huesos”, facies de anciano y pliegues cutáneos sueltos en glúteos y muslos. Sin edema. Albúmina 3,6 g/dL.',q:'Señale lo MÁS CORRECTO:',o:['Marasmo: déficit global de energía, tejido subcutáneo muy disminuido y albúmina normal o poco baja','Kwashiorkor, porque la albúmina normal descarta marasmo','Marasmo: típicamente presenta hepatomegalia por hígado graso','Kwashiorkor marasmático, por los pliegues en glúteos','Marasmo: el cabello muestra el signo de la bandera'],e:'Los pliegues sueltos en glúteos se describen como signo del “pantalón holgado”. Hepatomegalia y signo de la bandera son de kwashiorkor.'},
+{c:'des',t:1,src:'PPT',v:'Preescolar con peso/talla del 75 % del ideal (P50) y talla/edad del 88 %.',q:'Según Waterlow, señale lo MÁS CORRECTO:',o:['Desnutrición aguda grado II y crónica grado II','Desnutrición aguda grado I y crónica grado III','Desnutrición aguda grado III y crónica grado I','Desnutrición aguda grado II y crónica grado III','Normal, porque ambos superan el 70 %'],e:'Waterlow P/T: I 80–90 · II 70–80 · III < 70. T/E: I 90–95 · II 85–90 · III < 85.'},
+{c:'des',t:1,src:'Guía',q:'Respecto a la clasificación de Gómez, señale lo MÁS CORRECTO:',o:['Usa el peso para la edad en % del P50: leve 75–90 %, moderada 60–75 %, severa < 60 %','Usa el peso para la talla en %: leve 80–90 %, moderada 70–80 %, severa < 70 %','Usa la talla para la edad y define desnutrición crónica','Usa el perímetro braquial en niños de 6 a 59 meses','Distingue la desnutrición aguda de la crónica'],e:'Gómez = P/E (global, no distingue aguda de crónica). Los cortes 80–90 / 70–80 / < 70 son de Waterlow P/T.'},
+{c:'des',t:0,src:'PPT',v:'Niño de 2 años con dieta pobre desde el año de vida y diarrea crónica por Giardia lamblia. P/T −3,4 DE y T/E −3,1 DE.',q:'Según etiología y evolución, la desnutrición es:',o:['Mixta y crónica reagudizada','Primaria y aguda','Secundaria y crónica','Mixta y aguda','Primaria y crónica reagudizada'],e:'Mixta: no come lo suficiente + enfermedad (Giardia). Crónica reagudizada: compromiso de T/E (crónica) y de P/T (aguda).'},
+{c:'des',t:0,src:'PPT + guía',v:'Lactante con desnutrición aguda severa, consciente, con glucosa capilar de 48 mg/dL.',q:'Señale la conducta MÁS CORRECTA:',o:['Es hipoglucemia (< 54 mg/dL): dar 50 mL de glucosa o sacarosa al 10 % VO/SNG e iniciar F-75 cada 2 h, también de noche','No es hipoglucemia; en desnutridos el corte es < 40 mg/dL','Bolo de dextrosa al 50 % 2 mL/kg EV','Esperar a la mañana siguiente para iniciar F-75','Glucagón IM como primera línea'],e:'Paso 1 de la OMS. En el inconsciente: glucosa al 10 % 5 mL/kg EV. La alimentación frecuente (cada 2 h, día y noche) previene nuevas hipoglucemias.'},
+{c:'des',t:1,src:'Guía',q:'Respecto a la hipotermia en el niño con desnutrición aguda severa, señale lo MÁS CORRECTO:',o:['Se define como temperatura axilar < 35 °C; suele acompañarse de hipoglucemia e infección y se trata con abrigo, contacto piel a piel y alimentación inmediata','Se define como temperatura axilar < 36,5 °C','Se recomienda calentar con bolsas de agua caliente directamente sobre la piel','La hipotermia contraindica la alimentación oral las primeras 24 h','Hipotermia e hipoglucemia se corrigen a partir del día 3'],e:'Paso 2 de la OMS (axilar < 35,0 °C o rectal < 35,5 °C). Las bolsas de agua caliente producen quemaduras.'},
+{c:'des',t:0,src:'PPT + guía',v:'Niño con desnutrición aguda severa y diarrea, con signos de deshidratación, sin shock.',q:'Señale lo MÁS CORRECTO:',o:['Rehidratar por vía oral o SNG con ReSoMal, más lento que en el eutrófico; la vía EV se reserva para el shock','Bolo EV de solución salina 20 mL/kg cada 20 minutos, hasta 3 veces','SRO estándar de la OMS a 100 mL/kg en 4 horas','El ReSoMal tiene más sodio y menos potasio que la SRO estándar','En el marasmo, el signo del pliegue y los ojos hundidos son muy fiables para valorar la deshidratación'],e:'ReSoMal (Solución de Rehidratación Oral para la Desnutrición): menos sodio y más potasio que la SRO. En el marasmo el pliegue y los ojos hundidos se ven aunque no haya deshidratación.'},
+{c:'des',t:0,src:'PPT + guía',q:'En la fase de estabilización de la desnutrición aguda severa, respecto a los electrolitos, señale lo MÁS CORRECTO:',o:['Hay déficit corporal de potasio y magnesio y exceso de sodio: aportar potasio (3–4 mmol/kg/día) y magnesio, y restringir sodio','Los edemas se tratan con furosemida','Hay déficit de sodio que requiere solución hipertónica','El potasio se repone recién en la fase de rehabilitación','Un sodio sérico bajo refleja déficit corporal total de sodio'],e:'Paso 4 de la OMS. Nunca diuréticos para el edema. El sodio sérico puede estar bajo aunque el sodio corporal total esté aumentado.'},
+{c:'des',t:0,src:'PPT + guía',q:'Respecto a los antibióticos en la desnutrición aguda severa, señale lo MÁS CORRECTO:',o:['Todo niño con desnutrición aguda severa recibe antibiótico aunque no tenga signos de infección (p. ej., amoxicilina VO en la no complicada)','Solo si tiene fiebre mayor de 38,5 °C','Solo si la PCR está elevada','Ceftriaxona EV a todos por 14 días','No deben recibir antibióticos por el riesgo de diarrea'],e:'Paso 5 de la OMS: el desnutrido no suele hacer fiebre ni leucocitosis. Si está complicado: ampicilina + gentamicina EV. En el PPT: amoxicilina VO 5 días + metronidazol por Giardia.'},
+{c:'des',t:0,src:'PPT',q:'Respecto a los micronutrientes en la desnutrición aguda severa, señale lo MÁS CORRECTO:',o:['Zinc, ácido fólico y vitamina A desde el inicio; el hierro se inicia en rehabilitación (3 mg/kg/día) cuando el niño empieza a ganar peso','El hierro se inicia el día 1 a 6 mg/kg/día por la anemia','El hierro está contraindicado durante todo el tratamiento','La vitamina A está contraindicada en la fase aguda','Si la Hb es menor de 10 g/dL se transfunde siempre'],e:'Sin hierro en estabilización: el hierro libre favorece infecciones y daño oxidativo. La transfusión se reserva para anemia muy severa (Hb < 4 g/dL o < 6 con dificultad respiratoria).'},
+{c:'des',t:1,src:'PPT + guía',q:'Respecto a las fórmulas F-75 y F-100, señale lo MÁS CORRECTO:',o:['F-75 se usa en estabilización (80–100 kcal/kg/día, cada 2–3 h) y F-100 en rehabilitación cuando vuelve el apetito (150–220 kcal/kg/día)','F-100 se usa desde el día 1 para recuperar peso rápido','F-75 aporta 75 kcal/kg/día y F-100 aporta 100 kcal/kg/día','F-75 es una fórmula hiperproteica para corregir la hipoalbuminemia','F-100 se usa en la estabilización de los niños con edema'],e:'El número es kcal por cada 100 mL de fórmula. F-75 es baja en proteínas y sodio. En el PPT: F-75 “baja en lactosa” por intolerancia secundaria (sustancias reductoras ++).'},
+{c:'des',t:1,src:'Guía',v:'Niño con desnutrición severa que al tercer día recibe una alimentación hipercalórica rápida y presenta debilidad, arritmias e insuficiencia cardiaca.',q:'¿Cuál es la alteración electrolítica característica de este cuadro?',o:['Hipofosfatemia','Hiperpotasemia','Hipernatremia','Hipercalcemia','Hipermagnesemia'],e:'Síndrome de realimentación: hipofosfatemia (marcador), hipopotasemia, hipomagnesemia y déficit de tiamina. Por eso se empieza con F-75 a bajo volumen.'},
+{c:'des',t:1,src:'Guía',q:'En la fase de rehabilitación de la desnutrición aguda severa, una ganancia de peso “buena” según la OMS es:',o:['Mayor de 10 g/kg/día','Mayor de 2 g/kg/día','Entre 1 y 3 g/kg/día','Mayor de 50 g/kg/día','Mayor de 100 g/día, sin importar el peso'],e:'OMS: pobre < 5 g/kg/día · moderada 5–10 · buena > 10. El PPT recuerda que el peso se recupera en semanas y la talla muy lentamente.'},
+{c:'des',t:0,src:'PPT',v:'Preescolar con diarrea de 1 mes, heces fétidas con restos de alimentos, sin moco ni sangre, distensión abdominal. Coprofuncional: pH 5,5, sustancias reductoras ++, grasas ++, leucocitos < 5/campo.',q:'Señale lo MÁS CORRECTO:',o:['Sugiere malabsorción de carbohidratos y grasas; Giardia lamblia es causa frecuente y se trata con metronidazol 15 mg/kg/día','Es una diarrea invasiva: iniciar ceftriaxona EV','Un pH fecal ácido descarta malabsorción','Las sustancias reductoras positivas indican malabsorción de grasas','Giardia lamblia se diagnostica con hemocultivo'],e:'pH ácido + sustancias reductoras = malabsorción de azúcares (lactosa). Grasas ++ = esteatorrea. Leucocitos < 5 descartan diarrea invasiva. Giardia: parasitológico seriado (quistes).'},
+{c:'des',t:1,src:'PPT + guía',v:'Niño desnutrido con lengua lisa y roja y fisuras en las comisuras labiales.',q:'Estos hallazgos se asocian MÁS a déficit de:',o:['Hierro y complejo B (riboflavina)','Vitamina C','Vitamina A','Vitamina D','Vitamina K'],e:'Glositis + queilitis angular. Vitamina C: encías sangrantes (escorbuto). Vitamina A: manchas de Bitot. Vitamina D: raquitismo.'},
+{c:'des',t:1,src:'Guía',v:'Preescolar desnutrido con ceguera nocturna y manchas blanquecinas espumosas en la conjuntiva bulbar.',q:'¿Cuál es el diagnóstico MÁS probable?',o:['Déficit de vitamina A (manchas de Bitot)','Déficit de vitamina B12','Déficit de zinc (acrodermatitis)','Déficit de vitamina E','Conjuntivitis bacteriana'],e:'Xeroftalmía por déficit de vitamina A. Por eso la OMS da vitamina A en la estabilización.'},
+{c:'des',t:0,src:'PPT',q:'Respecto a la prevención de la desnutrición infantil, señale lo MÁS CORRECTO:',o:['La alimentación complementaria desde los 6 meses debe ser espesa (papillas, purés) y con alimentos de origen animal; las sopas no aportan densidad energética suficiente','La alimentación complementaria se inicia a los 4 meses con sopas','El huevo y el pescado deben postergarse hasta el año','El agua de cisterna no necesita hervirse si se ve limpia','En el control CRED solo se pesa y talla si hay síntomas'],e:'Recomendaciones del caso: LME hasta los 6 meses, complementaria espesa y no sopas, agua segura, hierro y vacunas, medir y graficar peso y talla en cada CRED.'},
+{c:'des',t:1,src:'PPT',q:'Respecto a la epidemiología de la desnutrición en el Perú (ENDES 2025), señale lo MÁS CORRECTO:',o:['Desnutrición crónica en menores de 5 años: 12,1 %; anemia de 6 a 35 meses: 43,4 %','Desnutrición crónica en menores de 5 años: 43,4 %; anemia: 12,1 %','Desnutrición crónica: 23,2 %; anemia: 6,6 %','La anemia afecta a menos del 10 % de los niños de 6 a 35 meses','La desnutrición aguda es más frecuente que la crónica en el Perú'],e:'En el mundo: 150 millones con desnutrición crónica (23,2 %) y 42,8 millones con emaciación (6,6 %). Casi la mitad de las muertes en < 5 años se asocia a desnutrición.'},
+{c:'des',t:0,src:'Guía',q:'Según la OMS, en niños de 6 a 59 meses la anemia se define y gradúa así:',o:['Hb < 11 g/dL; leve 10–10,9, moderada 7–9,9 y severa < 7 g/dL','Hb < 12 g/dL; leve 11–11,9, moderada 9–10,9 y severa < 9','Hb < 10 g/dL; leve 9–9,9, moderada 8–8,9 y severa < 8','Hb < 11 g/dL; leve 9–10,9 y severa < 9','Solo se define por ferritina baja'],e:'Una Hb de 10,6 con VCM y HCM bajos = anemia ferropénica leve. La ferritina refleja los depósitos de hierro solo si no hay inflamación.'},
 
 /* ================= OBESIDAD ================= */
-{c:'obe',t:0,s:'2',q:'Paciente del caso de obesidad:',o:['Varón de 13 años, natural y procedente de Lima','Mujer de 13 años, de Barranca','Varón de 11 años, de Arequipa','Varón de 15 años, de Lima'],e:'Varón de 13 años, de Lima, acude con su madre.'},
-{c:'obe',t:0,s:'2',q:'Tiempo de enfermedad en el caso de obesidad:',o:['Aumento progresivo de peso desde hace ~3 años, más evidente el último año','Aumento brusco en los últimos 6 meses','Desde los 2 años de vida','Desde hace 1 mes'],e:'Desde hace ~3 años, más evidente el último año. Un inicio muy precoz (< 2 años) haría sospechar causa secundaria.'},
-{c:'obe',t:0,s:'2',q:'Síntoma asociado al aumento de peso:',o:['Cansancio al correr o subir escaleras','Cefalea matutina','Poliuria y polidipsia','Dolor de rodillas'],e:'Cansancio al correr o subir escaleras y disminución progresiva de la actividad física.'},
-{c:'obe',t:1,s:'2',q:'¿Cuántas horas al día de pantallas refería el paciente con obesidad?',o:['≈ 3 horas','≈ 1 hora','≈ 6 horas','≈ 8 horas'],e:'Aproximadamente 3 horas diarias de exposición a pantallas.'},
-{c:'obe',t:1,s:'2',q:'Antecedentes familiares del paciente con obesidad:',o:['Madre con obesidad; padre con DM2','Padre con obesidad; madre con DM2','Madre con hipotiroidismo','Ambos padres sanos'],e:'Madre con obesidad, padre con DM2. Cuidado: es fácil invertirlos.'},
-{c:'obe',t:1,s:'2',q:'Lactancia materna exclusiva en el caso de obesidad:',o:['3 meses','6 meses','No recibió','12 meses'],e:'LME por 3 meses. Nacido a término, parto vaginal sin complicaciones.'},
-{c:'obe',t:0,s:'2',q:'Antecedentes personales del paciente con obesidad:',o:['Sin enfermedades crónicas, sin hospitalizaciones, sin medicación asociada a aumento de peso','Uso crónico de corticoides por asma','Hospitalizado por neumonía a los 9 años','Toma risperidona'],e:'Sin enfermedades crónicas, sin hospitalizaciones previas, sin medicación obesogénica.'},
-{c:'obe',t:0,s:'3',q:'Antropometría inicial del paciente con obesidad:',o:['Peso 78 kg, talla 1,60 m, IMC 30,5 kg/m²','Peso 72 kg, talla 1,60 m, IMC 28,1 kg/m²','Peso 78 kg, talla 1,50 m, IMC 34,6 kg/m²','Peso 85 kg, talla 1,60 m, IMC 33,2 kg/m²'],e:'78 kg / 1,60 m → IMC 30,5. Los valores 72 kg / IMC 28,1 son del control a los 6 meses.'},
-{c:'obe',t:1,s:'3',q:'Circunferencia de cintura y relación cintura/talla:',o:['96 cm; 0,60','90 cm; 0,56','102 cm; 0,64','96 cm; 0,51'],e:'Cintura 96 cm; cintura/talla 0,60 (96/160).'},
-{c:'obe',t:1,s:'10',q:'Relación cintura/talla: punto de corte de obesidad central y desde qué edad es útil:',o:['Varones > 0,51 y mujeres > 0,50; útil desde los 6 años','> 0,60 en ambos sexos; desde los 2 años','Varones > 0,50 y mujeres > 0,51; desde los 10 años','> 0,45; desde los 5 años'],e:'Útil desde los 6 años. Varones > 0,51 y mujeres > 0,50 sugieren obesidad central y mayor riesgo cardiometabólico.'},
-{c:'obe',t:0,s:'3 y 5',q:'Hallazgo cutáneo del paciente que sugiere insulinorresistencia:',o:['Acantosis cervical (acantosis nigricans)','Estrías violáceas','Lanugo','Hipercarotinemia'],e:'Acantosis nigricans cervical sugestiva de insulinorresistencia.'},
-{c:'obe',t:1,s:'3',q:'¿Cuál de estos hallazgos SÍ estuvo presente en el paciente con obesidad?',o:['Adiposidad abdominal','Bocio','Facies cushingoide','Estrías violáceas'],e:'Presentes: adiposidad abdominal y acantosis cervical. Negativos: sin bocio, sin estrías violáceas, sin facies cushingoide, pubertad acorde a la edad, sin alteraciones fenotípicas.'},
-{c:'obe',t:1,s:'3',q:'Funciones vitales del paciente con obesidad:',o:['TA 110/70 mmHg, FC 82 lpm, FR 18 rpm','TA 130/85, FC 100, FR 22','TA 85/50, FC 42, FR 14','TA 98/60, FC 118, FR 24'],e:'TA 110/70, FC 82, FR 18: normales para la edad.'},
-{c:'obe',t:1,s:'3',q:'¿Cómo era el sueño del paciente con obesidad?',o:['7–8 h con ronquidos ocasionales','Insomnio de conciliación','10 h sin ronquidos','Somnolencia diurna con apneas presenciadas'],e:'7–8 h, ronquidos ocasionales. Los ronquidos obligan a buscar SAOS (complicación de la lista).'},
-{c:'obe',t:1,s:'3',q:'Deposiciones y sed/diuresis en el caso de obesidad:',o:['Deposiciones 1/día; sed y diuresis conservadas','Estreñimiento; poliuria','Diarrea; polidipsia','Deposiciones 3/día; oliguria'],e:'Deposiciones 1/día; sed/diuresis conservadas; apetito aumentado.'},
-{c:'obe',t:0,s:'4 y 5',q:'Glucosa en ayunas del paciente con obesidad y su interpretación:',o:['104 mg/dL: glucosa alterada en ayunas','96 mg/dL: normal','126 mg/dL: diabetes','104 mg/dL: normal'],e:'104 mg/dL (≥ 100) = glucosa alterada en ayunas.'},
-{c:'obe',t:0,s:'4',q:'Perfil lipídico del paciente con obesidad:',o:['CT 192, TG 156, HDL 37, LDL 124 mg/dL','CT 220, TG 110, HDL 45, LDL 150','CT 160, TG 90, HDL 50, LDL 100','CT 192, TG 110, HDL 40, LDL 124'],e:'CT 192 ↑, TG 156 ↑, HDL 37 ↓, LDL 124 ↑ → dislipidemia.'},
-{c:'obe',t:1,s:'4',q:'Transaminasas del paciente con obesidad:',o:['ALT 48 U/L elevada y AST 34 U/L normal: sugiere esteatosis, no la confirma','ALT y AST elevadas: hepatitis','ALT normal y AST elevada','Ambas normales'],e:'Pie de la diapo: “ALT elevada: sugiere esteatosis, no la confirma”.'},
-{c:'obe',t:1,s:'4 y 5',q:'¿Por qué no se pidió insulina basal en el caso de obesidad?',o:['No añade valor diagnóstico; la insulinorresistencia se infiere por el fenotipo clínico-metabólico','No estaba disponible','El paciente ya era diabético','Se pidió HOMA-IR en su lugar'],e:'“Sin insulina basal: no añade valor diagnóstico” (Fuente: SAP, pp. 4–5).'},
-{c:'obe',t:0,s:'4',q:'Perfil tiroideo del paciente con obesidad:',o:['TSH 2,4 µUI/mL y T4 libre 1,2 ng/dL: normales','TSH 8 y T4L baja: hipotiroidismo','TSH baja y T4L alta','T3 baja con TSH normal'],e:'TSH 2,4 y T4L 1,2: normales. (T3 baja con TSH normal es el caso de anorexia).'},
-{c:'obe',t:1,s:'4',q:'Hemoglobina del paciente con obesidad:',o:['13,4 g/dL (normal)','10,6 g/dL','12,3 g/dL','11 g/dL'],e:'Hb 13,4 g/dL normal. 10,6 es la del niño desnutrido y 12,3 la del niño con encefalitis.'},
-{c:'obe',t:0,s:'5',q:'Diagnóstico principal del caso de obesidad:',o:['Obesidad primaria (multifactorial) con adiposidad central','Obesidad secundaria a hipotiroidismo','Sobrepeso','Síndrome de Cushing'],e:'Sustento: IMC/edad > +2 DE, evolución de 3 años, hábitos hipercalóricos, sedentarismo, antecedentes familiares.'},
-{c:'obe',t:0,s:'10',q:'Síndrome metabólico según Cook modificado: ¿cuántos criterios se necesitan?',o:['3 o más','2 o más','Los 5','4 o más'],e:'Diagnóstico: 3 o más criterios.'},
-{c:'obe',t:1,s:'10',q:'Puntos de corte de Cook modificado usados en el caso:',o:['Cintura ≥ P90, TG ≥ 110, HDL ≤ 40, PA ≥ P90, glucosa en ayunas ≥ 100','Cintura ≥ P95, TG ≥ 150, HDL < 40, glucosa ≥ 110','TG ≥ 130, HDL ≤ 35, glucosa ≥ 126, PA ≥ P95','TG ≥ 100, HDL ≤ 45, glucosa ≥ 90, cintura ≥ P75'],e:'Cook modificado: cintura ≥ P90 · TG ≥ 110 mg/dL · HDL ≤ 40 mg/dL · PA ≥ P90 · glucosa en ayunas ≥ 100 mg/dL.'},
-{c:'obe',t:1,s:'5',q:'¿Qué tres criterios de síndrome metabólico marca como cumplidos la diapo de diagnóstico?',o:['TG 156, HDL 37 y glucosa 104','Cintura, PA y TG','LDL 124, CT 192 y ALT 48','HDL, PA y cintura'],e:'Marca TG 156, HDL 37 y glucosa 104. La PA (110/70) no cumple. El LDL no es criterio de Cook.'},
-{c:'obe',t:0,s:'5',q:'Diagnósticos diferenciales “menos probables” del caso de obesidad:',o:['Hipotiroidismo, síndrome de Cushing y síndrome de Prader-Willi','Hipotiroidismo, Addison y Turner','Cushing, feocromocitoma y acromegalia','Prader-Willi, Down y Klinefelter'],e:'Diferenciales menos probables: hipotiroidismo, Cushing y Prader-Willi.'},
-{c:'obe',t:0,s:'6',q:'¿Qué datos hacen poco probable el síndrome de Cushing en este paciente?',o:['TA 110/70, sin estrías violáceas, sin facies cushingoide y pubertad acorde a la edad','La adiposidad central','El aumento de peso','El cansancio'],e:'Además: sin uso crónico de corticoides y sin desaceleración del crecimiento.'},
-{c:'obe',t:0,s:'6',q:'¿Qué datos hacen poco probable el hipotiroidismo en este paciente?',o:['Sin intolerancia al frío ni estreñimiento, sin bocio y TSH/T4L normales','Cansancio con el ejercicio','Aumento de peso progresivo','Ronquidos'],e:'Además: no hay desaceleración del crecimiento.'},
-{c:'obe',t:1,s:'6',q:'En la infografía de Cushing, ¿qué pasa con el crecimiento?',o:['Crecimiento lento / talla baja','Talla alta','Crecimiento acelerado','Sin efecto'],e:'Obesidad exógena: talla normal o alta. Obesidad endocrina (Cushing, hipotiroidismo): talla baja o desaceleración.'},
-{c:'obe',t:1,s:'6',q:'En la infografía de Cushing, la debilidad muscular es:',o:['Proximal: dificultad para levantarse del suelo o subir escaleras','Distal: caída de objetos','Facial','Ocular'],e:'Debilidad muscular proximal. Otros: cara de luna, estrías violáceas, HTA, acné, cambios de ánimo, uso crónico de corticoides.'},
-{c:'obe',t:0,s:'10',q:'¿Cuándo sospechar obesidad secundaria? Marque lo que NO es indicio:',o:['Talla alta para la edad','Inicio muy precoz (< 2 años)','Hiperfagia intensa','Retraso del desarrollo o rasgos sindrómicos'],e:'Indicios de causa secundaria: talla baja o desaceleración, inicio < 2 años, hiperfagia intensa, retraso del desarrollo o rasgos sindrómicos, hipotiroidismo, Cushing, medicamentos obesogénicos o lesión hipotalámica.'},
-{c:'obe',t:1,s:'10',q:'Clasificación OMS de 0 a 59 meses: obesidad es',o:['IMC/edad ≥ +3 DE','IMC/edad ≥ +2 DE','IMC/edad ≥ +1 DE','IMC/edad ≥ P95'],e:'0–59 meses: sobrepeso ≥ +2 y < +3 DE; obesidad ≥ +3 DE. De 5–19 años los cortes bajan un punto.'},
-{c:'obe',t:0,s:'10 y 11',q:'Clasificación OMS de 5 a 19 años: obesidad es',o:['IMC/edad > +2 DE','IMC/edad > +3 DE','IMC/edad > +1 DE','IMC ≥ 30 kg/m²'],e:'5–19 años: sobrepeso > +1 y ≤ +2 DE; obesidad > +2 DE. En pediatría NO se usan puntos de corte fijos de adultos.'},
-{c:'obe',t:1,s:'11',q:'Clasificación OMS de 5 a 19 años: delgadez es',o:['≥ −3 DE y < −2 DE','< −3 DE','≥ −2 DE y ≤ +1 DE','< −1 DE'],e:'Delgadez severa < −3; delgadez ≥ −3 y < −2; normal ≥ −2 y ≤ +1.'},
-{c:'obe',t:1,s:'11',q:'Curva usada para ubicar al paciente con obesidad:',o:['BMI-for-age BOYS, 5–19 años (z-scores), OMS 2007; edad asumida 156 meses','CDC 2000 en percentiles','OMS 2006 de 0–5 años','Tablas de Tanner'],e:'Curva oficial OMS 2007. Edad asumida: 13 años exactos (156 meses) para ubicar el punto.'},
-{c:'obe',t:0,s:'7',q:'Interconsultas del caso de obesidad:',o:['Nutrición pediátrica, Psicología y Endocrinología pediátrica','Cardiología, Gastroenterología y Nutrición','Psiquiatría y Cirugía','Solo Nutrición'],e:'La obesidad pediátrica requiere manejo interdisciplinario.'},
-{c:'obe',t:1,s:'7',q:'Motivos de interconsulta a Psicología en el caso de obesidad:',o:['Conducta alimentaria, autoestima y bienestar emocional, bullying/estigma y adherencia','Descartar anorexia','Evaluar TDAH','Manejo de insomnio'],e:'Psicología: conducta alimentaria · autoestima y bienestar emocional · bullying/estigma y adherencia.'},
-{c:'obe',t:1,s:'7',q:'Motivos de interconsulta a Endocrinología pediátrica en el caso de obesidad:',o:['Alteraciones metabólicas, riesgo de DM2/disglucemia y valorar causa endocrina si hay sospecha','Iniciar levotiroxina','Indicar cirugía bariátrica','Tratar la acantosis'],e:'Endocrinología: evaluación de alteraciones metabólicas, riesgo de DM2/disglucemia, valorar causa endocrina si existe sospecha clínica.'},
-{c:'obe',t:0,s:'8',q:'Base del tratamiento en todos los niños y adolescentes con obesidad:',o:['Modificaciones del estilo de vida','Metformina','Agonistas GLP-1','Cirugía bariátrica'],e:'“Es la base del tratamiento en todos los niños y adolescentes, en cualquier grado de obesidad”.'},
-{c:'obe',t:1,s:'8',q:'Actividad física recomendada en el caso de obesidad:',o:['≥ 60 min/día, moderada a vigorosa, progresiva y agradable','30 min, 3 veces por semana','≥ 150 min al día','Solo ejercicio de fuerza'],e:'≥ 60 min/día, moderada a vigorosa, progresiva y agradable.'},
-{c:'obe',t:0,s:'8',q:'Mecanismo de orlistat:',o:['Inhibe lipasas gástricas y pancreáticas; disminuye la absorción de grasas (~30 %)','Agonista del receptor GLP-1','Aumenta la sensibilidad a la insulina','Suprime el apetito a nivel central'],e:'Orlistat: inhibe lipasas, impide la hidrólisis de triglicéridos, ↓ absorción de grasas (~30 %).'},
-{c:'obe',t:0,s:'8',q:'Agonistas GLP-1 mencionados en el caso:',o:['Liraglutida y semaglutida','Metformina y orlistat','Sitagliptina y linagliptina','Topiramato y fentermina'],e:'GLP-1 (liraglutida, semaglutida): ↑ saciedad, retardan el vaciamiento gástrico, ↑ insulina y ↓ glucagón.'},
-{c:'obe',t:1,s:'8',q:'Efectos de la metformina según el caso. Marque el que NO corresponde:',o:['Retarda el vaciamiento gástrico','Disminuye la producción hepática de glucosa','Aumenta la sensibilidad a la insulina','Disminuye la absorción intestinal de glucosa'],e:'Retardar el vaciamiento gástrico es efecto de los GLP-1, no de la metformina.'},
-{c:'obe',t:0,s:'8',q:'Tratamiento farmacológico en obesidad pediátrica:',o:['No es primera línea; solo en casos seleccionados (obesidad severa, comorbilidades o fracaso de medidas no farmacológicas)','Primera línea desde el diagnóstico','Contraindicado siempre','Solo en menores de 10 años'],e:'“NO SON PRIMERA LÍNEA en pediatría”.'},
-{c:'obe',t:1,s:'8',q:'Indicaciones de cirugía bariátrica en adolescentes según el caso:',o:['Obesidad severa (IMC ≥ 120 % o ≥ 35 kg/m²) + comorbilidades significativas + fracaso del tratamiento multidisciplinario','IMC ≥ 30 sin comorbilidad','Cualquier obesidad tras 3 meses sin respuesta','IMC ≥ 40 solo en mayores de 18'],e:'Cirugía bariátrica en obesidad severa refractaria. El 120 % se refiere al P95 de IMC.'},
-{c:'obe',t:1,s:'9',q:'Evolución del paciente con obesidad a las 4 semanas:',o:['Caminatas de 30 min, 5 días/semana; reemplaza bebidas azucaradas por agua','Baja 3 kg','Pesa 72 kg','Inicia metformina'],e:'4 semanas: cambios familiares en alimentación, agua en vez de bebidas azucaradas, menos snacks, caminatas 30 min 5 días/semana.'},
-{c:'obe',t:1,s:'9',q:'Evolución del paciente con obesidad a los 3 meses:',o:['Baja 3 kg y reduce 3 cm de cintura','Baja 6 kg','IMC 28,1','Normaliza la glucosa'],e:'3 meses: mejor adherencia, mayor tolerancia al ejercicio, menos cansancio, baja 3 kg y 3 cm de cintura.'},
-{c:'obe',t:1,s:'9',q:'Control a los 6 meses del paciente con obesidad:',o:['Peso 72 kg, IMC 28,1 kg/m²','Peso 75 kg, IMC 29,3','Peso 70 kg, IMC 27,3','Peso 78 kg, IMC 30,5'],e:'6 meses: 72 kg, IMC 28,1; mantiene hábitos y mejor autoestima.'},
-{c:'obe',t:0,s:'10',q:'Complicaciones a buscar en obesidad. ¿Cuál NO está en la lista del caso?',o:['Hipotiroidismo','SAOS / ronquidos','Esteatosis hepática','Complicaciones osteoarticulares'],e:'Complicaciones: HTA, dislipidemia, disglucemia/DM2, esteatosis, SAOS, impacto psicológico, osteoarticulares. El hipotiroidismo es causa secundaria, no complicación.'},
-{c:'obe',t:1,s:'13',q:'Guía principal citada en el caso de obesidad:',o:['Guías de la Sociedad Argentina de Pediatría (De Grandis et al.), actualización 2024, Arch Argent Pediatr 2025','Guía técnica MINSA 2017','AAP 2023 (Hampl)','NICE 2014'],e:'De Grandis S, Piazza N, Ferraro M, et al. Arch Argent Pediatr. 2025;123(4):e202410478.'},
+{c:'obe',t:0,src:'PPT',v:'Escolar de 10 años con IMC para la edad de +2,4 DE según las curvas OMS 2007.',q:'Señale el diagnóstico MÁS CORRECTO:',o:['Obesidad (5–19 años: IMC/edad > +2 DE)','Sobrepeso, porque la obesidad se define a partir de +3 DE','Normal, porque en pediatría la obesidad es IMC ≥ 30 kg/m²','Obesidad severa','Riesgo de sobrepeso, no requiere intervención'],e:'OMS 5–19 años: sobrepeso > +1 y ≤ +2 DE; obesidad > +2 DE. En pediatría NO se usan los cortes fijos del adulto.'},
+{c:'obe',t:1,src:'PPT',v:'Preescolar de 3 años con IMC para la edad de +2,5 DE.',q:'Señale lo MÁS CORRECTO:',o:['Sobrepeso: en menores de 5 años el sobrepeso es ≥ +2 DE y la obesidad ≥ +3 DE','Obesidad, porque supera +2 DE','Normal para la edad','Obesidad severa','Delgadez, porque se usa la curva de 5–19 años'],e:'Trampa clásica: los cortes cambian a los 5 años. 0–59 meses: sobrepeso ≥ +2 y < +3; obesidad ≥ +3. 5–19 años: un punto menos.'},
+{c:'obe',t:0,src:'PPT',v:'Adolescente varón de 13 años con cintura de 96 cm y talla de 160 cm.',q:'Respecto al índice cintura/talla, señale lo MÁS CORRECTO:',o:['Es 0,60: indica obesidad central; el corte es alrededor de 0,5 y es útil desde los 6 años','Es 0,60: normal, el corte es 0,65','No se usa en menores de 18 años','Es 1,66: indica obesidad central','Solo es válido en mujeres'],e:'En el PPT: varones > 0,51 y mujeres > 0,50 sugieren obesidad central y mayor riesgo cardiometabólico; útil desde los 6 años.'},
+{c:'obe',t:0,src:'PPT + guía',v:'Escolar de 8 años con obesidad y talla en el percentil 3, con desaceleración de la velocidad de crecimiento en el último año.',q:'Señale lo MÁS CORRECTO:',o:['La talla baja o la desaceleración del crecimiento sugieren una causa endocrina (hipotiroidismo, Cushing, déficit de GH)','Es lo típico de la obesidad exógena','La obesidad exógena cursa con edad ósea retrasada','No requiere estudios adicionales','Sugiere de forma exclusiva síndrome de Prader-Willi'],e:'Obesidad exógena (primaria): talla normal o alta y edad ósea adelantada. Obesidad endocrina: talla baja y crecimiento lento.'},
+{c:'obe',t:0,src:'PPT',v:'Adolescente obeso con piel engrosada, aterciopelada e hiperpigmentada en la nuca y las axilas.',q:'Señale lo MÁS CORRECTO:',o:['Acantosis nigricans: marcador clínico de insulinorresistencia','Es un signo específico del síndrome de Cushing','Es un signo de hipotiroidismo','Es una micosis superficial que se trata con clotrimazol','Requiere dosar insulina basal para confirmarla'],e:'En el PPT: “acantosis nigricans sugestiva de insulinorresistencia”, que se infiere por la clínica sin necesidad de insulina basal.'},
+{c:'obe',t:0,src:'PPT',v:'Adolescente de 13 años con cintura en el P95, TG 156 mg/dL, HDL 37 mg/dL, glucosa en ayunas 104 mg/dL y PA en el P50.',q:'Según los criterios de Cook modificados, señale lo MÁS CORRECTO:',o:['Cumple criterios de síndrome metabólico (3 o más de 5)','No cumple: se necesitan los 5 criterios','No cumple: se necesitan al menos 4 criterios','El HDL de 37 no es criterio, porque el corte es < 35','La glucosa de 104 es normal, porque el corte es ≥ 126'],e:'Cumple 4: cintura, TG, HDL y glucosa. Cook modificado: cintura ≥ P90 · TG ≥ 110 · HDL ≤ 40 · PA ≥ P90 · glucosa en ayunas ≥ 100.'},
+{c:'obe',t:1,src:'PPT',q:'Respecto a los puntos de corte de Cook modificados para síndrome metabólico, señale lo MÁS CORRECTO:',o:['TG ≥ 110 mg/dL, HDL ≤ 40 mg/dL, cintura ≥ P90, PA ≥ P90 y glucosa en ayunas ≥ 100 mg/dL','TG ≥ 150 mg/dL, HDL < 50 mg/dL, cintura ≥ P95','Cintura ≥ P75 y PA ≥ P75','El LDL ≥ 130 mg/dL es uno de los criterios','El IMC ≥ 30 kg/m² es uno de los criterios'],e:'Los cortes TG ≥ 150 y HDL < 50 (mujeres) son del adulto. El LDL no es criterio de síndrome metabólico.'},
+{c:'obe',t:1,src:'Guía',v:'Niño con hipotonía severa y succión débil al nacer, que desde los 3 años desarrolla hiperfagia intensa, obesidad, talla baja, manos y pies pequeños e hipogonadismo.',q:'Señale lo MÁS CORRECTO:',o:['Síndrome de Prader-Willi: falta de expresión de genes paternos en 15q11-q13','Síndrome de Prader-Willi: deleción del cromosoma 15 de origen materno','Obesidad exógena por sobrealimentación','Síndrome de Cushing','Hipotiroidismo congénito'],e:'La deleción materna de 15q11-q13 produce el síndrome de Angelman. En el PPT, Prader-Willi aparece como diferencial menos probable.'},
+{c:'obe',t:1,src:'PPT + guía',v:'Escolar de 9 años con síndrome nefrótico tratado con prednisona desde hace 1 año. Presenta obesidad central, cara de luna, estrías violáceas anchas, HTA y desaceleración del crecimiento.',q:'Señale lo MÁS CORRECTO:',o:['Síndrome de Cushing exógeno (iatrogénico), la causa más frecuente de Cushing en pediatría','Obesidad exógena primaria','Hipotiroidismo secundario','Síndrome de Prader-Willi','Cushing por adenoma suprarrenal, la causa más frecuente en pediatría'],e:'Datos de Cushing en el PPT: estrías violáceas, HTA, cara de luna, debilidad muscular proximal, talla baja y uso crónico de corticoides.'},
+{c:'obe',t:0,src:'PPT',q:'Respecto a los diagnósticos diferenciales de la obesidad infantil, señale lo MÁS CORRECTO:',o:['La mayoría es primaria (multifactorial); el hipotiroidismo se sospecha con intolerancia al frío, estreñimiento, bocio y desaceleración del crecimiento','Todo niño obeso tiene hipotiroidismo subclínico que requiere levotiroxina','El hipotiroidismo produce talla alta','La obesidad endocrina es la causa más frecuente','Las estrías blancas y finas son patognomónicas de Cushing'],e:'Las estrías del Cushing son violáceas y anchas. Si TSH y T4L son normales, el hipotiroidismo es poco probable.'},
+{c:'obe',t:1,src:'PPT',q:'Respecto a los exámenes en el niño con obesidad, señale lo MÁS CORRECTO:',o:['La insulina basal no se pide de rutina; la insulinorresistencia se infiere por la clínica y el perfil metabólico','La insulina basal es obligatoria para diagnosticar insulinorresistencia','Una ALT normal descarta esteatosis hepática','Una ALT elevada confirma esteatosis hepática','El perfil lipídico solo se pide si hay antecedente familiar'],e:'Pies de diapo del PPT (fuente SAP): “Sin insulina basal: no añade valor diagnóstico” y “ALT elevada: sugiere esteatosis, no la confirma”.'},
+{c:'obe',t:0,src:'Guía',v:'Adolescente obeso con glucosa en ayunas de 104 mg/dL.',q:'Señale lo MÁS CORRECTO:',o:['Glucosa alterada en ayunas (100–125 mg/dL): estado prediabético','Diabetes tipo 2, porque supera 100 mg/dL','Normal, porque el corte es 110 mg/dL','Hipoglucemia relativa','Debe iniciar insulina'],e:'Diabetes: glucosa en ayunas ≥ 126 mg/dL, HbA1c ≥ 6,5 % o glucosa ≥ 200 a las 2 h de la PTOG.'},
+{c:'obe',t:1,src:'Guía',v:'Adolescente de 13 años con CT 192, LDL 124, TG 156 y HDL 37 mg/dL.',q:'Según los puntos de corte pediátricos (NCEP), señale lo MÁS CORRECTO:',o:['HDL < 40 es bajo y TG ≥ 130 es alto (10–19 años); CT 170–199 y LDL 110–129 son limítrofes','El CT es normal porque el corte de alto es ≥ 240','El LDL de 124 es alto porque el corte es ≥ 100','Los TG son normales hasta 150 mg/dL','El HDL es normal porque el corte es < 35'],e:'Pediatría: CT aceptable < 170, limítrofe 170–199, alto ≥ 200. LDL < 110, 110–129, ≥ 130. Ojo: el PPT marcó CT y LDL como “elevados”.'},
+{c:'obe',t:1,src:'Guía',v:'Adolescente de 12 años con obesidad que presenta cojera y dolor en la rodilla izquierda desde hace 3 semanas. Al examen, la cadera izquierda está en rotación externa y la rotación interna es dolorosa y limitada.',q:'¿Cuál es el diagnóstico MÁS probable?',o:['Epifisiólisis de la cabeza femoral','Enfermedad de Legg-Calvé-Perthes','Sinovitis transitoria de cadera','Enfermedad de Osgood-Schlatter','Artritis séptica'],e:'Complicación osteoarticular típica de la obesidad (el dolor de cadera se refiere a la rodilla). Otra: tibia vara (Blount).'},
+{c:'obe',t:0,src:'PPT',q:'Respecto a las complicaciones que se deben buscar en la obesidad infantil, señale lo MÁS CORRECTO:',o:['HTA, dislipidemia, disglucemia, esteatosis hepática, SAOS (ronquidos), impacto psicológico y complicaciones osteoarticulares','Hipotiroidismo, porque es complicación de la obesidad','Talla baja, porque es complicación de la obesidad exógena','Anemia megaloblástica','La HTA no ocurre antes de los 18 años'],e:'El hipotiroidismo es una causa secundaria, no una complicación. A mayor grado de obesidad, más riesgo cardiometabólico y más persistencia en la adultez.'},
+{c:'obe',t:0,src:'PPT',q:'Respecto al tratamiento de la obesidad infantil, señale lo MÁS CORRECTO:',o:['La base, en cualquier grado de obesidad, son los cambios del estilo de vida con participación de toda la familia','Metformina desde el diagnóstico en todos los casos','Dietas de menos de 800 kcal/día','Se trata solo al niño, sin involucrar a la familia','Conviene esperar a la pubertad porque suele resolverse sola'],e:'Manejo interdisciplinario: Nutrición, Psicología y Endocrinología, con seguimiento longitudinal.'},
+{c:'obe',t:1,src:'PPT + guía',q:'Respecto a la actividad física y el sedentarismo en niños con obesidad, señale lo MÁS CORRECTO:',o:['Al menos 60 minutos diarios de actividad moderada a vigorosa y limitar el tiempo recreativo de pantallas (≈ 2 h/día o menos en escolares)','30 minutos 3 veces por semana son suficientes','Se recomiendan al menos 150 minutos diarios','Solo ejercicios de fuerza','Las pantallas no influyen si el niño hace deporte'],e:'El PPT recomienda ≥ 60 min/día, actividad progresiva y agradable.'},
+{c:'obe',t:0,src:'PPT',q:'Respecto al tratamiento farmacológico de la obesidad pediátrica, señale lo MÁS CORRECTO:',o:['Metformina, orlistat y agonistas GLP-1 no son primera línea; se reservan para adolescentes con obesidad severa, comorbilidades o fracaso del estilo de vida','Orlistat actúa a nivel central disminuyendo el apetito','Los agonistas GLP-1 aceleran el vaciamiento gástrico','La metformina inhibe la lipasa pancreática','Los fármacos son primera línea en menores de 6 años'],e:'GLP-1 (liraglutida, semaglutida): aumentan la saciedad y RETARDAN el vaciamiento gástrico. Metformina: disminuye la producción hepática de glucosa y aumenta la sensibilidad a la insulina.'},
+{c:'obe',t:1,src:'PPT + guía',q:'Respecto al orlistat, señale lo MÁS CORRECTO:',o:['Inhibe las lipasas gástrica y pancreática y reduce cerca del 30 % de la absorción de grasa; puede causar esteatorrea y déficit de vitaminas liposolubles','Es un agonista GLP-1','Aumenta la sensibilidad a la insulina','Inhibe la absorción intestinal de glucosa','Está indicado desde los 2 años'],e:'Al bloquear la hidrólisis de triglicéridos, la grasa se elimina en las heces.'},
+{c:'obe',t:1,src:'PPT + guía',q:'Respecto a la cirugía bariátrica en adolescentes, señale lo MÁS CORRECTO:',o:['Se considera en obesidad severa (IMC ≥ 120 % del P95 o ≥ 35 kg/m²) con comorbilidades significativas y fracaso del tratamiento multidisciplinario','Está indicada con IMC ≥ 30 sin comorbilidades','Es la primera opción tras 3 meses sin respuesta','Solo se permite después de los 18 años','Se indica en cualquier escolar con obesidad'],e:'Con IMC ≥ 140 % del P95 (o ≥ 40) se considera aunque no haya comorbilidad.'},
+{c:'obe',t:0,src:'PPT',q:'Respecto al pronóstico de la obesidad infantil, señale lo MÁS CORRECTO:',o:['A mayor grado de obesidad, mayor riesgo cardiometabólico y mayor probabilidad de que persista en la adultez; intervenir pronto mejora el pronóstico','La obesidad infantil se resuelve sola en la adolescencia','El grado de obesidad no se relaciona con el riesgo','Solo importa si hay antecedente de DM2 en la familia','La intervención temprana no cambia la evolución'],e:'Conclusión del PPT: intervenir precozmente reduce la persistencia de la obesidad en la adultez.'},
 
 /* ================= CONVULSIÓN FEBRIL ================= */
-{c:'cf',t:0,s:'2',q:'Paciente del caso de convulsión febril:',o:['Lucía, 2 años, sexo femenino, previamente sana','Lucía, 18 meses, con epilepsia previa','Mateo, 2 años, varón','Lucía, 4 años, con APLV severa'],e:'Lucía, 2 años, femenino, previamente sana.'},
-{c:'cf',t:0,s:'2',q:'Temperatura del pico febril de Lucía:',o:['39,2 °C','38,5 °C','40 °C','38,8 °C'],e:'Instauración brusca de fiebre de 39,2 °C. (38,8 °C es la del niño con encefalitis).'},
-{c:'cf',t:1,s:'2',q:'Características del evento de Lucía:',o:['Movimientos tónico-clónicos generalizados, desviación supraversiva de la mirada y desconexión del medio','Clonías focales del brazo derecho','Crisis atónica con caída','Mioclonías breves sin pérdida de conciencia'],e:'Tónico-clónicos generalizados + desviación SUPRAVERSIVA de la mirada + desconexión del medio.'},
-{c:'cf',t:0,s:'2',q:'Duración y resolución de la crisis de Lucía:',o:['≈ 3 minutos, cese espontáneo; post-ictal con somnolencia','≈ 20 minutos, cedió con midazolam','≈ 2 minutos; confusa por más de 24 h','≈ 3 minutos; cedió con diazepam rectal'],e:'≈ 3 min, cese espontáneo, post-ictal con somnolencia. (La del niño con encefalitis duró ≈ 2 min).'},
-{c:'cf',t:1,s:'3',q:'El desarrollo psicomotor de Lucía se describe como “normal para sus…”',o:['18 meses','24 meses','2 años y medio','12 meses'],e:'Detalle raro de la diapo: aunque Lucía tiene 2 años, el antecedente dice “desarrollo psicomotor normal para sus 18 meses”.'},
-{c:'cf',t:0,s:'3',q:'Antecedentes perinatales y de vacunas de Lucía:',o:['Embarazo a término normoevolutivo; esquema de vacunación completo','Prematura; vacunas incompletas','Embarazo con preeclampsia; sin vacunas','A término; vacunas solo hasta el año'],e:'Embarazo a término normoevolutivo, esquema de vacunación completo. (Vacunas incompletas era el niño desnutrido).'},
-{c:'cf',t:1,s:'3',q:'Antecedente patológico de Lucía:',o:['Alergia leve a la proteína de leche de vaca (APLV)','Asma','Cardiopatía congénita','Anemia ferropénica'],e:'Sin hospitalizaciones previas, sin patología neurológica, APLV leve.'},
-{c:'cf',t:1,s:'3',q:'Antecedente familiar relevante de Lucía:',o:['Padre con convulsiones febriles en la primera infancia, con resolución espontánea a los 5 años','Madre con epilepsia','Hermano con síndrome de Dravet','Padre con convulsiones afebriles hasta los 10 años'],e:'Padre: crisis asociadas a fiebre en la primera infancia, resolución espontánea a los 5 años. Madre: sana.'},
-{c:'cf',t:0,s:'4',q:'Funciones vitales de Lucía al ingreso:',o:['T 39,2 °C, FC 160 lpm, FR 35 rpm, SpO2 98 %, PA 85/55 mmHg','T 38,8, FC 118, FR 24, PA 98/60','T 36, FC 118, FR 30, SpO2 97 %','T 39,2, FC 90, FR 20, PA 110/70'],e:'T 39,2 · FC 160 · FR 35 · SpO2 98 % · PA 85/55.'},
-{c:'cf',t:1,s:'4',q:'Triángulo de evaluación pediátrica de Lucía:',o:['Apariencia: somnolienta pero reactiva · Trabajo respiratorio: normal · Color: rosado','Apariencia alterada · Respiración alterada · Color pálido','Todo normal con color moteado','Apariencia somnolienta · Tiraje · Cianosis'],e:'Apariencia somnolienta pero reactiva; trabajo respiratorio normal; color rosado.'},
-{c:'cf',t:0,s:'4 y 7',q:'Foco infeccioso identificado en Lucía:',o:['Faringe hiperémica (faringitis aguda)','Otitis media aguda','Infección urinaria','Neumonía'],e:'ORL: faringe hiperémica. En criterios: “Lucía: 39,2 °C (faringitis aguda)”.'},
-{c:'cf',t:1,s:'4',q:'¿Qué hallazgo se registró en la fila “General” de la evaluación sistémica de Lucía?',o:['Fontanela normotensa, no abombada','Fontanela abombada','Rigidez de nuca','Petequias'],e:'General: fontanela normotensa, no abombada.'},
-{c:'cf',t:0,s:'4',q:'Examen neurológico de Lucía al ingreso:',o:['Glasgow 15/15, pupilas isocóricas reactivas, sin signos meníngeos','Glasgow 13/15','Hemiparesia transitoria','Kernig y Brudzinski positivos'],e:'Neurológico intacto: Glasgow 15/15, pupilas isocóricas reactivas, sin signos meníngeos.'},
-{c:'cf',t:1,s:'5',q:'En el panel de observación de 6 horas, ¿qué hallazgo se marcó con alerta?',o:['Persistencia de picos febriles aislados','Nueva crisis convulsiva','Intolerancia oral','Somnolencia persistente'],e:'Sin recurrencia, recuperación neurológica completa, tolera VO; alerta: persistencia de picos febriles aislados.'},
-{c:'cf',t:0,s:'5',q:'Resultados de laboratorio de Lucía:',o:['Leucocitosis reactiva; glucosa y Na/K/Ca normales; hemocultivo y urocultivo negativos','Hiponatremia e hipoglucemia','PCR en LCR positiva para HSV','Hipocalcemia'],e:'Hemograma: leucocitosis reactiva. Metabólico normal. Cultivos (hemo/uro) negativos.'},
-{c:'cf',t:1,s:'6',q:'Síncope febril: ¿qué datos de Lucía van en contra?',o:['Piel rosada (no pálida) y taquicardia de 160 lpm (no bradicardia)','La fiebre alta','La edad de 2 años','Los movimientos tónicos breves'],e:'A favor: breves sacudidas mioclónicas o tónicas por hipoxia cerebral transitoria. En contra: piel rosada y taquicardia.'},
-{c:'cf',t:1,s:'6',q:'El síndrome de Dravet también se conoce como:',o:['Epilepsia mioclónica grave de la infancia','Epilepsia de ausencias infantil','Síndrome de West','Epilepsia rolándica'],e:'Dravet = epilepsia mioclónica grave de la infancia.'},
-{c:'cf',t:0,s:'6',q:'¿Qué dato va en contra de Dravet en el caso de Lucía?',o:['Dravet cursa con crisis prolongadas (> 15 min); la de Lucía duró 3 min','Dravet inicia después de los 5 años','Dravet nunca se desencadena con fiebre','Dravet solo da crisis focales'],e:'Dravet suele debutar en el 1.er o 2.º año con una crisis febril (TCG o hemiclónica) en un niño previamente sano.'},
-{c:'cf',t:0,s:'6',q:'¿Qué datos van en contra de infección del SNC/meningitis en Lucía?',o:['Examen neurológico normal post-crisis (Glasgow 15), sin rigidez de nuca, sin alteración metabólica','Fiebre de 39,2','Somnolencia post-ictal','Leucocitosis'],e:'Puntos en contra: Glasgow 15, sin rigidez de nuca, sin alteración metabólica.'},
-{c:'cf',t:0,s:'7',q:'Criterio de edad para convulsión febril usado en el caso:',o:['6 meses a 5 años','1 mes a 6 años','3 meses a 3 años','1 a 10 años'],e:'Criterio: edad 6 meses a 5 años.'},
-{c:'cf',t:0,s:'7',q:'Criterio de fiebre usado en el caso:',o:['> 38 °C','> 37,5 °C','> 39 °C','> 38,5 °C'],e:'Criterio: fiebre > 38 °C.'},
-{c:'cf',t:0,s:'7',q:'Criterio de “Historial” para convulsión febril simple:',o:['Sin convulsiones afebriles previas','Sin antecedente familiar de convulsiones','Sin vacunas recientes','Sin fiebre previa'],e:'Historial: sin convulsiones afebriles previas (Lucía: previamente sana). Descarte: sin infección del SNC.'},
-{c:'cf',t:0,s:'8',q:'Convulsión febril simple vs compleja:',o:['Simple: < 15 min, generalizada, 1 en 24 h · Compleja: > 15 min, focal o múltiples en 24 h','Simple: < 5 min · Compleja: > 5 min','Simple: focal · Compleja: generalizada','Simple: < 30 min · Compleja: > 30 min'],e:'Duración, focalidad y recurrencia en 24 h.'},
-{c:'cf',t:1,s:'8',q:'Estatus epiléptico según la diapo del caso:',o:['Actividad convulsiva continua > 30 min, o múltiples crisis sin recuperación de conciencia entre episodios','Crisis de más de 15 min','Crisis de más de 5 min siempre','Más de 2 crisis en 24 h'],e:'Ojo: es la definición clásica. En la práctica (ILAE 2015) se trata como estatus desde los 5 min, por eso el algoritmo da midazolam si la crisis dura > 5 min.'},
-{c:'cf',t:0,s:'9',q:'Fisiopatología de la convulsión febril según el caso:',o:['En un cerebro inmaduro, el aumento brusco de temperatura altera el balance excitación/inhibición y grupos neuronales descargan sincrónicamente','Infección directa del parénquima','Hipoglucemia por la fiebre','Edema cerebral por hipertermia'],e:'“El umbral de hiperexcitabilidad”: la fiebre es el detonante.'},
-{c:'cf',t:1,s:'10',q:'Según la guía del caso, ¿en quién SÍ está indicada la punción lumbar?',o:['Todo niño < 1 año, no vacunado o con signos meníngeos','Todo niño con primera convulsión febril','Solo si la crisis dura > 5 min','Nunca'],e:'Ojo: la AAP la recomienda considerar en 6–12 meses con vacunas Hib/neumococo incompletas o pretratados con antibióticos. La diapo lo simplifica a “< 1 año”.'},
-{c:'cf',t:1,s:'10',q:'¿Cuándo SÍ se indica EEG según el caso?',o:['Convulsión compleja (después de 1 semana) y convulsiones prolongadas','Toda primera crisis','Antes del alta en toda CF simple','Solo si hay antecedente familiar'],e:'EEG: rutina NO. Sí: convulsión compleja después de 1 semana y convulsiones prolongadas.'},
-{c:'cf',t:1,s:'10',q:'¿Cuándo SÍ se indica neuroimagen (TAC/RM) según el caso?',o:['Sospecha de encefalitis, descartar MAV, signos de focalización','Toda convulsión febril','Fiebre > 39 °C','Antecedente familiar'],e:'Neuroimagen: rutina NO. Sí: sospecha de encefalitis, descartar MAV, signos de focalización.'},
-{c:'cf',t:0,s:'11',q:'Medidas de primer nivel (acciones prioritarias) en la convulsión febril:',o:['Asegurar vía aérea, posición lateral de seguridad, control térmico para confort y monitorización','Introducir un objeto en la boca','Iniciar fenobarbital de mantenimiento','Baño con agua fría'],e:'Observación estrecha + vía aérea, posición lateral de seguridad, antitérmico para confort, monitorización de signos vitales.'},
-{c:'cf',t:0,s:'11',q:'Antipiréticos (paracetamol/ibuprofeno) en la convulsión febril:',o:['Se dan para confort, NO para prevenir crisis','Previenen la recurrencia','Están contraindicados','Se dan en forma profiláctica continua'],e:'“Control térmico para confort, no para prevenir crisis”.'},
-{c:'cf',t:1,s:'11',q:'Intervención a EVITAR en la convulsión febril según el caso:',o:['Dar oxígeno suplementario innecesario si satura adecuadamente','Posición lateral de seguridad','Monitorizar signos vitales','Control térmico'],e:'Evitar: O2 innecesario si satura bien, forzar apertura bucal o introducir objetos, anticonvulsivantes profilácticos de mantenimiento.'},
-{c:'cf',t:0,s:'12',q:'Algoritmo en atención primaria: si la crisis dura > 5 minutos se administra',o:['Midazolam IV 0,1–0,2 mg/kg','Diazepam VO 1 mg/kg','Fenitoína 20 mg/kg de entrada','Lorazepam 1 mg/kg'],e:'¿Dura > 5 min? → Midazolam IV 0,1–0,2 mg/kg.'},
-{c:'cf',t:1,s:'12',q:'Si tras el primer midazolam la crisis persiste:',o:['Repetir midazolam IV; si aún persiste: vía periférica, midazolam + control de vía aérea y derivación urgente al hospital (estatus)','Dar paracetamol y observar','Alta con control','Intubar de inmediato'],e:'Si hay control: buscar causa de la fiebre; si es simple y hay buen estado general, alta y control pediátrico.'},
-{c:'cf',t:0,s:'13',q:'Ruta de manejo de la CF simple, primera crisis:',o:['No precisa tratamiento continuo ni EEG; manejo, información y educación por el pediatra de atención primaria','Derivación obligatoria a neuropediatría','EEG a la semana','Valproato por 2 años'],e:'CF simple primera crisis: manejo por pediatra de atención primaria.'},
-{c:'cf',t:1,s:'13',q:'CF simple recurrente: ¿cuándo derivar a neuropediatría?',o:['SOLO si existe ansiedad familiar intensa que requiera consejería profunda','Siempre','Si recurre 2 veces','Nunca'],e:'No se recomienda profilaxis antitérmica ni antiepiléptica continua.'},
-{c:'cf',t:0,s:'13',q:'Conducta ante una CF compleja:',o:['Derivación obligatoria a neuropediatría','Alta sin seguimiento','Manejo solo por el pediatra','Profilaxis con antitérmicos'],e:'Factores de alerta: déficit neurológico persistente, estatus febril previo, sospecha de patología estructural.'},
-{c:'cf',t:1,s:'14',q:'¿Cuánto tiempo permaneció Lucía en observación antes del alta?',o:['24 horas','6 horas','48 horas','72 horas'],e:'El panel de evolución es de 6 horas, pero la resolución dice que permaneció 24 horas en observación.'},
-{c:'cf',t:0,s:'14',q:'Disposición final de Lucía:',o:['Alta, derivada a su pediatra de cabecera con indicaciones de soporte térmico, señales de alarma y educación a los padres','Derivada a neuropediatría con EEG','Hospitalizada 72 h con antibióticos','Alta con fenobarbital'],e:'Faringitis en resolución, sin nuevas crisis, Glasgow 15 al egreso.'},
-{c:'cf',t:0,s:'15',q:'Mensaje final del caso de convulsión febril:',o:['Pronóstico benigno con riesgo nulo de secuelas cognitivas; el tratamiento real es la educación y tranquilidad de los padres','Requiere anticonvulsivante por 2 años','Alto riesgo de epilepsia','Debe evitarse toda fiebre'],e:'Las 3 conclusiones: el pilar diagnóstico es clínico; descartar infección del SNC y alteraciones metabólicas; manejo conservador.'},
+{c:'cf',t:0,src:'Banco + PPT',v:'Se recibe en emergencia a un niño de 2 años, febril, que ha presentado por primera vez una crisis tónico-clónica generalizada de 3 minutos, sin complicaciones en el periodo postictal. No tiene antecedentes de importancia.',q:'Señale el enunciado MÁS CORRECTO:',o:['Convulsión febril simple; no requiere EEG ni neuroimagen','Convulsión febril compleja; debe realizarse un EEG','Convulsión febril simple; amerita EEG y TAC','Convulsión febril compleja; debe realizarse una TAC','Convulsión febril simple; debe iniciar fenobarbital profiláctico'],e:'Simple: generalizada, < 15 min, una sola en 24 h, con recuperación completa. No se piden EEG ni neuroimagen de rutina.'},
+{c:'cf',t:0,src:'Banco + PPT',v:'Se recibe en emergencia a un niño de 4 años, febril, que en 35 minutos ha presentado 2 crisis tónico-clónicas generalizadas, sin recuperar la conciencia entre ellas.',q:'¿Cuál es el diagnóstico MÁS probable?',o:['Estado convulsivo (estatus epiléptico)','Epilepsia','Convulsión febril simple','Síndrome de West','Convulsión tónico-clónica simple'],e:'Estatus (definición clásica del PPT): actividad continua > 30 min o crisis repetidas sin recuperar la conciencia. Requiere manejo farmacológico urgente.'},
+{c:'cf',t:0,src:'PPT',q:'Respecto a la definición de convulsión febril, señale lo MÁS CORRECTO:',o:['Ocurre entre los 6 meses y 5 años, con fiebre ≥ 38 °C, sin infección del SNC ni alteración metabólica y sin crisis afebriles previas','Ocurre entre 1 mes y 10 años','Exige fiebre mayor de 39 °C','Puede diagnosticarse aunque haya meningitis, si el LCR es claro','El antecedente de crisis sin fiebre no la excluye'],e:'Si hay infección del SNC no es convulsión febril: es una crisis sintomática.'},
+{c:'cf',t:0,src:'PPT',q:'Respecto a la convulsión febril compleja, señale lo MÁS CORRECTO:',o:['Es focal, dura más de 15 minutos o se repite en las primeras 24 horas','Es la que dura más de 5 minutos','La simple puede repetirse hasta 2 veces en 24 horas','La simple puede ser focal si es breve','Exige fiebre mayor de 40 °C'],e:'Basta UNO de los tres criterios (focalidad, > 15 min o recurrencia en 24 h) para que sea compleja.'},
+{c:'cf',t:1,src:'Guía',q:'Respecto a la epidemiología de la convulsión febril, señale lo MÁS CORRECTO:',o:['Es la crisis convulsiva más frecuente en la infancia (2–5 % de los niños), con pico entre los 12 y 18 meses','Afecta al 20 % de los niños','Su pico de presentación es entre los 4 y 5 años','Es más frecuente en niñas','Casi siempre la causa una infección bacteriana'],e:'La causan sobre todo infecciones virales (HHV-6, influenza). Algo más frecuente en varones.'},
+{c:'cf',t:1,src:'Guía',q:'Respecto a la recurrencia de la convulsión febril, señale lo MÁS CORRECTO:',o:['Recurre en cerca de un tercio; aumentan el riesgo: primera crisis antes de los 18 meses, antecedente familiar de CF, fiebre poco elevada al convulsionar y poco tiempo entre el inicio de la fiebre y la crisis','La fiebre mayor de 40 °C aumenta el riesgo de recurrencia','Recurre en el 80 % de los casos','El sexo femenino es el principal factor de riesgo','La duración de la crisis es el único factor de riesgo'],e:'Paradoja típica de examen: la fiebre BAJA en el momento de la crisis predice más recurrencia, no la fiebre alta.'},
+{c:'cf',t:0,src:'PPT + guía',q:'Respecto al pronóstico de la convulsión febril simple, señale lo MÁS CORRECTO:',o:['Es benigno: no deja secuelas cognitivas y el riesgo de epilepsia es solo algo mayor que el de la población general (≈ 1–2 %)','El riesgo de epilepsia es de alrededor del 50 %','Tiene el mismo riesgo de epilepsia que la compleja','Produce daño cerebral si dura más de 3 minutos','Las secuelas cognitivas son frecuentes'],e:'El riesgo de epilepsia aumenta con CF compleja, alteración del neurodesarrollo y antecedente familiar de epilepsia. El “tratamiento real” es educar y tranquilizar a los padres.'},
+{c:'cf',t:1,src:'PPT + guía',q:'Respecto a la punción lumbar en la convulsión febril, señale lo MÁS CORRECTO:',o:['Se indica si hay signos meníngeos; se considera en menores de 12 meses con vacunas Hib/neumococo incompletas o desconocidas y en niños pretratados con antibióticos','Se indica en todo niño con una primera convulsión febril','Solo se indica si la crisis dura más de 5 minutos','Nunca está indicada','Se indica siempre que la fiebre supere 39 °C'],e:'El PPT lo resume así: PL en “< 1 año, no vacunado o con signos meníngeos”. Los antibióticos previos pueden enmascarar una meningitis.'},
+{c:'cf',t:0,src:'PPT',q:'Respecto a los estudios en la convulsión febril, señale lo MÁS CORRECTO:',o:['En la CF simple no se piden EEG ni neuroimagen de rutina; la neuroimagen se indica si hay focalidad, sospecha de encefalitis o de lesión estructural (MAV)','En toda convulsión febril se pide un EEG urgente','En toda convulsión febril se pide una TAC','En toda convulsión febril se pide una RM antes del alta','El EEG predice la recurrencia de la convulsión febril'],e:'Según el PPT, el EEG se plantea en la CF compleja (después de 1 semana) o en crisis prolongadas.'},
+{c:'cf',t:0,src:'PPT',q:'Respecto a los antipiréticos en la convulsión febril, señale lo MÁS CORRECTO:',o:['No previenen la recurrencia; se usan para el confort del niño','Paracetamol cada 4 horas durante la fiebre previene la recurrencia','Los baños con agua fría previenen nuevas crisis','El ibuprofeno a dosis altas previene la recurrencia','Alternar paracetamol e ibuprofeno previene la recurrencia'],e:'“Control térmico para confort, no para prevenir crisis”.'},
+{c:'cf',t:0,src:'PPT + guía',q:'Respecto a la profilaxis en la convulsión febril simple, incluso recurrente, señale lo MÁS CORRECTO:',o:['No se recomienda profilaxis antiepiléptica ni antitérmica continua, porque sus efectos adversos superan el beneficio','Fenobarbital diario hasta los 5 años','Valproato de elección en menores de 2 años','Diazepam oral diario','Carbamazepina a largo plazo'],e:'Fenobarbital: alteraciones cognitivas y de conducta. Valproato: hepatotoxicidad (sobre todo < 2 años). Según el PPT, la CF simple recurrente se deriva a neuropediatría solo si hay ansiedad familiar intensa.'},
+{c:'cf',t:0,src:'PPT',v:'Lactante de 18 meses convulsionando en el tópico, con fiebre de 39 °C. La crisis lleva 2 minutos.',q:'Señale la conducta MÁS CORRECTA:',o:['Posición lateral de seguridad, no introducir objetos en la boca, oxígeno solo si desatura y benzodiazepina si la crisis dura más de 5 minutos','Introducir un objeto en la boca para evitar que se muerda la lengua','Benzodiazepina desde el primer minuto','Sujetar las extremidades para detener los movimientos','Oxígeno a alto flujo a todos, aunque saturen bien'],e:'Intervenciones a evitar según el PPT: O2 innecesario, forzar la apertura bucal y anticonvulsivantes profilácticos de mantenimiento.'},
+{c:'cf',t:1,src:'PPT + guía',v:'Niño de 12 kg con una crisis tónico-clónica febril que ya dura 6 minutos. No tiene vía venosa.',q:'Señale lo MÁS CORRECTO:',o:['Midazolam bucal o intranasal (0,2–0,3 mg/kg) o diazepam rectal (0,5 mg/kg)','Diazepam intramuscular 1 mg/kg','Fenobarbital por vía oral','Midazolam 1 mg/kg','Esperar a los 30 minutos (estatus) para tratar'],e:'Con vía venosa: midazolam IV 0,1–0,2 mg/kg (algoritmo del PPT), repetible. Si persiste: derivación urgente como estatus.'},
+{c:'cf',t:1,src:'PPT + guía',q:'Respecto al estado epiléptico, señale lo MÁS CORRECTO:',o:['La definición clásica es una crisis de más de 30 minutos o crisis repetidas sin recuperar la conciencia; en la práctica se trata desde los 5 minutos','Se define como una crisis de más de 15 minutos','Se define como 2 crisis con recuperación de la conciencia entre ellas','Solo se trata a partir de los 30 minutos','Toda convulsión febril compleja es un estatus'],e:'El PPT usa la definición de 30 min; el algoritmo de tratamiento actúa a los 5 min (definición operativa, ILAE 2015).'},
+{c:'cf',t:1,src:'PPT + guía',v:'Lactante de 7 meses, previamente sano, con crisis febriles prolongadas (más de 15 minutos), hemiclónicas y que alternan de lado. Después aparecen mioclonías y estancamiento del desarrollo.',q:'Señale lo MÁS CORRECTO:',o:['Síndrome de Dravet (epilepsia mioclónica grave de la infancia), por mutación de SCN1A; deben evitarse los bloqueadores de canales de sodio','Convulsión febril compleja benigna','Síndrome de West: espasmos e hipsarritmia','Síndrome de Dravet: la carbamazepina es el fármaco de elección','Síndrome de Lennox-Gastaut'],e:'Dravet debuta en el primer año con crisis febriles PROLONGADAS. Carbamazepina, lamotrigina y fenitoína empeoran las crisis.'},
+{c:'cf',t:1,src:'PPT',v:'Lactante febril que presenta un episodio breve de palidez intensa, hipotonía y pérdida de conciencia, con algunas sacudidas mioclónicas y bradicardia. Se recupera en segundos.',q:'¿Cuál es el diagnóstico MÁS probable?',o:['Síncope febril','Convulsión febril simple','Estatus epiléptico','Meningitis bacteriana','Síndrome de Dravet'],e:'En el síncope febril las sacudidas se deben a hipoxia cerebral transitoria. Va a favor la palidez con bradicardia; la piel rosada con taquicardia va en contra.'},
+{c:'cf',t:0,src:'PPT + guía',q:'En un niño con convulsión y fiebre, ¿qué dato obliga a descartar una infección del SNC antes de diagnosticar convulsión febril?',o:['Somnolencia o alteración de conciencia que persiste más allá del postictal esperado, signos meníngeos, fontanela abombada o petequias','Fiebre de 39,5 °C','Una crisis de 3 minutos','Antecedente familiar de convulsión febril','Taquicardia durante la fiebre'],e:'El mandato del PPT: descartar infecciones del SNC (meningitis, encefalitis) y alteraciones metabólicas severas.'},
+{c:'cf',t:1,src:'Guía',v:'Lactante de 14 meses con fiebre alta de 3 días y buen estado general, que presenta una convulsión febril simple. Al ceder la fiebre aparece un exantema maculopapular rosado en el tronco.',q:'¿Cuál es el agente MÁS probable?',o:['Herpesvirus humano 6 (exantema súbito o roséola)','Virus del sarampión','Streptococcus pyogenes','Parvovirus B19','Virus varicela-zóster'],e:'Exantema súbito: el exantema aparece cuando DESAPARECE la fiebre. Es causa frecuente de convulsiones febriles.'},
+{c:'cf',t:0,src:'PPT',q:'Respecto a la derivación y el seguimiento de la convulsión febril, señale lo MÁS CORRECTO:',o:['CF simple: manejo y educación por el pediatra de atención primaria; CF compleja: derivación obligatoria a neuropediatría','Toda convulsión febril se deriva a neuropediatría','La CF simple recurrente requiere EEG y tratamiento continuo','La CF compleja se maneja solo en atención primaria','La CF simple primera crisis requiere EEG de control'],e:'Factores de alerta de la compleja: déficit neurológico persistente, estatus febril previo, sospecha de patología estructural.'},
 
 /* ================= ENCEFALITIS ================= */
-{c:'enc',t:0,s:'2',q:'Paciente del caso de encefalitis:',o:['Varón de 4 años y 10 meses, de Lima, previamente sano','Varón de 2 años, de Barranca','Mujer de 4 años con epilepsia','Varón de 6 años inmunosuprimido'],e:'Varón de 4 años 10 meses, natural y procedente de Lima, previamente sano.'},
-{c:'enc',t:0,s:'2',q:'Motivo de ingreso del niño con encefalitis:',o:['Fiebre, cefalea y vómitos de contenido alimentario, no explosivos, de 3 días','Diarrea y fiebre de 1 mes','Fiebre y exantema vesicular','Convulsión afebril'],e:'Fiebre, cefalea y vómitos alimentarios no explosivos de 3 días de evolución.'},
-{c:'enc',t:1,s:'2',q:'Cronología del caso de encefalitis:',o:['Día 1: fiebre hasta 39 °C, decaimiento y cefalea · Día 2: 2 vómitos e hiporexia · Día del ingreso: convulsión TCG','Día 1: convulsión · Día 2: fiebre · Día 3: vómitos','Fiebre solo el día del ingreso','Vómitos explosivos desde el día 1'],e:'La cefalea y los vómitos PRECEDEN a la convulsión: dato en contra de convulsión febril simple.'},
-{c:'enc',t:1,s:'2',q:'Duración de la convulsión del niño con encefalitis:',o:['≈ 2 minutos, cede espontáneamente','≈ 3 minutos','≈ 15 minutos','≈ 30 minutos, cede con lorazepam'],e:'Tónico-clónica generalizada con pérdida de conciencia, ≈ 2 min, cede espontáneamente.'},
-{c:'enc',t:0,s:'2',q:'Frase clave de la madre en el caso de encefalitis:',o:['“No se está comportando como siempre”','“Está cada vez más flaco”','“Se siente perfectamente bien”','“Tiene diarrea hace un mes”'],e:'Despierta al estímulo y reconoce a su madre, pero responde lento y por momentos dice frases poco coherentes.'},
-{c:'enc',t:1,s:'3',q:'Glasgow del niño con encefalitis al ingreso:',o:['13/15','15/15','10/15','8/15'],e:'Glasgow 13/15, respuesta verbal lenta. Lucía tenía 15/15.'},
-{c:'enc',t:1,s:'3',q:'Antropometría del niño con encefalitis:',o:['Peso 18 kg, talla 108 cm, IMC 15,4 kg/m² (adecuado para la edad)','Peso 16 kg, talla 100 cm','Peso 18 kg, talla 118 cm','Peso 20 kg, IMC 17'],e:'18 kg es el peso que se usa para calcular todas las dosis.'},
-{c:'enc',t:1,s:'3',q:'Signos vitales del niño con encefalitis:',o:['T 38,8 °C, FC 118, FR 24, PA 98/60, SatO2 98 % AA','T 39,2, FC 160, FR 35, PA 85/55','T 38, FC 90, FR 20, PA 110/70','T 40, FC 140, FR 30, PA 80/40'],e:'T 38,8 · FC 118 · FR 24 · PA 98/60 · SatO2 98 % aire ambiente.'},
-{c:'enc',t:0,s:'3',q:'Evaluación inicial (TEP) del niño con encefalitis:',o:['Apariencia alterada; respiración y circulación conservadas','Los tres lados alterados','Apariencia normal, respiración alterada','Circulación alterada'],e:'Apariencia alterada aislada = disfunción del SNC.'},
-{c:'enc',t:1,s:'3',q:'Piel en el examen físico del niño con encefalitis:',o:['Sin exantema, petequias ni lesiones vesiculares','Vesículas labiales','Petequias en tronco','Exantema maculopapular'],e:'La ausencia de vesículas no descarta HSV: la encefalitis por HSV-1 fuera del periodo neonatal suele ocurrir sin lesiones cutáneas.'},
-{c:'enc',t:1,s:'3',q:'Hallazgos físicos negativos del niño con encefalitis:',o:['Sin rigidez de nuca evidente y sin déficit motor focal evidente','Rigidez de nuca y Kernig +','Hemiparesia derecha','Papiledema'],e:'Pupilas isocóricas y fotorreactivas, sin rigidez de nuca, sin déficit motor focal, llenado capilar < 2 s.'},
-{c:'enc',t:1,s:'3',q:'Vómitos en las funciones biológicas del niño con encefalitis:',o:['2 episodios, contenido alimentario, no biliosos, no hemáticos','Explosivos, en proyectil','Biliosos','En borra de café'],e:'Además: apetito disminuido, tolera líquidos con menor ingesta de sólidos, somnolencia, sin diarrea.'},
-{c:'enc',t:1,s:'4',q:'Hemograma y reactantes del niño con encefalitis:',o:['Leucocitos 12 800, neutrófilos 68 %, PCR 18 mg/L, procalcitonina 0,12 ng/mL','Leucocitos 25 000, procalcitonina 5','Leucopenia 3200','Leucocitos 8000, PCR 120'],e:'“Hallazgos inflamatorios inespecíficos, sin patrón marcadamente bacteriano”. Linfocitos 25 %, Hb 12,3, plaquetas 285 000.'},
-{c:'enc',t:0,s:'4',q:'Perfil metabólico del niño con encefalitis:',o:['Glucosa 96, Na 136, K 4,1, Ca 9,3, creatinina 0,4: sin causa metabólica','Hiponatremia de 125','Hipoglucemia de 40','Hipocalcemia de 7'],e:'Sin causa metabólica evidente para la alteración neurológica; función hepática sin alteraciones relevantes.'},
-{c:'enc',t:0,s:'4',q:'Indicación de la TAC cerebral simple inicial en el caso de encefalitis:',o:['Convulsión + alteración persistente del estado mental','Fiebre mayor de 39 °C','Vómitos','Protocolo de toda fiebre'],e:'TAC: sin hemorragia, sin efecto de masa, sin hidrocefalia, sin hallazgos agudos (permite hacer la PL con seguridad).'},
-{c:'enc',t:1,s:'4',q:'Presión de apertura del LCR en el caso de encefalitis:',o:['18 cm H2O (referencia ≤ 28)','30 cm H2O','8 cm H2O','45 cm H2O'],e:'Presión de apertura 18 cm H2O, normal. Aspecto claro.'},
-{c:'enc',t:0,s:'4',q:'Citoquímico del LCR en el caso de encefalitis:',o:['82 células/mm³ a predominio linfocitario, proteínas 62 mg/dL, glucosa 64 mg/dL','1500 células a predominio neutrofílico, glucosa 20','3 células, proteínas 30','82 células neutrofílicas, glucosa 30'],e:'Pleocitosis linfocitaria + proteínas levemente elevadas + glucosa conservada = proceso viral del SNC.'},
-{c:'enc',t:1,s:'4 y 6',q:'Eritrocitos en el LCR del niño con encefalitis y su significado:',o:['12 células/mm³ (ref 0–5): eritrocitos elevados, apoyan encefalitis por HSV','0: normal','500: punción traumática','12: sin importancia diagnóstica'],e:'La diapo de diagnóstico los lista como dato a favor de HSV-1 (encefalitis necrotizante, a veces hemorrágica).'},
-{c:'enc',t:1,s:'4',q:'Relación glucosa LCR/suero en el caso de encefalitis:',o:['0,67 (64/96), conservada (ref ~0,44–0,90)','0,30, baja','1,20','0,40, baja'],e:'“La glucosa del LCR debe interpretarse en relación con la sérica: 64/96 = 0,67”.'},
-{c:'enc',t:0,s:'4',q:'Gram del LCR en el caso de encefalitis:',o:['Sin microorganismos','Diplococos Gram positivos','Bacilos Gram negativos','Cocos en cadenas'],e:'Gram sin microorganismos (referencia: negativo).'},
-{c:'enc',t:1,s:'5',q:'Hallazgos de la RM cerebral del niño con encefalitis:',o:['Compromiso del lóbulo temporal IZQUIERDO y de la región insular IZQUIERDA, con edema leve','Compromiso temporal derecho','Lesiones desmielinizantes multifocales','RM normal'],e:'Ojo con el lado: IZQUIERDO. Compromiso temporoinsular = típico de HSV.'},
-{c:'enc',t:1,s:'5',q:'EEG del niño con encefalitis:',o:['Alteración y actividad epileptiforme temporal izquierda, sin crisis durante el registro','Hipsarritmia','Punta-onda a 3 Hz','EEG normal'],e:'EEG anormal, concordante con compromiso temporal.'},
-{c:'enc',t:0,s:'5',q:'PCR en LCR del niño con encefalitis:',o:['HSV-1 positivo, HSV-2 negativo','HSV-2 positivo','Enterovirus positivo','Ambos negativos'],e:'Detección de ADN de HSV-1 en LCR → encefalitis herpética por HSV-1.'},
-{c:'enc',t:0,s:'6',q:'¿Por qué se descartó convulsión febril con estado postictal?',o:['Alteración mental persistente, cefalea y vómitos previos a la convulsión, y pleocitosis en LCR','Por la edad','Porque no hubo fiebre','Porque la crisis fue focal'],e:'A favor: edad compatible, fiebre + convulsión generalizada breve. En contra: lo anterior.'},
-{c:'enc',t:0,s:'6',q:'¿Por qué se descartó meningoencefalitis bacteriana?',o:['Sin rigidez de nuca evidente y hallazgos del LCR no compatibles','No había fiebre','La TAC fue normal','La PCR sérica era 18'],e:'A favor: fiebre, convulsión, alteración mental, pleocitosis. En contra: sin rigidez de nuca, LCR no bacteriano.'},
-{c:'enc',t:0,s:'8',q:'Aciclovir en el caso de encefalitis (paciente de 18 kg):',o:['10–15 mg/kg/dosis IV c/8 h → 180–270 mg c/8 h; ajustar si hay disfunción renal','30 mg/kg/dosis c/12 h → 540 mg','5 mg/kg/dosis c/24 h → 90 mg','10 mg/kg/día c/6 h'],e:'Aciclovir IV 10–15 mg/kg/dosis cada 8 h.'},
-{c:'enc',t:1,s:'8',q:'Vancomicina en el caso de encefalitis:',o:['15 mg/kg/dosis IV c/6 h → 270 mg; máx 4 g/día','60 mg/kg/dosis c/8 h','15 mg/kg/día c/12 h','40 mg/kg/dosis c/6 h → 720 mg'],e:'Vancomicina 15 mg/kg/dosis c/6 h = 270 mg c/6 h para 18 kg.'},
-{c:'enc',t:1,s:'8',q:'Ceftriaxona en el caso de encefalitis:',o:['50 mg/kg/dosis IV c/12 h → 900 mg; máx 4 g/día','100 mg/kg/dosis c/24 h → 1800 mg','50 mg/kg/día c/24 h','80 mg/kg/dosis c/8 h'],e:'Ceftriaxona 50 mg/kg/dosis c/12 h = 900 mg c/12 h.'},
-{c:'enc',t:1,s:'8',q:'Alternativa a ceftriaxona en el caso de encefalitis:',o:['Cefotaxima 100 mg/kg/dosis IV c/8 h → 1800 mg; máx 2 g/dosis','Ampicilina 50 mg/kg','Meropenem 20 mg/kg','Cefazolina'],e:'Cefotaxima: máximo 2 g por DOSIS (ceftriaxona y vancomicina: máximo 4 g por DÍA).'},
-{c:'enc',t:0,s:'8',q:'Manejo de convulsiones en el caso de encefalitis:',o:['Lorazepam 0,1 mg/kg IV (1,8 mg); no se recomienda profilaxis anticonvulsivante rutinaria','Fenobarbital profiláctico','Midazolam en infusión continua siempre','Valproato oral'],e:'Tratar solo si hay convulsiones clínicas o electroencefalográficas.'},
-{c:'enc',t:1,s:'8 y 9',q:'Duración del aciclovir y cuánto completó el paciente:',o:['14–21 días; completó 21 días','7 días; completó 7','10 días','28 días'],e:'Duración 14–21 días. Egresó tras completar 21 días de aciclovir IV.'},
-{c:'enc',t:1,s:'8',q:'Medida de soporte relacionada con el aciclovir:',o:['Monitorizar función renal y diuresis, con hidratación adecuada','Restricción hídrica','Diuréticos','Suspender si la fiebre persiste'],e:'El aciclovir puede causar nefropatía por cristales. Soporte: hidratación, control de temperatura y analgesia, función renal y diuresis, electrolitos.'},
-{c:'enc',t:0,s:'8 y 10',q:'Mensaje clave del tratamiento de la encefalitis:',o:['Iniciar aciclovir ante la sospecha, sin esperar la PCR; asociar vancomicina + ceftriaxona mientras no se descarte bacteria','Esperar la PCR antes de tratar','Solo antibióticos','Corticoides primero'],e:'“El retraso terapéutico empeora el pronóstico”.'},
-{c:'enc',t:0,s:'7',q:'Interconsultas principales en el caso de encefalitis:',o:['Neurología e Infectología pediátrica; UCI solo si hay deterioro clínico','UCI de entrada','Psiquiatría','Neurocirugía'],e:'Infectología: confirma enfoque etiológico, supervisa el antiviral y define la duración del aciclovir.'},
-{c:'enc',t:1,s:'7',q:'Criterio de UCI pediátrica en el caso de encefalitis. Marque el que NO es:',o:['Fiebre mayor de 39 °C','Deterioro progresivo del nivel de conciencia','Crisis convulsivas recurrentes o estatus epiléptico','Signos de hipertensión intracraneal'],e:'UCI solo si: deterioro de conciencia, crisis recurrentes/estatus, signos de HTE, compromiso respiratorio o hemodinámico.'},
-{c:'enc',t:0,s:'9',q:'Evolución en las primeras 48–72 horas del niño con encefalitis:',o:['Sin nuevas convulsiones, fiebre en descenso, mejora parcial del nivel de conciencia; función renal y electrolitos normales','Estatus epiléptico','Ingreso a UCI','Insuficiencia renal aguda'],e:'Durante la hospitalización: se suspenden vancomicina y ceftriaxona tras confirmar HSV-1 y descartar bacteria.'},
-{c:'enc',t:0,s:'10',q:'¿Cuándo sospechar encefalitis según el caso?',o:['Fiebre + alteración persistente del estado mental','Fiebre + exantema','Cefalea aislada','Convulsión sin fiebre'],e:'Puede asociarse a convulsiones, cefalea y vómitos, cambios conductuales, déficit focal.'},
-{c:'enc',t:1,s:'10',q:'Etiología NO infecciosa resaltada en la discusión de encefalitis:',o:['Encefalitis autoinmune anti-NMDAR','Encefalopatía hepática','Síndrome de Reye','Esclerosis múltiple'],e:'Virales principales: enterovirus y parechovirus, HSV-1/2, varicela-zóster, influenza, arbovirus.'},
-{c:'enc',t:0,s:'10',q:'Neuroimagen de elección en encefalitis:',o:['RM cerebral','TAC con contraste','Ecografía transfontanelar','Radiografía de cráneo'],e:'RM: en HSV suele comprometer regiones temporales/insulares.'},
-{c:'enc',t:1,s:'10',q:'Advertencia del recuadro en la diapo de discusión de encefalitis:',o:['Un LCR o una neuroimagen inicialmente normales no excluyen encefalitis','Un LCR normal descarta encefalitis','Una TAC normal descarta HSV','Una PCR negativa descarta HSV siempre'],e:'Recuadro de advertencia en “¿Cómo se estudia?”.'},
-{c:'enc',t:0,s:'10 y 11',q:'ADEM (encefalomielitis aguda diseminada):',o:['Encefalopatía con déficits multifocales; lesiones desmielinizantes multifocales en RM; proceso autoinmune usualmente posinfeccioso','Infección directa por HSV','Anticuerpos contra el receptor NMDA','Lesión temporal unilateral'],e:'ADEM: lesiones desmielinizantes multifocales en RM.'},
-{c:'enc',t:1,s:'10',q:'Mecanismo de la encefalitis anti-NMDAR:',o:['Proceso autoinmune mediado por anticuerpos contra el receptor NMDA','Desmielinización posinfecciosa','Infección por arbovirus','Déficit de tiamina'],e:'Clínica: cambios conductuales o psiquiátricos, convulsiones, alteraciones del lenguaje, movimientos anormales.'},
-{c:'enc',t:1,s:'11',q:'En la diapo de imágenes, ¿cómo se muestra la RM de encefalitis por HSV y la de ADEM?',o:['HSV: corte coronal con hiperintensidad temporal · ADEM: cortes axiales FLAIR con lesiones multifocales en sustancia blanca','HSV: axial frontal · ADEM: coronal normal','HSV: sagital · ADEM: coronal','Ambas son TAC'],e:'HSV: coronal T2, hiperintensidad temporal (más marcada en un lado). ADEM: axiales con múltiples lesiones dispersas.'},
-{c:'enc',t:0,s:'9 y 12',q:'Seguimiento al alta del niño con encefalitis:',o:['Neurología pediátrica e Infectología; vigilar secuelas neurológicas, cognitivas o conductuales','Solo el pediatra','Neurocirugía','Ninguno'],e:'Egresa afebril, alerta, sin nuevas crisis, tolera VO.'},
+{c:'enc',t:0,src:'PPT + guía',v:'Preescolar de 5 años con fiebre, cefalea y vómitos de 3 días. Hoy presenta una convulsión generalizada y desde entonces está confuso, con lenguaje incoherente, por más de 24 horas.',q:'Señale lo MÁS CORRECTO:',o:['Sospecha de encefalitis: alteración del estado mental ≥ 24 h con fiebre, convulsiones, focalidad, pleocitosis en LCR o alteraciones en EEG/RM','Convulsión febril compleja, porque hay fiebre y convulsión','Meningitis: la alteración del estado mental es su criterio principal','Para diagnosticar encefalitis se requiere rigidez de nuca','Cuadro postictal habitual; alta con antipiréticos'],e:'Encefalitis = inflamación del parénquima (alteración mental, conducta, convulsiones, focalidad). Meningitis = meninges (cefalea, rigidez de nuca) con sensorio relativamente conservado.'},
+{c:'enc',t:0,src:'PPT + guía',q:'Respecto a la etiología de la encefalitis en pediatría, señale lo MÁS CORRECTO:',o:['Los enterovirus son la causa viral más frecuente; HSV-1 es la causa esporádica grave más importante porque tiene tratamiento','HSV-2 es la causa más frecuente después del periodo neonatal','El virus de la influenza es la causa más frecuente','La mayoría de las encefalitis son bacterianas','La encefalitis autoinmune no existe en niños'],e:'Etiologías del PPT: enterovirus y parechovirus, HSV-1/2, VZV, influenza, arbovirus; no infecciosa: anti-NMDAR.'},
+{c:'enc',t:1,src:'Guía',q:'Respecto a la encefalitis herpética según la edad, señale lo MÁS CORRECTO:',o:['En el neonato predomina HSV-2 (adquirido en el canal del parto); después del periodo neonatal predomina HSV-1, muchas veces sin lesiones en la piel','La ausencia de vesículas en piel descarta la encefalitis herpética','En el neonato predomina HSV-1','La encefalitis herpética solo ocurre en inmunosuprimidos','HSV-1 produce sobre todo lesiones occipitales'],e:'Por eso un examen sin vesículas no descarta HSV.'},
+{c:'enc',t:0,src:'PPT',v:'Escolar con fiebre y alteración del sensorio. LCR: claro, 82 células/mm³ a predominio linfocitario, proteínas 62 mg/dL, glucosa 64 mg/dL (glucosa sérica 96), Gram sin gérmenes.',q:'Señale lo MÁS CORRECTO:',o:['Patrón viral: pleocitosis linfocitaria, proteínas levemente elevadas y glucosa conservada (relación LCR/suero 0,67)','Patrón bacteriano, por la pleocitosis','Patrón tuberculoso, por las proteínas elevadas','LCR normal','Hemorragia subaracnoidea'],e:'Bacteriano: turbio, cientos a miles de células a predominio PMN, proteínas muy altas y glucosa baja (relación < 0,4). TBC: linfocitario, proteínas muy altas y glucosa muy baja.'},
+{c:'enc',t:0,src:'Guía',v:'Lactante de 10 meses con fiebre y fontanela abombada. LCR turbio: 1500 células/mm³ (85 % PMN), glucosa 20 mg/dL (glucosa sérica 100), proteínas 180 mg/dL. Gram: diplococos Gram positivos.',q:'Señale lo MÁS CORRECTO:',o:['Meningitis bacteriana probablemente neumocócica: vancomicina + ceftriaxona','Meningitis viral: tratamiento sintomático','Encefalitis herpética: solo aciclovir','Meningitis tuberculosa: iniciar antituberculosos','LCR traumático: repetir la punción'],e:'Relación glucosa LCR/suero 0,2 (< 0,4) + PMN + proteínas altas = bacteriana. Diplococos Gram + = neumococo; Gram − = meningococo.'},
+{c:'enc',t:1,src:'PPT + guía',q:'En la encefalitis por HSV, ¿qué hallazgo del LCR orienta a la etiología herpética?',o:['Eritrocitos elevados sin punción traumática, por la necrosis hemorrágica del lóbulo temporal','Glucosa muy baja','Más del 90 % de polimorfonucleares','Bandas oligoclonales','Células malignas'],e:'En el PPT: “eritrocitos elevados en LCR” como dato a favor de HSV-1 (12 cél/mm³; referencia 0–5).'},
+{c:'enc',t:0,src:'PPT',q:'Respecto a la localización de la encefalitis por HSV-1 en la RM, señale lo MÁS CORRECTO:',o:['Compromete el lóbulo temporal medial y la ínsula, a menudo de forma asimétrica, y también la región orbitofrontal','Compromete de forma típica el lóbulo occipital','Compromete de forma típica los ganglios basales','Compromete de forma típica el cerebelo','Produce lesiones desmielinizantes multifocales en la sustancia blanca'],e:'Las lesiones multifocales de sustancia blanca son de ADEM.'},
+{c:'enc',t:1,src:'Guía',q:'¿Cuál es el hallazgo característico del EEG en la encefalitis herpética?',o:['Descargas epileptiformes lateralizadas periódicas (PLEDs) en la región temporal','Hipsarritmia','Punta-onda generalizada a 3 Hz','Puntas centrotemporales','EEG normal en la mayoría de los casos'],e:'En el PPT: “actividad epileptiforme temporal izquierda”. Hipsarritmia = síndrome de West; punta-onda a 3 Hz = ausencias.'},
+{c:'enc',t:0,src:'PPT',q:'Respecto a la neuroimagen en la encefalitis, señale lo MÁS CORRECTO:',o:['La RM es el estudio de elección; la TAC puede ser normal en los primeros días y sirve sobre todo para descartar contraindicaciones de la punción lumbar','La TAC es el estudio de elección','Una RM normal descarta la encefalitis','La neuroimagen no está indicada','La ecografía transfontanelar es de elección en escolares'],e:'Mensaje del PPT: un LCR o una neuroimagen inicialmente normales NO excluyen encefalitis.'},
+{c:'enc',t:1,src:'PPT + guía',q:'Respecto a la PCR para HSV en LCR, señale lo MÁS CORRECTO:',o:['Es el método de elección (sensibilidad y especificidad > 95 %); puede ser falsamente negativa en las primeras 72 h, por lo que se repite si la sospecha persiste','El cultivo viral de LCR es el método de elección','Si la PCR es negativa se suspende el aciclovir de inmediato','La IgM sérica para HSV confirma el diagnóstico','La biopsia cerebral es obligatoria'],e:'Si la PCR inicial es negativa pero la clínica o la RM son sugestivas, se mantiene el aciclovir y se repite la PCR a los 3–7 días.'},
+{c:'enc',t:0,src:'PPT',q:'Respecto al inicio del aciclovir en la sospecha de encefalitis herpética, señale lo MÁS CORRECTO:',o:['Se inicia por vía EV de forma empírica ante la sospecha, sin esperar el resultado de la PCR ni de la RM','Se espera el resultado de la PCR para no exponer al niño a nefrotoxicidad','Se administra por vía oral','Solo se indica si hay vesículas en piel','Solo se indica si la RM muestra lesión temporal'],e:'“El retraso terapéutico empeora el pronóstico”.'},
+{c:'enc',t:0,src:'PPT',v:'Escolar de 20 kg con sospecha de encefalitis herpética.',q:'Señale el esquema de aciclovir MÁS CORRECTO:',o:['10–15 mg/kg/dosis EV cada 8 h (200–300 mg cada 8 h) por 14–21 días','10 mg/kg/día EV cada 24 h por 7 días','20 mg/kg/dosis EV cada 12 h por 7 días','5 mg/kg/dosis VO cada 8 h por 5 días','10 mg/kg/dosis EV cada 8 h por 5 días'],e:'En el neonato: 20 mg/kg/dosis cada 8 h por 21 días.'},
+{c:'enc',t:1,src:'PPT + guía',q:'Respecto a los efectos adversos del aciclovir EV, señale lo MÁS CORRECTO:',o:['Puede producir nefropatía por cristales: se debe asegurar buena hidratación, vigilar diuresis y creatinina, y ajustar la dosis en insuficiencia renal','Produce hiperpotasemia severa','Está contraindicado en menores de 5 años','Produce ototoxicidad como los aminoglucósidos','Requiere restricción hídrica'],e:'Medidas de soporte del PPT: hidratación adecuada y monitorización de función renal y diuresis.'},
+{c:'enc',t:0,src:'PPT',q:'Mientras no se descarte una etiología bacteriana en un niño con sospecha de encefalitis, el tratamiento empírico MÁS adecuado es:',o:['Aciclovir + vancomicina + ceftriaxona (o cefotaxima)','Solo aciclovir','Ampicilina + gentamicina','Meropenem en monoterapia','Corticoides en dosis altas'],e:'Dosis del PPT: vancomicina 15 mg/kg/dosis c/6 h (máx 4 g/día) · ceftriaxona 50 mg/kg/dosis c/12 h (máx 4 g/día) · cefotaxima 100 mg/kg/dosis c/8 h (máx 2 g/DOSIS). Ampicilina + gentamicina es el esquema del neonato.'},
+{c:'enc',t:0,src:'PPT',q:'Respecto al manejo de las convulsiones en la encefalitis, señale lo MÁS CORRECTO:',o:['Se tratan las crisis clínicas o electroencefalográficas (p. ej., lorazepam 0,1 mg/kg EV); no se recomienda profilaxis anticonvulsivante rutinaria','Todo niño con encefalitis recibe fenobarbital profiláctico','Se usa midazolam en infusión continua en todos los casos','Las convulsiones no requieren tratamiento','Se usa valproato oral desde el ingreso'],e:'Neurología pediátrica evalúa el riesgo de nuevas crisis y la necesidad de anticonvulsivante.'},
+{c:'enc',t:1,src:'PPT',q:'En un niño con encefalitis, ¿cuál NO es criterio de ingreso a UCI pediátrica?',o:['Fiebre mayor de 39 °C','Deterioro progresivo del nivel de conciencia','Crisis convulsivas recurrentes o estatus epiléptico','Signos de hipertensión intracraneal','Compromiso respiratorio o hemodinámico'],e:'UCI solo si evoluciona con criterios de gravedad.'},
+{c:'enc',t:1,src:'PPT + guía',v:'Adolescente de 14 años con cambios de conducta, agitación, alucinaciones, discinesias orofaciales, convulsiones e inestabilidad autonómica. LCR con pleocitosis linfocitaria leve. PCR para HSV negativa.',q:'Señale lo MÁS CORRECTO:',o:['Encefalitis anti-NMDAR: buscar teratoma de ovario; puede aparecer semanas después de una encefalitis por HSV','ADEM: lesiones desmielinizantes multifocales','Recaída de HSV por resistencia al aciclovir','Debe tratarse con aciclovir por 21 días','Esquizofrenia de inicio precoz: iniciar antipsicóticos'],e:'Anti-NMDAR: anticuerpos contra el receptor NMDA. Primera línea: corticoides, IGIV o plasmaféresis.'},
+{c:'enc',t:1,src:'PPT + guía',v:'Escolar que 2 semanas después de una infección respiratoria presenta encefalopatía con déficits neurológicos multifocales. La RM muestra múltiples lesiones hiperintensas en T2/FLAIR en la sustancia blanca de ambos hemisferios.',q:'Señale lo MÁS CORRECTO:',o:['ADEM: proceso autoinmune desmielinizante posinfeccioso; se trata con metilprednisolona en dosis altas','Encefalitis por HSV-1: aciclovir','Encefalitis anti-NMDAR: buscar teratoma','Esclerosis múltiple: inicia interferón','Absceso cerebral: drenaje'],e:'La RM de la diapo del PPT: HSV en corte coronal con hiperintensidad temporal; ADEM en cortes axiales con lesiones multifocales en sustancia blanca.'},
+{c:'enc',t:0,src:'PPT',v:'Niño de 4 años con 2 días de fiebre, cefalea y vómitos, que luego presenta una convulsión generalizada de 2 minutos. Seis horas después sigue somnoliento, irritable y con lenguaje incoherente.',q:'¿Por qué NO debe catalogarse como convulsión febril?',o:['La alteración del estado mental persiste, y la cefalea y los vómitos precedieron a la convulsión','Porque la edad no es compatible','Porque la crisis duró menos de 15 minutos','Porque la crisis fue generalizada','Porque la fiebre fue menor de 39 °C'],e:'Ante fiebre + convulsión + alteración persistente del estado mental, sospechar encefalitis e iniciar tratamiento empírico mientras se estudia.'},
+{c:'enc',t:1,src:'PPT + guía',q:'Respecto al pronóstico de la encefalitis herpética, señale lo MÁS CORRECTO:',o:['Sin tratamiento la mortalidad supera el 70 %; con aciclovir oportuno disminuye, pero son frecuentes las secuelas de memoria, conducta y epilepsia','Con aciclovir no deja secuelas','Sin tratamiento la mortalidad es menor del 5 %','No requiere seguimiento tras el alta','Las secuelas son exclusivamente motoras'],e:'El PPT recomienda seguimiento por Neurología e Infectología para detectar secuelas cognitivas y conductuales.'},
 
 /* ================= ANOREXIA ================= */
-{c:'an',t:0,s:'2',q:'Motivo de consulta del caso de anorexia:',o:['Síncope (desmayo) durante el recreo escolar','Convulsión en clase','Dolor abdominal','Vómitos'],e:'Adolescente femenina de 13 años traída por sus padres a urgencias tras un síncope en el recreo.'},
-{c:'an',t:0,s:'2',q:'Pérdida de peso referida en el caso de anorexia:',o:['≈ 12 kg en 6 meses','≈ 5 kg en 1 año','≈ 12 kg en 1 mes','≈ 20 kg en 3 meses'],e:'Pérdida de ≈ 12 kg en los últimos 6 meses.'},
-{c:'an',t:1,s:'2',q:'Justificación que da la paciente para su dieta:',o:['“Dieta limpia” para mejorar su rendimiento deportivo, aislando sus comidas del entorno familiar','Dieta vegana por convicción','Dolor al comer','Falta de apetito'],e:'Actualmente refiere “sentirse perfectamente bien” (negación de la enfermedad).'},
-{c:'an',t:1,s:'2',q:'Signo de distorsión de la imagen corporal en el caso:',o:['Se pellizca el abdomen indicando “exceso de grasa”','Se mira constantemente al espejo','Usa ropa holgada','Se pesa 10 veces al día'],e:'Niega estar delgada; se pellizca el abdomen. Además se queja constantemente de frío.'},
-{c:'an',t:1,s:'2',q:'Ingesta de agua de la paciente con anorexia:',o:['Hasta 3 litros diarios para “calmar el hambre”','1 litro diario','5 litros por poliuria','No toma agua'],e:'Ingesta de hasta 3 L de agua al día para calmar el hambre.'},
-{c:'an',t:1,s:'2',q:'Gatillo referido en el caso de anorexia:',o:['Comentario de su entrenadora de gimnasia hace 6 meses sobre su peso corporal','Bullying escolar','Divorcio de los padres','Redes sociales'],e:'Gatillo: comentario de la entrenadora hace 6 meses.'},
-{c:'an',t:1,s:'3',q:'Deporte de la paciente con anorexia:',o:['Gimnasia rítmica (atleta competitiva)','Ballet','Natación','Atletismo de fondo'],e:'La portada muestra una gimnasta con aro y cinta. Deportes estéticos = factor de riesgo.'},
-{c:'an',t:1,s:'3',q:'Datos generales de la paciente con anorexia:',o:['Vive con ambos padres; 2.º de secundaria, excelente rendimiento, perfeccionista','Vive con la abuela; repitió de año','Hija única de madre soltera','Abandonó el colegio'],e:'Vive con ambos padres, servicios completos, 2.º de secundaria, excelente rendimiento, perfeccionista.'},
-{c:'an',t:1,s:'3',q:'Dieta referida por la paciente con anorexia:',o:['< 600 kcal/día: manzanas y apio','< 1000 kcal/día: ensaladas','Ayuno total','Solo líquidos'],e:'Dieta restrictiva severa (< 600 kcal/día: manzanas y apio).'},
-{c:'an',t:1,s:'3',q:'Patrón de ejercicio de la paciente con anorexia:',o:['Extenuante, a escondidas, en la madrugada','Moderado, 1 h al día','No hace ejercicio','Solo en el colegio'],e:'Ejercicio extenuante a escondidas (madrugada) = hiperactividad.'},
-{c:'an',t:1,s:'3',q:'Antecedente familiar en el caso de anorexia:',o:['Madre con trastorno de ansiedad generalizada','Madre con anorexia','Padre con depresión','Hermana con bulimia'],e:'Madre con TAG.'},
-{c:'an',t:1,s:'2 y 3',q:'Antecedentes ginecológicos de la paciente con anorexia:',o:['Menarquia a los 12 años; amenorrea secundaria de 6 meses','Menarquia a los 10; ciclos regulares','Amenorrea primaria','Menarquia a los 13'],e:'Menarquia a los 12 años, actualmente amenorrea (6 meses). Sin hospitalizaciones ni cirugías.'},
-{c:'an',t:1,s:'3',q:'Peso al nacer de la paciente con anorexia:',o:['3100 g, parto eutócico a término, sin complicaciones','2450 g','3500 g por cesárea','2900 g pretérmino'],e:'3100 g. (2450 g es el niño desnutrido).'},
-{c:'an',t:0,s:'4',q:'Funciones vitales de la paciente con anorexia:',o:['FC 42 lpm, PA 85/50 mmHg, FR 14 rpm, T 35,6 °C, SatO2 99 %','FC 118, PA 98/60','FC 82, PA 110/70','FC 160, PA 85/55'],e:'Bradicardia severa, hipotensión, hipotermia.'},
-{c:'an',t:0,s:'4',q:'Somatometría de la paciente con anorexia:',o:['Peso 36 kg, talla 1,58 m, IMC 14,4 kg/m² (< P1)','Peso 41 kg, IMC 16,4','Peso 36 kg, talla 1,48 m','Peso 30 kg, IMC 12'],e:'IMC 14,4 (< P1). A los 3 meses: 41 kg.'},
-{c:'an',t:0,s:'4',q:'Hallazgos en piel de la paciente con anorexia:',o:['Lanugo abundante, acrocianosis, caída de cabello; sin signo de Russell','Signo de Russell positivo','Hipertrofia parotídea','Petequias faciales'],e:'Además: facies de emaciación, abdomen excavado, atrofia muscular severa, pérdida masiva de TCSC.'},
-{c:'an',t:1,s:'4 y 12',q:'Signo de Russell:',o:['Callosidades en los nudillos por inducirse el vómito; su ausencia es congruente con subtipo restrictivo','Hipertrofia parotídea','Erosión del esmalte dental','Lanugo'],e:'Se ve en subtipo atracones/purgas y en bulimia.'},
-{c:'an',t:1,s:'5',q:'Hemograma de la paciente con anorexia:',o:['Leucopenia leve (3200/mm³)','Leucocitosis','Anemia severa','Trombocitosis'],e:'Leucopenia leve 3200/mm³ (hipoplasia medular por desnutrición).'},
-{c:'an',t:1,s:'5',q:'Glucosa de la paciente con anorexia:',o:['55 mg/dL','60 mg/dL','96 mg/dL','104 mg/dL'],e:'55 = anorexia · 60 = desnutrición · 96 = encefalitis · 104 = obesidad.'},
-{c:'an',t:1,s:'5',q:'Electrolitos de la paciente con anorexia al ingreso:',o:['Fósforo 3,2 mg/dL, K 3,6 mEq/L, Na 138 mEq/L','Fósforo 1,0, K 2,5','Na 125','K 3,2 mmol/L'],e:'Fósforo 3,2 al ingreso; cae en la semana 1 al realimentar.'},
-{c:'an',t:0,s:'5',q:'Perfil tiroideo de la paciente con anorexia:',o:['T3 total disminuida con TSH y T4L normales: síndrome del enfermo eutiroideo','Hipotiroidismo primario','Hipertiroidismo','Normal'],e:'No se trata con levotiroxina; es adaptativo.'},
-{c:'an',t:0,s:'5',q:'ECG de la paciente con anorexia:',o:['Bradicardia sinusal intensa, QTc prolongado de 470 ms → alto riesgo de arritmias ventriculares','Bloqueo AV completo','QTc 400 ms normal','Fibrilación auricular'],e:'El síncope obliga a descartar QTc prolongado.'},
-{c:'an',t:1,s:'5',q:'DEXA de la paciente con anorexia:',o:['Z-score −2,2 en columna lumbar → osteopenia severa / baja masa ósea','T-score −2,5 en cadera','Z-score −1,0','Normal'],e:'En niños y adolescentes se usa Z-score, no T-score.'},
-{c:'an',t:0,s:'6',q:'Diagnóstico principal del caso de anorexia:',o:['Anorexia nerviosa, subtipo restrictivo, grave','Anorexia nerviosa purgativa','Bulimia nerviosa','ARFID'],e:'A favor: pérdida de peso extrema, bradicardia, amenorrea, distorsión, hiperactividad.'},
-{c:'an',t:0,s:'6',q:'¿Por qué no es ARFID?',o:['Hay distorsión de la imagen corporal y miedo a engordar','Porque hay pérdida de peso','Porque hay restricción','Porque es adolescente'],e:'ARFID: no hay miedo a engordar ni distorsión de la imagen.'},
-{c:'an',t:0,s:'6',q:'¿Por qué no es bulimia?',o:['IMC extremadamente bajo; no hay atracones ni vómitos evidentes','No hay preocupación por el peso','Es mujer','Por la bradicardia'],e:'Bulimia: peso generalmente normal o sobrepeso.'},
-{c:'an',t:1,s:'12',q:'Frecuencia mínima en bulimia según la tabla DSM-5-TR del caso:',o:['Al menos 1 vez por semana durante 3 meses','2 veces por semana durante 6 meses','Diario por 1 mes','1 vez al mes'],e:'Y no ocurre exclusivamente durante episodios de anorexia.'},
-{c:'an',t:1,s:'12',q:'La “cara de ardilla” en bulimia corresponde a:',o:['Hipertrofia parotídea bilateral','Edema palpebral','Acné','Lipodistrofia'],e:'Estigmas de purga: cara de ardilla, signo de Russell, desgaste del esmalte posterior.'},
-{c:'an',t:1,s:'12',q:'Perimólisis es:',o:['Erosión del esmalte dental por vómitos (subtipo purgativo/bulimia)','Callosidades en nudillos','Caída del cabello','Lanugo'],e:'Subtipo atracones/purgas: Russell, parótidas, perimólisis, queilosis, petequias faciales.'},
-{c:'an',t:1,s:'12',q:'En la AN restrictiva, la piel seca y amarillenta se debe a:',o:['Hipercarotinemia','Ictericia por hepatitis','Hipotiroidismo','Uremia'],e:'Clínica restrictiva: emaciación, lanugo, acrocianosis, atrofia bitemporal y glútea, hipercarotinemia, bradicardia, hipotermia, caída de cabello.'},
-{c:'an',t:1,s:'12',q:'ARFID: motivos de la evitación según la tabla del caso:',o:['Falta de interés, evitación sensorial (texturas/olores) o miedo a consecuencias aversivas (atragantamiento, vómito)','Miedo a engordar','Distorsión de la imagen corporal','Atracones'],e:'ARFID puede dar glositis, escorbuto, sangrado gingival; sin hipertrofia parotídea ni callosidades.'},
-{c:'an',t:0,s:'8',q:'Interconsulta OBLIGATORIA en el caso de anorexia:',o:['Cardiología pediátrica: inestabilidad hemodinámica, FC 42 y QTc 470 asociado al síncope','Dermatología','Gastroenterología','Neurología'],e:'Equipo: Cardiología, Nutrición clínica, Psiquiatría/Psicología, Endocrinología.'},
-{c:'an',t:1,s:'8',q:'Motivo de interconsulta a Endocrinología en el caso de anorexia:',o:['Amenorrea secundaria y Z-score de −2,2','Hipoglucemia','T3 baja','Leucopenia'],e:'Endocrinología por amenorrea secundaria y Z-score −2,2.'},
-{c:'an',t:1,s:'8',q:'Motivo de interconsulta a Nutrición clínica en el caso de anorexia:',o:['Calcular el déficit y diseñar realimentación enteral lenta para evitar síndrome de realimentación','Indicar dieta hipercalórica rápida','Indicar nutrición parenteral total','Prescribir suplementos de hierro'],e:'Realimentación enteral LENTA.'},
-{c:'an',t:0,s:'9',q:'Criterios vitales de hospitalización que cumplía la paciente con anorexia:',o:['FC < 50 lpm, QTc > 450 ms, hipotensión e hipotermia','IMC < 18','Pérdida de 5 kg','Amenorrea'],e:'La paciente DEBE ser hospitalizada.'},
-{c:'an',t:1,s:'9',q:'Realimentación inicial en el caso de anorexia:',o:['Controlada, 1200 kcal/día, monitorizando P/Mg/K a diario','3000 kcal/día desde el día 1','600 kcal/día','Nutrición parenteral total'],e:'Más reposo absoluto y psicoterapia familiar (FBT).'},
-{c:'an',t:0,s:'9',q:'Suplementos indicados en el caso de anorexia:',o:['Tiamina, fósforo, calcio y vitamina D','Hierro y zinc','Fluoxetina','Estrógenos'],e:'Tiamina antes/al realimentar (prevención de Wernicke y del síndrome de realimentación).'},
-{c:'an',t:0,s:'9 y 13',q:'ISRS (fluoxetina) en la fase aguda de la anorexia:',o:['No indicados: no funcionan sin sustrato y empeoran el QTc','Primera línea','Indicados desde el ingreso','Solo combinados con olanzapina'],e:'Retrasar antidepresivos hasta recuperar un peso seguro.'},
-{c:'an',t:1,s:'9',q:'Lema de la terapia basada en la familia (FBT):',o:['“La comida es la medicina”','“Menos es más”','“Comer para vivir”','“Peso sano, mente sana”'],e:'FBT: los padres controlan el emplatado en casa.'},
-{c:'an',t:1,s:'10',q:'Complicación en la semana 1 de hospitalización:',o:['Caída transitoria del fósforo, manejada IV; la FC mejora a 55 lpm','Arritmia ventricular','Hipoglucemia severa','Edema de realimentación'],e:'Hipofosfatemia = marcador del síndrome de realimentación.'},
-{c:'an',t:1,s:'10',q:'¿En qué semana se normalizó el QTc?',o:['Semana 3','Semana 1','Semana 6','Mes 3'],e:'Monitoreo ECG hasta normalizar el QTc (semana 3).'},
-{c:'an',t:0,s:'10',q:'Ganancia de peso objetivo en la fase ambulatoria:',o:['0,5–1 kg por semana','2 kg por semana','0,1 kg por semana','3 kg por mes'],e:'Semanas 2–4: alta a Hospital de Día.'},
-{c:'an',t:1,s:'10',q:'Situación a los 3 meses (mantenimiento):',o:['Peso 41 kg; se resuelven hipotermia y acrocianosis; la amenorrea persiste','Peso 48 kg y menstrúa','Peso 36 kg','Alta definitiva'],e:'Padres controlan el emplatado en casa (FBT en pleno desarrollo).'},
-{c:'an',t:0,s:'13',q:'Cribado recomendado ante estancamiento de peso o bradicardia incidental:',o:['SCOFF','CRAFFT','PHQ-9','M-CHAT'],e:'SCOFF: cribado de trastornos de la conducta alimentaria.'},
-{c:'an',t:0,s:'11',q:'Factores de riesgo de anorexia citados en el resumen:',o:['Sexo femenino, perfeccionismo, deportes estéticos, historia familiar','Sexo masculino y obesidad','Bajo rendimiento escolar','Diabetes tipo 1'],e:'Evaluación: clínica + ECG (QTc) + electrolitos + fósforo + DEXA.'},
-{c:'an',t:1,s:'Fuera del PPT',q:'Ojo de examen: en el DSM-5 la amenorrea…',o:['Ya NO es criterio diagnóstico (se eliminó tras el DSM-IV), aunque la diapo la pone como dato clave','Es criterio obligatorio','Define el subtipo','Define la gravedad'],e:'La diapo la lista como dato diagnóstico clave, pero el DSM-5/5-TR la retiró de los criterios.'},
-
-/* ================= CRUZADAS ================= */
-{c:'mix',t:1,s:'Varias',q:'¿En qué dos casos la lactancia materna exclusiva duró solo 3 meses?',o:['Desnutrición y obesidad','Anorexia y encefalitis','Convulsión febril y obesidad','Desnutrición y anorexia'],e:'Desnutrición: LME solo 3 meses. Obesidad: LME por 3 meses.'},
-{c:'mix',t:1,s:'Varias',q:'Benzodiacepina usada en cada caso neurológico:',o:['Convulsión febril: midazolam IV 0,1–0,2 mg/kg · Encefalitis: lorazepam 0,1 mg/kg IV','Convulsión febril: lorazepam · Encefalitis: midazolam','Ambos diazepam rectal','Ambos fenobarbital'],e:'Pregunta típica para confundir los dos casos.'},
-{c:'mix',t:1,s:'Varias',q:'Duración de la convulsión: Lucía vs niño con encefalitis',o:['3 min vs 2 min','2 min vs 3 min','15 min vs 5 min','5 min vs 30 min'],e:'Lucía ≈ 3 min. Encefalitis ≈ 2 min.'},
-{c:'mix',t:1,s:'Varias',q:'Glasgow: Lucía vs niño con encefalitis',o:['15/15 vs 13/15','13/15 vs 15/15','15/15 vs 15/15','14/15 vs 10/15'],e:'La alteración PERSISTENTE del estado mental es lo que diferencia la encefalitis.'},
-{c:'mix',t:0,s:'Varias',q:'¿Qué dos pacientes tienen 13 años?',o:['Obesidad (varón) y anorexia (mujer)','Desnutrición y convulsión febril','Encefalitis y obesidad','Anorexia y encefalitis'],e:'Desnutrición: varón 2 años · CF: niña 2 años · Encefalitis: varón 4 a 10 m · Obesidad: varón 13 · Anorexia: mujer 13.'},
-{c:'mix',t:1,s:'Varias',q:'¿En qué casos se pide interconsulta a Endocrinología?',o:['Obesidad y anorexia','Desnutrición y convulsión febril','Encefalitis y obesidad','Solo obesidad'],e:'Obesidad: alteraciones metabólicas/DM2. Anorexia: amenorrea y Z-score −2,2.'},
-{c:'mix',t:1,s:'Varias',q:'¿En qué casos aparece el riesgo de síndrome de realimentación?',o:['Anorexia (cae el fósforo en la semana 1) y desnutrición (por eso F-75 a dosis bajas en estabilización)','Obesidad y encefalitis','Solo convulsión febril','Ninguno'],e:'En ambos se realimenta de forma progresiva y controlada.'},
-{c:'mix',t:1,s:'Varias',q:'¿Qué paciente tenía hipotermia?',o:['Anorexia: 35,6 °C','Desnutrición: 36,0 °C','Encefalitis: 38,8 °C','Obesidad: no se consignó'],e:'El niño desnutrido tenía 36,0 °C (normal-bajo); la paciente con anorexia 35,6 °C.'},
-{c:'mix',t:1,s:'Varias',q:'Cálculo de dosis por peso: ¿cuál caso lo hace explícito con el peso del paciente?',o:['Encefalitis (18 kg): aciclovir 180–270 mg, vancomicina 270 mg, ceftriaxona 900 mg, lorazepam 1,8 mg','Convulsión febril (12 kg)','Desnutrición (7,5 kg): amoxicilina 300 mg','Anorexia (36 kg)'],e:'El caso de encefalitis calcula cada dosis para 18 kg.'},
-{c:'mix',t:1,s:'Varias',q:'Primera gestación con peso al nacer de 2450 g vs 3100 g:',o:['2450 g: desnutrición · 3100 g: anorexia','2450 g: anorexia · 3100 g: obesidad','2450 g: convulsión febril · 3100 g: encefalitis','Ambos del caso de obesidad'],e:'El caso de obesidad solo dice “nacido a término, parto vaginal”.'}
+{c:'an',t:0,src:'Banco + guía',v:'Adolescente de 15 años con IMC de 15,2 kg/m², miedo intenso a engordar y se ve “gorda”. En los últimos 3 meses se induce el vómito y usa laxantes regularmente.',q:'¿Cuál es el diagnóstico MÁS probable?',o:['Anorexia nerviosa, subtipo con atracones/purgas','Anorexia nerviosa, subtipo restrictivo','Bulimia nerviosa','Trastorno por evitación/restricción de la ingesta (ARFID)','Trastorno por atracón'],e:'Bajo peso + miedo a engordar + distorsión = anorexia. Las purgas en los últimos 3 meses definen el subtipo atracones/purgas. La bulimia ocurre con peso normal o sobrepeso.'},
+{c:'an',t:0,src:'PPT + guía',q:'Respecto a los criterios DSM-5-TR de anorexia nerviosa, señale lo MÁS CORRECTO:',o:['Restricción con peso significativamente bajo, miedo intenso a engordar (o conductas que impiden ganar peso) y alteración de la percepción del peso o la figura; la amenorrea ya no es criterio','La amenorrea de 3 ciclos es criterio obligatorio','Se exige un IMC menor de 17,5 kg/m²','El subtipo se define por lo ocurrido en los últimos 12 meses','Se exigen atracones recurrentes'],e:'La amenorrea se retiró en el DSM-5, aunque el PPT la lista como dato clave. El subtipo se define por los últimos 3 meses.'},
+{c:'an',t:1,src:'Guía',q:'Según el DSM-5, la gravedad de la anorexia nerviosa en el adulto se clasifica por el IMC así:',o:['Leve ≥ 17 · moderada 16–16,99 · grave 15–15,99 · extrema < 15','Leve ≥ 18,5 · moderada 17–18,4 · grave < 17','Leve ≥ 16 · grave < 14','Solo se clasifica por la frecuencia de purgas','Leve ≥ 15 · moderada 14–14,99 · grave < 14'],e:'En niños y adolescentes se usa el percentil de IMC para la edad, no estos cortes directamente.'},
+{c:'an',t:0,src:'PPT',v:'Adolescente de 16 años con IMC de 22 kg/m², que 2 veces por semana desde hace 4 meses come grandes cantidades con sensación de pérdida de control y luego se induce el vómito. Tiene hipertrofia parotídea bilateral y callosidades en el dorso de los nudillos.',q:'¿Cuál es el diagnóstico MÁS probable?',o:['Bulimia nerviosa','Anorexia nerviosa restrictiva','Anorexia nerviosa con atracones/purgas','ARFID','Trastorno por atracón'],e:'Bulimia: atracones + conductas compensatorias al menos 1 vez por semana durante 3 meses, con peso normal o sobrepeso. El trastorno por atracón no tiene conductas compensatorias.'},
+{c:'an',t:0,src:'PPT',v:'Escolar de 10 años con bajo peso que come muy pocos alimentos por su textura y olor, y desde que se atoró con una uva evita los sólidos. No le preocupa su peso ni su figura.',q:'¿Cuál es el diagnóstico MÁS probable?',o:['Trastorno por evitación/restricción de la ingesta de alimentos (ARFID)','Anorexia nerviosa restrictiva','Bulimia nerviosa','Trastorno por atracón','Anorexia nerviosa atípica'],e:'ARFID: restricción por falta de interés, evitación sensorial o miedo a consecuencias aversivas (atragantamiento, vómito), SIN miedo a engordar ni distorsión.'},
+{c:'an',t:1,src:'PPT',q:'¿Cuál de los siguientes es un estigma de purga (vómito autoinducido)?',o:['Signo de Russell: callosidades en el dorso de los nudillos','Lanugo','Acrocianosis','Hipercarotinemia','Atrofia muscular bitemporal'],e:'Otros estigmas: hipertrofia parotídea (“cara de ardilla”), perimólisis (erosión del esmalte), queilosis, petequias faciales. Lanugo, acrocianosis e hipercarotinemia son de la restricción.'},
+{c:'an',t:1,src:'PPT',v:'Adolescente con anorexia nerviosa restrictiva grave.',q:'¿Qué hallazgo físico es MÁS esperable?',o:['Lanugo abundante, acrocianosis y piel amarillenta por hipercarotinemia','Hipertrofia parotídea bilateral','Signo de Russell','Erosión del esmalte dental (perimólisis)','Hipertensión arterial'],e:'También bradicardia, hipotensión, hipotermia, caída del cabello y atrofia muscular. Sin estigmas de purga en el subtipo restrictivo.'},
+{c:'an',t:0,src:'PPT + guía',q:'Respecto a los hallazgos de laboratorio en la anorexia nerviosa, señale lo MÁS CORRECTO:',o:['Puede haber leucopenia, hipoglucemia, T3 baja con TSH normal (enfermo eutiroideo) y LH, FSH y estradiol bajos (hipogonadismo hipogonadotrópico)','Es típico el hipertiroidismo','Es típica la leucocitosis','Es típico el hipogonadismo hipergonadotrópico (LH/FSH altas)','El colesterol siempre está bajo'],e:'La amenorrea es hipotalámica (gonadotropinas bajas). Ojo: el colesterol puede estar ELEVADO en la anorexia.'},
+{c:'an',t:1,src:'Guía',v:'Adolescente con anorexia y vómitos autoinducidos frecuentes.',q:'¿Cuál es la alteración ácido-base MÁS esperable?',o:['Alcalosis metabólica hipoclorémica con hipopotasemia','Acidosis metabólica con anión gap aumentado','Acidosis respiratoria','Alcalosis respiratoria con hiperpotasemia','Sin alteraciones ácido-base'],e:'Por pérdida de ácido gástrico. El abuso de laxantes, en cambio, puede dar acidosis metabólica. La amilasa sérica (salival) puede estar elevada.'},
+{c:'an',t:1,src:'PPT + guía',v:'Adolescente con anorexia nerviosa, T3 total baja, TSH y T4 libre normales.',q:'Señale la conducta MÁS CORRECTA:',o:['No dar levotiroxina: es un síndrome del enfermo eutiroideo que se corrige con la recuperación nutricional','Iniciar levotiroxina por hipotiroidismo central','Iniciar metimazol','Derivar a cirugía de tiroides','Dar T3 sintética'],e:'La T3 baja es una adaptación al ayuno para ahorrar energía.'},
+{c:'an',t:0,src:'PPT',v:'Adolescente con anorexia nerviosa que presenta un síncope en el colegio. FC 42 lpm.',q:'¿Cuál es el estudio prioritario?',o:['Electrocardiograma para medir el QTc y descartar arritmias','Electroencefalograma','TAC cerebral','Densitometría ósea','Ecografía abdominal'],e:'Conclusión del PPT: el síncope obliga a descartar QTc prolongado (riesgo de arritmias ventriculares). La interconsulta a Cardiología es obligatoria.'},
+{c:'an',t:0,src:'PPT + guía',q:'¿Cuál es un criterio de hospitalización en un adolescente con anorexia nerviosa?',o:['FC < 50 lpm de día, PA < 90/45 mmHg, temperatura < 35,6 °C, QTc prolongado, alteraciones electrolíticas, síncope o rechazo agudo de alimentos','FC menor de 70 lpm','Solo un IMC menor de 13 kg/m²','Los adolescentes con anorexia nunca se hospitalizan','La amenorrea por sí sola'],e:'En el PPT: FC < 50, QTc > 450 ms, hipotensión e hipotermia.'},
+{c:'an',t:0,src:'PPT + guía',q:'Respecto al síndrome de realimentación, señale lo MÁS CORRECTO:',o:['La hipofosfatemia es su marcador; también hay hipopotasemia, hipomagnesemia y déficit de tiamina, con mayor riesgo en la primera y segunda semana','Su marcador es la hiperfosfatemia','Se caracteriza por hipernatremia','Ocurre después del primer mes de realimentación','Solo ocurre con nutrición parenteral'],e:'En el PPT, en la semana 1 cayó el fósforo y se corrigió por vía EV. Puede causar insuficiencia cardiaca, arritmias y muerte.'},
+{c:'an',t:0,src:'PPT',q:'Respecto al inicio de la realimentación en la anorexia grave hospitalizada, señale lo MÁS CORRECTO:',o:['Iniciar de forma controlada (en el caso, ≈ 1200 kcal/día) e ir aumentando, con fósforo, magnesio y potasio diarios y suplemento de tiamina','Iniciar con 3000 kcal/día para recuperar peso rápido','Mantener ayuno 48 h antes de empezar','Usar nutrición parenteral total como primera opción','Controlar los electrolitos una vez por semana'],e:'Suplementos del PPT: tiamina, fósforo, calcio y vitamina D. Reposo absoluto al inicio.'},
+{c:'an',t:0,src:'PPT',q:'Respecto al tratamiento psicológico de la anorexia nerviosa en adolescentes, señale lo MÁS CORRECTO:',o:['La terapia basada en la familia (FBT o Maudsley) es la de primera línea: los padres toman el control de la alimentación (“la comida es la medicina”)','Se debe excluir a la familia del tratamiento','La terapia individual sola es la primera línea en adolescentes','Primero se recupera el peso y recién después se inicia cualquier psicoterapia','La psicoterapia no es útil'],e:'En el PPT, a los 3 meses los padres controlan el emplatado en casa.'},
+{c:'an',t:0,src:'PPT',q:'Respecto a los antidepresivos ISRS (p. ej., fluoxetina) en la anorexia nerviosa con desnutrición grave, señale lo MÁS CORRECTO:',o:['No están indicados en la fase aguda: no funcionan sin sustrato nutricional y pueden prolongar el QTc','Son el tratamiento de primera línea','Deben iniciarse desde el ingreso para acelerar la ganancia de peso','Previenen el síndrome de realimentación','Están indicados para la bradicardia'],e:'Se retrasan hasta recuperar un peso seguro y se usan para comorbilidades (depresión, ansiedad, TOC).'},
+{c:'an',t:1,src:'PPT + guía',q:'Respecto a la salud ósea en la anorexia nerviosa, señale lo MÁS CORRECTO:',o:['En adolescentes se usa el Z-score (≤ −2: baja densidad mineral para la edad); lo más eficaz es recuperar peso y menstruación, y los anticonceptivos orales no se recomiendan para mejorarla','Se usa el T-score como en el adulto','Los anticonceptivos orales son el tratamiento de elección para la osteopenia','La masa ósea se recupera por completo siempre','Los bifosfonatos son de primera línea en adolescentes'],e:'En el PPT: DEXA Z −2,2 en columna lumbar y suplementos de calcio y vitamina D. Endocrinología por la amenorrea y el Z-score.'},
+{c:'an',t:1,src:'PPT + guía',q:'Respecto a la ganancia de peso esperada en la recuperación de la anorexia, señale lo MÁS CORRECTO:',o:['En manejo ambulatorio, 0,5–1 kg por semana; hospitalizado puede ser mayor (≈ 1–2 kg por semana)','3 kg por semana en manejo ambulatorio','0,1 kg por semana es el objetivo','No se fija un objetivo de peso','5 kg por mes en manejo ambulatorio'],e:'Al recuperar peso se resuelven primero la hipotermia y la acrocianosis; la menstruación suele tardar más.'},
+{c:'an',t:0,src:'PPT',q:'¿Cuáles son factores de riesgo de anorexia nerviosa?',o:['Sexo femenino, perfeccionismo, deportes estéticos (gimnasia, ballet), antecedente familiar y comentarios o burlas sobre el peso','Sexo masculino y obesidad familiar','Bajo rendimiento escolar','Diabetes tipo 1 como único factor','Vivir en zona rural'],e:'En el PPT, el gatillo fue un comentario de la entrenadora de gimnasia sobre el peso.'},
+{c:'an',t:1,src:'PPT + guía',q:'Respecto al cribado de los trastornos de la conducta alimentaria, señale lo MÁS CORRECTO:',o:['El cuestionario SCOFF tiene 5 preguntas; 2 o más respuestas positivas sugieren un TCA','El SCOFF se usa para cribar el abuso de sustancias','El CRAFFT se usa para cribar TCA','Una sola respuesta positiva confirma el diagnóstico','El M-CHAT es el cribado de elección para TCA'],e:'El PPT recomienda aplicar SCOFF ante estancamiento de peso o bradicardia incidental. CRAFFT = sustancias; M-CHAT = autismo.'},
+{c:'an',t:1,src:'Guía',q:'Respecto a la mortalidad de la anorexia nerviosa, señale lo MÁS CORRECTO:',o:['Tiene una de las tasas de mortalidad más altas entre los trastornos psiquiátricos; las causas principales son las arritmias y el suicidio','Su mortalidad es prácticamente nula en adolescentes','La principal causa de muerte es la hipertensión arterial','Solo fallecen los pacientes con el subtipo purgativo','La mortalidad se debe sobre todo a infecciones respiratorias'],e:'Por eso el PPT la define como una emergencia médica (riesgo cardiovascular y óseo).'}
 ];
 
 const REPASO = {
-des:{dx:'DAS tipo marasmo sobre desnutrición crónica severa · Diarrea crónica por Giardia lamblia · Anemia ferropénica leve · Hipopotasemia',rows:[
-['Paciente','Varón, 2 años (24 m), natural y procedente de <mark>Barranca</mark>'],
-['Enfermedad actual','1 mes de deposiciones líquidas, fétidas, con restos de alimentos, sin moco ni sangre, 3–4/día; hiporexia, dolor abdominal ocasional; niega vómitos y fiebre'],
-['Frase de la madre','“Tiene diarrea hace un mes y está cada vez más flaco” · “cada vez más flaco y decaído”'],
-['Perinatal','1.ª gestación, eutócico, a término, <mark>2450 g</mark> (BPN)'],
-['Alimentación','LME solo <mark>3 meses</mark>; lactancia hasta el año; complementaria a los 6 m con <mark>sopas</mark> de verduras, arroz e hígado; huevo y pollo desde los <mark>9 m, 3 veces/semana</mark>; desde el año dieta familiar escasa, rechaza fórmulas'],
-['Desarrollo y vacunas','Se sentó a los 6 m; camina a los <mark>17 m</mark>; vacunas incompletas (solo hasta el año)'],
-['Patológicos','Anemia a los 6 m, tratamiento irregular (<mark>solo 1 mes</mark>); bronquiolitis a los <mark>9 m</mark> (hospitalizado); diarreas frecuentes'],
-['Familia / vivienda','Madre en <mark>call center</mark>; material noble; <mark>agua de cisterna</mark>; <mark>crían aves</mark>'],
-['Funciones vitales','FC 118 · FR 30 · T 36,0 °C · SatO2 97 %'],
-['Examen físico','Pálido, hipoactivo, sin edemas; TCSC muy disminuido, pliegues sueltos en glúteos y muslos; piel pálida y seca; llenado < 2 s; mucosas húmedas; cabello ralo y seco; <mark>lengua lisa y roja, fisuras en comisuras</mark>; abdomen excavado, timpánico, RHA aumentados'],
-['Antropometría','Peso 7,5 kg (P/E < −3) · Talla 76 cm (T/E < −3) · <mark>P/T Z −3,4</mark> (severa) · <mark>PB 11,6 cm</mark> (moderada 11,5–12,4)'],
-['Laboratorio','Hb 10,6 · VCM 70 · HCM 20 · <mark>glucosa 60</mark> (límite bajo; hipo < 54) · K 3,2 · albúmina 3,6 · PCR 8 · urea/creat 20/0,3'],
-['Heces y orina','Coprofuncional: <mark>pH 5,5</mark>, sustancias reductoras ++, grasas ++, leucocitos < 5/campo · Parasitológico seriado: quistes de Giardia · Orina: <mark>cetonas +</mark>'],
-['Interconsultas','Nutrición · Servicio social · Estimulación temprana (marcha tardía) · Gastro <mark>NO de rutina</mark>'],
-['Estabilización (d 1–7)','<mark>F-75 baja en lactosa c/2 h</mark> (80–100 kcal/kg/d) · ReSoMal tras cada deposición · K <mark>3–4 mmol/kg/d</mark> · amoxicilina VO 5 d + <mark>metronidazol 15 mg/kg/d × 5 d</mark> · zinc, ácido fólico, vit A · <mark>sin hierro</mark>'],
-['Rehabilitación (sem 2–6)','F-100 (150–220 kcal/kg/d) cuando vuelve el apetito · <mark>hierro 3 mg/kg/d</mark> cuando gana peso · estimulación y educación'],
-['Epidemiología','Mundo: 150 mill. DC (23,2 %), 42,8 mill. emaciación (6,6 %), 12,2 mill. severa · Perú: <mark>12,1 %</mark> DC, <mark>43,4 %</mark> anemia 6–35 m · casi la mitad de muertes < 5 a'],
-['Waterlow','P/T: I 80–90 · II 70–80 · III < 70 | T/E: I 90–95 · II 85–90 · III < 85']
-],ojo:'La conclusión dice “12,1 % y 43,4 % en menores de 3 años”, mientras la diapo de epidemiología dice 12,1 % en < 5 años y 43,4 % en 6–35 meses. Si te preguntan, usa la de la diapo de epidemiología.'},
-obe:{dx:'Obesidad primaria (multifactorial) con adiposidad central · Síndrome metabólico (Cook modificado)',rows:[
-['Paciente','Varón, 13 años, Lima, con su madre'],
-['Enfermedad actual','Aumento progresivo de peso ~<mark>3 años</mark>, más evidente el último año; cansancio al correr o subir escaleras; ↓ actividad física'],
-['Hábitos','Apetito aumentado, repite porciones, snacks y bebidas azucaradas, comida rápida, <mark>≈ 3 h/día de pantallas</mark>'],
-['Perinatales','A término, parto vaginal, <mark>LME 3 meses</mark>'],
-['Familiares','<mark>Madre obesidad · Padre DM2</mark>'],
-['Personales','Sin enfermedades crónicas, sin hospitalizaciones, sin medicación obesogénica'],
-['Antropometría','Peso 78 kg · Talla 1,60 m · <mark>IMC 30,5</mark> · IMC/edad ≥ +2 DE · <mark>cintura 96 cm</mark> · <mark>cintura/talla 0,60</mark>'],
-['Vitales','TA 110/70 · FC 82 · FR 18'],
-['Hallazgos','Adiposidad abdominal · <mark>acantosis cervical</mark> · sin bocio · sin estrías violáceas · sin facies cushingoide · pubertad acorde · sin alteraciones fenotípicas'],
-['Funciones biológicas','Sueño 7–8 h con <mark>ronquidos ocasionales</mark> · deposiciones 1/día · sed/diuresis conservadas'],
-['Laboratorio','Hb 13,4 · <mark>glucosa 104</mark> · CT 192 · <mark>TG 156</mark> · <mark>HDL 37</mark> · LDL 124 · <mark>ALT 48</mark> · AST 34 · TSH 2,4 · T4L 1,2'],
-['Pies de diapo','“Sin insulina basal: no añade valor diagnóstico” · “ALT elevada: sugiere esteatosis, no la confirma” · Fuente: SAP pp. 4–5'],
-['Cook modificado (≥ 3)','Cintura ≥ P90 · TG ≥ 110 · HDL ≤ 40 · PA ≥ P90 · glucosa ≥ 100 → cumple TG, HDL, glucosa'],
-['Clasificación OMS','0–59 m: SP ≥ +2 y < +3 · OB ≥ +3 | 5–19 a: SP > +1 y ≤ +2 · OB > +2 | ICT: varón > 0,51, mujer > 0,50, desde los 6 años'],
-['Diferenciales','Hipotiroidismo · Cushing · Prader-Willi (menos probables)'],
-['Interconsultas','Nutrición pediátrica · Psicología · Endocrinología pediátrica'],
-['Tratamiento','Estilo de vida = base · AF <mark>≥ 60 min/día</mark> · fármacos solo seleccionados: metformina, GLP-1 (liraglutida, semaglutida), orlistat (~30 % grasas) · bariátrica: IMC ≥ 120 % o ≥ 35 + comorbilidad + fracaso'],
-['Evolución','4 sem: caminatas <mark>30 min, 5 días/sem</mark> · 3 m: <mark>−3 kg y −3 cm</mark> de cintura · 6 m: <mark>72 kg, IMC 28,1</mark>'],
-['Curva','BMI-for-age BOYS 5–19 a, OMS 2007, edad 156 meses']
-],ojo:'Con los cortes pediátricos (NCEP), CT 192 y LDL 124 son “limítrofes” más que “elevados”. La diapo los marca como elevados: responde según la diapo.'},
-cf:{dx:'Convulsión febril simple (foco: faringitis aguda)',rows:[
-['Paciente','<mark>Lucía</mark>, 2 años, femenino, previamente sana'],
-['Evento','Fiebre brusca <mark>39,2 °C</mark> · TCG + <mark>desviación supraversiva de la mirada</mark> + desconexión · <mark>≈ 3 min</mark> · cese espontáneo · post-ictal somnolienta'],
-['Perinatal / desarrollo','Embarazo a término normoevolutivo · DPM normal “para sus <mark>18 meses</mark>” · vacunas completas'],
-['Patológicos','Sin hospitalizaciones · sin patología neurológica · <mark>APLV leve</mark>'],
-['Familiares','Madre sana · <mark>Padre con CF</mark>, resolución espontánea a los <mark>5 años</mark>'],
-['Vitales','T 39,2 · <mark>FC 160</mark> · FR 35 · SpO2 98 % · PA 85/55'],
-['TEP','Apariencia: somnolienta pero reactiva · Respiración: normal · Color: rosado'],
-['Examen','Glasgow 15/15 · pupilas isocóricas reactivas · sin signos meníngeos · <mark>faringe hiperémica</mark> · <mark>fontanela normotensa, no abombada</mark>'],
-['Observación 6 h','Sin recurrencia · recuperación neurológica completa · tolera VO · <mark>picos febriles aislados</mark> (alerta)'],
-['Laboratorio','Leucocitosis reactiva · glucosa, Na, K, Ca normales · hemo y urocultivo negativos'],
-['Diferenciales','Síncope febril (en contra: piel rosada, FC 160) · Infección SNC (en contra: Glasgow 15, sin rigidez de nuca, sin alteración metabólica) · <mark>Dravet = epilepsia mioclónica grave de la infancia</mark> (en contra: crisis > 15 min)'],
-['Criterios CF simple','6 m – 5 a · > 38 °C · generalizada < 15 min · sin crisis afebriles previas · sin infección SNC'],
-['Simple vs compleja','< 15 vs > 15 min · generalizada vs focal · 1 vs múltiples en 24 h · Estatus: > 30 min o crisis sin recuperar conciencia'],
-['Pruebas','PL: <mark>< 1 año, no vacunado, signos meníngeos</mark> · EEG: <mark>compleja después de 1 semana</mark>, prolongadas · Neuroimagen: <mark>encefalitis, MAV, focalidad</mark>'],
-['Hacer / evitar','Hacer: vía aérea, posición lateral, antitérmico para confort, monitorizar · Evitar: <mark>O2 si satura bien</mark>, forzar la boca, anticonvulsivantes profilácticos'],
-['Algoritmo AP','> 5 min → <mark>midazolam IV 0,1–0,2 mg/kg</mark> → si persiste repetir → vía periférica + vía aérea → hospital (estatus)'],
-['Rutas','Simple 1.ª: pediatra AP, sin EEG ni tto · Simple recurrente: neuroped <mark>solo si ansiedad familiar intensa</mark> · Compleja: neuroped obligatoria'],
-['Resolución','Observación <mark>24 h</mark> · faringitis en resolución · Glasgow 15 · alta a pediatra de cabecera · educación a los padres']
-],ojo:'La AAP y la ILAE difieren un poco de la diapo (PL “a considerar” en 6–12 meses con vacunas incompletas; estatus operativo desde los 5 min). En el examen responde según la diapo.'},
-enc:{dx:'Encefalitis herpética por HSV-1',rows:[
-['Paciente','Varón, <mark>4 años 10 meses</mark>, Lima, previamente sano'],
-['Enfermedad actual','3 días: fiebre hasta <mark>39 °C</mark>, decaimiento, cefalea → día 2: <mark>2 vómitos</mark> e hiporexia → día del ingreso: TCG con pérdida de conciencia <mark>≈ 2 min</mark>, cede sola'],
-['Postcrisis','Somnoliento, irritable; reconoce a la madre; responde lento; frases poco coherentes; “<mark>No está comportándose como siempre</mark>”'],
-['Antecedentes','DPM normal · sin convulsiones previas · vacunas completas · sin medicación ni alergias · niega traumatismo o tóxicos'],
-['Antropometría','<mark>18 kg</mark> · 108 cm · IMC 15,4 (adecuado)'],
-['Vitales','T 38,8 · FC 118 · FR 24 · PA 98/60 · SatO2 98 % AA'],
-['Examen','<mark>Glasgow 13/15</mark> · pupilas isocóricas fotorreactivas · respuesta verbal lenta · sin déficit focal · sin rigidez de nuca · sin exantema, petequias ni vesículas · TEP: apariencia alterada'],
-['Vómitos','Contenido alimentario, <mark>no biliosos, no hemáticos</mark>'],
-['Hemograma','Leucocitos 12 800 · N 68 % · L 25 % · Hb 12,3 · plaquetas 285 000 · PCR 18 mg/L · <mark>PCT 0,12</mark>'],
-['Metabólico','Glucosa 96 · Na 136 · K 4,1 · Ca 9,3 · creat 0,4'],
-['TAC simple','Sin hemorragia, sin masa, sin hidrocefalia, sin hallazgos agudos'],
-['LCR','Claro · <mark>presión 18 cm H2O</mark> · <mark>82 cél</mark> linfocitario · <mark>eritrocitos 12</mark> · proteínas 62 · glucosa 64 · <mark>relación 0,67</mark> · Gram sin gérmenes'],
-['RM / EEG / PCR','RM: temporal e <mark>insular IZQUIERDO</mark>, edema leve · EEG: actividad epileptiforme temporal izquierda, sin crisis en registro · PCR: <mark>HSV-1 +</mark>, HSV-2 −'],
-['Dosis (18 kg)','Aciclovir <mark>10–15 mg/kg/dosis c/8 h</mark> (180–270 mg) · Vancomicina 15 mg/kg/dosis c/6 h (270 mg; máx 4 g/d) · Ceftriaxona 50 mg/kg/dosis c/12 h (900 mg; máx 4 g/d) · Cefotaxima 100 mg/kg/dosis c/8 h (1800 mg; <mark>máx 2 g/dosis</mark>) · Lorazepam 0,1 mg/kg (1,8 mg)'],
-['Duración','Aciclovir 14–21 días · completó <mark>21 días</mark>'],
-['Interconsultas','Neurología · Infectología · UCI solo si deterioro (conciencia, estatus, HTE, compromiso resp./hemodinámico)'],
-['Discusión','Etiologías: enterovirus/parechovirus, HSV-1/2, VZV, influenza, arbovirus · no infecciosa: <mark>anti-NMDAR</mark> · <mark>ADEM</mark>: desmielinizante multifocal posinfeccioso · LCR o RM normales al inicio no excluyen encefalitis']
-],ojo:'Que no haya vesículas en piel no descarta HSV: después del periodo neonatal la encefalitis por HSV-1 suele ser una reactivación sin lesiones cutáneas.'},
-an:{dx:'Anorexia nerviosa, subtipo restrictivo, grave',rows:[
-['Paciente','Adolescente femenina, 13 años'],
-['Motivo','<mark>Síncope en el recreo escolar</mark>'],
-['Historia','−12 kg en 6 meses · “dieta limpia” para rendimiento deportivo · come aislada · “se siente perfectamente bien” · <mark>se pellizca el abdomen</mark> (“exceso de grasa”) · frío constante'],
-['Asociados','Amenorrea secundaria de 6 m · <mark>hasta 3 L de agua/día</mark> “para calmar el hambre”'],
-['Gatillo','Comentario de la <mark>entrenadora de gimnasia</mark> hace 6 meses'],
-['Generales','Ambos padres · 2.º de secundaria · excelente rendimiento · perfeccionista · <mark>gimnasia rítmica</mark> competitiva'],
-['Alimentarios','<mark>< 600 kcal/día (manzanas y apio)</mark> · ejercicio extenuante a escondidas en la <mark>madrugada</mark>'],
-['Otros antecedentes','Eutócico a término, <mark>3100 g</mark> · menarquia <mark>12 años</mark> · madre con <mark>TAG</mark>'],
-['Vitales','<mark>FC 42</mark> · PA 85/50 · FR 14 · <mark>T 35,6 °C</mark> · SatO2 99 %'],
-['Somatometría','36 kg · 1,58 m · <mark>IMC 14,4 (< P1)</mark>'],
-['Examen','Facies de emaciación · <mark>lanugo</mark> · acrocianosis · caída de cabello · <mark>sin signo de Russell</mark> · ruidos muy bradicárdicos sin soplos · abdomen excavado · atrofia muscular severa'],
-['Laboratorio','<mark>Leucocitos 3200</mark> · <mark>glucosa 55</mark> · P 3,2 · K 3,6 · Na 138 · T3 total baja con TSH/T4L normales (enfermo eutiroideo)'],
-['ECG / DEXA','Bradicardia sinusal, <mark>QTc 470 ms</mark> · DEXA <mark>Z −2,2</mark> columna lumbar'],
-['Interconsultas','Cardiología (obligatoria) · Nutrición (realimentación lenta) · Psiquiatría/Psicología (FBT) · Endocrinología (amenorrea, Z −2,2)'],
-['Hospitalizar si','<mark>FC < 50 · QTc > 450 ms</mark> · hipotensión · hipotermia'],
-['Tratamiento','Reposo absoluto · <mark>1200 kcal/día</mark> · P/Mg/K diario · FBT “la comida es la medicina” · tiamina, fósforo, calcio, vit D · <mark>NO ISRS</mark> (sin sustrato, empeoran QTc)'],
-['Evolución','Sem 1: <mark>cae el fósforo</mark> (IV), FC 55 · Sem 2–4: hospital de día, +0,5–1 kg/sem, QTc normal en <mark>semana 3</mark> · 3 m: <mark>41 kg</mark>, sin hipotermia ni acrocianosis, <mark>amenorrea persiste</mark>'],
-['Estigmas de purga','Russell (nudillos) · parótidas (“cara de ardilla”) · perimólisis · queilosis · petequias faciales · Bulimia: ≥ 1/semana × 3 meses'],
-['Cribado','<mark>SCOFF</mark>']
-],ojo:'La diapo pone la amenorrea como “dato diagnóstico clave”, pero el DSM-5 ya no la exige. Y en adolescentes la densidad ósea se informa con Z-score, no con T-score.'}
+des:[
+['Definición','Aporte insuficiente de energía y nutrientes, o mala absorción o utilización, que altera el crecimiento y las funciones del niño'],
+['OMS (0–5 años, Z)','P/T < −2 a −3: aguda moderada · < −3: <mark>aguda severa</mark> · T/E < −2: talla baja · < −3: talla baja severa · P/T > +2 sobrepeso · > +3 obesidad'],
+['DAS (6–59 m)','Basta 1: <mark>P/T < −3</mark> · <mark>PB < 11,5 cm</mark> · <mark>edema bilateral con fóvea</mark> (PB 11,5–12,4 = moderada)'],
+['Clasificación','Etiología: primaria / secundaria / mixta · Evolución: aguda (P/T) / crónica (T/E) / crónica reagudizada · Intensidad: leve / moderada / severa'],
+['Waterlow','P/T: I 80–90 · II 70–80 · III < 70 % | T/E: I 90–95 · II 85–90 · III < 85 %'],
+['Gómez','P/E: leve 75–90 · moderada 60–75 · severa < 60 % (no distingue aguda de crónica)'],
+['Marasmo','Déficit energético · “piel y huesos”, cara de viejo · sin edema · TCSC muy bajo (“pantalón holgado”) · cabello ralo y seco · hígado normal · albúmina normal o poco baja'],
+['Kwashiorkor','Déficit proteico · cara de luna · <mark>edema con fóvea</mark> · TCSC conservado · cabello despigmentado (<mark>signo de la bandera</mark>) · dermatosis en “pintura descascarada” · <mark>hepatomegalia</mark> · albúmina muy baja'],
+['Kwashiorkor marasmático','Emaciación + edema'],
+['10 pasos OMS','1 hipoglucemia (< 54 mg/dL) · 2 hipotermia (axilar < 35 °C) · 3 deshidratación (ReSoMal) · 4 electrolitos (K y Mg, restringir Na) · 5 infección (antibiótico a todos) · 6 micronutrientes (<mark>sin hierro</mark>) · 7 alimentación prudente (F-75) · 8 crecimiento (F-100) · 9 estimulación · 10 seguimiento'],
+['Fórmulas','<mark>F-75</mark>: 80–100 kcal/kg/d cada 2–3 h · <mark>F-100</mark>: 150–220 kcal/kg/d cuando vuelve el apetito · el número = kcal por 100 mL'],
+['Hierro','En rehabilitación, <mark>3 mg/kg/día</mark>, cuando empieza a ganar peso'],
+['Ganancia de peso','Buena > 10 g/kg/día · moderada 5–10 · pobre < 5'],
+['Realimentación','<mark>Hipofosfatemia</mark> + hipoK + hipoMg + déficit de tiamina'],
+['Déficits','Glositis + queilitis: hierro, B2 · Bitot y ceguera nocturna: vit A · encías sangrantes: vit C'],
+['Giardia','Malabsorción: pH fecal ácido, sustancias reductoras +, esteatorrea · metronidazol 15 mg/kg/d'],
+['Perú (ENDES 2025)','Desnutrición crónica < 5 a: <mark>12,1 %</mark> · anemia 6–35 m: <mark>43,4 %</mark>'],
+['Anemia OMS (6–59 m)','< 11 g/dL · leve 10–10,9 · moderada 7–9,9 · severa < 7']
+],
+obe:[
+['OMS 5–19 años','Sobrepeso > +1 DE · <mark>obesidad > +2 DE</mark> · delgadez < −2 · delgadez severa < −3'],
+['OMS < 5 años','Sobrepeso ≥ +2 DE · <mark>obesidad ≥ +3 DE</mark>'],
+['CDC (percentiles)','Sobrepeso P85–94 · obesidad ≥ P95 · severa ≥ 120 % del P95'],
+['Cintura/talla','> 0,5 (varón > 0,51, mujer > 0,50) = obesidad central · útil desde los 6 años'],
+['Exógena vs endógena','Exógena: talla normal o alta, edad ósea adelantada · Endógena: <mark>talla baja o desaceleración</mark>'],
+['Sospechar secundaria','Talla baja · inicio < 2 años · hiperfagia intensa · retraso del desarrollo o rasgos sindrómicos · fármacos obesogénicos · lesión hipotalámica'],
+['Diferenciales','Hipotiroidismo (frío, estreñimiento, bocio) · Cushing (<mark>estrías violáceas</mark>, HTA, cara de luna, debilidad proximal; causa más frecuente: corticoides exógenos) · Prader-Willi (hipotonía neonatal, hiperfagia, hipogonadismo; 15q11-q13 paterno)'],
+['Insulinorresistencia','<mark>Acantosis nigricans</mark> · no se pide insulina basal de rutina'],
+['Cook modificado (≥ 3)','Cintura ≥ P90 · <mark>TG ≥ 110</mark> · <mark>HDL ≤ 40</mark> · PA ≥ P90 · <mark>glucosa ≥ 100</mark>'],
+['Lípidos (NCEP)','CT: < 170 / 170–199 / ≥ 200 · LDL: < 110 / 110–129 / ≥ 130 · TG 10–19 a: < 90 / 90–129 / ≥ 130 · HDL bajo < 40'],
+['Glucosa','Ayunas 100–125: alterada · ≥ 126: diabetes'],
+['Complicaciones','HTA · dislipidemia · DM2 · esteatosis (ALT “sugiere, no confirma”) · SAOS · <mark>epifisiólisis femoral</mark> · Blount · psicológicas'],
+['Tratamiento','Estilo de vida familiar = base · AF <mark>≥ 60 min/día</mark> · limitar pantallas'],
+['Fármacos','No son primera línea · metformina · <mark>orlistat</mark> (inhibe lipasas, −30 % de grasa) · GLP-1 (liraglutida, semaglutida: retardan vaciamiento)'],
+['Bariátrica','IMC ≥ 120 % del P95 o ≥ 35 + comorbilidad + fracaso del manejo multidisciplinario'],
+['Interconsultas','Nutrición · Psicología · Endocrinología']
+],
+cf:[
+['Definición','6 m – 5 años · fiebre ≥ 38 °C · sin infección del SNC ni alteración metabólica · sin crisis afebriles previas'],
+['Epidemiología','Crisis más frecuente de la infancia (2–5 %) · pico 12–18 meses · virus (HHV-6, influenza)'],
+['Simple vs compleja','Simple: generalizada, < 15 min, 1 en 24 h · <mark>Compleja: focal, > 15 min o recurre en 24 h</mark> (basta una)'],
+['Estatus','Clásico: > 30 min o crisis sin recuperar conciencia · operativo: <mark>se trata a los 5 min</mark>'],
+['Recurrencia','≈ 1/3 · riesgo: < 18 meses, familiar con CF, <mark>fiebre baja</mark> al convulsionar, poco tiempo de fiebre'],
+['Epilepsia','CF simple ≈ 1–2 % · más riesgo si compleja, alteración del desarrollo o familiar con epilepsia'],
+['Punción lumbar','Signos meníngeos · considerar < 12 m con Hib/neumococo incompletos · pretratados con antibiótico'],
+['EEG / imagen / labs','No de rutina · EEG en compleja · imagen si focalidad, encefalitis o MAV'],
+['Manejo agudo','Lateral de seguridad · nada en la boca · O2 solo si desatura · > 5 min: <mark>midazolam IV 0,1–0,2 mg/kg</mark> (bucal 0,3 · nasal 0,2) o diazepam rectal 0,5 mg/kg'],
+['Antipiréticos','Para confort; <mark>no previenen</mark> recurrencia'],
+['Profilaxis continua','No (fenobarbital: conducta y cognición · valproato: hepatotoxicidad)'],
+['Diferenciales','Síncope febril (palidez + bradicardia) · infección del SNC · <mark>Dravet</mark> (SCN1A, crisis febriles prolongadas en el 1.er año; evitar carbamazepina y lamotrigina) · escalofríos'],
+['Derivación','Simple: pediatra de atención primaria · compleja: neuropediatría obligatoria'],
+['Pronóstico','Benigno, sin secuelas cognitivas · el tratamiento es educar y tranquilizar']
+],
+enc:[
+['Sospecha','<mark>Fiebre + alteración persistente del estado mental</mark> (≥ 24 h) ± convulsiones, focalidad, cambios de conducta'],
+['Meningitis vs encefalitis','Meningitis: meninges (cefalea, rigidez de nuca) · Encefalitis: parénquima (sensorio, conducta, crisis, focalidad)'],
+['Etiología','Más frecuente: enterovirus · grave y tratable: <mark>HSV-1</mark> · neonato: HSV-2 · otras: VZV, influenza, arbovirus · autoinmune: anti-NMDAR · ADEM'],
+['LCR viral','Claro · pleocitosis linfocitaria · proteínas levemente altas · glucosa normal (relación > 0,5)'],
+['LCR bacteriano','Turbio · cientos a miles de PMN · proteínas muy altas · <mark>relación glucosa < 0,4</mark>'],
+['Pista de HSV en LCR','<mark>Eritrocitos elevados</mark> (necrosis hemorrágica)'],
+['RM (elección)','HSV: <mark>temporal medial e ínsula</mark>, orbitofrontal, asimétrico · ADEM: sustancia blanca multifocal'],
+['EEG','HSV: <mark>PLEDs temporales</mark>'],
+['PCR HSV en LCR','Elección (> 95 %) · puede ser negativa en las primeras 72 h: repetir · LCR o RM normales no excluyen'],
+['Aciclovir','<mark>Iniciar sin esperar la PCR</mark> · 10–15 mg/kg/dosis EV c/8 h × 14–21 días · neonato 20 mg/kg/dosis c/8 h × 21 d · nefrotoxicidad: hidratar'],
+['Empírico','Aciclovir + vancomicina (15 mg/kg/dosis c/6 h) + ceftriaxona (50 mg/kg/dosis c/12 h) · cefotaxima 100 mg/kg/dosis c/8 h, máx 2 g/dosis'],
+['Convulsiones','Lorazepam 0,1 mg/kg · sin profilaxis rutinaria'],
+['UCI','Deterioro de conciencia · estatus · HTE · compromiso respiratorio o hemodinámico'],
+['Anti-NMDAR','Psiquiátrico + discinesias orofaciales + crisis + disautonomía · <mark>teratoma de ovario</mark> · puede seguir a HSV'],
+['ADEM','Posinfeccioso, desmielinizante multifocal · metilprednisolona en dosis altas'],
+['Pronóstico','Sin tratamiento > 70 % de mortalidad · secuelas de memoria, conducta, epilepsia']
+],
+an:[
+['DSM-5-TR','Peso significativamente bajo + miedo a engordar + distorsión · <mark>amenorrea ya no es criterio</mark>'],
+['Subtipos','Restrictivo vs atracones/purgas (en los <mark>últimos 3 meses</mark>)'],
+['Gravedad (IMC adulto)','Leve ≥ 17 · moderada 16–16,99 · grave 15–15,99 · extrema < 15 (en niños: percentiles)'],
+['Bulimia','Atracones + compensación <mark>≥ 1/semana × 3 meses</mark> · peso normal o sobrepeso'],
+['ARFID','Evita por textura, desinterés o miedo a atorarse · <mark>sin miedo a engordar ni distorsión</mark>'],
+['Estigmas de purga','<mark>Russell</mark> (nudillos) · hipertrofia parotídea (“cara de ardilla”) · <mark>perimólisis</mark> · alcalosis hipoclorémica hipoK · amilasa alta'],
+['Restricción','Lanugo · acrocianosis · <mark>hipercarotinemia</mark> · bradicardia · hipotensión · hipotermia · atrofia bitemporal'],
+['Laboratorio','Leucopenia · hipoglucemia · <mark>T3 baja con TSH normal</mark> (no dar levotiroxina) · LH/FSH bajas · colesterol puede estar alto'],
+['Corazón','Bradicardia · <mark>QTc prolongado</mark> · síncope = ECG obligatorio'],
+['Hospitalizar si','<mark>FC < 50</mark> · PA < 90/45 · <mark>T < 35,6 °C</mark> · QTc prolongado · electrolitos alterados · síncope · rechazo agudo de alimentos'],
+['Realimentación','Inicio controlado (≈ 1200 kcal/d en el caso) · <mark>P, Mg, K diarios</mark> · tiamina · riesgo máximo en 1.ª–2.ª semana · marcador: hipofosfatemia'],
+['Tratamiento','<mark>FBT (Maudsley)</mark> primera línea · ISRS no en fase de bajo peso (sin sustrato, ↑ QTc)'],
+['Hueso','Z-score · recuperar peso y menstruación · ACO no recomendados · calcio y vitamina D'],
+['Ganancia','Ambulatorio 0,5–1 kg/sem · hospitalizado ≈ 1–2 kg/sem'],
+['Riesgo','Mujer · perfeccionismo · deportes estéticos · familia · comentarios sobre el peso'],
+['Cribado','<mark>SCOFF</mark>: 5 preguntas, ≥ 2 positivas'],
+['Mortalidad','De las más altas en psiquiatría: arritmias y suicidio']
+]
 };
 
-const PROMPT = `Actúa como docente de Pediatría que arma el examen del externado. Te voy a pasar las presentaciones (PDF/PPT) de los casos clínicos que expusieron mis compañeros en la SEMANA __. Mi doctor saca preguntas de CUALQUIER detalle de las diapositivas, incluso de lo que sale chiquito en una esquina, dentro de una imagen, en una tabla o en un pie de figura. Ejemplo real: en un PPT de sífilis congénita preguntó el “signo de Wimberger”, que solo aparecía pequeño en una radiografía.
+const PROMPT = `Actúa como el docente que arma el EXAMEN TEÓRICO FINAL del externado de Pediatría. Te paso:
+(1) las presentaciones (PDF/PPT) de los casos clínicos que expusieron mis compañeros en la SEMANA __, y
+(2) bancos de exámenes anteriores para que copies el estilo.
 
-PASO 1 · LECTURA TOTAL (no te saltes nada)
-- Lee cada diapositiva completa como imagen y como texto: infografías, tablas, íconos con texto, rótulos de radiografías/TAC/RM, leyendas, notas al pie, recuadros de “fuente”, bibliografía y nombres de los expositores.
-- Antes de preguntar, haz un inventario por diapositiva: “Diapo N: …” con TODOS los datos, números con sus unidades y rangos de referencia, frases textuales entre comillas, signos y epónimos, nombres de fármacos con dosis, frecuencia, máximos y duración.
-- Si un texto es ilegible, dilo en vez de inventarlo.
+QUÉ PREGUNTA EL DOCTOR
+- NO pregunta datos de identidad del paciente del PPT (nombre, procedencia, edad exacta, ocupación de los padres).
+- SÍ pregunta sobre la ENFERMEDAD de cada caso: definición, epidemiología con cifras, fisiopatología, clasificación y puntos de corte, criterios diagnósticos, signos y epónimos (aunque salgan chiquitos en una imagen, como el signo de Wimberger), exámenes y su interpretación, diagnósticos diferenciales, tratamiento con dosis (mg/kg, frecuencia, duración, máximo), lo que NO se debe hacer, complicaciones, pronóstico y prevención.
+- El caso del PPT cambia cada ciclo, pero la enfermedad no. Usa el PPT para saber qué temas y qué datos se expusieron, y complétalo con las guías vigentes (OMS, MINSA/Norma Técnica, AAP, DSM-5-TR, ILAE, etc.).
 
-PASO 2 · BANQUEO POR CASO (mínimo 35 preguntas por caso)
-Reparte las preguntas entre:
-1. Anamnesis: edad, sexo, procedencia, tiempo de enfermedad, cronología día por día, frases textuales de la madre o del paciente.
-2. Antecedentes: perinatales (peso al nacer, edad gestacional, tipo de parto), lactancia y alimentación, hitos del desarrollo con edades, vacunas, patológicos, familiares, vivienda y ocupación de los padres.
-3. Examen físico: cada signo vital con su valor exacto, triángulo de evaluación pediátrica, antropometría y puntajes Z, hallazgos positivos y negativos pertinentes.
-4. Exámenes auxiliares: cada valor con su referencia e interpretación (incluido lo que la diapo dice en letra pequeña debajo de la tabla).
-5. Diagnóstico: principal completo, clasificación, criterios con puntos de corte, diferenciales con datos a favor y en contra.
-6. Tratamiento: fármaco, dosis en mg/kg, el cálculo para el peso del paciente, vía, frecuencia, duración, dosis máxima y lo que NO se debe dar.
-7. Interconsultas con su motivo, evolución con días/semanas/meses y cifras, conclusiones, recomendaciones, epidemiología con cifras y fuente.
-8. Imágenes: qué muestra cada imagen, qué corte o secuencia es y qué signo o epónimo aparece.
-Reglas:
-- Al menos 40 % deben ser DATOS CHIQUITOS (detalles secundarios o en letra pequeña). Márcalas con [DATO CHIQUITO].
-- 4 alternativas, una sola correcta. Distractores plausibles: valores cercanos, datos invertidos (p. ej., madre/padre) o datos reales de los OTROS casos de la misma semana, para que no se pueda adivinar.
-- No uses “todas las anteriores” ni “ninguna”.
-- Al final, 10 preguntas CRUZADAS que comparen casos (edades, signos vitales, dosis, Glasgow, duraciones, interconsultas repetidas).
+ESTILO DE LAS PREGUNTAS (igual que los bancos)
+- Viñeta clínica NUEVA, corta y realista (edad, tiempo de enfermedad, signos vitales, hallazgos y exámenes clave), distinta al paciente del PPT.
+- Enunciado tipo: “Señale lo MÁS CORRECTO”, “¿Cuál es el diagnóstico MÁS probable?”, “Marque la intervención MÁS ADECUADA”.
+- 5 alternativas (a–e), una sola correcta. Distractores con errores sutiles: un número cambiado (0,09 % vs 0,9 %; 20 vs 40 mL/kg), conceptos invertidos (IgA vs IgM, aguda vs crónica, P/E vs P/T), cortes de adulto en vez de pediátricos o una enfermedad parecida.
+- También preguntas sin viñeta, de enunciados sobre la enfermedad.
 
-PASO 3 · FORMATO DE CADA PREGUNTA
-N. [Caso] [Diapo X] [DATO CHIQUITO si aplica]
-Pregunta
-A) …  B) …  C) …  D) …
-Respuesta: letra
-Explicación: 1–2 líneas citando el dato exacto de la diapositiva.
-Si la diapositiva contradice la guía vigente (OMS, AAP, MINSA, DSM-5-TR, ILAE, etc.), responde según la diapositiva y agrega “Ojo:” con lo que dice la guía.
+QUÉ ENTREGAR
+1. Por cada enfermedad, mínimo 20 preguntas con este formato:
+   N. [Enfermedad] [Fuente: PPT / Guía / PPT + guía] [DETALLE FINO si aplica]
+   Viñeta (si hay)
+   Pregunta
+   a) … b) … c) … d) … e) …
+   Respuesta: letra
+   Explicación: por qué es la correcta y qué error tiene cada distractor.
+   Si el PPT contradice la guía, dilo con “Ojo:”.
+2. Al menos 30 % de preguntas de DETALLE FINO (cortes numéricos, signos con nombre propio, dosis, excepciones).
+3. Al final de cada enfermedad, una tabla “Lo que hay que saber” (concepto | dato clave) con todos los puntos de corte, criterios, dosis y signos.
 
-PASO 4 · REPASO RÁPIDO POR CASO
-- Tabla “Dato | Valor” con todos los números, nombres y frases del caso.
-- 10 preguntas abiertas cortas tipo examen oral.
-
-No inventes datos que no estén en las presentaciones (salvo en las notas “Ojo:”). Responde en español.`;
+Lee todo el PPT, incluido el texto pequeño de imágenes, tablas y notas al pie. No inventes datos: si no estás seguro de un dato de guía, dilo. Responde en español.`;
 
 /* ---------- estado ---------- */
 Q.forEach((x,i)=>{ x.id = x.c + '-' + i; });
-const KEY = 'banqueo-sem7-v1';
+const KEY = 'banqueo-sem7-v2';
 let saved = {};
 try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){ saved = {}; }
 function persist(){ try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch(e){} }
@@ -596,8 +439,7 @@ function filtered(){
 
 /* ---------- stats ---------- */
 function renderStats(){
-  const el = document.getElementById('stats');
-  el.innerHTML = Object.keys(CASES).map(k=>{
+  document.getElementById('stats').innerHTML = Object.keys(CASES).map(k=>{
     const qs = Q.filter(q=>q.c===k);
     const done = qs.filter(q=>q.id in saved).length;
     const ok = qs.filter(q=>saved[q.id]===0).length;
@@ -610,10 +452,10 @@ function renderStats(){
 /* ---------- chips ---------- */
 function renderChips(){
   const el = document.getElementById('caseChips');
-  const all = `<button class="chip" aria-pressed="${state.cases.size===0}" data-case="">Todos <span class="slide">${Q.length}</span></button>`;
+  const all = `<button class="chip" aria-pressed="${state.cases.size===0}" data-case="">Todos <span class="src">${Q.length}</span></button>`;
   el.innerHTML = all + Object.keys(CASES).map(k=>{
     const n = Q.filter(q=>q.c===k).length;
-    return `<button class="chip" aria-pressed="${state.cases.has(k)}" data-case="${k}"><span class="dot" style="background:${CASES[k].color}"></span>${CASES[k].short} <span class="slide">${n}</span></button>`;
+    return `<button class="chip" aria-pressed="${state.cases.has(k)}" data-case="${k}"><span class="dot" style="background:${CASES[k].color}"></span>${CASES[k].short} <span class="src">${n}</span></button>`;
   }).join('');
 }
 document.getElementById('caseChips').addEventListener('click', e=>{
@@ -625,33 +467,36 @@ document.getElementById('caseChips').addEventListener('click', e=>{
 });
 
 /* ---------- tarjetas ---------- */
-const L = ['A','B','C','D','E'];
+const L = ['a','b','c','d','e'];
 function card(q, n, opts){
   const ord = orderFor(q);
-  const chosen = opts.chosen; // índice original o undefined
+  const chosen = opts.chosen;
   const reveal = opts.reveal;
   const btns = ord.map((oi,pos)=>{
     let cls = 'opt';
     if(reveal){ if(oi===0) cls+=' right'; else if(oi===chosen) cls+=' wrong'; }
     else if(oi===chosen) cls+=' picked';
-    const dis = (reveal || (opts.lockAfterPick && chosen!==undefined)) ? 'disabled' : '';
-    return `<button class="${cls}" data-q="${q.id}" data-o="${oi}" ${dis}><span class="l">${L[pos]}</span><span>${q.o[oi]}</span></button>`;
+    return `<button class="${cls}" data-q="${q.id}" data-o="${oi}" ${reveal?'disabled':''}><span class="l">${L[pos]}.</span><span>${q.o[oi]}</span></button>`;
   }).join('');
   let after = '';
-  if(reveal && chosen!==undefined){
-    const ok = chosen===0;
-    after = `<div class="verdict ${ok?'ok':'no'}">${ok?'Correcto':'Incorrecto · la correcta es '+L[ord.indexOf(0)]}</div>`;
-  } else if(reveal){
-    after = `<div class="verdict no">Sin responder · la correcta es ${L[ord.indexOf(0)]}</div>`;
+  if(reveal){
+    const corr = L[ord.indexOf(0)];
+    if(chosen===undefined) after = `<div class="verdict no">Sin responder · la correcta es la ${corr}</div>`;
+    else after = `<div class="verdict ${chosen===0?'ok':'no'}">${chosen===0?'Correcto':'Incorrecto · la correcta es la '+corr}</div>`;
+    after += `<div class="expl"><b>Por qué:</b> ${q.e}</div>`;
   }
-  if(reveal) after += `<div class="expl"><b>Por qué:</b> ${q.e}</div>`;
   return `<article class="q" id="q-${q.id}">
     <div class="qhead"><span class="case" style="color:${CASES[q.c].color}"><span class="dot" style="background:${CASES[q.c].color}"></span>${CASES[q.c].short}</span>
-      <span class="slide">Diapo ${q.s}</span>${q.t?'<span class="tiny">Dato chiquito</span>':''}<span class="qnum">#${n}</span></div>
+      <span class="src">${q.src}</span>${q.t?'<span class="tiny">Detalle fino</span>':''}<span class="qnum">#${n}</span></div>
+    ${q.v?`<p class="vig">${q.v}</p>`:''}
     <p class="qtext">${q.q}</p>
     <div class="opts">${btns}</div>${after}</article>`;
 }
 
+function examStatus(){
+  const ex = state.exam, answered = Object.keys(ex.ans).length;
+  return `<div class="exambar"><span>Respondidas ${answered}/${ex.ids.length}. Las respuestas se muestran al calificar.</span></div>`;
+}
 function renderList(){
   const list = document.getElementById('list');
   const top = document.getElementById('examTop');
@@ -665,15 +510,15 @@ function renderList(){
   } else {
     const ex = state.exam;
     document.getElementById('count').textContent = ex.ids.length + ' preguntas del simulacro';
-    const answered = Object.keys(ex.ans).length;
     if(ex.graded){
       const ok = ex.ids.filter(id=>ex.ans[id]===0).length;
       top.innerHTML = `<div class="exambar"><span class="score">${ok}/${ex.ids.length}</span><span>Nota: ${(ok/ex.ids.length*20).toFixed(1)} / 20</span><button class="btn primary" data-act="newexam" style="margin-left:auto">Nuevo simulacro</button></div>`;
+      bottom.innerHTML = '';
     } else {
-      top.innerHTML = `<div class="exambar"><span>Respondidas ${answered}/${ex.ids.length}. Las respuestas se muestran al calificar.</span></div>`;
+      top.innerHTML = examStatus();
+      bottom.innerHTML = `<div class="exambar"><button class="btn primary" data-act="grade">Calificar simulacro</button></div>`;
     }
-    list.innerHTML = ex.ids.map((id,i)=>card(byId[id],i+1,{chosen:ex.ans[id], reveal:ex.graded, lockAfterPick:false})).join('');
-    bottom.innerHTML = ex.graded ? '' : `<div class="exambar"><button class="btn primary" data-act="grade">Calificar simulacro</button><span class="slide">Respondidas ${answered}/${ex.ids.length}</span></div>`;
+    list.innerHTML = ex.ids.map((id,i)=>card(byId[id],i+1,{chosen:ex.ans[id], reveal:ex.graded})).join('');
   }
   renderStats();
 }
@@ -684,24 +529,21 @@ document.getElementById('panel-q').addEventListener('click', e=>{
     if(act.dataset.act==='grade'){
       state.exam.graded = true;
       Object.entries(state.exam.ans).forEach(([id,o])=>{ saved[id]=o; }); persist();
-      renderList(); window.scrollTo({top:document.getElementById('panel-q').offsetTop, behavior:'smooth'});
+      renderList(); document.getElementById('panel-q').scrollIntoView({behavior:'smooth'});
     } else if(act.dataset.act==='newexam'){ newExam(); renderList(); }
     return;
   }
   const b = e.target.closest('.opt'); if(!b || b.disabled) return;
   const id = b.dataset.q, o = +b.dataset.o;
+  const n = b.closest('.q').querySelector('.qnum').textContent.slice(1);
   if(state.mode==='study'){
     saved[id]=o; persist();
-    const q = byId[id]; const n = b.closest('.q').querySelector('.qnum').textContent.slice(1);
-    b.closest('.q').outerHTML = card(q, n, {chosen:o, reveal:true});
+    b.closest('.q').outerHTML = card(byId[id], n, {chosen:o, reveal:true});
     renderStats();
   } else if(!state.exam.graded){
     state.exam.ans[id]=o;
-    const q = byId[id]; const n = b.closest('.q').querySelector('.qnum').textContent.slice(1);
-    b.closest('.q').outerHTML = card(q, n, {chosen:o, reveal:false});
-    const answered = Object.keys(state.exam.ans).length;
-    document.getElementById('examTop').innerHTML = `<div class="exambar"><span>Respondidas ${answered}/${state.exam.ids.length}. Las respuestas se muestran al calificar.</span></div>`;
-    const sl = document.querySelector('#examBottom .slide'); if(sl) sl.textContent = `Respondidas ${answered}/${state.exam.ids.length}`;
+    b.closest('.q').outerHTML = card(byId[id], n, {chosen:o, reveal:false});
+    document.getElementById('examTop').innerHTML = examStatus();
   }
 });
 
@@ -710,15 +552,13 @@ function newExam(){
   state.exam = { ids: pool.slice(0,20), ans:{}, graded:false };
   state.exam.ids.forEach(id=>optOrder.set(id, shuffle(byId[id].o.map((_,i)=>i))));
 }
-
-document.getElementById('mode-study').addEventListener('click',()=>{ state.mode='study'; setMode(); });
-document.getElementById('mode-exam').addEventListener('click',()=>{ state.mode='exam'; newExam(); setMode(); });
 function setMode(){
   document.getElementById('mode-study').setAttribute('aria-pressed', state.mode==='study');
   document.getElementById('mode-exam').setAttribute('aria-pressed', state.mode==='exam');
-  document.getElementById('onlyWrong').disabled = false;
   renderList();
 }
+document.getElementById('mode-study').addEventListener('click',()=>{ state.mode='study'; setMode(); });
+document.getElementById('mode-exam').addEventListener('click',()=>{ state.mode='exam'; newExam(); setMode(); });
 document.getElementById('onlyTiny').addEventListener('change',e=>{ state.tiny=e.target.checked; if(state.mode==='exam') newExam(); renderList(); });
 document.getElementById('onlyWrong').addEventListener('change',e=>{ state.wrong=e.target.checked; if(state.mode==='exam') newExam(); renderList(); });
 document.getElementById('shuffle').addEventListener('click',()=>{ state.order = shuffle(state.order); optOrder.clear(); if(state.mode==='exam') newExam(); renderList(); });
@@ -730,13 +570,10 @@ resetBtn.addEventListener('click',()=>{
 });
 
 /* ---------- repaso ---------- */
-document.getElementById('repaso').innerHTML = ['des','obe','cf','enc','an'].map(k=>{
-  const r = REPASO[k];
-  return `<section class="rcard"><h2><span class="dot" style="background:${CASES[k].color};width:12px;height:12px"></span>${CASES[k].name}</h2>
-    <p class="dx">${r.dx}</p>
-    <dl class="dl">${r.rows.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl>
-    <div class="ojo"><b>Ojo:</b> ${r.ojo}</div></section>`;
-}).join('');
+document.getElementById('repaso').innerHTML = Object.keys(REPASO).map(k=>
+  `<section class="rcard"><h2><span class="dot" style="background:${CASES[k].color};width:12px;height:12px"></span>${CASES[k].name}</h2>
+    <dl class="dl">${REPASO[k].map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl></section>`
+).join('');
 
 /* ---------- prompt ---------- */
 document.getElementById('promptText').textContent = PROMPT;
