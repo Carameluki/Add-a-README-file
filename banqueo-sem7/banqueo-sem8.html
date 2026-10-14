@@ -1,0 +1,2168 @@
+<title>Banqueo Pediatría Sem 8</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Zilla+Slab:wght@500;700&display=swap">
+<style>
+/* Layout: una columna tipo hoja de examen, barra de filtros pegajosa, viñeta clínica + 5 alternativas como en el examen teórico final */
+:root{
+  --paper:#F2F5F6; --card:#FFFFFF; --ink:#14222E; --muted:#56687A; --line:#D3DDE3;
+  --accent:#0D6670; --accent-soft:#E0EFF0;
+  --mark:#FFE14D; --mark-ink:#2E2600;
+  --ok:#1C7343; --ok-soft:#E1F3E8; --bad:#B0261C; --bad-soft:#FBE6E4;
+  --vig:#F7F9FA;
+  --c-des:#9A4A3F; --c-obe:#A86A12; --c-cf:#B8336A; --c-enc:#6655A0; --c-an:#2A7894;
+  --f-display:"Zilla Slab", Georgia, "Times New Roman", serif;
+  --f-body:"Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#0E161C; --card:#15212A; --ink:#E4ECF0; --muted:#93A5B2; --line:#26343F;
+  --accent:#5EC2CB; --accent-soft:#16343A;
+  --mark:#C9A635; --mark-ink:#171200;
+  --ok:#62CF8F; --ok-soft:#14301F; --bad:#FF8B80; --bad-soft:#3A1916;
+  --vig:#111B22;
+  --c-des:#E08B7E; --c-obe:#E3A94D; --c-cf:#F07AA8; --c-enc:#A898E6; --c-an:#6CC1DD;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#0E161C; --card:#15212A; --ink:#E4ECF0; --muted:#93A5B2; --line:#26343F;
+  --accent:#5EC2CB; --accent-soft:#16343A;
+  --mark:#C9A635; --mark-ink:#171200;
+  --ok:#62CF8F; --ok-soft:#14301F; --bad:#FF8B80; --bad-soft:#3A1916;
+  --vig:#111B22;
+  --c-des:#E08B7E; --c-obe:#E3A94D; --c-cf:#F07AA8; --c-enc:#A898E6; --c-an:#6CC1DD;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 48px}
+.wrap{max-width:820px;margin:0 auto}
+header.top{padding-block:28px 18px;display:grid;gap:10px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(30px,6vw,44px);line-height:1.05;margin:0;text-wrap:balance}
+h1 .hl{background:linear-gradient(transparent 58%, var(--mark) 58%, var(--mark) 92%, transparent 92%);padding:0 4px;color:inherit}
+.lede{margin:0;color:var(--muted);max-width:62ch}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:8px}
+.stat{border:1px solid var(--line);background:var(--card);border-radius:6px;padding:10px 12px;display:grid;gap:6px;min-width:0}
+.stat .nm{font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px}
+.dot{width:9px;height:9px;border-radius:50%;flex:none}
+.stat .nums{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{height:4px;background:var(--line);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok)}
+
+nav.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-top:10px;overflow-x:auto}
+nav.tabs button{font:inherit;font-weight:700;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:10px 12px;cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+
+.controls{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--paper);padding-block:12px;display:grid;gap:10px;border-bottom:1px solid var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:13px;font-weight:700;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 11px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{font:inherit;font-size:13px;font-weight:700;background:var(--card);color:var(--muted);border:0;padding:6px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--paper)}
+.btn{font:inherit;font-size:13px;font-weight:700;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;padding:6px 12px;cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+.toggle{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;cursor:pointer;user-select:none}
+.toggle input{accent-color:var(--accent);width:16px;height:16px}
+.count{font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-left:auto}
+
+.list{display:grid;gap:14px;margin-top:16px}
+.q{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;display:grid;gap:12px;min-width:0}
+.qhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px}
+.case{font-weight:700;display:inline-flex;align-items:center;gap:6px}
+.src{font-family:var(--f-mono);color:var(--muted);border:1px solid var(--line);border-radius:3px;padding:1px 6px}
+.tiny{background:var(--mark);color:var(--mark-ink);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:2px;transform:rotate(-1deg)}
+.qnum{font-family:var(--f-mono);color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}
+.vig{margin:0;background:var(--vig);border:1px solid var(--line);border-radius:6px;padding:10px 12px;font-size:15px;text-wrap:pretty}
+.qtext{font-weight:700;font-size:17px;margin:0;text-wrap:pretty}
+.opts{display:grid;gap:6px}
+.opt{font:inherit;text-align:left;display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:start;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:9px 10px;cursor:pointer}
+.opt:hover:not([disabled]){border-color:var(--accent)}
+.opt .l{font-family:var(--f-mono);font-weight:500;color:var(--muted)}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--ok-soft);border-color:var(--ok)}
+.opt.right .l{color:var(--ok)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.opt.wrong .l{color:var(--bad)}
+.opt.picked{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.expl{border-left:3px solid var(--accent);background:var(--accent-soft);padding:9px 12px;border-radius:0 6px 6px 0;font-size:15px}
+.expl b{color:var(--accent)}
+.verdict{font-weight:700;font-size:14px}
+.verdict.ok{color:var(--ok)} .verdict.no{color:var(--bad)}
+
+.exambar{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}
+.score{font-family:var(--f-display);font-size:28px;font-weight:700}
+
+.repaso{display:grid;gap:16px;margin-top:16px}
+.rcard{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;min-width:0}
+.rcard h2{font-family:var(--f-display);font-size:24px;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.dl{display:grid;grid-template-columns:minmax(120px,30%) 1fr;border-top:1px solid var(--line)}
+.dl dt,.dl dd{margin:0;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+.dl dt{font-weight:700;padding-right:12px;color:var(--muted)}
+.dl dd{font-variant-numeric:tabular-nums}
+.dl dd mark{background:var(--mark);color:var(--mark-ink);padding:0 3px}
+
+.prompt{margin-top:16px;display:grid;gap:12px}
+.prompt p{margin:0;max-width:65ch}
+pre.ptxt{white-space:pre-wrap;word-wrap:break-word;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:0}
+.copied{font-size:13px;color:var(--ok);font-weight:700}
+
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:520px){
+  .dl{grid-template-columns:1fr}
+  .dl dt{border-bottom:0;padding-bottom:0}
+  .count{margin-left:0;width:100%}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Externado de Pediatría 2026-II · ITU · Anemia · DAI · Constipación · Sensorio</div>
+    <h1>Banqueo de <span class="hl">la enfermedad</span></h1>
+    <p class="lede">Casos nuevos con 5 alternativas, al estilo “señale lo MÁS CORRECTO”. Las preguntas son sobre la enfermedad (criterios, clasificación, diferenciales, dosis y manejo), tomando lo que se expuso en los PPT y completándolo con las guías (GPC INSN 2024, NTS MINSA 2024, GPC IETSI 2025). Las marcadas con resaltador son <strong>detalles finos</strong>.</p>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="tab-q" aria-selected="true" data-tab="q">Preguntas</button>
+    <button role="tab" id="tab-r" aria-selected="false" data-tab="r">Lo que hay que saber</button>
+    <button role="tab" id="tab-p" aria-selected="false" data-tab="p">Prompt para otros temas</button>
+  </nav>
+
+  <section id="panel-q">
+    <div class="controls">
+      <div class="chips" id="caseChips"></div>
+      <div class="row">
+        <div class="seg" role="group" aria-label="Modo">
+          <button id="mode-study" aria-pressed="true">Estudio</button>
+          <button id="mode-exam" aria-pressed="false">Simulacro de 20</button>
+        </div>
+        <label class="toggle"><input type="checkbox" id="onlyTiny"> Solo detalles finos</label>
+        <label class="toggle"><input type="checkbox" id="onlyWrong"> Solo las que fallé</label>
+        <button class="btn" id="shuffle">Barajar</button>
+        <button class="btn" id="reset">Borrar progreso</button>
+        <span class="count" id="count"></span>
+      </div>
+    </div>
+    <div id="examTop"></div>
+    <div class="list" id="list"></div>
+    <div id="examBottom"></div>
+  </section>
+
+  <section id="panel-r" hidden>
+    <div class="repaso" id="repaso"></div>
+  </section>
+
+  <section id="panel-p" hidden>
+    <div class="prompt">
+      <p>Copia este prompt y pégalo junto con los PDF o PPT de los demás temas. Ya está ajustado al estilo de tu doctor: casos nuevos, 5 alternativas y preguntas sobre la enfermedad, no sobre los datos del paciente del PPT.</p>
+      <div class="row"><button class="btn primary" id="copyPrompt">Copiar prompt</button><span class="copied" id="copied" hidden>Copiado</span></div>
+      <pre class="ptxt" id="promptText"></pre>
+    </div>
+  </section>
+</div>
+
+<script>
+const CASES = {
+  itu:{name:'Infección urinaria', short:'ITU', color:'var(--c-enc)'},
+  ane:{name:'Anemia ferropénica', short:'Anemia', color:'var(--c-des)'},
+  dai:{name:'Diarrea aguda infecciosa', short:'DAI', color:'var(--c-an)'},
+  con:{name:'Constipación', short:'Constipación', color:'var(--c-obe)'},
+  sen:{name:'Alteración del sensorio', short:'Sensorio', color:'var(--c-cf)'}
+};
+const Q = [
+{
+"c": "itu",
+"t": 0,
+"src": "GPC INSN",
+"v": "Escolar de 6 años con dos pielonefritis agudas en los últimos 10 meses.",
+"q": "Según la GPC INSN 2024, señale la definición MÁS CORRECTA de ITU recurrente:",
+"o": [
+"≥ 2 ITU altas, o 1 ITU alta + 1 ITU baja, o ≥ 3 ITU bajas en 1 año",
+"2 episodios de ITU en 6 meses o 3 en un año",
+"≥ 3 ITU altas en 2 años",
+"Un nuevo episodio dentro de las 2 semanas del anterior",
+"2 ITU bajas en 1 año"
+],
+"e": "“2 en 6 meses o 3 en un año” es un distractor de bancos anteriores. Un episodio dentro de las 2 semanas es reinfección."
+},
+{
+"c": "itu",
+"t": 0,
+"src": "GPC INSN",
+"q": "Respecto a la ITU atípica, señale lo MÁS CORRECTO:",
+"o": [
+"Fiebre 48 h después de antibiótico adecuado, sepsis, germen distinto de E. coli, BLEE, oliguria, falla renal aguda o masa abdominal o vesical",
+"Compromiso del estado general y sepsis asociada a Escherichia coli",
+"Es la ITU en un niño con malformación urinaria",
+"Es la ITU sin fiebre en un lactante",
+"Es la que se presenta en mayores de 5 años"
+],
+"e": "Trampa del banco: “asociada a E. coli”. La atípica es por germen NO E. coli. La ITU en un niño con malformación es la ITU complicada."
+},
+{
+"c": "itu",
+"t": 0,
+"src": "GPC INSN",
+"v": "Lactante de 5 meses con fiebre sin foco. La orina se obtiene por cateterismo vesical.",
+"q": "¿Desde qué recuento se considera bacteriuria significativa?",
+"o": [
+"> 50 000 UFC/mL",
+"≥ 100 000 UFC/mL",
+"Cualquier recuento",
+"≥ 1000 UFC/mL en todos los lactantes",
+"≥ 10 000 UFC/mL"
+],
+"e": "Sonda: > 5×10⁴. Solo en el lactante febril < 3 meses vale ≥ 10³. Chorro medio ≥ 10⁵. Punción suprapúbica: cualquier recuento."
+},
+{
+"c": "itu",
+"t": 1,
+"src": "GPC INSN",
+"q": "¿En qué método de recolección cualquier crecimiento bacteriano es significativo y cuándo se prefiere?",
+"o": [
+"Punción suprapúbica: neonatos, varón con fimosis o niña con adhesión de labios",
+"Cateterismo: niños con control de esfínteres",
+"Chorro medio: lactantes sin control de esfínteres",
+"Bolsa colectora: neonatos",
+"Compresa estéril en el pañal: todos los lactantes"
+],
+"e": "La bolsa colectora tiene ~85 % de falsos positivos: solo sirve para el examen de orina (tamizaje), no para urocultivo."
+},
+{
+"c": "itu",
+"t": 0,
+"src": "GPC INSN",
+"q": "Respecto a la bacteriuria asintomática, señale lo MÁS CORRECTO:",
+"o": [
+"Urocultivo significativo sin síntomas y con examen de orina normal; no se tamiza ni se trata",
+"Colonización con recuento significativo y sedimento patológico",
+"Debe tratarse siempre por el riesgo de cicatriz renal",
+"Es más frecuente por Enterococcus",
+"Se define como piuria sin bacteriuria"
+],
+"e": "Incidencia 1–3 %, suele resolverse sola. Trampa del banco: “sedimento patológico”."
+},
+{
+"c": "itu",
+"t": 0,
+"src": "GPC INSN",
+"q": "Según la GPC INSN, la piuria se define como:",
+"o": [
+"≥ 5 leucocitos/campo en orina centrifugada o ≥ 10 en orina no centrifugada",
+"≥ 10 leucocitos/campo en orina centrifugada",
+"≥ 3 leucocitos/campo en cualquier muestra",
+"Cualquier leucocito en orina",
+"≥ 20 leucocitos/campo en orina no centrifugada"
+],
+"e": "Bacteriuria: alguna bacteria/campo. Piuria + bacteriuria: sensibilidad 66 %, especificidad 99 %."
+},
+{
+"c": "itu",
+"t": 1,
+"src": "GPC INSN",
+"q": "Según la GPC INSN, ¿cómo se define la reinfección urinaria?",
+"o": [
+"Nuevo episodio dentro de las 2 semanas del previo, habitualmente por un organismo distinto",
+"Nuevo episodio por el mismo germen después de 6 meses",
+"Persistencia del mismo germen durante el tratamiento",
+"Tercer episodio de ITU baja en un año",
+"ITU en un niño con sonda vesical"
+],
+"e": "Definición operativa textual de la guía."
+},
+{
+"c": "itu",
+"t": 0,
+"src": "PPT + GPC",
+"v": "Lactante varón de 5 meses con fiebre de 39 °C de 48 h, sin foco, rechazo parcial de lactancia y 2 vómitos. Tira: leucocitos ++, nitritos +. Tolera la vía oral.",
+"q": "Señale la conducta MÁS CORRECTA:",
+"o": [
+"Urocultivo por sonda antes del antibiótico e iniciar tratamiento empírico; por ser > 3 meses y tolerar, la vía oral es igual de eficaz que la EV",
+"Iniciar antibiótico y luego tomar urocultivo por bolsa colectora",
+"Esperar el resultado del urocultivo para iniciar antibiótico",
+"Hospitalizar para antibiótico EV obligatorio por ser lactante",
+"Tratar 3 días con nitrofurantoína"
+],
+"e": "En > 3 meses con buen estado, VO = EV. EV obligatoria en < 3 meses, sepsis o intolerancia oral. Nitrofurantoína no sirve en ITU febril."
+},
+{
+"c": "itu",
+"t": 1,
+"src": "GPC INSN",
+"q": "¿Cuál es una causa de nitritos falsamente negativos?",
+"o": [
+"Orina que permanece menos de 4 horas en la vejiga (lactantes) e infección por Enterococcus o Pseudomonas",
+"Enfermedad de Kawasaki",
+"Apendicitis",
+"Fiebre alta",
+"Gastroenteritis"
+],
+"e": "Kawasaki, apendicitis, gastroenteritis, litiasis y fiebre dan esterasa leucocitaria falsamente POSITIVA."
+},
+{
+"c": "itu",
+"t": 0,
+"src": "GPC INSN",
+"q": "Respecto a la tira reactiva, señale lo MÁS CORRECTO:",
+"o": [
+"Los nitritos tienen baja sensibilidad (~50 %) pero alta especificidad (98 %): un nitrito negativo no descarta ITU",
+"Los nitritos tienen alta sensibilidad y baja especificidad",
+"La esterasa leucocitaria confirma ITU",
+"Esterasa y nitritos negativos descartan ITU en el 100 %",
+"La tira reemplaza al urocultivo"
+],
+"e": "El urocultivo es la prueba de oro. Esterasa o nitritos + = más sensible; esterasa y nitritos + = más específico."
+},
+{
+"c": "itu",
+"t": 0,
+"src": "GPC INSN",
+"q": "Respecto a la etiología de la ITU en pediatría, señale lo MÁS CORRECTO:",
+"o": [
+"E. coli es el agente más frecuente (~80 %); Enterococcus es más frecuente en < 3 meses y en uropatías",
+"Klebsiella pasó a ser la bacteria Gram negativa más frecuente en la última década",
+"Proteus es el más frecuente en lactantes mujeres",
+"S. saprophyticus es frecuente en neonatos",
+"Pseudomonas es el agente más frecuente en ITU comunitaria"
+],
+"e": "Proteus, Klebsiella o Enterococcus hacen pensar en anomalía estructural, origen hospitalario o resistencia. S. saprophyticus: adolescentes mujeres."
+},
+{
+"c": "itu",
+"t": 0,
+"src": "Banco + GPC",
+"v": "Lactante de 2 meses con fiebre de 39,2 °C, vómitos, letargia e ictericia. Orina: piuria y nitritos +.",
+"q": "Señale lo MÁS CORRECTO:",
+"o": [
+"Hospitalizar, urocultivo y hemocultivo, y antibiótico EV; valorar punción lumbar",
+"La letargia, ictericia y diarrea alejan la posibilidad de ITU en el lactante",
+"En esta edad es igual de efectivo el antibiótico oral o EV",
+"Esperar el urocultivo para iniciar antibiótico",
+"Ceftriaxona IM dosis única y control en 48 h"
+],
+"e": "En < 3 meses la ITU es inespecífica (ictericia, letargia, rechazo del alimento) y hay ~10 % de urosepsis: EV. Exámenes: hemograma, PCR/PCT, hemocultivo, creatinina, electrolitos."
+},
+{
+"c": "itu",
+"t": 1,
+"src": "GPC INSN",
+"q": "¿Qué antibiótico NO debe usarse en la ITU febril (pielonefritis)?",
+"o": [
+"Nitrofurantoína (y ácido nalidíxico): no alcanzan concentraciones en el parénquima renal",
+"Ceftriaxona",
+"Cefalexina",
+"Amikacina",
+"Cefuroxima"
+],
+"e": "Nitrofurantoína: solo ITU baja (5–7 mg/kg/día c/6 h). Tampoco ampicilina en monoterapia."
+},
+{
+"c": "itu",
+"t": 0,
+"src": "PPT + GPC",
+"q": "Respecto a la duración del tratamiento antibiótico, señale lo MÁS CORRECTO:",
+"o": [
+"ITU alta/febril: 7–10 días; ITU baja: 3–5 días",
+"ITU alta: 3–5 días; ITU baja: 7–10 días",
+"Toda ITU: 14 días",
+"ITU alta: 21 días",
+"ITU baja: dosis única en todos los niños"
+],
+"e": "> 14 días solo en curso severo o uropatía. El tratamiento debe iniciarse en < 48 h."
+},
+{
+"c": "itu",
+"t": 1,
+"src": "GPC INSN",
+"q": "Respecto al inicio del antibiótico y las cicatrices renales, señale lo MÁS CORRECTO:",
+"o": [
+"Iniciar en las primeras 24 h de fiebre da 74 % menos riesgo de nueva cicatriz que iniciar después de 72 h",
+"El momento de inicio no influye en la cicatriz renal",
+"Conviene esperar 72 h para confirmar el urocultivo",
+"La cicatriz renal ocurre en el 80 % tras la primera ITU febril",
+"La cicatriz se detecta con ecografía en la fase aguda"
+],
+"e": "Cicatriz: ~3 % tras la 1.ª ITU febril y ~29 % tras 3. Se ve con DMSA a los 4–6 meses."
+},
+{
+"c": "itu",
+"t": 0,
+"src": "PPT + GPC",
+"q": "Respecto a los estudios de imagen en ITU, señale lo MÁS CORRECTO:",
+"o": [
+"Ecografía renal y vesical en < 2 años con primera ITU febril; la CUMS es la prueba de oro para el RVU; el DMSA detecta cicatrices a los 4–6 meses",
+"La ecografía descarta el reflujo vesicoureteral",
+"El DMSA es la prueba de oro para el RVU",
+"La CUMS se pide a todo niño con primera ITU",
+"La ecografía detecta cicatrices renales de forma confiable"
+],
+"e": "CUMS: eco anormal, ITU atípica o ITU alta recurrente. También detecta valvas de uretra posterior."
+},
+{
+"c": "itu",
+"t": 1,
+"src": "PPT",
+"q": "Respecto a los otros estudios de imagen, señale lo MÁS CORRECTO:",
+"o": [
+"La cistografía isotópica tiene menos radiación que la CUMS y sirve para seguimiento, pero no gradúa bien el RVU",
+"La urosonografía con contraste descarta valvas de uretra posterior en varones",
+"La uro-RM es el estándar en pediatría",
+"La cistografía isotópica gradúa el RVU con más precisión que la CUMS",
+"La urosonografía con contraste usa radiación ionizante"
+],
+"e": "Urosonografía con contraste: microburbujas, sin radiación, pero en varones no descarta valvas. Uro-RM: costosa y no estándar."
+},
+{
+"c": "itu",
+"t": 0,
+"src": "PPT + GPC",
+"q": "¿En cuál de los siguientes se indica profilaxis antibiótica?",
+"o": [
+"RVU de alto grado (IV–V), ITU alta recurrente o uropatía compleja con disfunción vesical",
+"Todo niño tras su primera ITU febril",
+"Toda niña con bacteriuria asintomática",
+"RVU grado I",
+"Toda ITU baja"
+],
+"e": "RVU III: individualizar. Se da ¼ de la dosis en la noche: TMP-SMX 1–2 mg/kg/día (TMP), nitrofurantoína 1–2 mg/kg/día; cefalexina en < 1 mes."
+},
+{
+"c": "itu",
+"t": 1,
+"src": "GPC INSN",
+"q": "Respecto a las medidas generales de prevención de la ITU, señale lo MÁS CORRECTO:",
+"o": [
+"Jugo de arándanos 5 mL/kg (máx 300 mL) por 6 meses en niños con anatomía urinaria normal",
+"Arándanos en niños con malformaciones urinarias",
+"Retraer a la fuerza el prepucio en la fimosis",
+"El corticoide tópico no tiene utilidad en la fimosis",
+"El estreñimiento no influye en las ITU"
+],
+"e": "Fructosa bloquea fimbrias tipo 1; antocianidinas bloquean las fimbrias. Tratar el estreñimiento reduce las ITU."
+},
+{
+"c": "itu",
+"t": 1,
+"src": "GPC INSN",
+"q": "Respecto a los factores de riesgo de ITU, señale lo MÁS CORRECTO:",
+"o": [
+"Un lactante varón febril no circuncidado tiene ~8 veces más ITU, sobre todo en < 3 meses",
+"Es más frecuente en mujeres < 6 meses",
+"La circuncisión aumenta el riesgo de ITU",
+"El estreñimiento protege de la ITU",
+"La obesidad no es factor de riesgo"
+],
+"e": "Más frecuente en varones < 6 meses y mujeres ≥ 1 año. En fiebre sin foco de 2–24 meses, ~5 % es ITU."
+},
+{
+"c": "itu",
+"t": 1,
+"src": "GPC INSN",
+"q": "Respecto a la respuesta esperada al tratamiento, señale lo MÁS CORRECTO:",
+"o": [
+"Orina estéril en 24 h, fiebre cede en 24–48 h (90 %), leucocituria desaparece en 3–4 días; con buena respuesta no se repite el urocultivo",
+"Debe repetirse el urocultivo a las 48 h en todos los casos",
+"La fiebre suele persistir 5 días",
+"Si el urocultivo sale negativo se completa igual el antibiótico",
+"La leucocituria desaparece en 24 h"
+],
+"e": "Fiebre > 48–72 h: repetir ecografía (absceso, nefronía, obstrucción). Cultivo negativo: suspender antibiótico."
+},
+{
+"c": "itu",
+"t": 0,
+"src": "Constipación",
+"v": "Niña de 6 años con ITU recurrente, incontinencia urinaria diurna y deposiciones duras cada 4 días.",
+"q": "Señale lo MÁS CORRECTO:",
+"o": [
+"Disfunción vejiga-intestino: tratar el estreñimiento disminuye las ITU recurrentes",
+"El estreñimiento no tiene relación con la ITU",
+"Iniciar profilaxis antibiótica de por vida",
+"Solicitar cistoscopia",
+"Restringir líquidos"
+],
+"e": "Teorías: el recto distendido comprime la vejiga, y la contracción crónica del esfínter causa disinergia detrusor-esfínter, residuo e ITU."
+},
+{
+"c": "ane",
+"t": 0,
+"src": "PPT + NTS",
+"v": "Lactante de 14 meses que vive en Lima, asintomática, con Hb de 10,3 g/dL.",
+"q": "Según la OMS 2024 (RM 251-2024-MINSA), señale lo MÁS CORRECTO:",
+"o": [
+"Anemia leve: en 6–23 meses el corte es < 10,5 (leve 9,5–10,4)",
+"Anemia moderada: el corte es < 11",
+"No tiene anemia",
+"Anemia severa",
+"Anemia leve: el corte es < 11 (leve 10–10,9)"
+],
+"e": "La OMS 2024 bajó el corte de 6–23 meses de 11 a 10,5. De 24–59 meses sigue en < 11."
+},
+{
+"c": "ane",
+"t": 0,
+"src": "NTS",
+"q": "Niño de 3 años con Hb de 9,5 g/dL a nivel del mar. Su clasificación es:",
+"o": [
+"Anemia moderada (24–59 m: moderada 7–9,9)",
+"Anemia leve",
+"Anemia severa",
+"Normal",
+"Anemia moderada porque el corte es < 10,5"
+],
+"e": "24–59 m: sin anemia ≥ 11 · leve 10–10,9 · moderada 7–9,9 · severa < 7."
+},
+{
+"c": "ane",
+"t": 1,
+"src": "Apuntes + OMS",
+"v": "Niño de 3 años que vive en Puno (3800 msnm) desde hace 2 años, con Hb medida de 12,9 g/dL.",
+"q": "Señale lo MÁS CORRECTO:",
+"o": [
+"Ajuste 2,5 g/dL: Hb corregida 10,4 → anemia leve",
+"Ajuste 3,3 g/dL: Hb corregida 9,6 → anemia moderada",
+"No se ajusta porque vive allí hace más de 4 meses",
+"Hb 12,9 es normal porque supera 11",
+"Ajuste 2,1 g/dL: Hb corregida 10,8 → anemia leve"
+],
+"e": "3500–3999 msnm: 2,5. Se usa la residencia de los últimos 4 meses. 12,9 − 2,5 = 10,4 (< 11)."
+},
+{
+"c": "ane",
+"t": 1,
+"src": "Apuntes",
+"q": "Para el ajuste de Hb por altitud, ¿qué residencia se considera?",
+"o": [
+"La residencia habitual de los últimos 4 meses",
+"La del nacimiento",
+"La del último mes",
+"La de los últimos 12 meses",
+"La del establecimiento de salud"
+],
+"e": "Hb corregida = Hb medida − ajuste. El ajuste empieza a los 500 msnm."
+},
+{
+"c": "ane",
+"t": 0,
+"src": "PPT + NTS",
+"q": "Respecto a la suplementación preventiva con hierro, señale lo MÁS CORRECTO:",
+"o": [
+"Nacido a término con peso adecuado: desde los 4 meses, 2 mg/kg/día en gotas hasta los 6 meses",
+"A los prematuros: 5 mg/kg/día desde los 30 días hasta los 4 meses",
+"Nacido a término: desde los 6 meses con sulfato ferroso 3 mg/kg/día",
+"Multimicronutrientes desde los 4 meses en todos",
+"Prematuro: desde los 6 meses"
+],
+"e": "Prematuro/BPN: desde los 30 días, 2 mg/kg/día hasta 6 m. Luego micronutrientes (360 sobres). “Todo niño desde los 4 meses recibe hierro y a los 6 meses primer descarte”."
+},
+{
+"c": "ane",
+"t": 0,
+"src": "Apuntes (NTS)",
+"q": "Dosis de tratamiento de la anemia en un prematuro o con bajo peso al nacer:",
+"o": [
+"4 mg/kg/día desde los 30 días, por 6 meses",
+"3 mg/kg/día desde los 4 meses",
+"2 mg/kg/día desde los 6 meses",
+"6 mg/kg/día desde el nacimiento",
+"1 mg/kg/día"
+],
+"e": "A término con peso adecuado: 3 mg/kg/día al diagnóstico (máx 40 mg/día). Control de Hb a los 3 y 6 meses."
+},
+{
+"c": "ane",
+"t": 0,
+"src": "Apuntes (NTS)",
+"v": "Niña de 2 años, 12 kg, con anemia leve.",
+"q": "Señale el tratamiento MÁS CORRECTO:",
+"o": [
+"Hierro 3 mg/kg/día (36 mg/día): jarabe de sulfato ferroso 12 mL/día por 6 meses",
+"Hierro 3 mg/kg/día: jarabe de sulfato ferroso 3,6 mL/día",
+"Hierro 6 mg/kg/día por 3 meses",
+"Hierro 3 mg/kg/día hasta normalizar la Hb",
+"Multimicronutrientes 1 sobre/día"
+],
+"e": "Sulfato ferroso jarabe: 1 mL = 3 mg. 36 ÷ 3 = 12 mL. Máximo 70 mg/día en 6–35 meses."
+},
+{
+"c": "ane",
+"t": 1,
+"src": "Apuntes (PNUME)",
+"q": "¿Cuánto hierro elemental tienen las presentaciones?",
+"o": [
+"Sulfato ferroso: 1 gota = 1,25 mg; jarabe 1 mL = 3 mg. Polimaltosado: 1 gota = 2,5 mg; jarabe 1 mL = 10 mg",
+"Sulfato ferroso: 1 gota = 2,5 mg; jarabe 1 mL = 10 mg",
+"Ambos: 1 mL = 3 mg",
+"Micronutrientes: 30 mg de hierro por sobre",
+"Tableta de sulfato ferroso: 100 mg"
+],
+"e": "Tabletas: sulfato 60 mg, polimaltosado 100 mg. Sobre de micronutrientes: 12,5 mg de hierro."
+},
+{
+"c": "ane",
+"t": 0,
+"src": "PPT + NTS",
+"q": "Respecto al tratamiento de la anemia ferropénica, señale lo MÁS CORRECTO:",
+"o": [
+"No esperar estudios: iniciar hierro oral por 6 meses continuos con control de Hb a 1, 3 y 6 meses",
+"Esperar la ferritina para iniciar",
+"Dar hierro hasta normalizar la Hb",
+"Hierro por 12 meses continuos",
+"Controlar la Hb a los 2, 4 y 6 meses"
+],
+"e": "“12 meses continuos” y “control a los 2, 4 y 6 meses” son distractores del banco."
+},
+{
+"c": "ane",
+"t": 0,
+"src": "PPT + NTS",
+"q": "¿Cuándo se cambia el sulfato ferroso por complejo polimaltosado férrico?",
+"o": [
+"Si hay efectos adversos o la adherencia es < 75 %",
+"Siempre desde el inicio",
+"Si la Hb es < 7 g/dL",
+"En prematuros",
+"Si vive en altura"
+],
+"e": "Sulfato ferroso: náuseas, estreñimiento, heces negras, tinción dental e interfiere con el calcio. Polimaltosado: mejor tolerancia. El sulfato sigue siendo 1.ª línea."
+},
+{
+"c": "ane",
+"t": 1,
+"src": "Apuntes",
+"q": "Un niño suspendió el hierro durante 4 meses. Según la norma:",
+"o": [
+"Medir Hb nuevamente y reiniciar el esquema desde cero",
+"Continuar el esquema donde quedó",
+"Duplicar la dosis",
+"Pasar a hierro EV",
+"Suspender definitivamente"
+],
+"e": "Regla de los 3 meses: < 3 meses sin tomarlo → continuar; > 3 meses → medir Hb y reiniciar."
+},
+{
+"c": "ane",
+"t": 1,
+"src": "PPT",
+"q": "Niño en tratamiento con Hb inicial de 6,5 g/dL. ¿Cada cuánto se controla la Hb?",
+"o": [
+"Cada 7 días hasta superar 7 g/dL, luego cada 30 días",
+"Cada 30 días desde el inicio",
+"A los 1, 3 y 6 meses solamente",
+"Cada 3 meses",
+"Diario"
+],
+"e": "Hb > 7: control cada 30 días."
+},
+{
+"c": "ane",
+"t": 0,
+"src": "PPT + apuntes",
+"q": "¿Qué perfil de laboratorio corresponde a la anemia ferropénica?",
+"o": [
+"Hb ↓, VCM ↓, HCM ↓, RDW ↑, ferritina ↓, hierro ↓, TIBC ↑",
+"VCM ↑, RDW normal, ferritina ↑",
+"Hb A₂ ↑, RDW normal, ferritina normal",
+"Ferritina ↑ con TIBC ↓",
+"Reticulocitos > 3 %"
+],
+"e": "Ferritina refleja los depósitos si no hay inflamación. Reticulocitos bajos o normales bajos."
+},
+{
+"c": "ane",
+"t": 0,
+"src": "PPT",
+"v": "Niño de 4 años con anemia microcítica que no responde a 3 meses de hierro bien tomado. RDW normal, ferritina normal, Hb A₂ elevada.",
+"q": "¿Cuál es el diagnóstico MÁS probable?",
+"o": [
+"β-talasemia heterocigota",
+"Anemia ferropénica",
+"Anemia de la inflamación",
+"Déficit de vitamina B12",
+"Anemia sideroblástica"
+],
+"e": "Inflamación: ferritina ↑. Sideroblástica: hierro y saturación ↑. Ferropenia: RDW ↑ y prueba terapéutica +."
+},
+{
+"c": "ane",
+"t": 1,
+"src": "PPT",
+"q": "Respecto a la clasificación de las anemias, señale lo MÁS CORRECTO:",
+"o": [
+"Regenerativa: reticulocitos > 3 % o IPR ≥ 3 (hemólisis, hemorragia); arregenerativa: IPR < 2 (ferropenia, B12/folato, aplasia)",
+"Macrocítica: VCM < P2,5 por déficit de hierro",
+"La ferropenia es regenerativa",
+"Normocítica: siempre por déficit de B12",
+"IPR normal entre 5 y 6"
+],
+"e": "Microcítica < P2,5 (ferropenia, talasemia). Macrocítica ≥ P97,5 (B12, folato, antiepilépticos)."
+},
+{
+"c": "ane",
+"t": 0,
+"src": "PPT + apuntes",
+"q": "¿Cuál de los siguientes es un factor de riesgo de anemia entre el mes y los 12 meses?",
+"o": [
+"Introducir leche de vaca entera, soya o cabra antes de los 12 meses",
+"Lactancia materna exclusiva hasta los 6 meses",
+"Pinzamiento tardío del cordón",
+"Alimentación complementaria con sangrecita",
+"Vacunación completa"
+],
+"e": "Desde el año: > 600 mL/día de leche de vaca. La leche evaporada o de vaca produce microsangrados intestinales."
+},
+{
+"c": "ane",
+"t": 1,
+"src": "PPT + apuntes",
+"q": "Respecto a la clínica de la anemia ferropénica, señale lo MÁS CORRECTO:",
+"o": [
+"La mayoría es asintomática; puede haber palidez, coiloniquia (uñas en cuchara), pica y geofagia",
+"Siempre hay soplo cardiaco",
+"La coiloniquia son uñas planas",
+"La ictericia es típica",
+"La esplenomegalia es característica"
+],
+"e": "Platoniquia = uñas planas. Taquicardia y soplo sobre todo si Hb < 5. Ictericia o esplenomegalia → hemolítica."
+},
+{
+"c": "ane",
+"t": 1,
+"src": "Apuntes",
+"q": "¿Cuándo se mide la Hb en la gestante?",
+"o": [
+"En el 1.er control prenatal, en la semana 25–28 y en la semana 37–40",
+"Solo en el 1.er control",
+"Cada mes",
+"En la semana 14 y en el parto",
+"A los 30 días posparto únicamente"
+],
+"e": "Puérpera: a los 30 días posparto. Suplemento: hierro + ácido fólico desde la semana 14 hasta 30 días posparto."
+},
+{
+"c": "ane",
+"t": 1,
+"src": "Apuntes",
+"q": "Respecto al pinzamiento del cordón para prevenir la anemia:",
+"o": [
+"Pinzamiento tardío: 2–3 minutos después del nacimiento en el RN a término sin complicaciones",
+"Pinzamiento inmediato en todos",
+"Pinzamiento a los 10 minutos",
+"Solo en prematuros",
+"No influye en las reservas de hierro"
+],
+"e": "Pasa más sangre placentaria al RN y aumenta sus reservas de hierro."
+},
+{
+"c": "ane",
+"t": 1,
+"src": "Apuntes",
+"q": "Tratamiento de la anemia en adolescentes de 12 a 17 años:",
+"o": [
+"120 mg de hierro elemental/día (2 tabletas) por 6 meses; en mujeres + 800 µg de ácido fólico",
+"60 mg/día por 3 meses",
+"3 mg/kg/día sin máximo",
+"Hierro EV en todos",
+"200 mg/día por 1 mes"
+],
+"e": "Hierro EV solo en gestantes, en establecimientos de nivel I-4 o superior."
+},
+{
+"c": "ane",
+"t": 1,
+"src": "PPT (ENDES)",
+"q": "Según la ENDES 2025-I, ¿cuál es la prevalencia de anemia en niños de 6 a 35 meses con el corte de la OMS 2024?",
+"o": [
+"35,6 %",
+"45,3 %",
+"43,4 %",
+"12,1 %",
+"20 %"
+],
+"e": "Con el corte antiguo (RM 363-2022): 45,3 %. Rural 42,1 % vs urbana 32,9 % (OMS 2024)."
+},
+{
+"c": "ane",
+"t": 1,
+"src": "PPT",
+"q": "Alimento de origen animal con MÁS hierro por 100 g:",
+"o": [
+"Sangre de pollo cocida (sangrecita): 29,5 mg",
+"Hígado de pollo: 8,5 mg",
+"Carne de res: 3,4 mg",
+"Pescado: 2,5–3,5 mg",
+"Pollo: 1,5 mg"
+],
+"e": "Bazo: 28,7 mg. El hierro hemínico se absorbe mejor."
+},
+{
+"c": "dai",
+"t": 0,
+"src": "GPC 2025",
+"q": "Según la GPC IETSI 2025, la diarrea aguda se define como:",
+"o": [
+"≥ 3 deposiciones blandas o líquidas en 24 horas, con duración < 14 días",
+"≥ 3 deposiciones por más de 14 días",
+"Diarrea de duración ≤ 10 días",
+"≥ 5 deposiciones al día",
+"Cualquier deposición líquida"
+],
+"e": "Trampa del banco: “aguda ≤ 10 días”. Por duración: aguda < 7 d · prolongada 7–14 · persistente ≥ 14 · crónica > 30."
+},
+{
+"c": "dai",
+"t": 0,
+"src": "GPC 2025",
+"q": "Respecto a la etiología de la diarrea aguda acuosa en < 5 años, señale lo MÁS CORRECTO:",
+"o": [
+"Predomina la etiología viral (rotavirus, adenovirus, norovirus, astrovirus)",
+"Predomina Shigella",
+"Predomina Entamoeba histolytica",
+"Predomina Campylobacter",
+"Siempre es bacteriana"
+],
+"e": "Bacterias en acuosa (menos frecuentes): ETEC, EPEC, EAEC, V. cholerae. En disentérica: Shigella, Salmonella no tifoidea, Campylobacter, STEC O157:H7, EIEC."
+},
+{
+"c": "dai",
+"t": 0,
+"src": "PPT",
+"v": "Lactante de 14 meses y 11 kg con diarrea acuosa, irritable, bebe con avidez, ojos hundidos y pliegue que regresa lento.",
+"q": "Señale el manejo MÁS CORRECTO:",
+"o": [
+"Plan B: SRO 50–100 mL/kg en 4 horas (≈ 825 mL)",
+"Plan A en domicilio",
+"Plan C: NaCl 0,9 % 100 mL/kg EV",
+"SRO 20 mL/kg en 1 hora",
+"Suspender la alimentación 24 h"
+],
+"e": "Algún grado de deshidratación (≥ 2 signos) = plan B. Si tolera SRO 2 h y no se deshidrata → domicilio."
+},
+{
+"c": "dai",
+"t": 0,
+"src": "PPT",
+"q": "Plan C en un lactante de 8 meses con deshidratación grave:",
+"o": [
+"NaCl 0,9 % o lactato de Ringer 100 mL/kg: 30 mL/kg en 1 hora y 70 mL/kg en 5 horas",
+"30 mL/kg en 30 minutos y 70 mL/kg en 2,5 horas",
+"NaCl 0,09 % 10–20 mL/kg cada 20 minutos",
+"SRO por sonda 50 mL/kg",
+"Dextrosa 5 % 20 mL/kg"
+],
+"e": "> 12 meses: 30 mL/kg en 30 min y 70 mL/kg en 2,5 h. Shock: bolo 20 mL/kg de NaCl 0,9 %. Ojo con 0,09 % vs 0,9 %."
+},
+{
+"c": "dai",
+"t": 0,
+"src": "PPT",
+"q": "En el plan A, ¿cuánta SRO se da tras cada deposición y cada vómito?",
+"o": [
+"10 mL/kg por deposición y 2 mL/kg por vómito",
+"2 mL/kg por deposición y 10 mL/kg por vómito",
+"50 mL/kg por deposición",
+"100 mL en todos los casos",
+"No se da SRO en el plan A"
+],
+"e": "ACREZ: Aumentar líquidos, Continuar alimentación, Reconocer signos de alarma, Enseñanzas, Zinc."
+},
+{
+"c": "dai",
+"t": 0,
+"src": "PPT",
+"q": "Respecto a las sales de rehidratación oral, señale lo MÁS CORRECTO:",
+"o": [
+"La SRO de baja osmolaridad (Na 75, glucosa 75, 245 mOsm/L) es la de elección",
+"Se prefiere la SRO de alta osmolaridad en deshidratación leve",
+"Las bebidas deportivas reemplazan a la SRO",
+"La SRO detiene la diarrea",
+"La SRO estándar original tenía 245 mOsm/L"
+],
+"e": "SRO original: Na 90, 311 mOsm/L. Funciona por el cotransportador Na⁺/glucosa SGLT1."
+},
+{
+"c": "dai",
+"t": 1,
+"src": "PPT",
+"q": "Deshidratación hipertónica (Na > 150 mEq/L). Señale lo MÁS CORRECTO:",
+"o": [
+"El pliegue puede ser engañoso (piel pastosa); la corrección debe ser lenta en 48 h por riesgo de edema cerebral",
+"Produce shock precoz con convulsiones por hiponatremia",
+"Es la más frecuente (65 %)",
+"Se corrige en 4 horas con SRO",
+"El signo del pliegue es más marcado que en la isotónica"
+],
+"e": "Isotónica 65 % (Na 130–150). Hipotónica: shock precoz y convulsiones."
+},
+{
+"c": "dai",
+"t": 0,
+"src": "GPC 2025",
+"v": "Niño de 2 años con diarrea aguda acuosa sin deshidratación.",
+"q": "Según la GPC IETSI 2025, respecto al zinc:",
+"o": [
+"Sulfato de zinc 5 o 10 mg/día por 14 días (en 6 a 59 meses), en lugar de 20 mg/día",
+"Sulfato de zinc 20 mg/día por 10–14 días",
+"Zinc solo si la diarrea dura más de 14 días",
+"Zinc también en menores de 6 meses a 10 mg/día",
+"El zinc está contraindicado"
+],
+"e": "< 6 meses: no dar zinc. Jarabe 5 mg = 2,5 mL; tableta 10 mg = ½ tableta diluida. Separar 2 h de otros medicamentos."
+},
+{
+"c": "dai",
+"t": 0,
+"src": "GPC 2025",
+"q": "Respecto a la loperamida en niños < 5 años con diarrea aguda, señale lo MÁS CORRECTO:",
+"o": [
+"Recomendación fuerte de NO usarla: la rehidratación siempre es lo prioritario",
+"Se usa si hay más de 10 deposiciones",
+"Solo en diarrea acuosa sin fiebre",
+"Se usa en la disentería",
+"Es de primera línea con la SRO"
+],
+"e": "Efectos: íleo, letargia, toxicidad."
+},
+{
+"c": "dai",
+"t": 0,
+"src": "GPC 2025",
+"q": "Respecto al antibiótico en la diarrea aguda acuosa, señale lo MÁS CORRECTO:",
+"o": [
+"Recomendación fuerte de no dar antibiótico empírico de rutina, independientemente de la deshidratación",
+"Dar azitromicina a todos",
+"Dar antibiótico si hay deshidratación moderada",
+"Dar ciprofloxacino si dura más de 3 días",
+"Dar metronidazol empírico"
+],
+"e": "Excepción: cólera confirmado o muy sospechoso (antibiótico específico según sensibilidad local)."
+},
+{
+"c": "dai",
+"t": 0,
+"src": "GPC 2025",
+"v": "Niño de 3 años con diarrea con moco y sangre, fiebre de 39 °C y tenesmo. Tolera la vía oral.",
+"q": "Señale el tratamiento empírico MÁS CORRECTO:",
+"o": [
+"Azitromicina 10 mg/kg/día cada 24 h por 3 días VO (máx 500 mg), idealmente tras tomar coprocultivo",
+"Ceftriaxona 100 mg/kg/día por 7 días",
+"Ciprofloxacino como primera línea",
+"Metronidazol 30 mg/kg/día",
+"Cefuroxima o cefaclor (cefalosporinas de 3.ª generación)"
+],
+"e": "Ceftriaxona 50 mg/kg/día × 3 d si no tolera VO, vómitos persistentes, compromiso general o < 3 m. 2.ª línea: ciprofloxacino o furazolidona. Cefuroxima y cefaclor NO son de 3.ª generación."
+},
+{
+"c": "dai",
+"t": 0,
+"src": "GPC 2025 + PPT",
+"q": "¿En qué agente está contraindicado el antibiótico por riesgo de síndrome urémico hemolítico?",
+"o": [
+"E. coli enterohemorrágica (STEC) O157:H7",
+"Shigella",
+"Campylobacter jejuni",
+"Entamoeba histolytica",
+"Vibrio cholerae"
+],
+"e": "Trampa del banco: “E. coli O7:H157”. Lo correcto es O157:H7. Diarrea que se vuelve hemática, gran volumen, afebril."
+},
+{
+"c": "dai",
+"t": 1,
+"src": "GPC 2025",
+"q": "Diarrea disentérica con sospecha de amebiasis. Señale lo MÁS CORRECTO:",
+"o": [
+"Parasitológico seriado (3 muestras) y metronidazol 30 mg/kg/día c/8 h por 7–10 días",
+"Coprocultivo y azitromicina",
+"Metronidazol 15 mg/kg/día por 3 días",
+"Albendazol dosis única",
+"No requiere tratamiento"
+],
+"e": "Máximo de metronidazol: 2,25 g/día."
+},
+{
+"c": "dai",
+"t": 1,
+"src": "GPC 2025",
+"q": "Respecto a la reacción inflamatoria en heces, la GPC IETSI 2025:",
+"o": [
+"Sugiere no realizarla como prueba diagnóstica de etiología bacteriana",
+"La recomienda en toda diarrea disentérica",
+"La considera la prueba de oro",
+"La recomienda antes del antibiótico",
+"La recomienda en diarrea acuosa"
+],
+"e": "Tampoco recomienda pruebas rápidas de rotavirus/adenovirus de rutina; el diagnóstico es clínico."
+},
+{
+"c": "dai",
+"t": 1,
+"src": "GPC 2025",
+"q": "Según la GPC IETSI 2025, ¿cuándo se considera una prueba rápida de antígeno de rotavirus?",
+"o": [
+"Diarrea de alto flujo (10 mL/kg/h), vómitos persistentes (> 3 en 12 h), progresión de la deshidratación, brotes o vigilancia epidemiológica",
+"En todo niño con diarrea acuosa",
+"Antes de iniciar SRO",
+"Siempre que haya fiebre",
+"Para decidir el antibiótico"
+],
+"e": "Los datos de alto flujo y vómitos persistentes también son criterios de hospitalización."
+},
+{
+"c": "dai",
+"t": 1,
+"src": "GPC 2025",
+"v": "Niño de 18 meses con diarrea acuosa y vómitos persistentes, sin shock.",
+"q": "Según la GPC IETSI 2025, señale lo MÁS CORRECTO:",
+"o": [
+"No dar dimenhidrinato; SRO fraccionada 5–15 mL cada 3–5 minutos y, si vomita > 3 veces en 12 h, reposo gástrico de 20–30 min",
+"Dimenhidrinato de rutina",
+"Suspender la vía oral 24 h",
+"Pasar directamente a vía EV",
+"Dar loperamida"
+],
+"e": "Si no tolera VO con deshidratación moderada-severa: SNG/SOG. EV si hay shock, alteración del sensorio o íleo. El PPT menciona ondansetrón 0,15 mg/kg VO en casos seleccionados."
+},
+{
+"c": "dai",
+"t": 0,
+"src": "PPT + GPC",
+"q": "Respecto a la alimentación en la diarrea aguda, señale lo MÁS CORRECTO:",
+"o": [
+"Continuar o reintroducir temprano la alimentación habitual; < 6 m mantener lactancia materna exclusiva",
+"Ayuno de 24 horas",
+"Dietas restrictivas sin lácteos, frutas ni verduras",
+"Diluir la fórmula a la mitad",
+"Solo líquidos claros por 48 h"
+],
+"e": "El ayuno atrofia las vellosidades. Evitar cambios innecesarios salvo alergia o intolerancia."
+},
+{
+"c": "dai",
+"t": 1,
+"src": "PPT",
+"q": "¿Qué agente se asocia a síndrome de Guillain-Barré?",
+"o": [
+"Campylobacter jejuni (bacilo Gram − en forma de coma, aves de corral)",
+"Rotavirus",
+"Shigella",
+"Norovirus",
+"Salmonella typhi"
+],
+"e": "Campylobacter: dolor que simula apendicitis. Shigella: convulsiones, prolapso rectal y SHU."
+},
+{
+"c": "dai",
+"t": 1,
+"src": "PPT",
+"q": "Respecto a Salmonella no typhi, señale lo MÁS CORRECTO:",
+"o": [
+"En la forma no complicada no se da antibiótico porque prolonga el estado de portador",
+"Siempre requiere ciprofloxacino",
+"No produce bacteriemia",
+"Se transmite por agua de río solamente",
+"Produce SHU con más frecuencia que STEC"
+],
+"e": "Antibiótico (ceftriaxona) solo si es grave o de riesgo. Fuentes: huevos, pollo crudo, lácteos no pasteurizados."
+},
+{
+"c": "dai",
+"t": 1,
+"src": "PPT",
+"q": "Respecto al rotavirus, señale lo MÁS CORRECTO:",
+"o": [
+"Virus ARN bicatenario; su enterotoxina NSP4 aumenta el Ca²⁺ intracelular y la secreción de cloro",
+"Virus ADN monocatenario",
+"Produce diarrea disentérica",
+"Afecta sobre todo a mayores de 5 años",
+"Su enterotoxina es la toxina Shiga"
+],
+"e": "Más grave entre 6 meses y 2 años; vómitos primero y luego diarrea acuosa profusa."
+},
+{
+"c": "dai",
+"t": 1,
+"src": "PPT",
+"q": "Escala de Gorelick (1–60 meses). Un puntaje de 5 corresponde a:",
+"o": [
+"Deshidratación moderada (3–6 puntos)",
+"Leve (1–2)",
+"Grave (7–10)",
+"Sin deshidratación",
+"No se puede clasificar"
+],
+"e": "CDS (1 m–3 a, 0–8): 0 sin · 1–4 leve-moderada · 5–8 severa. Patrón oro: pérdida de peso reciente."
+},
+{
+"c": "dai",
+"t": 1,
+"src": "Banco",
+"q": "Respecto a los tipos de diarrea, señale lo MÁS CORRECTO:",
+"o": [
+"Diarrea osmótica: acuosa, típicamente por rotavirus (daño en parches de las vellosidades)",
+"Disentería: muchas deposiciones de gran volumen con abundante materia fecal",
+"Diarrea secretora: cede con el ayuno",
+"La aguda dura ≤ 10 días",
+"Las cefalosporinas de 3.ª generación incluyen cefuroxima y cefaclor"
+],
+"e": "Disentería: pocas deposiciones de poco volumen con moco y sangre."
+},
+{
+"c": "con",
+"t": 0,
+"src": "PPT (Roma)",
+"v": "Niña de 3 años que hace cada 3 días desde hace 6 meses, heces duras en “bolitas”, a veces muy anchas; cruza las piernas al sentir ganas y mancha la ropa interior.",
+"q": "¿Cuál es el diagnóstico MÁS probable?",
+"o": [
+"Estreñimiento funcional (≥ 2 criterios Roma por ≥ 1 mes)",
+"Enfermedad de Hirschsprung",
+"Hipotiroidismo",
+"Disquecia del lactante",
+"Síndrome de intestino irritable"
+],
+"e": "Roma: ≤ 2 deposiciones/semana · ≥ 1 incontinencia/semana · posturas retentivas · deposiciones dolorosas o duras · gran masa fecal rectal · heces de gran diámetro."
+},
+{
+"c": "con",
+"t": 0,
+"src": "PPT",
+"q": "¿Qué porcentaje del estreñimiento en niños es funcional?",
+"o": [
+"> 95 %",
+"50 %",
+"70 %",
+"< 5 %",
+"30 %"
+],
+"e": "Orgánico < 5 %. Afecta al 10–30 % de los niños y al 3–5 % de las consultas; hasta 25 % persiste en la adultez."
+},
+{
+"c": "con",
+"t": 0,
+"src": "PPT",
+"q": "En la evaluación del estreñimiento funcional, señale lo MÁS CORRECTO:",
+"o": [
+"El diagnóstico es clínico: no se requieren tacto rectal, laboratorio, imágenes ni manometría",
+"Se pide enema baritado en todos",
+"Tacto rectal obligatorio",
+"Siempre pedir TSH y anticuerpos de celiaquía",
+"Interconsultar primero a gastroenterología"
+],
+"e": "Historia + examen completo (neurológico y perineal). Si hay banderas rojas → vía orgánica."
+},
+{
+"c": "con",
+"t": 0,
+"src": "PPT",
+"v": "RN con retraso en la expulsión de meconio (> 48 h), distensión abdominal y vómitos biliosos. Al tacto: ampolla rectal vacía y salida explosiva de heces y gases al retirar el dedo.",
+"q": "¿Cuál es el diagnóstico MÁS probable?",
+"o": [
+"Enfermedad de Hirschsprung: ausencia de células ganglionares (biopsia rectal)",
+"Estreñimiento funcional",
+"Disquecia del lactante",
+"Fisura anal",
+"Intolerancia a la lactosa"
+],
+"e": "“Signo del chorro” (squirt sign). Enema: zona de transición en embudo. Rara vez da encopresis o heces de gran calibre."
+},
+{
+"c": "con",
+"t": 1,
+"src": "PPT",
+"q": "Respecto a la expulsión normal del meconio, señale lo MÁS CORRECTO:",
+"o": [
+"En el RN a término ocurre en las primeras 36 h y el 90 % en las primeras 24 h; > 48 h es signo de alarma",
+"Lo normal es en las primeras 72 h",
+"El 50 % ocurre en las primeras 24 h",
+"El retraso es normal en todos los RN a término",
+"Solo importa en prematuros"
+],
+"e": "Retraso > 48 h: Hirschsprung, íleo meconial (fibrosis quística), tapón meconial, colon izquierdo pequeño (madre diabética), hipotiroidismo."
+},
+{
+"c": "con",
+"t": 1,
+"src": "PPT",
+"q": "Respecto al patrón normal de defecación, señale lo MÁS CORRECTO:",
+"o": [
+"Un lactante con lactancia materna puede hacer después de cada toma o cada 7 días y ser normal",
+"El lactante con fórmula hace 5 veces al día",
+"Desde el nacimiento lo normal es 1 deposición/día",
+"A los 2 años lo normal es 1 cada 3 días",
+"Desde los 5 años lo normal es 3 al día"
+],
+"e": "1.ª semana: ~4/día · LM: ~3/día · fórmula: ~2/día · 2 años: ~2/día · desde los 5 años: 1/día."
+},
+{
+"c": "con",
+"t": 1,
+"src": "PPT",
+"v": "Lactante de 3 meses que llora y puja más de 10 minutos antes de defecar heces blandas. Buen crecimiento.",
+"q": "Señale lo MÁS CORRECTO:",
+"o": [
+"Disquecia del lactante: falta de coordinación entre el pujo y la relajación del piso pélvico; se resuelve sola",
+"Estreñimiento funcional: iniciar PEG",
+"Enfermedad de Hirschsprung",
+"Fisura anal",
+"Iniciar supositorios de glicerina a diario"
+],
+"e": "Se evalúa en < 9 meses. Las heces BLANDAS descartan estreñimiento."
+},
+{
+"c": "con",
+"t": 0,
+"src": "PPT",
+"q": "Un niño que cruza las piernas, se pone de puntas o se esconde en un rincón al sentir ganas de defecar está:",
+"o": [
+"Reteniendo voluntariamente (withholding), no haciendo esfuerzo para expulsar",
+"Haciendo esfuerzo para expulsar",
+"Mostrando un signo de Hirschsprung",
+"Mostrando un signo de disrafismo",
+"Con una conducta normal"
+],
+"e": "Ciclo: deposición dolorosa → retención → acumulación y dilatación (megarecto) → más absorción de agua → heces más duras."
+},
+{
+"c": "con",
+"t": 1,
+"src": "PPT",
+"q": "Respecto a la incontinencia fecal (encopresis) en el estreñimiento, señale lo MÁS CORRECTO:",
+"o": [
+"Es por rebosamiento: la distensión rectal mantenida hace desaparecer el deseo de defecar",
+"Es típica de la enfermedad de Hirschsprung",
+"Indica un problema psiquiátrico primario",
+"Todos los niños con incontinencia fecal tienen estreñimiento",
+"Se trata con loperamida"
+],
+"e": "La mayoría, pero no todos, los niños con incontinencia fecal tienen estreñimiento."
+},
+{
+"c": "con",
+"t": 0,
+"src": "PPT",
+"q": "Desimpactación en un niño con gran masa fecal rectal. Señale lo MÁS CORRECTO:",
+"o": [
+"PEG 3350, 1–1,5 g/kg/día por 3–7 días; si no tolera VO o hay dolor intenso, vía rectal",
+"PEG 0,4–0,8 g/kg/día por 1 día",
+"Lactulosa a partir de los 4 años",
+"Enemas de fosfato en menores de 2 años",
+"Primero interconsultar a gastroenterología"
+],
+"e": "Alternativas: lactulosa, hidróxido de magnesio. Rectal: enemas de fosfato (solo > 2 años), suero fisiológico, microenemas, glicerina."
+},
+{
+"c": "con",
+"t": 0,
+"src": "PPT",
+"q": "Fármaco de elección para el mantenimiento y su dosis:",
+"o": [
+"PEG 3350, 0,4–0,8 g/kg/día, desde los 6 meses",
+"Lactulosa 5 mL/kg/día",
+"Bisacodilo 10 mg en todos",
+"Aceite mineral en lactantes",
+"PEG 1–1,5 g/kg/día por 6 meses"
+],
+"e": "PEG: superior a lactulosa, sin sabor. Inicio de efecto 24–96 h. Debe beberse en < 30 minutos."
+},
+{
+"c": "con",
+"t": 1,
+"src": "PPT",
+"q": "Lactulosa en el estreñimiento infantil:",
+"o": [
+"1 mL/kg una o dos veces al día; inicio 24–48 h; alternativa si no hay PEG",
+"3–5 mL/kg/día solo a partir de los 4 años",
+"Contraindicada en lactantes",
+"Es un laxante estimulante",
+"Acción en 30 minutos"
+],
+"e": "Leche de magnesia: 1–3 mL/kg/día (1–11 años), inicio 0,5–6 h."
+},
+{
+"c": "con",
+"t": 1,
+"src": "PPT",
+"q": "¿Qué NO debe usarse nunca en lactantes?",
+"o": [
+"Aceite mineral (aspiración), enemas de fosfato (hiperfosfatemia) y comprimidos de bisacodilo",
+"PEG 3350",
+"Lactulosa",
+"Jugos de manzana o ciruela",
+"Supositorios de glicerina como rescate"
+],
+"e": "Bisacodilo: 5 mg en 3–10 años, 5–10 mg en > 10 años, solo si no hay respuesta a osmóticos."
+},
+{
+"c": "con",
+"t": 1,
+"src": "PPT",
+"q": "¿Cuánta fibra diaria se recomienda?",
+"o": [
+"Edad + 5 a 10 g/día",
+"Edad × 2 g/día",
+"20 g/día a todos",
+"Lo máximo posible",
+"Edad + 20 g/día"
+],
+"e": "Más no tiene beneficio, y en retención activa la fibra excesiva puede empeorar la impactación: primero ablandar las heces."
+},
+{
+"c": "con",
+"t": 0,
+"src": "PPT",
+"q": "Respecto a la leche de vaca en el niño estreñido, señale lo MÁS CORRECTO:",
+"o": [
+"Limitar a ~720 mL/día; > 960 mL sacia e inhibe la ingesta de fibra; en casos refractarios con atopia, prueba de retiro de 2 semanas",
+"Aumentar la leche para ablandar las heces",
+"Suspender todos los lácteos de por vida",
+"La leche no influye",
+"Dar leche entera a libre demanda"
+],
+"e": "El caso del PPT tomaba casi 1 L de leche al día."
+},
+{
+"c": "con",
+"t": 0,
+"src": "PPT",
+"q": "Respecto a la duración del tratamiento de mantenimiento, señale lo MÁS CORRECTO:",
+"o": [
+"Mantener 6–8 semanas de éxito y retirar lentamente; el error más común es suspender los laxantes antes de tiempo",
+"Suspender al primer día de heces blandas",
+"Usar laxantes solo cuando no defeca 3 días",
+"Dar laxantes por 1 semana",
+"No necesita seguimiento"
+],
+"e": "Objetivo: 1 evacuación indolora al día, Bristol tipo 4. No tener miedo a la “dependencia”."
+},
+{
+"c": "con",
+"t": 1,
+"src": "PPT",
+"q": "Según la escala de Bristol, ¿qué tipos indican estreñimiento?",
+"o": [
+"Tipos 1 y 2 (trozos duros como nueces; salchicha grumosa)",
+"Tipos 4 y 5",
+"Tipo 7",
+"Tipos 5 y 6",
+"Solo el tipo 3"
+],
+"e": "Objetivo del tratamiento: tipo 4 (salchicha lisa y suave)."
+},
+{
+"c": "con",
+"t": 0,
+"src": "PPT",
+"q": "¿Cuál es una bandera roja que sugiere causa orgánica?",
+"o": [
+"Fosita lumbosacra o mechón de pelo (disrafismo espinal)",
+"Inicio con el entrenamiento de esfínteres",
+"Posturas retentivas",
+"Heces grandes que obstruyen el inodoro",
+"Inicio con la introducción de sólidos"
+],
+"e": "Otras: meconio > 48 h, heces en cinta, distensión severa, vómitos, ano desplazado, canal anal muy apretado, pérdida de peso, alteración del chorro urinario o debilidad en piernas."
+},
+{
+"c": "con",
+"t": 1,
+"src": "PPT",
+"q": "Índice de posición anal (API): punto de corte anormal.",
+"o": [
+"< 0,3 en niñas y < 0,41 en niños",
+"< 0,5 en ambos",
+"> 0,3 en niñas",
+"< 0,2 en niños",
+"No tiene valor"
+],
+"e": "Ano desplazado anterior + estreñimiento intratable → cirugía pediátrica."
+},
+{
+"c": "con",
+"t": 1,
+"src": "PPT",
+"q": "Respecto a las ventanas de riesgo del estreñimiento funcional, señale lo MÁS CORRECTO:",
+"o": [
+"6 m–1 año (sólidos), 2–3 años (entrenamiento de esfínteres) y 3–5 años (inicio escolar)",
+"Solo en la adolescencia",
+"Solo en el periodo neonatal",
+"Solo después de los 10 años",
+"No hay periodos de riesgo"
+],
+"e": "TEA y TDAH son factores predisponentes."
+},
+{
+"c": "con",
+"t": 1,
+"src": "PPT",
+"q": "Lactante con estreñimiento seguido de debilidad descendente y pérdida del sostén cefálico. Sospecha:",
+"o": [
+"Botulismo infantil",
+"Enfermedad de Hirschsprung",
+"Hipotiroidismo",
+"Fibrosis quística",
+"Intoxicación por plomo"
+],
+"e": "Otras causas sistémicas: hipotiroidismo, plomo, fibrosis quística, celiaquía, parálisis cerebral."
+},
+{
+"c": "con",
+"t": 1,
+"src": "PPT",
+"q": "Respecto al enema baritado del caso del PPT, señale lo MÁS CORRECTO:",
+"o": [
+"Contraste hasta el borde anal sin zona de transición: sugiere constipación funcional",
+"Zona de transición en embudo: sugiere funcional",
+"Es obligatorio en todo estreñimiento",
+"Muestra el segmento agangliónico dilatado",
+"Confirma Hirschsprung"
+],
+"e": "En Hirschsprung: segmento agangliónico estrecho y colon proximal dilatado, con zona de transición."
+},
+{
+"c": "con",
+"t": 1,
+"src": "PPT",
+"q": "Postura correcta en el inodoro para un niño estreñido:",
+"o": [
+"Con taburete: rodillas por encima de las caderas para relajar el puborrectal",
+"Pies colgando",
+"De pie",
+"Inclinado hacia atrás",
+"No influye"
+],
+"e": "Con los pies colgando, el puborrectal se contrae y el canal anal queda angulado."
+},
+{
+"c": "sen",
+"t": 0,
+"src": "PPT",
+"q": "Respecto a los componentes de la conciencia, señale lo MÁS CORRECTO:",
+"o": [
+"Vigilia (arousal): capacidad de mantenerse despierto; alerta (awareness): capacidad de interactuar con el medio",
+"Vigilia: capacidad de interactuar; alerta: mantenerse despierto",
+"La conciencia depende solo del cerebelo",
+"La SARA se ubica en la médula espinal",
+"El tálamo no participa"
+],
+"e": "Conciencia: corteza cerebral activada por la Sustancia Activadora Reticular Ascendente (puente → mesencéfalo → hipotálamo → tálamo)."
+},
+{
+"c": "sen",
+"t": 0,
+"src": "PPT",
+"q": "Niño que responde al dolor pero no a otros estímulos, sin acción espontánea. Está:",
+"o": [
+"Estuporoso",
+"Letárgico",
+"Obnubilado",
+"Comatoso",
+"Alerta"
+],
+"e": "Letárgico: dificultad para mantenerse activo. Obnubilado: responde con lentitud. Comatoso: sin respuesta a estímulos."
+},
+{
+"c": "sen",
+"t": 0,
+"src": "PPT",
+"q": "Respecto al coma metabólico, señale lo MÁS CORRECTO:",
+"o": [
+"Afecta a lactantes y niños pequeños, instauración progresiva y hallazgos simétricos",
+"Afecta a niños mayores con focalidad neurológica",
+"Siempre tiene pupilas fijas",
+"Su causa principal es el tumor cerebral",
+"Se presenta con postura asimétrica"
+],
+"e": "Causas: hipoxia-isquemia, hipoglucemia, hiponatremia, intoxicación, insuficiencia renal o hepática. El coma estructural: niños mayores con focalidad."
+},
+{
+"c": "sen",
+"t": 0,
+"src": "PPT",
+"v": "Escolar con hematoma temporal derecho que presenta midriasis derecha arreactiva y luego deterioro del sensorio.",
+"q": "¿Qué tipo de herniación es la MÁS probable?",
+"o": [
+"Transtentorial uncal (compresión del III par)",
+"Transtentorial central",
+"Amigdalina",
+"Subfalcial",
+"Externa"
+],
+"e": "Central: miosis bilateral reactiva. Amigdalina: apneas, respiración atáxica, midriasis fija bilateral (máxima gravedad)."
+},
+{
+"c": "sen",
+"t": 1,
+"src": "PPT",
+"q": "¿Qué herniación es la de máxima gravedad?",
+"o": [
+"Amigdalina: las amígdalas cerebelosas descienden por el agujero occipital (apneas, midriasis fija bilateral)",
+"Subfalcial",
+"Uncal",
+"Central",
+"Externa"
+],
+"e": "Subfalcial: el cíngulo pasa por debajo de la hoz al lado contralateral."
+},
+{
+"c": "sen",
+"t": 0,
+"src": "PPT",
+"q": "Pupilas puntiformes (“en punta de alfiler”) en un niño en coma sugieren lesión en:",
+"o": [
+"Protuberancia (puente)",
+"Mesencéfalo",
+"Diencéfalo",
+"Corteza",
+"III par"
+],
+"e": "Mesencéfalo: posición media y fija. III par (uncus): dilatada y fija. Metabólica y diencefálica: pequeñas poco reactivas. Tectal: hippus."
+},
+{
+"c": "sen",
+"t": 0,
+"src": "PPT",
+"q": "Respecto a la respuesta oculocefálica (“ojos de muñeca”), señale lo MÁS CORRECTO:",
+"o": [
+"No debe realizarse si se sospecha lesión de columna cervical; en el coma con tronco intacto los ojos se mueven al lado opuesto al giro",
+"Se realiza en todo politraumatizado",
+"Su ausencia indica integridad del tronco",
+"Evalúa la corteza occipital",
+"Se realiza con agua caliente"
+],
+"e": "Respuesta ausente o asimétrica = disfunción del tronco encefálico."
+},
+{
+"c": "sen",
+"t": 1,
+"src": "PPT",
+"q": "Prueba calórica con agua helada en un paciente comatoso con tronco intacto:",
+"o": [
+"Desviación lenta y conjugada de los ojos hacia el oído irrigado; si además hay nistagmo, el paciente puede no estar en coma",
+"Desviación hacia el lado contrario con nistagmo rápido siempre",
+"Se puede hacer con tímpano perforado",
+"Una respuesta ausente es normal",
+"Evalúa el nervio óptico"
+],
+"e": "Antes verificar que la membrana timpánica esté íntegra."
+},
+{
+"c": "sen",
+"t": 0,
+"src": "PPT",
+"q": "Respecto a las posturas, señale lo MÁS CORRECTO:",
+"o": [
+"Decorticación: flexión de brazos y extensión de piernas; descerebración: extensión de brazos y piernas (mesencéfalo)",
+"Decorticación: extensión de las 4 extremidades",
+"Descerebración: lesión cortical",
+"La postura simétrica sugiere lesión estructural",
+"La postura asimétrica sugiere causa tóxico-metabólica"
+],
+"e": "Simétrica → tóxico-metabólica. Asimétrica → lesión estructural."
+},
+{
+"c": "sen",
+"t": 1,
+"src": "PPT",
+"q": "Relacione el patrón respiratorio con el nivel de lesión:",
+"o": [
+"Cheyne-Stokes: cortical difusa o diencefálica; Kussmaul: mesencéfalo o metabólico (CAD); apnéustica: puente; atáxica de Biot: bulbo",
+"Cheyne-Stokes: bulbo",
+"Kussmaul: corteza",
+"Biot: diencéfalo",
+"Apnéustica: corteza"
+],
+"e": "La respiración jadeante indica disfunción del tronco y mal pronóstico."
+},
+{
+"c": "sen",
+"t": 0,
+"src": "PPT",
+"q": "¿Cuál es la tríada de Cushing de hipertensión intracraneal?",
+"o": [
+"Respiración irregular, bradicardia e hipertensión arterial",
+"Taquicardia, hipotensión y fiebre",
+"Cefalea, vómitos y fiebre",
+"Midriasis, ptosis y diplopía",
+"Bradicardia, hipotensión y apnea"
+],
+"e": "Signos de alarma: vómitos explosivos, anisocoria, midriasis, bradipnea, parálisis del VI par, decorticación o descerebración, focalidad."
+},
+{
+"c": "sen",
+"t": 0,
+"src": "PPT",
+"q": "Ante un niño con alteración del sensorio, ¿qué es lo prioritario?",
+"o": [
+"ABC: vía aérea, ventilación/oxigenación, estabilidad hemodinámica, y medir glucemia capilar",
+"Pedir TAC antes de estabilizar",
+"Punción lumbar inmediata",
+"Esperar los resultados para tratar",
+"Dar sedantes"
+],
+"e": "Ninguna prueba tiene prioridad sobre la estabilización. La mayor morbilidad es por hipoxia."
+},
+{
+"c": "sen",
+"t": 0,
+"src": "PPT",
+"q": "Según el abordaje de urgencias, ¿cuándo se intuba a un niño con alteración del nivel de conciencia?",
+"o": [
+"Glasgow < 8 (≤ 8)",
+"Glasgow < 13",
+"Glasgow < 15",
+"Solo si hace paro",
+"Glasgow < 11"
+],
+"e": "Glasgow de 3 a 15 (ocular 4, verbal 5, motora 6)."
+},
+{
+"c": "sen",
+"t": 1,
+"src": "PPT",
+"q": "Glasgow modificado en menores de 2 años: la respuesta verbal de 5 puntos es:",
+"o": [
+"Sonríe, llora (balbucea)",
+"Llora continuamente",
+"Gruñido",
+"Palabras inadecuadas",
+"No responde"
+],
+"e": "< 2 años: 4 llora continuamente · 3 llanto y grito exagerados · 2 gruñido · 1 no responde."
+},
+{
+"c": "sen",
+"t": 1,
+"src": "PPT",
+"q": "Respecto a los estudios de imagen y la punción lumbar, señale lo MÁS CORRECTO:",
+"o": [
+"TC sin contraste: sangrado y calcificaciones; TC con contraste: lesiones inflamatorias y neoplásicas; eritrocitos en LCR sugieren hemorragia subaracnoidea",
+"La RM es el estudio inicial en urgencias",
+"La PL se hace antes de la TC si hay focalidad",
+"La TC con contraste es la mejor para sangrado agudo",
+"La PL no aporta datos"
+],
+"e": "Leucocitos ↑ en LCR: meningitis; proteínas ↑: inflamación o tumor."
+},
+{
+"c": "sen",
+"t": 1,
+"src": "PPT",
+"q": "¿Qué dato de la anamnesis orienta a una intoxicación crónica por plomo?",
+"o": [
+"Procedencia de un medio contaminado y tiempo de enfermedad crónico",
+"Inicio súbito tras caída",
+"Fiebre alta y vómitos explosivos",
+"Cefalea matutina",
+"Convulsión febril"
+],
+"e": "Súbito: TEC. Fiebre + irritabilidad + vómitos explosivos: meningitis. Cefalea matutina + bajo rendimiento: proceso expansivo."
+},
+{
+"c": "sen",
+"t": 1,
+"src": "PPT",
+"q": "Respecto al pronóstico del coma en niños, señale lo MÁS CORRECTO:",
+"o": [
+"La intoxicación tiene en general buen pronóstico y el evento hipóxico-isquémico, desfavorable",
+"El coma hipóxico tiene mejor pronóstico que el tóxico",
+"Los niños tienen peor pronóstico que los adultos",
+"La recuperación de un coma traumático de días es imposible",
+"La edad no influye"
+],
+"e": "Puede quedar estado vegetativo persistente o discapacidad grave."
+},
+{
+"c": "sen",
+"t": 1,
+"src": "PPT",
+"q": "Tratamiento de la hipertensión intracraneal, señale lo MÁS CORRECTO:",
+"o": [
+"Intubación e hiperventilación, sedoanalgesia, cabecera elevada, agentes osmóticos y consulta urgente a neurocirugía",
+"Posición de Trendelenburg",
+"Restricción absoluta de oxígeno",
+"Punción lumbar evacuadora",
+"Esperar sin tratamiento"
+],
+"e": "En intoxicaciones: lavado gástrico, carbón activado, diuresis forzada, diálisis o antídotos."
+},
+{
+"c": "sen",
+"t": 0,
+"src": "Banco",
+"v": "Niño de 4 años, febril, que en 35 minutos presenta 2 crisis tónico-clónicas sin recuperar la conciencia entre ellas.",
+"q": "¿Cuál es el diagnóstico MÁS probable?",
+"o": [
+"Estado convulsivo (estatus epiléptico)",
+"Convulsión febril simple",
+"Epilepsia",
+"Síndrome de West",
+"Convulsión tónico-clónica simple"
+],
+"e": "El estatus es una causa de alteración aguda de la conciencia (epilepsia: postictal y estatus)."
+},
+{
+"c": "sen",
+"t": 1,
+"src": "PPT",
+"q": "¿Qué lesión de la SARA altera la conciencia según el PPT?",
+"o": [
+"Porción rostral del puente, mesencéfalo periacueductal, diencéfalo (tálamo e hipotálamo) o lesión difusa de la corteza",
+"Solo la médula cervical",
+"Solo el cerebelo",
+"Los nervios periféricos",
+"El lóbulo occipital aislado"
+],
+"e": "EEG: atento → bajo voltaje y ritmo rápido; patológico → gran voltaje y ritmo lento."
+}
+];
+const REPASO = {
+"itu": [
+[
+"ITU",
+"Síntomas + <mark>bacteriuria significativa</mark>"
+],
+[
+"Piuria",
+"≥ 5 leuc/campo centrifugada · ≥ 10 sin centrifugar"
+],
+[
+"Recurrente (1 año)",
+"<mark>≥ 2 altas</mark> · 1 alta + 1 baja · ≥ 3 bajas"
+],
+[
+"Atípica",
+"Fiebre 48 h tras ATB · sepsis · <mark>no E. coli</mark> · BLEE · oliguria · falla renal · masa"
+],
+[
+"Complicada / reinfección",
+"Patología mecánica o funcional · nuevo episodio < 2 semanas"
+],
+[
+"Bacteriuria asintomática",
+"Cultivo + sin síntomas, orina normal · <mark>no se trata</mark>"
+],
+[
+"UFC",
+"Punción: cualquiera · sonda > 50 000 (≥ 1000 febril < 3 m) · chorro medio ≥ 100 000 · bolsa: no"
+],
+[
+"Germen",
+"E. coli 80 % · Enterococcus < 3 m · S. saprophyticus adolescentes"
+],
+[
+"Tira",
+"Nitritos: S 50 %, E 98 % · falsos −: < 4 h en vejiga, Enterococcus · esterasa falsa +: Kawasaki"
+],
+[
+"Tratamiento",
+"EV < 3 m o sepsis · > 3 m VO = EV · alta 7–10 d · baja 3–5 d · no nitrofurantoína en febril"
+],
+[
+"Imágenes",
+"Eco < 2 a 1.ª febril · CUMS = oro RVU · DMSA cicatrices 4–6 m"
+],
+[
+"Profilaxis",
+"RVU IV–V, ITU alta recurrente · ¼ dosis en la noche"
+],
+[
+"Arándanos",
+"5 mL/kg (máx 300 mL) × 6 meses, anatomía normal"
+]
+],
+"ane": [
+[
+"6–23 meses",
+"<mark>< 10,5</mark> · leve 9,5–10,4 · moderada 7–9,4 · severa < 7"
+],
+[
+"24–59 meses",
+"< 11 · leve 10–10,9 · moderada 7–9,9 · severa < 7"
+],
+[
+"5–11 años",
+"< 11,5 · severa < 8"
+],
+[
+"Altitud",
+"Residencia <mark>últimos 4 meses</mark> · 3000–3499: 2,1 · 3500–3999: 2,5 · 4000–4499: 2,9"
+],
+[
+"Preventivo",
+"Prematuro 30 d · término <mark>4 meses</mark> · 2 mg/kg/d hasta 6 m · luego micronutrientes"
+],
+[
+"Tratamiento",
+"3 mg/kg/d (prematuro 4) × <mark>6 meses</mark> · Hb 1, 3, 6 m · máx 40/70/90/120 mg"
+],
+[
+"Presentaciones",
+"Sulfato gota 1,25 · jarabe 3 mg/mL · polimaltosado gota 2,5 · jarabe 10 mg/mL"
+],
+[
+"Polimaltosado",
+"Si efectos adversos o adherencia < 75 %"
+],
+[
+"Abandono",
+"< 3 m: continuar · > 3 m: medir Hb y reiniciar"
+],
+[
+"Control",
+"Hb < 7: cada 7 d · > 7: cada 30 d"
+],
+[
+"Laboratorio",
+"RDW ↑, TIBC ↑, ferritina ↓ · talasemia: RDW N, Hb A₂ ↑ · inflamación: ferritina ↑"
+],
+[
+"Gestante",
+"Hb: 1.er control, sem 25–28, sem 37–40 · hierro + fólico desde sem 14"
+]
+],
+"dai": [
+[
+"Definición",
+"≥ 3 deposiciones blandas o líquidas en 24 h, < 14 días"
+],
+[
+"Plan A",
+"ACREZ · SRO 10 mL/kg por deposición, 2 mL/kg por vómito"
+],
+[
+"Plan B",
+"SRO <mark>50–100 mL/kg en 4 h</mark>"
+],
+[
+"Plan C",
+"100 mL/kg · < 12 m: 30 en 1 h + 70 en 5 h · > 12 m: 30 en 30 min + 70 en 2,5 h"
+],
+[
+"SRO",
+"Baja osmolaridad: Na 75, glucosa 75, 245 mOsm"
+],
+[
+"Zinc (GPC 2025)",
+"6–59 m: <mark>5 o 10 mg/día × 14 días</mark> · < 6 m: no"
+],
+[
+"No dar",
+"Loperamida (fuerte) · dimenhidrinato · ATB en acuosa (fuerte) · reacción inflamatoria en heces"
+],
+[
+"Disentérica",
+"Azitromicina 10 mg/kg/d × 3 d · ceftriaxona 50 mg/kg/d × 3 d · 2.ª: cipro, furazolidona"
+],
+[
+"Amebiasis",
+"Parasitológico seriado × 3 · metronidazol 30 mg/kg/d × 7–10 d"
+],
+[
+"STEC O157:H7",
+"Sin antibiótico (SHU)"
+],
+[
+"Vómitos",
+"SRO 5–15 mL cada 3–5 min · reposo gástrico 20–30 min · SNG si no tolera"
+]
+],
+"con": [
+[
+"Roma",
+"≥ 2 criterios por ≥ 1 mes · funcional > 95 %"
+],
+[
+"Criterios",
+"≤ 2 dep/semana · incontinencia ≥ 1/semana · retención · dolor o heces duras · masa rectal · heces gruesas"
+],
+[
+"Evaluación",
+"Clínica · <mark>sin tacto rectal, labs, imágenes ni manometría</mark> si es funcional"
+],
+[
+"Hirschsprung",
+"Meconio <mark>> 48 h</mark> · ampolla vacía · signo del chorro · biopsia: sin células ganglionares"
+],
+[
+"Disquecia",
+"< 9 m · puja > 10 min y heces blandas · se resuelve sola"
+],
+[
+"Desimpactación",
+"PEG <mark>1–1,5 g/kg/d × 3–7 d</mark> · enema fosfato solo > 2 años"
+],
+[
+"Mantenimiento",
+"PEG <mark>0,4–0,8 g/kg/d</mark> desde 6 m · lactulosa 1 mL/kg · 6–8 sem de éxito y retiro lento"
+],
+[
+"Nunca en lactantes",
+"Aceite mineral · enemas de fosfato · bisacodilo en comprimidos"
+],
+[
+"Dieta",
+"Fibra = edad + 5–10 g · leche ≤ 720 mL/d · taburete"
+],
+[
+"Banderas rojas",
+"Fosita lumbosacra · ano anterior (API < 0,3 niñas, < 0,41 niños) · heces en cinta · distensión"
+]
+],
+"sen": [
+[
+"Conciencia",
+"Vigilia (arousal) + alerta (awareness) · corteza + SARA"
+],
+[
+"Niveles",
+"Letárgico → obnubilado → estuporoso (solo dolor) → coma"
+],
+[
+"Metabólico vs estructural",
+"Metabólico: lactante, progresivo, <mark>simétrico</mark> · estructural: niño mayor, focal"
+],
+[
+"Herniación",
+"Uncal: <mark>midriasis unilateral</mark> (III par) · central: miosis bilateral · amigdalina: apnea, midriasis bilateral fija"
+],
+[
+"Pupilas",
+"Puente: punta de alfiler · mesencéfalo: media fija · metabólica: reactivas"
+],
+[
+"Respiración",
+"Cheyne-Stokes: cortical/diencéfalo · Kussmaul: mesencéfalo/CAD · apnéustica: puente · Biot: bulbo"
+],
+[
+"Posturas",
+"Decorticación: flexión de brazos · descerebración: extensión (mesencéfalo)"
+],
+[
+"Reflejos",
+"Ojos de muñeca: no si lesión cervical · calórica fría: desviación al oído irrigado"
+],
+[
+"Prioridad",
+"ABC + glucemia capilar · IOT si Glasgow < 8 · ninguna prueba antes de estabilizar"
+],
+[
+"Tríada de Cushing",
+"Respiración irregular + bradicardia + HTA"
+],
+[
+"Pronóstico",
+"Intoxicación: bueno · hipóxico-isquémico: malo"
+]
+]
+};
+
+const PROMPT = `Actúa como el docente que arma el EXAMEN TEÓRICO FINAL del externado de Pediatría. Te paso:
+(1) las presentaciones (PDF/PPT) de los casos clínicos que expusieron mis compañeros en la SEMANA __, y
+(2) bancos de exámenes anteriores para que copies el estilo.
+
+QUÉ PREGUNTA EL DOCTOR
+- NO pregunta datos de identidad del paciente del PPT (nombre, procedencia, edad exacta, ocupación de los padres).
+- SÍ pregunta sobre la ENFERMEDAD de cada caso: definición, epidemiología con cifras, fisiopatología, clasificación y puntos de corte, criterios diagnósticos, signos y epónimos (aunque salgan chiquitos en una imagen, como el signo de Wimberger), exámenes y su interpretación, diagnósticos diferenciales, tratamiento con dosis (mg/kg, frecuencia, duración, máximo), lo que NO se debe hacer, complicaciones, pronóstico y prevención.
+- El caso del PPT cambia cada ciclo, pero la enfermedad no. Usa el PPT para saber qué temas y qué datos se expusieron, y complétalo con las guías vigentes (OMS, MINSA/Norma Técnica, AAP, DSM-5-TR, ILAE, etc.).
+
+ESTILO DE LAS PREGUNTAS (igual que los bancos)
+- Viñeta clínica NUEVA, corta y realista (edad, tiempo de enfermedad, signos vitales, hallazgos y exámenes clave), distinta al paciente del PPT.
+- Enunciado tipo: “Señale lo MÁS CORRECTO”, “¿Cuál es el diagnóstico MÁS probable?”, “Marque la intervención MÁS ADECUADA”.
+- 5 alternativas (a–e), una sola correcta. Distractores con errores sutiles: un número cambiado (0,09 % vs 0,9 %; 20 vs 40 mL/kg), conceptos invertidos (IgA vs IgM, aguda vs crónica, P/E vs P/T), cortes de adulto en vez de pediátricos o una enfermedad parecida.
+- También preguntas sin viñeta, de enunciados sobre la enfermedad.
+
+QUÉ ENTREGAR
+1. Por cada enfermedad, mínimo 20 preguntas con este formato:
+   N. [Enfermedad] [Fuente: PPT / Guía / PPT + guía] [DETALLE FINO si aplica]
+   Viñeta (si hay)
+   Pregunta
+   a) … b) … c) … d) … e) …
+   Respuesta: letra
+   Explicación: por qué es la correcta y qué error tiene cada distractor.
+   Si el PPT contradice la guía, dilo con “Ojo:”.
+2. Al menos 30 % de preguntas de DETALLE FINO (cortes numéricos, signos con nombre propio, dosis, excepciones).
+3. Al final de cada enfermedad, una tabla “Lo que hay que saber” (concepto | dato clave) con todos los puntos de corte, criterios, dosis y signos.
+
+Lee todo el PPT, incluido el texto pequeño de imágenes, tablas y notas al pie. No inventes datos: si no estás seguro de un dato de guía, dilo. Responde en español.`;
+
+/* ---------- estado ---------- */
+Q.forEach((x,i)=>{ x.id = x.c + '-' + i; });
+const KEY = 'banqueo-sem8-v1';
+let saved = {};
+try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){ saved = {}; }
+function persist(){ try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch(e){} }
+
+const state = { cases:new Set(), tiny:false, wrong:false, mode:'study', order:Q.map(q=>q.id), exam:null };
+const optOrder = new Map();
+function shuffle(a){ const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; }
+function orderFor(q){ if(!optOrder.has(q.id)) optOrder.set(q.id, shuffle(q.o.map((_,i)=>i))); return optOrder.get(q.id); }
+const byId = Object.fromEntries(Q.map(q=>[q.id,q]));
+
+function filtered(){
+  return state.order.map(id=>byId[id]).filter(q=>
+    (state.cases.size===0 || state.cases.has(q.c)) &&
+    (!state.tiny || q.t) &&
+    (!state.wrong || (q.id in saved && saved[q.id]!==0))
+  );
+}
+
+/* ---------- stats ---------- */
+function renderStats(){
+  document.getElementById('stats').innerHTML = Object.keys(CASES).map(k=>{
+    const qs = Q.filter(q=>q.c===k);
+    const done = qs.filter(q=>q.id in saved).length;
+    const ok = qs.filter(q=>saved[q.id]===0).length;
+    const pct = qs.length ? Math.round(ok/qs.length*100) : 0;
+    return `<div class="stat"><div class="nm"><span class="dot" style="background:${CASES[k].color}"></span>${CASES[k].short}</div>
+      <div class="nums">${ok}/${qs.length} bien · ${done} hechas</div><div class="bar"><i style="width:${pct}%"></i></div></div>`;
+  }).join('');
+}
+
+/* ---------- chips ---------- */
+function renderChips(){
+  const el = document.getElementById('caseChips');
+  const all = `<button class="chip" aria-pressed="${state.cases.size===0}" data-case="">Todos <span class="src">${Q.length}</span></button>`;
+  el.innerHTML = all + Object.keys(CASES).map(k=>{
+    const n = Q.filter(q=>q.c===k).length;
+    return `<button class="chip" aria-pressed="${state.cases.has(k)}" data-case="${k}"><span class="dot" style="background:${CASES[k].color}"></span>${CASES[k].short} <span class="src">${n}</span></button>`;
+  }).join('');
+}
+document.getElementById('caseChips').addEventListener('click', e=>{
+  const b = e.target.closest('[data-case]'); if(!b) return;
+  const k = b.dataset.case;
+  if(!k) state.cases.clear(); else if(state.cases.has(k)) state.cases.delete(k); else state.cases.add(k);
+  if(state.mode==='exam') newExam();
+  renderChips(); renderList();
+});
+
+/* ---------- tarjetas ---------- */
+const L = ['a','b','c','d','e'];
+function card(q, n, opts){
+  const ord = orderFor(q);
+  const chosen = opts.chosen;
+  const reveal = opts.reveal;
+  const btns = ord.map((oi,pos)=>{
+    let cls = 'opt';
+    if(reveal){ if(oi===0) cls+=' right'; else if(oi===chosen) cls+=' wrong'; }
+    else if(oi===chosen) cls+=' picked';
+    return `<button class="${cls}" data-q="${q.id}" data-o="${oi}" ${reveal?'disabled':''}><span class="l">${L[pos]}.</span><span>${q.o[oi]}</span></button>`;
+  }).join('');
+  let after = '';
+  if(reveal){
+    const corr = L[ord.indexOf(0)];
+    if(chosen===undefined) after = `<div class="verdict no">Sin responder · la correcta es la ${corr}</div>`;
+    else after = `<div class="verdict ${chosen===0?'ok':'no'}">${chosen===0?'Correcto':'Incorrecto · la correcta es la '+corr}</div>`;
+    after += `<div class="expl"><b>Por qué:</b> ${q.e}</div>`;
+  }
+  return `<article class="q" id="q-${q.id}">
+    <div class="qhead"><span class="case" style="color:${CASES[q.c].color}"><span class="dot" style="background:${CASES[q.c].color}"></span>${CASES[q.c].short}</span>
+      <span class="src">${q.src}</span>${q.t?'<span class="tiny">Detalle fino</span>':''}<span class="qnum">#${n}</span></div>
+    ${q.v?`<p class="vig">${q.v}</p>`:''}
+    <p class="qtext">${q.q}</p>
+    <div class="opts">${btns}</div>${after}</article>`;
+}
+
+function examStatus(){
+  const ex = state.exam, answered = Object.keys(ex.ans).length;
+  return `<div class="exambar"><span>Respondidas ${answered}/${ex.ids.length}. Las respuestas se muestran al calificar.</span></div>`;
+}
+function renderList(){
+  const list = document.getElementById('list');
+  const top = document.getElementById('examTop');
+  const bottom = document.getElementById('examBottom');
+  if(state.mode==='study'){
+    top.innerHTML=''; bottom.innerHTML='';
+    const qs = filtered();
+    document.getElementById('count').textContent = qs.length + ' preguntas';
+    list.innerHTML = qs.length ? qs.map((q,i)=>card(q,i+1,{chosen:saved[q.id], reveal:(q.id in saved)})).join('')
+      : '<p class="lede">No hay preguntas con estos filtros. Si marcaste “Solo las que fallé”, todavía no has fallado ninguna de este grupo.</p>';
+  } else {
+    const ex = state.exam;
+    document.getElementById('count').textContent = ex.ids.length + ' preguntas del simulacro';
+    if(ex.graded){
+      const ok = ex.ids.filter(id=>ex.ans[id]===0).length;
+      top.innerHTML = `<div class="exambar"><span class="score">${ok}/${ex.ids.length}</span><span>Nota: ${(ok/ex.ids.length*20).toFixed(1)} / 20</span><button class="btn primary" data-act="newexam" style="margin-left:auto">Nuevo simulacro</button></div>`;
+      bottom.innerHTML = '';
+    } else {
+      top.innerHTML = examStatus();
+      bottom.innerHTML = `<div class="exambar"><button class="btn primary" data-act="grade">Calificar simulacro</button></div>`;
+    }
+    list.innerHTML = ex.ids.map((id,i)=>card(byId[id],i+1,{chosen:ex.ans[id], reveal:ex.graded})).join('');
+  }
+  renderStats();
+}
+
+document.getElementById('panel-q').addEventListener('click', e=>{
+  const act = e.target.closest('[data-act]');
+  if(act){
+    if(act.dataset.act==='grade'){
+      state.exam.graded = true;
+      Object.entries(state.exam.ans).forEach(([id,o])=>{ saved[id]=o; }); persist();
+      renderList(); document.getElementById('panel-q').scrollIntoView({behavior:'smooth'});
+    } else if(act.dataset.act==='newexam'){ newExam(); renderList(); }
+    return;
+  }
+  const b = e.target.closest('.opt'); if(!b || b.disabled) return;
+  const id = b.dataset.q, o = +b.dataset.o;
+  const n = b.closest('.q').querySelector('.qnum').textContent.slice(1);
+  if(state.mode==='study'){
+    saved[id]=o; persist();
+    b.closest('.q').outerHTML = card(byId[id], n, {chosen:o, reveal:true});
+    renderStats();
+  } else if(!state.exam.graded){
+    state.exam.ans[id]=o;
+    b.closest('.q').outerHTML = card(byId[id], n, {chosen:o, reveal:false});
+    document.getElementById('examTop').innerHTML = examStatus();
+  }
+});
+
+function newExam(){
+  const pool = shuffle(filtered().map(q=>q.id));
+  state.exam = { ids: pool.slice(0,20), ans:{}, graded:false };
+  state.exam.ids.forEach(id=>optOrder.set(id, shuffle(byId[id].o.map((_,i)=>i))));
+}
+function setMode(){
+  document.getElementById('mode-study').setAttribute('aria-pressed', state.mode==='study');
+  document.getElementById('mode-exam').setAttribute('aria-pressed', state.mode==='exam');
+  renderList();
+}
+document.getElementById('mode-study').addEventListener('click',()=>{ state.mode='study'; setMode(); });
+document.getElementById('mode-exam').addEventListener('click',()=>{ state.mode='exam'; newExam(); setMode(); });
+document.getElementById('onlyTiny').addEventListener('change',e=>{ state.tiny=e.target.checked; if(state.mode==='exam') newExam(); renderList(); });
+document.getElementById('onlyWrong').addEventListener('change',e=>{ state.wrong=e.target.checked; if(state.mode==='exam') newExam(); renderList(); });
+document.getElementById('shuffle').addEventListener('click',()=>{ state.order = shuffle(state.order); optOrder.clear(); if(state.mode==='exam') newExam(); renderList(); });
+const resetBtn = document.getElementById('reset');
+let resetArmed = false;
+resetBtn.addEventListener('click',()=>{
+  if(!resetArmed){ resetArmed=true; resetBtn.textContent='¿Seguro? Toca otra vez'; setTimeout(()=>{ resetArmed=false; resetBtn.textContent='Borrar progreso'; },3000); return; }
+  saved = {}; persist(); resetArmed=false; resetBtn.textContent='Borrar progreso'; renderList();
+});
+
+/* ---------- repaso ---------- */
+document.getElementById('repaso').innerHTML = Object.keys(REPASO).map(k=>
+  `<section class="rcard"><h2><span class="dot" style="background:${CASES[k].color};width:12px;height:12px"></span>${CASES[k].name}</h2>
+    <dl class="dl">${REPASO[k].map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl></section>`
+).join('');
+
+/* ---------- prompt ---------- */
+document.getElementById('promptText').textContent = PROMPT;
+document.getElementById('copyPrompt').addEventListener('click',()=>{
+  const done = ()=>{ const c=document.getElementById('copied'); c.hidden=false; setTimeout(()=>c.hidden=true,2000); };
+  const fallback = ()=>{ const r=document.createRange(); r.selectNodeContents(document.getElementById('promptText')); const s=getSelection(); s.removeAllRanges(); s.addRange(r); };
+  try { navigator.clipboard.writeText(PROMPT).then(done, fallback); } catch(e){ fallback(); }
+});
+
+/* ---------- tabs ---------- */
+document.querySelector('nav.tabs').addEventListener('click',e=>{
+  const b = e.target.closest('[data-tab]'); if(!b) return;
+  document.querySelectorAll('nav.tabs button').forEach(x=>x.setAttribute('aria-selected', x===b));
+  ['q','r','p'].forEach(t=>{ document.getElementById('panel-'+t).hidden = (t!==b.dataset.tab); });
+});
+
+renderChips(); renderList();
+</script>
