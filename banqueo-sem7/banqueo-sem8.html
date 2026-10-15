@@ -90,6 +90,11 @@ nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(-
 .opt.picked{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
 .expl{border-left:3px solid var(--accent);background:var(--accent-soft);padding:9px 12px;border-radius:0 6px 6px 0;font-size:15px}
 .expl b{color:var(--accent)}
+.why{display:block;margin-top:6px;padding-top:6px;border-top:1px dashed var(--line);font-size:14px;color:var(--muted)}
+.opt.right .why{color:var(--ink)}
+.why b{font-weight:700}
+.opt.right .why b{color:var(--ok)}
+.opt:not(.right) .why b{color:var(--bad)}
 .verdict{font-weight:700;font-size:14px}
 .verdict.ok{color:var(--ok)} .verdict.no{color:var(--bad)}
 
@@ -123,7 +128,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
   <header class="top">
     <div class="eyebrow">Externado de Pediatría 2026-II · ITU · Anemia · DAI · Constipación · Sensorio</div>
     <h1>Banqueo de <span class="hl">la enfermedad</span></h1>
-    <p class="lede">Casos nuevos con 5 alternativas, al estilo “señale lo MÁS CORRECTO”. Las preguntas son sobre la enfermedad (criterios, clasificación, diferenciales, dosis y manejo), tomando lo que se expuso en los PPT y completándolo con las guías (GPC INSN 2024, NTS MINSA 2024, GPC IETSI 2025). Las marcadas con resaltador son <strong>detalles finos</strong>.</p>
+    <p class="lede">Casos nuevos con 5 alternativas, al estilo “señale lo MÁS CORRECTO”. Las preguntas son sobre la enfermedad (criterios, clasificación, diferenciales, dosis y manejo), tomando lo que se expuso en los PPT y completándolo con las guías (GPC INSN 2024, NTS MINSA 2024, GPC IETSI 2025). Al responder, cada alternativa muestra por qué está bien o mal. Las marcadas con resaltador son <strong>detalles finos</strong>.</p>
     <div class="stats" id="stats"></div>
   </header>
 
@@ -1973,7 +1978,7 @@ QUÉ PREGUNTA EL DOCTOR
 ESTILO DE LAS PREGUNTAS (igual que los bancos)
 - Viñeta clínica NUEVA, corta y realista (edad, tiempo de enfermedad, signos vitales, hallazgos y exámenes clave), distinta al paciente del PPT.
 - Enunciado tipo: “Señale lo MÁS CORRECTO”, “¿Cuál es el diagnóstico MÁS probable?”, “Marque la intervención MÁS ADECUADA”.
-- 5 alternativas (a–e), una sola correcta. Distractores con errores sutiles: un número cambiado (0,09 % vs 0,9 %; 20 vs 40 mL/kg), conceptos invertidos (IgA vs IgM, aguda vs crónica, P/E vs P/T), cortes de adulto en vez de pediátricos o una enfermedad parecida.
+- 5 alternativas (a–e), una sola correcta, todas de longitud y estructura parecidas: la correcta NO puede ser siempre la más larga (que lo sea en no más de 1 de cada 4 preguntas). Distractores con errores sutiles: un número cambiado (0,09 % vs 0,9 %; 20 vs 40 mL/kg), conceptos invertidos (IgA vs IgM, aguda vs crónica, P/E vs P/T), cortes de adulto en vez de pediátricos o una enfermedad parecida.
 - También preguntas sin viñeta, de enunciados sobre la enfermedad.
 
 QUÉ ENTREGAR
@@ -1983,7 +1988,7 @@ QUÉ ENTREGAR
    Pregunta
    a) … b) … c) … d) … e) …
    Respuesta: letra
-   Explicación: por qué es la correcta y qué error tiene cada distractor.
+   Explicación: por qué es la correcta y, alternativa por alternativa, por qué cada distractor está mal (cuál es el dato real o de dónde sale el error).
    Si el PPT contradice la guía, dilo con “Ojo:”.
 2. Al menos 30 % de preguntas de DETALLE FINO (cortes numéricos, signos con nombre propio, dosis, excepciones).
 3. Al final de cada enfermedad, una tabla “Lo que hay que saber” (concepto | dato clave) con todos los puntos de corte, criterios, dosis y signos.
@@ -1992,7 +1997,7 @@ Lee todo el PPT, incluido el texto pequeño de imágenes, tablas y notas al pie.
 
 /* ---------- estado ---------- */
 Q.forEach((x,i)=>{ x.id = x.c + '-' + i; });
-const KEY = 'banqueo-sem8-v1';
+const KEY = 'banqueo-sem8-v2';
 let saved = {};
 try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){ saved = {}; }
 function persist(){ try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch(e){} }
@@ -2050,14 +2055,14 @@ function card(q, n, opts){
     let cls = 'opt';
     if(reveal){ if(oi===0) cls+=' right'; else if(oi===chosen) cls+=' wrong'; }
     else if(oi===chosen) cls+=' picked';
-    return `<button class="${cls}" data-q="${q.id}" data-o="${oi}" ${reveal?'disabled':''}><span class="l">${L[pos]}.</span><span>${q.o[oi]}</span></button>`;
+    const why = reveal && q.w ? `<span class="why">${oi===0 ? '<b>Correcta:</b> '+q.e : '<b>No:</b> '+q.w[oi-1]}</span>` : '';
+    return `<button class="${cls}" data-q="${q.id}" data-o="${oi}" ${reveal?'disabled':''}><span class="l">${L[pos]}.</span><span>${q.o[oi]}${why}</span></button>`;
   }).join('');
   let after = '';
   if(reveal){
     const corr = L[ord.indexOf(0)];
     if(chosen===undefined) after = `<div class="verdict no">Sin responder · la correcta es la ${corr}</div>`;
     else after = `<div class="verdict ${chosen===0?'ok':'no'}">${chosen===0?'Correcto':'Incorrecto · la correcta es la '+corr}</div>`;
-    after += `<div class="expl"><b>Por qué:</b> ${q.e}</div>`;
   }
   return `<article class="q" id="q-${q.id}">
     <div class="qhead"><span class="case" style="color:${CASES[q.c].color}"><span class="dot" style="background:${CASES[q.c].color}"></span>${CASES[q.c].short}</span>
