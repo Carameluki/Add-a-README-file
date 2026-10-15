@@ -128,7 +128,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
   <header class="top">
     <div class="eyebrow">Emergencia pediátrica · Sepsis · Shock · Cardiogénico · Anafilaxia · TEP</div>
     <h1>Banqueo de <span class="hl">la enfermedad</span></h1>
-    <p class="lede">25 preguntas al estilo “señale lo MÁS CORRECTO” con distractores hechos para confundir: cortes cercanos, la dosis de otra guía, la definición antigua. Sepsis con las definiciones actuales de la GPC INSN 2024 (sin calcular SOFA ni qSOFA), shock y TEP con los protocolos SEUP 2024. Al responder, cada alternativa muestra por qué está bien o mal. Las marcadas con resaltador son <strong>detalles finos</strong>.</p>
+    <p class="lede">125 preguntas (25 por tema) al estilo “señale lo MÁS CORRECTO” con distractores hechos para confundir: cortes cercanos, la dosis de otra guía, la definición antigua. Sepsis con las definiciones actuales de la GPC INSN 2024 (sin calcular SOFA ni qSOFA), shock y TEP con los protocolos SEUP 2024. Al responder, cada alternativa muestra por qué está bien o mal. Las marcadas con resaltador son <strong>detalles finos</strong>.</p>
     <div class="stats" id="stats"></div>
   </header>
 
@@ -364,6 +364,332 @@ const Q = [
 ]
 },
 {
+"c": "sep",
+"t": 0,
+"src": "GPC INSN 2024",
+"q": "Según las definiciones previas que recoge la GPC INSN 2024, una infección se considera PROBADA cuando:",
+"o": [
+"Se identifica un germen por aislamiento, visualización o PCR en tejido o líquido habitualmente estéril",
+"Hay temperatura central > 38,5 °C o < 36 °C más un hallazgo clínico, de imagen o de laboratorio",
+"Hay leucocitosis con > 10 % de neutrófilos inmaduros y una PCR sérica claramente elevada",
+"Se aísla un germen en el frotis faríngeo o nasal tomado al ingreso, aunque no haya clínica",
+"Hay ≥ 2 criterios de SIRS, uno de ellos obligatoriamente la temperatura o los leucocitos"
+],
+"e": "La GPC define infección probada por la identificación de un germen (aislamiento, visualización o PCR) en tejido o líquido habitualmente estéril. Lo que la diferencia de la sospechada es que hay un germen demostrado en un sitio que normalmente no tiene ninguno.",
+"w": [
+"Esa es la definición de infección SOSPECHADA: temperatura alterada más un hallazgo clínico, radiológico o de laboratorio que sugiera foco.",
+"Leucocitosis, desviación izquierda y PCR son marcadores inespecíficos de inflamación; no identifican ningún germen, así que no prueban la infección.",
+"La faringe y la nariz no son sitios estériles: un aislamiento ahí puede ser solo colonización. La GPC pide ese frotis solo para buscar S. pyogenes o S. aureus si se sospecha shock tóxico.",
+"Eso define SIRS, una respuesta inflamatoria que puede o no deberse a infección (trauma, quemaduras, pancreatitis)."
+]
+},
+{
+"c": "sep",
+"t": 0,
+"src": "GPC INSN 2024",
+"v": "Lactante de 6 semanas con fiebre de 38,9 °C, irritabilidad, piel moteada y relleno capilar de 4 s.",
+"q": "Según la GPC INSN 2024, los dos agentes principales de sepsis a esta edad son:",
+"o": [
+"S. agalactiae y E. coli",
+"N. meningitidis y S. pneumoniae",
+"S. pyogenes y S. aureus",
+"Listeria y Enterococcus faecalis",
+"Virus herpes simple y enterovirus"
+],
+"e": "En los menores de 3 meses los dos principales agentes de sepsis son S. agalactiae (estreptococo del grupo B) y E. coli, gérmenes adquiridos del canal del parto. Por eso el esquema empírico a esta edad incluye ampicilina más una cefalosporina de 3.ª generación o un aminoglucósido.",
+"w": [
+"Son los más frecuentes en las series de Urgencias de niños mayores (y los únicos con PCR específica), no los dos principales en el menor de 3 meses.",
+"S. pyogenes aumenta su frecuencia con la edad y S. aureus es causa general en Urgencias; no son los principales del lactante pequeño.",
+"Listeria y enterococo justifican añadir ampicilina en 1–3 meses solo en áreas de alta prevalencia, pero no son los dos agentes principales.",
+"VHS y enterovirus pueden imitar una sepsis bacteriana en el recién nacido y el lactante pequeño, pero la mayoría de las sepsis son bacterianas."
+]
+},
+{
+"c": "sep",
+"t": 0,
+"src": "GPC INSN 2024",
+"q": "Según la GPC INSN 2024, en el paciente oncológico con neutropenia, además de los gérmenes habituales, pueden causar sepsis:",
+"o": [
+"Estafilococo coagulasa negativo, S. viridans, P. aeruginosa, Klebsiella o Acinetobacter",
+"Listeria, enterococo y S. agalactiae, igual que en el lactante menor de 3 meses de edad",
+"S. pyogenes y S. aureus productores de toxina, que obligan a añadir clindamicina de rutina",
+"Virus respiratorios como influenza o SARS-CoV-2, sin riesgo de coinfección bacteriana",
+"Bacilos gramnegativos entéricos, pero no cocos grampositivos de la piel ni de la mucosa"
+],
+"e": "La GPC indica que en el oncológico neutropénico, además de los gérmenes habituales, aparecen estafilococo coagulasa negativo, S. viridans, P. aeruginosa, Klebsiella y Acinetobacter (flora de piel, mucosa dañada y hospital). Por eso se recomienda tratamiento combinado de amplio espectro (meropenem más vancomicina).",
+"w": [
+"Ese patrón (más S. agalactiae y E. coli) corresponde al lactante pequeño, no al neutropénico.",
+"La clindamicina se añade cuando se sospecha shock tóxico estreptocócico, no por la neutropenia en sí.",
+"Los virus pueden causar sepsis, pero la GPC advierte que en la sepsis grave se debe sospechar coinfección bacteriana, sobre todo por S. aureus resistente a meticilina.",
+"Falta la mitad del espectro: los cocos grampositivos (estafilococo coagulasa negativo, S. viridans) sí están en la lista del neutropénico."
+]
+},
+{
+"c": "sep",
+"t": 0,
+"src": "GPC INSN 2024",
+"q": "Respecto a los factores de riesgo de sepsis según la GPC INSN 2024, señale lo MÁS CORRECTO:",
+"o": [
+"El uso de antimicrobianos por más de 48 h antes del cuadro aumenta el riesgo",
+"Fuera del periodo neonatal, el escolar tiene más riesgo que el lactante",
+"En el lactante la sepsis es más leve, por los anticuerpos maternos que aún conserva",
+"La desnutrición no cambia el riesgo de sepsis, solo prolonga la estancia en UCIP",
+"El niño esplenectomizado tiene un riesgo similar al sano si recibió sus vacunas"
+],
+"e": "La GPC incluye como factores de riesgo el uso de antimicrobianos por más de 48 h antes de la sepsis y el egreso hospitalario reciente, junto con la edad < 1 año, la desnutrición y las inmunodeficiencias. El antibiótico previo selecciona flora resistente.",
+"w": [
+"Es al revés: fuera del periodo neonatal, los lactantes tienen más riesgo que los niños mayores (el menor de 5 años, sobre todo de 0 a 1 año, es el de mayor riesgo).",
+"En el lactante la sepsis es MÁS grave y de curso más acelerado, porque su sistema inmunitario aún no está plenamente desarrollado.",
+"La GPC considera la desnutrición un factor de riesgo de sepsis y de morbimortalidad, por la pobre formación de anticuerpos.",
+"La GPC incluye a los esplenectomizados entre las inmunodeficiencias que dan más riesgo y sepsis más grave y con mayor mortalidad."
+]
+},
+{
+"c": "sep",
+"t": 0,
+"src": "GPC INSN 2024",
+"q": "Sobre el reconocimiento clínico de la sepsis según la GPC INSN 2024, señale lo MÁS CORRECTO:",
+"o": [
+"El lado circulatorio del TEP es el más alterado y la púrpura orienta a meningococo",
+"El lado de la apariencia del TEP es el más alterado y la púrpura orienta a meningococo",
+"El lado circulatorio del TEP es el más alterado y la púrpura orienta a S. pyogenes",
+"El lado circulatorio del TEP es el más alterado y la hipotensión es un signo precoz",
+"El lado respiratorio del TEP es el más alterado y la eritrodermia orienta a meningococo"
+],
+"e": "En la sepsis el lado del TEP que más a menudo está alterado es el circulatorio, seguido de la apariencia. Las petequias o la púrpura sugieren N. meningitidis, y la eritrodermia, S. pyogenes.",
+"w": [
+"La apariencia es el SEGUNDO lado más alterado, después del circulatorio.",
+"La púrpura sugiere meningococo; lo que sugiere S. pyogenes es la eritrodermia.",
+"La hipotensión es un signo TARDÍO: el niño mantiene la PA a costa de taquicardia y vasoconstricción, y cuando cae el cuadro ya está avanzado.",
+"El lado respiratorio no es el más alterado en la sepsis, y la eritrodermia orienta a S. pyogenes, no a meningococo."
+]
+},
+{
+"c": "sep",
+"t": 0,
+"src": "GPC INSN 2024",
+"q": "Según la GPC INSN 2024, ¿cuál es un diagnóstico diferencial de sepsis descrito en el neonato y niño pequeño, y no en el adolescente?",
+"o": [
+"Hiperplasia suprarrenal congénita",
+"Síndrome neuroléptico maligno",
+"Retiro de baclofeno",
+"Síndrome de liberación de serotonina",
+"Enfermedad de Kawasaki"
+],
+"e": "La GPC lista para neonatos y niños pequeños: maltrato, hipoglucemia, cardiopatías obstructivas izquierdas, arritmias, miocarditis, errores del metabolismo, hiperplasia suprarrenal congénita, malrotación, invaginación, gastroenteritis con deshidratación, entre otros. La crisis suprarrenal da shock con hiponatremia e hiperkalemia que imita una sepsis.",
+"w": [
+"El síndrome neuroléptico maligno está en la lista de niños mayores y adolescentes (fiebre con taquicardia o inestabilidad).",
+"El retiro de baclofeno es un diferencial del niño mayor y del adolescente, no del lactante.",
+"El síndrome serotoninérgico está en la lista de niños mayores y adolescentes, junto con golpe de calor y sobredosis.",
+"La GPC ubica la enfermedad de Kawasaki entre los diferenciales del niño mayor y del adolescente."
+]
+},
+{
+"c": "sep",
+"t": 1,
+"src": "GPC INSN 2024",
+"v": "Niña de 7 años con varicela sobreinfectada que inicia fiebre alta, eritrodermia difusa, hipotensión y relleno capilar de 4 s.",
+"q": "Según las pautas de la GPC INSN 2024, el esquema antibiótico empírico MÁS CORRECTO es:",
+"o": [
+"Cefotaxima 75 mg/kg + vancomicina 15 mg/kg + clindamicina 10 mg/kg",
+"Cefotaxima 75 mg/kg + vancomicina 15 mg/kg + metronidazol 10 mg/kg",
+"Cefotaxima 75 mg/kg + vancomicina 15 mg/kg + ampicilina 75 mg/kg",
+"Meropenem 20 mg/kg + vancomicina 15 mg/kg + aciclovir 20 mg/kg",
+"Cefotaxima 75 mg/kg + vancomicina 15 mg/kg + amikacina 15 mg/kg"
+],
+"e": "Eritrodermia más shock sugiere shock tóxico estreptocócico. En > 1 mes la GPC indica cefotaxima 75 mg/kg (máx. 2 g) + vancomicina 15 mg/kg (máx. 1 g) y asociar clindamicina 10 mg/kg (máx. 650 mg); la clindamicina inhibe la síntesis proteica bacteriana y frena la producción de toxina (referencia estándar, no explicada en la GPC).",
+"w": [
+"El metronidazol se asocia en el foco abdominal (peritonitis por perforación), no en el shock tóxico.",
+"La ampicilina se añade en lactantes de 1–3 meses en áreas con alta prevalencia de Listeria o enterococo, no en una escolar con eritrodermia.",
+"Meropenem + vancomicina es para alérgicos a betalactámicos o inmunocomprometidos, y el aciclovir es para sospecha de herpes en el neonato.",
+"La amikacina se añade en el inmunocomprometido colonizado por Pseudomonas o Acinetobacter o con ectima; no cubre la toxina estreptocócica."
+]
+},
+{
+"c": "sep",
+"t": 1,
+"src": "GPC INSN 2024",
+"q": "Comparando procalcitonina (PCT) y proteína C reactiva (PCR) según la GPC INSN 2024, señale lo MÁS CORRECTO:",
+"o": [
+"La PCT se eleva a las 2–6 h y es más sensible y específica que la PCR",
+"La PCR se eleva a las 2–6 h y es más específica que la procalcitonina",
+"La PCT se eleva a las 6–12 h y es más sensible y específica que la PCR",
+"La PCT se eleva a las 2–6 h, pero es menos específica que la PCR",
+"La PCR se eleva a las 6–12 h y es más específica que sensible"
+],
+"e": "La PCT sube antes (2–6 h), tiene mayor sensibilidad y especificidad que la PCR y sus valores (> 0,5–2 ng/mL) ayudan a distinguir sepsis de infección localizada. La PCR sube más tarde (6–12 h) y es más sensible que específica, porque también se eleva en virosis, posoperatorio, autoinmunidad o tumores.",
+"w": [
+"Los tiempos están cambiados: la PCR sube a las 6–12 h, y es la PCT la más específica.",
+"Las 6–12 h son el tiempo de elevación de la PCR; la PCT sube antes, a las 2–6 h, por eso es más útil en el diagnóstico precoz.",
+"La PCT es MÁS específica que la PCR; esa es una de sus ventajas según la GPC.",
+"El tiempo de la PCR es correcto, pero es al revés: tiene más sensibilidad que especificidad."
+]
+},
+{
+"c": "sep",
+"t": 0,
+"src": "GPC INSN 2024",
+"q": "Respecto al lactato en la sepsis pediátrica según la GPC INSN 2024, señale lo MÁS CORRECTO:",
+"o": [
+"Su descenso en las primeras horas de tratamiento es un signo de buen pronóstico",
+"Un lactato normal descarta la hipoperfusión tisular por sepsis en el niño",
+"Su elevación se explica por hipoxia tisular, sin otros factores implicados",
+"Su nivel no se correlaciona con la gravedad; solo apoya el diagnóstico inicial",
+"Debe medirse en muestra arterial; la muestra venosa no es válida"
+],
+"e": "La GPC dice que mantener el lactato elevado se asocia a alta mortalidad, mientras que su descenso en las primeras horas es signo de buen pronóstico. Un lactato > 2 mmol/L indica hipoperfusión y su nivel (> 2–4 mmol/L) se correlaciona con la gravedad y sirve para valorar la respuesta.",
+"w": [
+"La GPC advierte que el lactato no siempre está elevado en niños con hipoperfusión por sepsis; un valor normal no la descarta.",
+"No siempre la causa es la hipoxia tisular; la GPC dice que hay otros factores implicados en su aumento.",
+"Sí se correlaciona con la gravedad y la evolución, y sirve para seguir la respuesta al tratamiento.",
+"La GPC acepta lactato arterial o venoso, siempre que la muestra se tome y procese bien para evitar errores preanalíticos."
+]
+},
+{
+"c": "sep",
+"t": 1,
+"src": "GPC INSN 2024",
+"q": "Sobre el hemocultivo en la sospecha de sepsis según la GPC INSN 2024, señale lo MÁS CORRECTO:",
+"o": [
+"Mínimo 4 mL en niños y, si tiene catéter central, una muestra por este y otra periférica",
+"Mínimo 1 mL en niños y, si tiene catéter central, una sola muestra extraída por el catéter",
+"Mínimo 10 mL en niños y, si tiene catéter central, retirarlo antes de extraer la muestra",
+"Mínimo 4 mL en niños, y se espera el resultado antes de iniciar el antibiótico empírico",
+"Mínimo 4 mL en niños y, si ya recibió antibiótico, el cultivo ya no debe tomarse"
+],
+"e": "Volúmenes mínimos: lactantes 1–2 mL, niños 4 mL, adolescentes 10 mL (el volumen es clave para la sensibilidad). Con catéter central se toma una muestra por el catéter y otra percutánea: el cultivo diferencial dice si el catéter es el foco. Se piden dos sets.",
+"w": [
+"1–2 mL es el mínimo del lactante; en el niño son 4 mL. Una sola muestra por el catéter no permite el cultivo diferencial.",
+"10 mL es el mínimo de adolescentes y adultos, y no se retira el catéter antes: se cultiva por él y por punción periférica.",
+"El hemocultivo se toma antes del antibiótico solo si no lo retrasa; nunca se espera su resultado para iniciarlo.",
+"Si ya recibió antibiótico, la GPC indica recoger el hemocultivo cuanto antes, no omitirlo."
+]
+},
+{
+"c": "sep",
+"t": 1,
+"src": "GPC INSN 2024",
+"v": "Recién nacido de 18 días con fiebre, letargia, mala perfusión y vesículas agrupadas en el cuero cabelludo.",
+"q": "Según las pautas de la GPC INSN 2024, el esquema empírico MÁS CORRECTO es:",
+"o": [
+"Ampicilina 75 mg/kg + cefotaxima 50 mg/kg + aciclovir 20 mg/kg",
+"Cefotaxima 75 mg/kg + vancomicina 15 mg/kg + aciclovir 20 mg/kg",
+"Ampicilina 75 mg/kg + cefotaxima 50 mg/kg + clindamicina 10 mg/kg",
+"Ampicilina 75 mg/kg + cefotaxima 50 mg/kg + aciclovir 10 mg/kg",
+"Meropenem 20 mg/kg + vancomicina 15 mg/kg + aciclovir 20 mg/kg"
+],
+"e": "En < 1 mes la GPC indica ampicilina 75 mg/kg + cefotaxima 50 mg/kg, y asociar aciclovir 20 mg/kg si se sospecha virus herpes simple (vesículas, letargia). La ampicilina cubre Listeria y enterococo, que las cefalosporinas no cubren.",
+"w": [
+"Cefotaxima 75 + vancomicina 15 es el esquema del > 1 mes; en el neonato falta la ampicilina.",
+"La clindamicina se asocia por sospecha de shock tóxico estreptocócico; aquí las vesículas apuntan a herpes y lo que falta es el aciclovir.",
+"La dosis de aciclovir que indica la GPC es 20 mg/kg, no 10 mg/kg.",
+"Meropenem + vancomicina es para alérgicos a betalactámicos o inmunocomprometidos, no el esquema neonatal."
+]
+},
+{
+"c": "sep",
+"t": 0,
+"src": "GPC INSN 2024",
+"q": "Según la GPC INSN 2024, ¿qué asociación entre situación clínica y antibiótico empírico es la MÁS CORRECTA?",
+"o": [
+"Inmunocomprometido: meropenem con vancomicina",
+"Peritonitis por perforación: cefotaxima con clindamicina",
+"Alérgico a betalactámicos: cefotaxima con vancomicina",
+"Estreptococo A invasivo: cefotaxima con metronidazol",
+"Sospecha de infección fúngica: meropenem con amikacina"
+],
+"e": "En el niño > 3 meses inmunocomprometido la GPC indica meropenem con vancomicina (amplio espectro que incluye Pseudomonas y grampositivos resistentes), y añadir amikacina si hay colonización por Pseudomonas o Acinetobacter, ectima o sepsis grave.",
+"w": [
+"En la peritonitis por perforación es cefotaxima + metronidazol (o meropenem + gentamicina): hay que cubrir anaerobios intestinales.",
+"La cefotaxima es un betalactámico; en el alérgico la GPC indica meropenem 20 mg/kg (máx. 2 g) + vancomicina 15 mg/kg.",
+"Para el estreptococo del grupo A invasivo la GPC indica penicilina y clindamicina; el metronidazol es para el foco abdominal.",
+"Si se sospecha infección fúngica la GPC indica anfotericina liposomal; la amikacina se añade por Pseudomonas o Acinetobacter."
+]
+},
+{
+"c": "sep",
+"t": 0,
+"src": "GPC INSN 2024",
+"v": "Niño de 3 años con shock séptico, hipotenso, SatO2 de 93 %; tras 90 segundos no se logra una vía periférica.",
+"q": "Según la GPC INSN 2024, la conducta MÁS CORRECTA es:",
+"o": [
+"Intraósea ya y O2 al 100 %, reduciéndolo al recuperar la perfusión",
+"Insistir con la vía periférica hasta 5 min y O2 al 100 % sostenido",
+"Intraósea ya y O2 por cánula nasal a 2 L/min, ya que satura 93 %",
+"Vía central femoral ya y O2 al 100 %, reduciéndolo al recuperar la perfusión",
+"Intraósea ya y O2 al 100 % sostenido para maximizar el aporte tisular"
+],
+"e": "Si no se logra vía periférica en 90 s se canaliza una intraósea, sobre todo en el hipotenso, para cumplir el acceso en 5 min. Se da O2 al 100 % o alto flujo y, una vez recuperada la perfusión, se reduce para evitar la hiperoxia mantenida.",
+"w": [
+"Los 5 min son el plazo para TENER el acceso, no para seguir intentando la periférica; y el O2 al 100 % no se mantiene tras recuperar la perfusión.",
+"En el shock se inicia O2 al 100 % o alto flujo; la cánula a bajo flujo es insuficiente aunque la SatO2 parezca aceptable.",
+"Canalizar una vía central toma tiempo en un niño hipotenso; la intraósea es la vía rápida recomendada tras 90 s de fracaso.",
+"La hiperoxia mantenida tiene efectos adversos; la GPC indica reducir el O2 una vez recuperada la perfusión."
+]
+},
+{
+"c": "sep",
+"t": 1,
+"src": "GPC INSN 2024",
+"v": "Niño de 5 años con shock séptico ya estabilizado. Hb 7,8 g/dL, plaquetas 40 000/mm3 y TP prolongado, sin sangrado ni procedimientos previstos.",
+"q": "Según la GPC INSN 2024, la conducta MÁS CORRECTA con los hemoderivados es:",
+"o": [
+"No transfundir por ahora; solo vigilar",
+"Glóbulos rojos, por tener Hb menor de 10 g/dL",
+"Plaquetas, por tener un recuento menor de 50 000",
+"Plasma fresco, para corregir el TP prolongado",
+"Glóbulos rojos, por tener Hb menor de 8 g/dL"
+],
+"e": "La GPC recomienda una estrategia restrictiva: glóbulos rojos con Hb < 7 g/dL en el niño estabilizado; plaquetas si < 10 000/mm3 (o < 30 000 con riesgo significativo de sangrado); y plasma solo si hay coagulopatía con sangrado activo, cirugía o procedimiento invasivo.",
+"w": [
+"El umbral en sepsis es Hb < 7 g/dL; transfundir con 10 g/dL es la estrategia liberal que la GPC desaconseja.",
+"El umbral de 50 000 es para preparar un procedimiento invasivo o cirugía, que este niño no tiene.",
+"La GPC recomienda no transfundir plasma profiláctico ni como expansor; un TP prolongado sin sangrado no lo indica.",
+"El umbral es Hb < 7 g/dL, no < 8; con 7,8 g/dL y estabilizado no se transfunde."
+]
+},
+{
+"c": "sep",
+"t": 0,
+"src": "GPC INSN 2024",
+"q": "Respecto al manejo metabólico del niño con shock séptico según la GPC INSN 2024, señale lo MÁS CORRECTO:",
+"o": [
+"Mantener glucemia entre 80 y 150 mg/dL y no usar bicarbonato si el pH es > 7,15",
+"Mantener glucemia entre 80 y 150 mg/dL y usar bicarbonato si el pH es < 7,30",
+"Mantener glucemia entre 60 y 110 mg/dL y no usar bicarbonato si el pH es > 7,15",
+"Mantener glucemia < 180 mg/dL y usar soluciones hipotónicas de mantenimiento",
+"Tratar la hipoglucemia con dextrosa al 25 % 4 mL/kg y evitar el bicarbonato"
+],
+"e": "La GPC indica mantener glucemias entre 80 y 150 mg/dL (aporte de glucosa 4–8 mg/kg/min) y no usar bicarbonato si el pH es > 7,15, porque no ha demostrado utilidad y puede ser perjudicial.",
+"w": [
+"El corte es pH > 7,15: por encima de ese valor no se aconseja bicarbonato, así que un pH de 7,20 no lo indica.",
+"El rango objetivo es 80–150 mg/dL; mantener cifras bajas favorece la hipoglucemia, frecuente en lactantes.",
+"La GPC dice que las soluciones hipotónicas no deben usarse en el shock séptico (riesgo de hiponatremia y edema).",
+"La hipoglucemia se corrige con dextrosa al 10 % 2–5 mL/kg; la dextrosa al 25 % es hiperosmolar para una vía periférica."
+]
+},
+{
+"c": "sep",
+"t": 1,
+"src": "GPC INSN 2024",
+"v": "Niño de 6 años con sepsis que, tras la carga inicial de volumen, está despierto, sin dificultad respiratoria, con PAS de 90 mmHg y lactato de 3,5 mmol/L.",
+"q": "Según la GPC INSN 2024, ¿cuál es la conducta MÁS CORRECTA respecto a su ubicación?",
+"o": [
+"Ingreso a UCIP: un lactato > 3 mmol/L tras la carga es criterio absoluto",
+"Observación en emergencia: el criterio de UCIP es un lactato > 4 mmol/L",
+"Hospitalización en piso: su PAS supera el umbral de 70 + 2 × edad",
+"Ingreso a UCIP solo si además presenta alteración del nivel de conciencia",
+"Observación en emergencia: el lactato que cuenta es el previo a la carga"
+],
+"e": "Es criterio absoluto de ingreso a UCIP la inestabilidad hemodinámica persistente: lactato > 3 mmol/L o EB > 5 tras la carga de volumen inicial, y/o PAS < P3. Basta uno de ellos; un lactato que no baja tras los líquidos indica hipoperfusión persistente.",
+"w": [
+"El corte de la GPC para el ingreso es lactato > 3 mmol/L tras la carga, no > 4.",
+"Es cierto que su PAS (90) supera 70 + 2 × 6 = 82 mmHg, pero el lactato > 3 tras la carga ya basta por sí solo para ingresar a UCIP.",
+"La alteración de conciencia es otro criterio absoluto independiente; no hace falta sumarlo al lactato.",
+"El criterio es justamente el lactato DESPUÉS de la carga de volumen, porque refleja hipoperfusión que no respondió a los líquidos."
+]
+},
+{
 "c": "shk",
 "t": 0,
 "src": "SEUP 2024",
@@ -486,6 +812,394 @@ const Q = [
 ]
 },
 {
+"c": "shk",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto a la definición de shock según el protocolo SEUP 2024, señale lo MÁS CORRECTO:",
+"o": [
+"Perfusión tisular insuficiente para las demandas, aun con PA normal",
+"Presión arterial sistólica por debajo del percentil 5 para la edad",
+"Hipotensión arterial que no responde a 40 mL/kg de cristaloides",
+"Hipoxemia con SatO2 < 90 % pese a oxígeno al 100 % con reservorio",
+"Lactato sérico > 2 mmol/L acompañado de acidosis metabólica"
+],
+"e": "SEUP define el shock como una insuficiencia circulatoria aguda generalizada con perfusión tisular insuficiente para las demandas de órganos y tejidos vitales. No es lo mismo que hipotensión: en el shock compensado la PA es normal porque el niño la sostiene con taquicardia y vasoconstricción.",
+"w": [
+"La PAS < p5 define la hipotensión, que es un signo tardío (shock descompensado); usarla como definición deja fuera al shock compensado.",
+"Eso describe el shock refractario a fluidos (el criterio para iniciar inotrópicos), no la definición de shock.",
+"Es un criterio de insuficiencia respiratoria; el shock es un fallo circulatorio y puede cursar con SatO2 normal.",
+"El lactato alto apoya el diagnóstico (acidosis metabólica con lactato elevado), pero el diagnóstico del shock es clínico y no depende de un punto de corte."
+]
+},
+{
+"c": "shk",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Sobre las fases del shock y su fisiopatología, señale lo MÁS CORRECTO:",
+"o": [
+"Hipotensivo: TNF, IL-1 e IL-6 dañan el endotelio y generan edema intersticial",
+"Compensado: TNF, IL-1 e IL-6 aumentan la contractilidad y el tono vascular",
+"Irreversible: el déficit tisular de O2 se corrige si se aumenta el aporte",
+"Compensado: cae la aldosterona para eliminar sodio y bajar la precarga",
+"Hipotensivo: el endotelio sigue íntegro y aún no hay paso de líquido al intersticio"
+],
+"e": "En la fase hipotensiva fracasa la respuesta humoral: el complemento y los radicales libres dañan el endotelio, y el TNF y las IL-1 e IL-6 causan alteración microvascular y disfunción miocárdica. Al perderse la integridad endotelial hay trasudación y edema intersticial, que dificulta aún más el paso de O2 a los tejidos.",
+"w": [
+"En la fase compensada actúan adrenalina y noradrenalina (contractilidad y tono vascular), los glucocorticoides y el eje renina-angiotensina; las citocinas son de la fase hipotensiva y deprimen el miocardio.",
+"Es al revés: la fase irreversible es el déficit tisular de O2 incluso con aportes aumentados, con alta probabilidad de fallo multiorgánico.",
+"La menor perfusión renal ACTIVA el eje renina-angiotensina-aldosterona, que reabsorbe sodio para aumentar el volumen intravascular.",
+"Justamente la pérdida de integridad endotelial, con trasudación de agua y solutos al intersticio, caracteriza la fase hipotensiva."
+]
+},
+{
+"c": "shk",
+"t": 0,
+"src": "SEUP 2024 + infografía",
+"q": "Respecto a la clasificación del shock, señale la asociación MÁS CORRECTA:",
+"o": [
+"Gran quemado: hipovolémico por tercer espacio",
+"Gran quemado: shock distributivo por vasodilatación",
+"Lesión medular: shock hipovolémico por pérdidas",
+"Error congénito del metabolismo: shock distributivo",
+"Taponamiento cardiaco: shock cardiogénico"
+],
+"e": "SEUP clasifica las quemaduras como shock hipovolémico por pérdida relativa de volumen: la pérdida de proteínas crea un tercer espacio (igual que el escape capilar). El agua sale del vaso aunque el cuerpo no la pierda.",
+"w": [
+"Aunque hay inflamación, la quemadura se clasifica como hipovolémica (tercer espacio); los distributivos son el séptico, el anafiláctico y el neurogénico.",
+"La lesión medular produce shock neurogénico, que es distributivo (pérdida del tono simpático y vasodilatación), no hipovolémico.",
+"SEUP incluye los errores congénitos del metabolismo entre las causas de shock cardiogénico, no distributivo.",
+"El taponamiento impide el llenado del corazón sin que falle el miocardio: es shock obstructivo, como el neumotórax a tensión."
+]
+},
+{
+"c": "shk",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto al shock \"caliente\" frente al shock \"frío\", señale lo MÁS CORRECTO:",
+"o": [
+"En el caliente los pulsos son saltones y el relleno, rápido",
+"En el caliente los pulsos son débiles y el relleno capilar, lento",
+"En el frío hay vasodilatación periférica con piel caliente y roja",
+"En el frío los pulsos son saltones y el relleno capilar, normal",
+"En el caliente hay vasoconstricción periférica y piel moteada"
+],
+"e": "En el shock caliente predomina la vasodilatación: piel caliente, pulsos saltones y relleno capilar acelerado. En el frío hay vasoconstricción periférica: piel fría y moteada, pulsos disminuidos y relleno lento. La distinción orienta el vasoactivo (adrenalina en el frío, noradrenalina en el caliente).",
+"w": [
+"Pulsos débiles y relleno lento son del shock frío (vasoconstricción y bajo gasto).",
+"El shock frío se debe a vasoconstricción periférica; la vasodilatación con piel caliente es del shock caliente.",
+"En el frío los pulsos están disminuidos y el relleno es lento; los pulsos saltones son del caliente.",
+"La vasoconstricción con piel fría y moteada define el shock frío, no el caliente."
+]
+},
+{
+"c": "shk",
+"t": 0,
+"src": "SEUP 2024",
+"v": "Lactante de 10 meses con 2 días de diarrea abundante. FC 180 lpm, FR 56 rpm sin tiraje, auscultación pulmonar normal, SatO2 98 %, piel fría y moteada, pañal seco desde hace 8 horas y PA normal para la edad.",
+"q": "Respecto a la fisiopatología de sus signos, señale lo MÁS CORRECTO:",
+"o": [
+"La polipnea compensa una acidosis metabólica y la oliguria refleja la redistribución del flujo",
+"La polipnea indica una neumonía asociada y la oliguria, una necrosis tubular ya establecida",
+"La polipnea compensa una alcalosis metabólica por la diarrea y la oliguria se debe a la sed",
+"La polipnea es por hipoxemia y la oliguria, por fallo renal propio del shock descompensado",
+"La polipnea es por fiebre y dolor, y la oliguria aparece solo cuando ya hay hipotensión"
+],
+"e": "Son signos de compensación (shock compensado, PA normal): la polipnea compensa la acidosis metabólica, y el organismo redistribuye el flujo hacia cerebro, corazón y pulmón, por lo que hipoperfunde el riñón (oliguria) y la piel (frialdad, piel moteada).",
+"w": [
+"Pulmones limpios, sin tiraje y SatO2 98 %: es polipnea sin trabajo respiratorio, de origen metabólico; la oliguria es precoz y funcional, por redistribución.",
+"La diarrea con hipoperfusión produce acidosis metabólica (pérdida de bicarbonato y lactato alto), no alcalosis; la oliguria se debe a hipoperfusión renal.",
+"La SatO2 es normal; además, la oliguria ya aparece en la fase compensada, antes de la hipotensión.",
+"La hipotensión es el signo final; la oliguria aparece antes, como parte de la redistribución compensadora."
+]
+},
+{
+"c": "shk",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto a las pistas clínicas del tipo de shock (SEUP 2024), señale la asociación MÁS CORRECTA:",
+"o": [
+"Ascitis y edemas: hipovolémico por tercer espacio",
+"Hepatomegalia y galope: hipovolémico por diarrea",
+"Fontanela y ojos hundidos: shock cardiogénico",
+"Palidez sin sangrado externo: shock anafiláctico",
+"Ingurgitación yugular: hipovolémico por hemorragia"
+],
+"e": "En la tabla 2 de SEUP, la ascitis y los edemas son los signos del shock hipovolémico por tercer espacio (pérdida de proteínas: quemaduras, escape capilar): el volumen está fuera del vaso aunque el niño esté edematoso.",
+"w": [
+"Hepatomegalia y galope son signos de shock cardiogénico (sobrecarga); en la diarrea se esperan fontanela y ojos hundidos y mucosas secas.",
+"Fontanela y ojos hundidos, mucosas secas y pérdida de turgencia orientan a hipovolemia por pérdida de líquidos, no a cardiogénico.",
+"La palidez sin sangrado visible orienta a hemorragia interna (hipovolémico); el anafiláctico da urticaria, angioedema, sibilancias o estridor.",
+"La ingurgitación yugular indica presión venosa alta (cardiogénico); en la hemorragia las venas están colapsadas."
+]
+},
+{
+"c": "shk",
+"t": 1,
+"src": "SEUP 2024",
+"q": "Respecto a las pruebas complementarias en el shock según SEUP 2024, señale lo MÁS CORRECTO:",
+"o": [
+"Con la primera analítica se envían pruebas cruzadas para transfundir",
+"La plaquetopenia del shock hemorrágico se debe sobre todo a una CID",
+"La hipoglucemia en el shock orienta sobre todo a un fallo renal agudo",
+"El shock se confirma con un lactato > 2 mmol/L antes de iniciar bolos",
+"El hemocultivo se obtiene antes del antibiótico aunque este se retrase"
+],
+"e": "SEUP recuerda que al extraer sangre para analítica y cultivos se debe enviar también muestra para pruebas cruzadas, por si fuera necesario transfundir. Ninguna prueba debe demorar el tratamiento: el diagnóstico del shock es clínico.",
+"w": [
+"En el hemorrágico la plaquetopenia es por consumo; la CID es la causa de plaquetopenia en el shock séptico.",
+"En la tabla de SEUP la hipoglucemia se asocia a fallo hepático; el fallo renal da alteraciones iónicas y urea y creatinina altas.",
+"El diagnóstico del shock es clínico (TEP, perfusión); esperar el lactato retrasa el tratamiento.",
+"El hemocultivo es aconsejable, pero nunca debe demorar el antibiótico (paquete de resucitación: hemocultivo si no retrasa la antibioterapia)."
+]
+},
+{
+"c": "shk",
+"t": 0,
+"src": "SEUP 2024",
+"v": "Lactante de 7 meses con fiebre, petequias, relleno capilar de 5 s, hipotensión y somnolencia. Se sospecha shock séptico con posible meningitis.",
+"q": "Respecto al estudio del líquido cefalorraquídeo, ¿qué hacer?",
+"o": [
+"Diferir siempre la punción lumbar hasta que esté estable",
+"Hacer la punción lumbar antes del antibiótico para no negativizarla",
+"Hacer una TC craneal y luego la punción lumbar en urgencias",
+"Hacer la punción lumbar tras el primer bolo de 10 mL/kg",
+"Omitirla, porque la meningitis no cambia el manejo del shock"
+],
+"e": "SEUP: en la sospecha de shock séptico hay que descartar meningitis, pero la punción lumbar está contraindicada si hay inestabilidad hemodinámica; se hará siempre de forma diferida, una vez estabilizado el paciente. El antibiótico no espera a la punción.",
+"w": [
+"Retrasar el antibiótico (debe ir en la primera hora) y puncionar a un paciente inestable empeora el pronóstico.",
+"La TC no resuelve la contraindicación: lo que impide la punción es la inestabilidad hemodinámica, y el traslado lo expone más.",
+"Un solo bolo no garantiza estabilidad; la punción se hace cuando el paciente está estabilizado, no a un tiempo fijo.",
+"No se omite: SEUP indica que es necesario descartar la meningitis en la sospecha de shock séptico; solo se difiere."
+]
+},
+{
+"c": "shk",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Sobre la ecografía a pie de cama en el niño en shock (SEUP 2024), señale lo MÁS CORRECTO:",
+"o": [
+"Medir la vena cava rinde poco en el niño no intubado para guiar líquidos",
+"La colapsabilidad de la cava guía bien los bolos en el niño que respira solo",
+"Una vena cava muy colapsable sugiere disfunción cardiaca e indica inotrópicos",
+"La ecografía pulmonar es menos sensible que la radiografía para la neumonía",
+"Su utilidad se limita al shock cardiogénico para medir la contractilidad"
+],
+"e": "SEUP: la variación del diámetro de la vena cava como predictor de respuesta a fluidos ha mostrado bajo rendimiento en pacientes no intubados, por lo que no se recomienda de forma sistemática. Sí es útil para buscar hemorragia interna, tercer espacio, función cardiaca y neumonía.",
+"w": [
+"Es precisamente lo que SEUP no recomienda: en ventilación espontánea la variación de la cava predice mal la respuesta a fluidos.",
+"Es al revés: SEUP cita la colapsabilidad ESCASA de la cava inferior (junto a mala contractilidad) como signo de disfunción cardiaca que indica inotrópicos.",
+"La ecografía pulmonar a pie de cama ha mostrado sensibilidad y especificidad similares a la radiografía, y es especialmente útil en el inestable.",
+"También sirve para buscar hemorragia interna, tercer espacio o patología intraabdominal, y para valorar afectación cardiaca en cualquier tipo de shock."
+]
+},
+{
+"c": "shk",
+"t": 1,
+"src": "ACCM 2017 (infografía) + SEUP 2024",
+"q": "Entre las metas de la fase de resucitación del shock (primera hora), señale la MÁS CORRECTA:",
+"o": [
+"Diuresis > 1 mL/kg/h",
+"Diuresis > 0,5 mL/kg/h",
+"SatO2 del 100 % mantenida",
+"SvcO2 > 70 % en urgencias",
+"Relleno capilar < 3 s"
+],
+"e": "Metas de la primera hora (ACCM 2017, recogidas en la infografía): relleno < 2 s, pulsos normales, FC y PA normales, estado mental normal, diuresis > 1 mL/kg/h, SatO2 94–98 %, glucosa y calcio normales y lactato en descenso. La diuresis refleja la perfusión renal, lo primero que se sacrifica en la redistribución.",
+"w": [
+"0,5 mL/kg/h es la meta habitual del adulto; en el niño la meta es > 1 mL/kg/h.",
+"Se empieza con FiO2 100 %, pero luego se baja para mantener SatO2 94–98 %; la hiperoxia mantenida no es un objetivo.",
+"La SvcO2 > 70 % es meta de la fase de mantenimiento en UCIP (requiere vía central); en la fase inicial se guía con la SatO2.",
+"La meta es relleno capilar < 2 s; 3 s todavía es un relleno prolongado."
+]
+},
+{
+"c": "shk",
+"t": 1,
+"src": "SEUP 2024",
+"v": "Niño de 6 años en shock, ya estabilizado e ingresado en UCIP, con catéter venoso central y línea arterial.",
+"q": "Según el paquete de mantenimiento, la presión de perfusión objetivo es:",
+"o": [
+"PAM − PVC en torno a 64 mmHg",
+"PAM en torno a 64 mmHg, sin restar la PVC",
+"PAM − PVC en torno a 61 mmHg",
+"PAS en torno a 82 mmHg",
+"PAM − PVC en torno a 73 mmHg"
+],
+"e": "Paquete de mantenimiento (SEUP, figura 1): presión de perfusión (PAM − PVC) en límites normales = 55 + edad en años × 1,5, es decir 55 + 9 = 64 mmHg; además SvcO2 > 70 %, relleno < 2 s e índice cardiaco 3,3–6 L/min/m².",
+"w": [
+"La presión de perfusión es la diferencia PAM − PVC: con una PVC alta, una PAM aparentemente normal puede no perfundir los órganos.",
+"61 mmHg resulta de sumar la edad sin multiplicarla por 1,5 (55 + 6).",
+"70 + 2 × edad = 82 es la fórmula de la PAS mínima (1–10 años) para definir hipotensión, no la meta de perfusión en UCIP.",
+"73 mmHg resulta de multiplicar la edad por 3 (55 + 18); el factor correcto es 1,5."
+]
+},
+{
+"c": "shk",
+"t": 0,
+"src": "SEUP 2024",
+"v": "Neonato de 6 días con hipogalactia materna y rechazo de tomas. Está pálido, letárgico, con relleno capilar de 5 s. Tras dos intentos no se consigue vía periférica.",
+"q": "Respecto al acceso vascular, señale lo MÁS CORRECTO:",
+"o": [
+"Canalizar la vena umbilical e iniciar bolos en cuanto sea permeable",
+"Esperar a tener dos accesos vasculares antes de iniciar los bolos",
+"Colocar una vía central yugular ecoguiada como primera alternativa",
+"Seguir intentando vía periférica hasta 15 minutos antes de la intraósea",
+"Iniciar la rehidratación por sonda nasogástrica mientras se busca vía"
+],
+"e": "El paquete de resucitación exige acceso IV o intraóseo antes de 5 minutos; en el neonato la vena umbilical es una opción rápida y sencilla. Se prefieren dos accesos, pero la fluidoterapia empieza siempre con el primero.",
+"w": [
+"SEUP: preferentemente dos accesos, pero siempre se inicia la fluidoterapia en cuanto se obtiene el primero.",
+"La vía central es lenta y técnica; en el neonato la umbilical (o la intraósea) permite el acceso en < 5 min.",
+"El acceso debe lograrse en < 5 min; insistir 15 minutos con la periférica retrasa la resucitación.",
+"En el shock la vía enteral no sirve: hacen falta bolos rápidos IV o IO de cristaloide isotónico."
+]
+},
+{
+"c": "shk",
+"t": 1,
+"src": "SEUP 2024",
+"q": "Sobre el líquido de resucitación en el shock según SEUP 2024, señale lo MÁS CORRECTO:",
+"o": [
+"Los balanceados probablemente estén indicados de inicio en el shock hipotensivo",
+"La albúmina al 20 % en bolos de 10 mL/kg es la alternativa al cristaloide",
+"El salino 0,9 % ha mostrado más supervivencia que las soluciones balanceadas",
+"Los balanceados tienen un coste-beneficio probado en todo shock en urgencias",
+"Cada bolo de cristaloide debe pasar en 20–30 minutos con bomba de infusión"
+],
+"e": "SEUP: bolos rápidos de cristaloide isotónico (SSF o Ringer lactato) o albúmina al 5 %, de 10 mL/kg. Hay evidencia creciente de un ligero aumento de supervivencia con soluciones balanceadas; su coste-beneficio es claro en UCI y dudoso para todo shock en urgencias, pero probablemente estén indicadas de inicio en la fase hipotensiva.",
+"w": [
+"La alternativa que menciona SEUP es la albúmina al 5 % (isooncótica); la del 20 % es hiperoncótica y no se usa como bolo expansor.",
+"Es al revés: algunos trabajos (Cochrane 2019) muestran un ligero aumento de supervivencia con las balanceadas frente al salino.",
+"SEUP dice que su coste-beneficio está demostrado en UCI, pero es más dudoso para todo paciente con shock en urgencias.",
+"SEUP pide administrarlo lo más rápido posible, con jeringa o con un manguito de presión que exprima la bolsa, no en 20–30 min."
+]
+},
+{
+"c": "shk",
+"t": 1,
+"src": "SEUP 2024",
+"v": "Escolar de 9 años politraumatizado con fractura de pelvis. Tras 40 mL/kg de cristaloide en bolos rápidos sigue taquicárdico, pálido y con relleno capilar de 4 s.",
+"q": "Según SEUP 2024, la conducta MÁS CORRECTA es:",
+"o": [
+"Transfundir concentrado de hematíes a 10–15 mL/kg",
+"Transfundir concentrado de hematíes a 20–30 mL/kg",
+"Dar plasma fresco a 10–15 mL/kg antes que hematíes",
+"Seguir con bolos de cristaloide hasta 100 mL/kg",
+"Iniciar noradrenalina y transfundir solo si Hb < 7 g/dL"
+],
+"e": "En el shock hemorrágico que no responde a los bolos iniciales, SEUP indica concentrado de hematíes 10–15 mL/kg (por eso se piden pruebas cruzadas con la primera analítica). Hay que reponer la capacidad de transporte de O2, no solo el volumen.",
+"w": [
+"La dosis del protocolo SEUP es 10–15 mL/kg por vez, reevaluando tras cada aporte.",
+"El plasma y las plaquetas se reponen si se alargan los tiempos de coagulación; ante la no respuesta a bolos, el primer paso son los hematíes.",
+"El volumen habitual de la primera hora es 40–60 mL/kg; seguir con cristaloide diluye la hemoglobina y los factores sin transportar O2.",
+"Un vasopresor no corrige la pérdida de sangre, y esperar un umbral de Hb retrasa la transfusión de un niño que no responde a bolos."
+]
+},
+{
+"c": "shk",
+"t": 1,
+"src": "Infografía (ACCM 2017) + SEUP 2024",
+"q": "Respecto a los fármacos vasoactivos en el shock pediátrico, señale la asociación MÁS CORRECTA:",
+"o": [
+"Milrinona: inhibe la PDE3, es inodilatador y baja la resistencia pulmonar",
+"Dobutamina: α1 predominante, vasoconstrictor de elección en shock caliente",
+"Noradrenalina: β1 > α1, inotrópico de elección en el shock frío normotenso",
+"Vasopresina: receptor V2, primera línea en el shock caliente con hipotensión",
+"Dopamina: β1 y β2 puros, de primera elección por encima de la adrenalina"
+],
+"e": "La milrinona inhibe la fosfodiesterasa 3: aumenta la contractilidad y vasodilata, bajando las resistencias sistémicas y pulmonares. Por eso el algoritmo la propone en el shock frío normotenso con resistencias altas que persiste pese a la adrenalina.",
+"w": [
+"La dobutamina actúa sobre β1 y β2: es inotrópica y baja resistencias (útil en cardiogénico con PA normal); el vasoconstrictor del shock caliente es la noradrenalina.",
+"La noradrenalina es α1 > β1, vasoconstrictora y de elección en el shock caliente; en el frío se empieza con adrenalina.",
+"La vasopresina actúa sobre V1 (vasoconstricción) y es último recurso, añadida en el shock caliente normovolémico que persiste.",
+"La dopamina actúa sobre α1, β1 y receptores D, y SEUP la deja solo si no hay adrenalina ni noradrenalina disponibles."
+]
+},
+{
+"c": "shk",
+"t": 0,
+"src": "SEUP 2024",
+"v": "Niña de 4 años en shock. Ha recibido 60 mL/kg de cristaloide y adrenalina, a la que se añadió noradrenalina, pero sigue hipotensa y con mala perfusión.",
+"q": "Según el algoritmo SEUP 2024, ¿qué fármaco se debe valorar ahora y por qué?",
+"o": [
+"Hidrocortisona, por posible insuficiencia suprarrenal",
+"Dexametasona, para reducir la inflamación sistémica",
+"Bicarbonato, para mejorar la respuesta a catecolaminas",
+"Etomidato, para sedar y bajar el consumo de oxígeno",
+"Metilprednisolona en pulsos, por posible vasculitis"
+],
+"e": "En el shock que no se estabiliza pese a inotrópicos (refractario a catecolaminas), el algoritmo indica valorar hidrocortisona si se sospecha insuficiencia adrenal: sobre todo en el séptico puede haber inhibición del eje hipotálamo-hipófiso-adrenal o cambios en el metabolismo del cortisol.",
+"w": [
+"El corticoide indicado es la hidrocortisona, que suple el cortisol deficitario; el objetivo no es antiinflamatorio.",
+"El bicarbonato no ha demostrado reducir la morbimortalidad y causa hipernatremia, hipopotasemia e hipocalcemia.",
+"El etomidato deprime la función suprarrenal y está totalmente contraindicado en el shock séptico: empeoraría el problema.",
+"No hay datos de vasculitis; los pulsos de metilprednisolona no son el tratamiento del shock refractario a catecolaminas."
+]
+},
+{
+"c": "shk",
+"t": 0,
+"src": "SEUP 2024",
+"v": "Niño de 3 años en shock que, tras 3 bolos y adrenalina periférica, presenta somnolencia progresiva e hipoventilación. Se decide intubar.",
+"q": "Respecto a la secuencia rápida de intubación, señale lo MÁS CORRECTO:",
+"o": [
+"Atropina, ketamina y rocuronio, con carga de volumen e inotrópico previos",
+"Midazolam y succinilcolina, tras suspender la adrenalina para evitar arritmias",
+"Fentanilo a dosis altas y rocuronio, por su estabilidad en todas las edades",
+"Etomidato con bolo de hidrocortisona como combinación de primera elección",
+"Propofol y rocuronio, sin bolo previo para no sobrecargar antes de intubar"
+],
+"e": "SEUP: atropina + ketamina + rocuronio (IV/IM/IO). Antes de intubar debe garantizarse una buena carga de volumen intravascular y se recomienda inotrópico periférico, porque la sedación y la ventilación con presión positiva reducen el retorno venoso y pueden precipitar el colapso.",
+"w": [
+"El midazolam es hipotensor y no se recomienda en el shock; suspender el inotrópico al intubar favorece el colapso hemodinámico.",
+"Fentanilo y remifentanilo pueden causar rigidez torácica y depresión hemodinámica, especialmente en neonatos.",
+"Hay trabajos con etomidato + hidrocortisona, pero SEUP considera poco razonable esa opción existiendo alternativas (deprime la suprarrenal).",
+"El propofol debe evitarse por sus efectos cardiovasculares, y SEUP pide garantizar la carga de volumen antes de intubar."
+]
+},
+{
+"c": "shk",
+"t": 1,
+"src": "SEUP 2024",
+"v": "Escolar de 8 años, gran quemado, en UCIP al tercer día con ascitis a tensión, edema de pared intestinal y oliguria pese a una perfusión sistémica aceptable.",
+"q": "Respecto a la presión intraabdominal, señale lo MÁS CORRECTO:",
+"o": [
+"Se mide por presión intravesical; si supera 30 mmHg cabe la descompresión",
+"Se mide por presión intravesical; si supera 20 mmHg cabe la descompresión",
+"Se mide por presión venosa central; si supera 30 mmHg cabe la descompresión",
+"Se trata con más bolos para vencer la presión y mejorar la perfusión renal",
+"Se mide por presión intragástrica; los diuréticos están contraindicados"
+],
+"e": "SEUP: en el shock por tercer espacio (grandes quemados) la ascitis y el edema intestinal aumentan la presión intraabdominal, medida como presión intravesical, y dificultan la perfusión esplácnica. Reducirla con diuréticos, drenaje peritoneal o descompresión quirúrgica si la intravesical supera 30 mmHg mejora la perfusión renal.",
+"w": [
+"SEUP fija la descompresión quirúrgica por encima de 30 mmHg de presión intravesical; 20 mmHg es un umbral que usan otras definiciones de síndrome compartimental, no el de este protocolo.",
+"La presión intraabdominal se estima con la presión intravesical, no con la PVC.",
+"Más volumen aumenta la ascitis y el edema; SEUP propone reducir la presión con diuréticos, drenaje o descompresión.",
+"SEUP usa la presión intravesical, y los diuréticos son precisamente una de las medidas para reducir la presión intraabdominal."
+]
+},
+{
+"c": "shk",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto a la glucemia y el calcio en el niño en shock (SEUP 2024), señale lo MÁS CORRECTO:",
+"o": [
+"Se miden seriados y se corrigen desde el inicio",
+"Se corrigen solo en la UCIP, en la fase de mantenimiento",
+"Se miden al ingreso y solo se repiten si el niño convulsiona",
+"Solo cabe esperar hipoglucemia por el consumo de glucosa",
+"La hipocalcemia se previene con bicarbonato precoz"
+],
+"e": "SEUP recomienda mediciones repetidas de glucemia y calcio sérico y, en el algoritmo, corregir la hipoglucemia y la hipocalcemia en los primeros minutos, junto con los bolos. Puede haber hiperglucemia (catecolaminas y glucocorticoides) o hipoglucemia (p. ej., fallo hepático).",
+"w": [
+"En el algoritmo SEUP se corrigen en los minutos 5–15, junto con los primeros bolos, no al llegar a UCIP.",
+"SEUP pide mediciones repetidas de glucemia y calcio sérico como parte de la monitorización.",
+"También puede haber hiperglucemia (catecolaminas y glucocorticoides la elevan); SEUP pide vigilar ambas.",
+"El bicarbonato no está indicado y puede PROVOCAR hipocalcemia, además de hipernatremia e hipopotasemia."
+]
+},
+{
 "c": "car",
 "t": 0,
 "src": "Emerg Pediatr 2022",
@@ -548,6 +1262,455 @@ const Q = [
 ]
 },
 {
+"c": "car",
+"t": 0,
+"src": "Emerg Pediatr 2022",
+"q": "Respecto a la definición del shock cardiogénico pediátrico, señale lo MÁS CORRECTO:",
+"o": [
+"Es el estadio más grave de la insuficiencia cardiaca, por falla de bomba usualmente sistólica",
+"Es el estadio inicial de la insuficiencia cardiaca, por falla de bomba usualmente diastólica",
+"Es una forma de shock distributivo en que la vasodilatación precede a la falla miocárdica",
+"Es una insuficiencia cardiaca crónica descompensada, con presiones de llenado ventricular bajas",
+"Es un shock obstructivo por aumento de poscarga, con fracción de eyección conservada"
+],
+"e": "Aranzazu y Galvis lo definen como el estadio más grave de la insuficiencia cardiaca y una falla del sistema de bomba, por disfunción miocárdica usualmente sistólica. Cursa con presiones de llenado ventricular elevadas, hipotensión e hipoperfusión de órgano.",
+"w": [
+"No es el estadio inicial sino el más grave de la insuficiencia cardiaca, y la disfunción que lo explica es usualmente sistólica, no diastólica.",
+"En el shock distributivo el problema primario es el tono vascular; en el cardiogénico el problema primario es la bomba (disfunción miocárdica).",
+"En la insuficiencia cardiaca crónica el niño se adapta y luce confortable; el shock cardiogénico es agudo y cursa con presiones de llenado ELEVADAS, no bajas.",
+"El aumento de poscarga (coartación, estenosis aórtica) es una de sus causas, pero el cuadro se caracteriza por fracción de eyección o de acortamiento disminuidas."
+]
+},
+{
+"c": "car",
+"t": 0,
+"src": "Emerg Pediatr 2022",
+"q": "A diferencia del adulto, en el niño las causas PRINCIPALES de shock cardiogénico son:",
+"o": [
+"Las cardiopatías congénitas y las miocardiopatías",
+"La isquemia miocárdica y el infarto agudo de miocardio",
+"Las taquiarritmias y las bradiarritmias por hipopotasemia",
+"La miocardiopatía séptica y la intoxicación por fármacos",
+"La fiebre reumática aguda y la endocarditis infecciosa"
+],
+"e": "En los niños, a diferencia de los adultos, las principales causas son las cardiopatías congénitas y las miocardiopatías. Por eso la troponina, clave en el adulto con isquemia, tiene menos peso diagnóstico en pediatría.",
+"w": [
+"La isquemia miocárdica es una de las principales causas en el adulto; en el niño es poco frecuente (p. ej., ALCAPA o Kawasaki).",
+"Las arritmias son causa, sobre todo en niños mayores, pero no son las causas principales del shock cardiogénico pediátrico.",
+"La miocardiopatía séptica aparece en el 30–53 % de las sepsis y los fármacos en mayores, pero ninguna es la causa principal en el niño.",
+"La fiebre reumática y la endocarditis son causas de niños mayores y adolescentes, no las principales del conjunto pediátrico."
+]
+},
+{
+"c": "car",
+"t": 1,
+"src": "Emerg Pediatr 2022",
+"q": "Según Aranzazu y Galvis 2022, respecto a la epidemiología del shock cardiogénico pediátrico, señale lo MÁS CORRECTO:",
+"o": [
+"Causa el 5–13 % de los shocks en urgencias y su mortalidad en hospitalizados llega al 35–50 %",
+"Causa el 35–50 % de los shocks en urgencias y su mortalidad en hospitalizados llega al 5–13 %",
+"Causa el 5–13 % de los shocks en urgencias y su mortalidad en hospitalizados es inferior al 2 %",
+"Causa el 30–53 % de los shocks en urgencias y su mortalidad en hospitalizados llega al 5–10 %",
+"Causa el 2 % de los shocks en urgencias y su mortalidad en hospitalizados llega al 60–80 %"
+],
+"e": "El shock cardiogénico representa el 5–13 % de los casos de shock en los servicios de emergencia pediátrica y, en niños hospitalizados, su mortalidad asciende al 35–50 %.",
+"w": [
+"Las cifras están invertidas: 5–13 % es la proporción de shocks en urgencias y 35–50 % es la mortalidad en hospitalizados.",
+"El 2 % es la frecuencia aproximada de shock cardiogénico entre hospitalizados de países desarrollados, no su mortalidad, que es mucho mayor.",
+"El 30–53 % es la frecuencia de miocardiopatía en la sepsis; el 5–10 % es la mortalidad de algunas series sin comorbilidades.",
+"El 2 % es la frecuencia entre hospitalizados, no la proporción de shocks en urgencias, y la fuente no reporta una mortalidad de 60–80 %."
+]
+},
+{
+"c": "car",
+"t": 1,
+"src": "Emerg Pediatr 2022",
+"q": "Según la tabla de causas por edad, una causa de shock cardiogénico propia de las PRIMERAS 24 horas de vida es:",
+"o": [
+"La asfixia perinatal con hipoglucemia e hipocalcemia",
+"El origen anómalo de la coronaria izquierda (ALCAPA)",
+"El cierre del ductus en una lesión ductus dependiente",
+"La enfermedad de Kawasaki con aneurismas coronarios",
+"La carditis reumática aguda con insuficiencia mitral"
+],
+"e": "En las primeras 24 h la tabla lista asfixia perinatal, cardiopatía congénita, sepsis, hipoglucemia, hipocalcemia y arritmias. La hipoxia perinatal y los trastornos metabólicos deprimen directamente la contractilidad.",
+"w": [
+"La ALCAPA se manifiesta entre las 2 y 6 semanas, cuando cae la resistencia pulmonar y la coronaria izquierda pierde presión de perfusión.",
+"La circulación sistémica ductus dependiente se descompensa en los primeros 7 días, al cerrarse el ductus, no típicamente en las primeras 24 h.",
+"Kawasaki es causa del lactante de 6 semanas a 1 año (y mayores), no del recién nacido.",
+"La fiebre reumática aguda es causa de niños mayores y adolescentes."
+]
+},
+{
+"c": "car",
+"t": 0,
+"src": "Emerg Pediatr 2022",
+"v": "Lactante de 5 semanas, sano al nacer, que desde hace días suda y se irrita al lactar. Llega pálido, frío, taquicárdico, con hepatomegalia y galope; el ECG sugiere isquemia miocárdica.",
+"q": "Por la edad y el ECG, la causa que MÁS debe sospecharse es:",
+"o": [
+"Origen anómalo de la coronaria izquierda en la pulmonar (ALCAPA)",
+"Circulación sistémica ductus dependiente por coartación crítica",
+"Enfermedad de Kawasaki con afectación de las arterias coronarias",
+"Asfixia perinatal con isquemia miocárdica transitoria tardía",
+"Miocardiopatía reumática por fiebre reumática aguda"
+],
+"e": "Entre las 2 y 6 semanas la tabla destaca la cardiopatía congénita con ALCAPA y la miocardiopatía, y el ECG puede sugerir ALCAPA. Al caer la resistencia pulmonar, la coronaria que nace de la pulmonar recibe poca presión de perfusión y el miocardio se isquemia.",
+"w": [
+"La lesión ductus dependiente se descompensa típicamente en los primeros 7 días, al cerrarse el ductus, y da pulsos femorales ausentes.",
+"Kawasaki es causa del lactante de 6 semanas a 1 año y requiere fiebre prolongada con signos mucocutáneos, que aquí no hay.",
+"La asfixia perinatal es causa de las primeras 24 h; este lactante nació sano y se descompensó a las 5 semanas.",
+"La fiebre reumática es causa de niños mayores y adolescentes, no de un lactante de 5 semanas."
+]
+},
+{
+"c": "car",
+"t": 0,
+"src": "Emerg Pediatr 2022 + AHA 2017 (Kawasaki)",
+"v": "Lactante de 9 meses con 6 días de fiebre, conjuntivitis no exudativa, labios fisurados y exantema, que ingresa con taquicardia, galope, hepatomegalia y llenado capilar de 4 segundos.",
+"q": "Además de estabilizar el shock, el tratamiento específico de la causa MÁS probable es:",
+"o": [
+"Inmunoglobulina intravenosa y aspirina",
+"Penicilina benzatínica más ácido acetilsalicílico",
+"Metilprednisolona en pulsos sin inmunoglobulina",
+"Prostaglandina E1 en infusión continua precoz",
+"Glucagón intravenoso en bolo y luego en infusión"
+],
+"e": "Fiebre prolongada con signos mucocutáneos en un lactante de 6 semanas a 1 año orienta a Kawasaki, causa de shock cardiogénico en esa edad. Su tratamiento específico es IGIV más aspirina (infografía revisada; AHA 2017 para Kawasaki).",
+"w": [
+"La penicilina benzatínica se usa en la fiebre reumática, causa de niños mayores; no trata la vasculitis de Kawasaki.",
+"Los corticoides no reemplazan a la IGIV como tratamiento inicial; se reservan como adyuvantes en alto riesgo o resistencia (AHA 2017).",
+"La PGE1 reabre el ductus en el neonato con cardiopatía ductus dependiente, no en un lactante de 9 meses con Kawasaki.",
+"El glucagón es el antídoto de la intoxicación por β-bloqueadores, causa de shock cardiogénico en niños mayores."
+]
+},
+{
+"c": "car",
+"t": 0,
+"src": "Emerg Pediatr 2022 + AHA 2023 (intoxicaciones)",
+"v": "Adolescente de 15 años que ingirió propranolol de su madre: FC 42 lpm, PA 70/40 mmHg, extremidades frías y somnolencia, sin respuesta a la atropina.",
+"q": "El antídoto específico MÁS indicado es:",
+"o": [
+"Glucagón intravenoso",
+"Gluconato de calcio intravenoso",
+"Naloxona intravenosa en bolo",
+"Flumazenil intravenoso",
+"Bicarbonato de sodio intravenoso"
+],
+"e": "La ingesta de β-bloqueadores es causa de shock cardiogénico en mayores por bradicardia y menor contractilidad. El glucagón activa la adenilato ciclasa sin pasar por el receptor β y sube FC y contractilidad (infografía revisada; AHA 2023 sobre intoxicaciones).",
+"w": [
+"El calcio es el antídoto de los calcioantagonistas (la otra intoxicación de la tabla); en β-bloqueadores es coadyuvante, no el específico.",
+"La naloxona revierte opioides; no corrige la bradicardia ni la depresión miocárdica por β-bloqueo.",
+"El flumazenil revierte benzodiacepinas y puede precipitar convulsiones; no actúa sobre el receptor β.",
+"El bicarbonato se usa en la toxicidad por bloqueo de canales de sodio (p. ej., tricíclicos con QRS ancho), no en el β-bloqueo."
+]
+},
+{
+"c": "car",
+"t": 0,
+"src": "Emerg Pediatr 2022",
+"q": "Sobre los determinantes del gasto cardiaco y la causa que hace fallar a cada uno, señale el par MÁS CORRECTO:",
+"o": [
+"Coartación de aorta: falla por aumento de la poscarga",
+"Miocarditis: falla por disminución de la precarga",
+"Comunicación interventricular: falla por aumento de la poscarga",
+"Hipocalcemia: falla por disminución de la precarga",
+"Estenosis aórtica: falla por disminución de la contractilidad"
+],
+"e": "GC = FC × volumen sistólico, y este depende de precarga, poscarga y contractilidad. La coartación de aorta y la estenosis aórtica aumentan la poscarga: el ventrículo debe vencer una obstrucción y eyecta menos.",
+"w": [
+"La miocarditis, igual que la miocardiopatía y la cardiopatía reumática, disminuye la contractilidad.",
+"La CIV con cortocircuito izquierda-derecha figura en la fuente como causa de disminución de la precarga, no de aumento de la poscarga.",
+"La hipocalcemia, como la hipopotasemia, compromete el gasto por arritmias (falla de la FC).",
+"La estenosis aórtica aumenta la poscarga; la contractilidad cae en miocarditis, miocardiopatía o cardiopatía reumática."
+]
+},
+{
+"c": "car",
+"t": 0,
+"src": "Emerg Pediatr 2022",
+"q": "En la fase COMPENSADA del shock cardiogénico, señale lo MÁS CORRECTO:",
+"o": [
+"La PAS sigue sobre el percentil 5 y el flujo va a órganos vitales",
+"La PAS cae bajo el percentil 5, pero el lactato todavía se mantiene normal",
+"La PAS se mantiene sobre el percentil 50 y no hay redistribución del flujo",
+"La PAS cae bajo el percentil 5 y ya predomina el metabolismo anaerobio",
+"La PAS se mantiene sobre el percentil 5 y el flujo se redirige a piel y riñón"
+],
+"e": "Se clasifica en compensado, descompensado e irreversible según la PA. En el compensado la PAS se mantiene > P5 porque el flujo se redistribuye a cerebro, corazón, pulmones y, en fetos y neonatos, suprarrenales.",
+"w": [
+"Con PAS bajo el P5 ya es shock descompensado: la aparición de hipotensión marca el paso de una fase a otra.",
+"El corte es el percentil 5, no el 50, y la compensación consiste justamente en redistribuir el flujo.",
+"El predominio anaerobio con hipoxia, isquemia y necrosis define la fase irreversible, no la compensada.",
+"La redistribución prioriza cerebro, corazón, pulmones (y suprarrenales en neonatos), a costa de la piel: por eso las extremidades se enfrían."
+]
+},
+{
+"c": "car",
+"t": 0,
+"src": "Emerg Pediatr 2022",
+"v": "Lactante de 3 meses traído porque se cansa y suda al lactar, toma menos y no gana peso. Ahora está irritable, con FR 64 rpm, FC 190 lpm, extremidades frías e hígado a 4 cm del reborde costal.",
+"q": "Señale lo MÁS CORRECTO sobre este cuadro:",
+"o": [
+"Los síntomas son inespecíficos y la hepatomegalia orienta a un origen cardiaco",
+"La sudoración al lactar es propia de la sepsis y obliga a bolos de 20 mL/kg",
+"La hepatomegalia descarta el origen cardiaco y orienta a un error metabólico",
+"La taquipnea indica bronquiolitis y el hígado bajo se debe a hiperinsuflación",
+"La falla de crecimiento excluye un cuadro agudo y permite el manejo ambulatorio"
+],
+"e": "Los síntomas iniciales del shock cardiogénico son inespecíficos (dificultad para alimentarse, irritabilidad, sudoración, disnea, falla de crecimiento), lo que vuelve el diagnóstico un reto. La hepatomegalia con extremidades frías y taquicardia revela congestión venosa por falla de bomba.",
+"w": [
+"La sudoración al alimentarse es un síntoma de falla cardiaca; y ante sospecha de corazón que falla los líquidos van en alícuotas de 5–10 mL/kg.",
+"La hepatomegalia es justamente uno de los signos que orientan al shock cardiogénico, por congestión venosa sistémica.",
+"La hiperinsuflación puede descender el hígado, pero la sudoración al lactar, la falla de crecimiento y la FC de 190 orientan a falla cardiaca.",
+"La falla de crecimiento sugiere una cardiopatía de base, pero la hipoperfusión actual es una emergencia que requiere estabilización inmediata."
+]
+},
+{
+"c": "car",
+"t": 0,
+"src": "Emerg Pediatr 2022",
+"v": "Niño de 4 años con fiebre y taquicardia, manejado como shock séptico con un bolo de 20 mL/kg. Tras el bolo la FC sube, aparecen crepitantes bibasales y el hígado crece 2 cm.",
+"q": "La interpretación y conducta MÁS correctas son:",
+"o": [
+"Sugiere shock cardiogénico (p. ej., miocarditis): suspender bolos y reevaluar",
+"Sugiere hipovolemia no corregida: repetir el bolo de 20 mL/kg y reevaluar",
+"Sugiere shock distributivo: iniciar vasopresina como vasoactivo de primera línea",
+"Sugiere neumonía asociada: los crepitantes no cambian el manejo hemodinámico",
+"Sugiere shock compensado: basta con observar la diuresis horaria y la FC"
+],
+"e": "El shock que no mejora o empeora con líquidos, con crepitantes y hepatomegalia nuevos, delata falla de bomba: el corazón no maneja más precarga y aumenta la congestión. Se suspenden los bolos, se busca la causa (ecografía a pie de cama) y se plantea soporte inotrópico.",
+"w": [
+"Repetir 20 mL/kg en un corazón que falla agrava el edema pulmonar y la hepatomegalia; la congestión nueva indica que sobra volumen, no que falta.",
+"La vasopresina no es primera línea en ningún shock pediátrico de la fuente; en el cardiogénico es la última opción.",
+"Los crepitantes que aparecen justo tras el bolo, junto con hepatomegalia, reflejan congestión por falla cardiaca y sí cambian el manejo.",
+"La taquicardia creciente con congestión tras el bolo indica deterioro; no es una situación para solo observar."
+]
+},
+{
+"c": "car",
+"t": 1,
+"src": "Emerg Pediatr 2022",
+"q": "Según Aranzazu y Galvis, ¿qué par edad–índice cardiotorácico define cardiomegalia en la radiografía de tórax?",
+"o": [
+"Lactante: ICT > 0,55",
+"Neonato: ICT > 0,5",
+"Niño: ICT > 0,6",
+"Lactante: ICT > 0,65",
+"Adolescente: ICT > 0,45"
+],
+"e": "Cardiomegalia es un ICT (A + B / C) > 0,6 en neonatos, > 0,55 en lactantes y > 0,5 en niños. El corazón del recién nacido y del lactante es proporcionalmente más grande, por eso su corte es más alto.",
+"w": [
+"En el neonato el corte es > 0,6; usar > 0,5 sobrediagnosticaría cardiomegalia en recién nacidos normales.",
+"En el niño el corte es > 0,5; > 0,6 corresponde al neonato y dejaría pasar cardiomegalias.",
+"0,65 no es un corte de la fuente; en el lactante la cardiomegalia se define con ICT > 0,55.",
+"La fuente no da un corte de 0,45; en niños mayores se usa ICT > 0,5."
+]
+},
+{
+"c": "car",
+"t": 0,
+"src": "Emerg Pediatr 2022",
+"q": "Sobre el electrocardiograma en el niño con sospecha de shock cardiogénico, señale lo MÁS CORRECTO:",
+"o": [
+"Identifica arritmias y puede sugerir miocarditis, pericarditis o ALCAPA",
+"Un trazado normal descarta la disfunción ventricular y evita el ecocardiograma",
+"Permite medir la fracción de eyección cuando no se dispone de ecocardiograma",
+"Aporta poco en el niño, porque la causa isquémica no ocurre a esta edad",
+"Reemplaza a la radiografía para diagnosticar cardiomegalia y edema pulmonar"
+],
+"e": "El ECG identifica alteraciones del ritmo, sugiere causas como miocarditis o pericarditis y alteraciones estructurales como el origen anómalo de la coronaria izquierda (ALCAPA) o la dilatación o hipertrofia de cavidades.",
+"w": [
+"Un ECG normal no descarta disfunción; la función se evalúa con ecografía a pie de cama y ecocardiograma (fracción de acortamiento y de eyección).",
+"La fracción de eyección se mide con ecocardiograma, no con el ECG.",
+"La isquemia sí ocurre en niños (ALCAPA, Kawasaki) y el ECG puede sugerirla.",
+"La cardiomegalia, el edema y el derrame se valoran en la radiografía (ICT); el ECG valora el ritmo y orienta la etiología."
+]
+},
+{
+"c": "car",
+"t": 1,
+"src": "Emerg Pediatr 2022",
+"q": "En el ecocardiograma, los valores NORMALES de fracción de acortamiento (FA) y de fracción de eyección (FE) que cita la fuente son:",
+"o": [
+"FA 30–45 % y FE 50–80 %",
+"FA 50–80 % y FE 30–45 %",
+"FA 15–25 % y FE 35–50 %",
+"FA 30–45 % y FE 35–50 %",
+"FA 25–30 % y FE 60–100 %"
+],
+"e": "La FA normal es 30–45 % y la FE normal 50–80 %; junto con el índice cardiaco evalúan de forma global la función ventricular, que en el shock cardiogénico está disminuida.",
+"w": [
+"Los valores están invertidos: 50–80 % corresponde a la FE y 30–45 % a la FA.",
+"Esos rangos son bajos: una FA de 15–25 % indicaría disfunción sistólica, no normalidad.",
+"La FA sí es 30–45 %, pero la FE normal es 50–80 %; una FE de 35–50 % ya sería disfunción.",
+"No son los rangos de la fuente: una FA de 25–30 % ya está bajo lo normal (30–45 %)."
+]
+},
+{
+"c": "car",
+"t": 1,
+"src": "Emerg Pediatr 2022",
+"q": "Sobre las troponinas en el shock cardiogénico pediátrico, señale lo MÁS CORRECTO:",
+"o": [
+"En la miocarditis pueden ser muy altas sin relación con la gravedad",
+"En la miocarditis su valor se correlaciona directamente con la gravedad",
+"Indican lesión miocárdica recién con troponina I mayor de 1 ng/mL",
+"En niños tienen evidencia fuerte, igual que en el adulto con isquemia",
+"Una troponina normal descarta miocarditis y shock cardiogénico en el niño"
+],
+"e": "Las troponinas reflejan lesión miocárdica con troponina I > 0,01 ng/mL; en la miocarditis pueden estar muy elevadas sin asociación directa con la gravedad. En niños su uso no tiene evidencia fuerte, a diferencia del adulto.",
+"w": [
+"La fuente dice lo contrario: en la miocarditis pueden estar muy elevadas sin asociación directa con la gravedad.",
+"El umbral que da la fuente para lesión miocárdica es troponina I > 0,01 ng/mL, no 1 ng/mL.",
+"En el adulto la isquemia es causa principal; en el niño su uso no tiene evidencia fuerte.",
+"La fuente no la valida como prueba de descarte; el diagnóstico se apoya en clínica, radiografía y ecocardiograma."
+]
+},
+{
+"c": "car",
+"t": 0,
+"src": "Emerg Pediatr 2022",
+"v": "Escolar de 7 años con miocarditis y shock cardiogénico: FR 50 rpm, quejido, crepitantes difusos y SatO2 88 % con máscara de oxígeno.",
+"q": "Respecto al soporte ventilatorio, lo MÁS CORRECTO es:",
+"o": [
+"Preferir la ventilación invasiva: baja la poscarga del VI y el consumo de O2",
+"Preferir la ventilación no invasiva: evita la sedación y la intubación",
+"Evitar la ventilación mecánica: la presión positiva empeora la función del VI",
+"Mantener cánula de alto flujo hasta que el inotrópico mejore la perfusión",
+"Preferir la ventilación no invasiva: mejora la interacción corazón-pulmón"
+],
+"e": "En el shock cardiogénico puro la ventilación no invasiva no debe preferirse sobre la invasiva (recomendación fuerte), por la interacción corazón-pulmón alterada. La ventilación mecánica mejora la función del VI, reduce la poscarga y el consumo de O2.",
+"w": [
+"Esa ventaja de la no invasiva es real en otras causas de falla respiratoria, pero en el shock cardiogénico puro se prefiere la invasiva.",
+"Al contrario: la presión positiva reduce la poscarga del VI; el algoritmo de la fuente la usa como manejo de la poscarga.",
+"Con hipoxemia y quejido, demorar el soporte mantiene un trabajo respiratorio que consume O2 que el corazón no puede aportar.",
+"La interacción corazón-pulmón está ALTERADA en el niño con falla cardiaca aguda; por eso no se prefiere la no invasiva."
+]
+},
+{
+"c": "car",
+"t": 1,
+"src": "Emerg Pediatr 2022",
+"q": "Para optimizar el balance de oxígeno en el shock cardiogénico, según el algoritmo de Aranzazu y Galvis, lo MÁS CORRECTO es:",
+"o": [
+"Mantener la Hb > 10 g/dL y la normotermia",
+"Mantener la Hb > 7 g/dL y la hipotermia leve",
+"Mantener la Hb > 7 g/dL y la normotermia",
+"Mantener la Hb > 12 g/dL y la hipotermia leve",
+"Mantener el Hto > 50 % y la normotermia"
+],
+"e": "El algoritmo indica transfundir para Hb > 10 g/dL, lo que asegura el contenido arterial de O2, y mantener confort y normotermia para disminuir el consumo de O2 miocárdico.",
+"w": [
+"Hb > 7 g/dL es el umbral restrictivo de otros pacientes críticos; la fuente pide > 10 g/dL y normotermia, no hipotermia.",
+"La normotermia es correcta, pero el objetivo de Hb en el shock cardiogénico es > 10 g/dL, no > 7 g/dL.",
+"La fuente fija Hb > 10 g/dL, no > 12 g/dL, y pide normotermia, no hipotermia.",
+"La fuente no fija un objetivo de hematocrito > 50 %; el objetivo es Hb > 10 g/dL."
+]
+},
+{
+"c": "car",
+"t": 1,
+"src": "Emerg Pediatr 2022",
+"q": "Según la tabla de efectos hemodinámicos de Aranzazu y Galvis, ¿qué par fármaco–efecto es CORRECTO?",
+"o": [
+"Noradrenalina: no cambia el GC y aumenta RVS y PAM",
+"Dobutamina: aumenta el GC y aumenta RVS y PAM",
+"Milrinona: no cambia el GC y aumenta RVS, PAM y RVP",
+"Dopamina: aumenta el GC y disminuye RVS y PAM",
+"Levosimendán: aumenta el GC y aumenta RVS y PAM"
+],
+"e": "La noradrenalina (α1, β1) figura sin cambio del GC y con aumento de RVS y PAM: es un vasopresor, útil cuando hay hipotensión con resistencias bajas.",
+"w": [
+"La dobutamina (β1, β2) aumenta el GC pero DISMINUYE RVS y PAM; por eso es de elección con PA conservada.",
+"La milrinona (inhibidor de PDE3) aumenta el GC y DISMINUYE RVS, PAM y RVP: es un inodilatador.",
+"La dopamina aumenta GC, RVS y PAM, igual que la adrenalina; no baja las resistencias.",
+"El levosimendán (sensibilizador al calcio) aumenta el GC pero disminuye RVS y PAM."
+]
+},
+{
+"c": "car",
+"t": 0,
+"src": "Emerg Pediatr 2022 (consenso 2016)",
+"v": "Niño de 2 años en el posoperatorio de cirugía cardiaca, con disfunción del ventrículo derecho e hipertensión pulmonar; PA conservada para la edad y extremidades frías.",
+"q": "Según el consenso de expertos 2016 citado por la fuente, el fármaco MÁS adecuado es:",
+"o": [
+"Milrinona 0,5–0,75 µg/kg/min",
+"Noradrenalina 0,01–2 µg/kg/min",
+"Vasopresina 0,05–0,2 U/kg/h",
+"Dopamina 5–20 µg/kg/min",
+"Adrenalina 0,01–2 µg/kg/min"
+],
+"e": "El consenso recomienda milrinona 0,5–0,75 µg/kg/min como alternativa a la dobutamina, sobre todo tras cirugía cardiaca o con disfunción del VD o hipertensión pulmonar: al inhibir la PDE3 aumenta el GC y baja RVS y RVP, descargando al VD.",
+"w": [
+"La noradrenalina aumenta RVS y RVP, lo que sobrecarga al VD; se reserva para la hipotensión con resistencias bajas.",
+"La vasopresina es la última opción, para el shock cardiogénico resistente a vasopresores.",
+"La dopamina aumenta RVS y PAM y no reduce la RVP, que es lo que necesita un VD con hipertensión pulmonar.",
+"La adrenalina se reserva para la hipotensión persistente (combinada con milrinona); con PA conservada no es la indicada."
+]
+},
+{
+"c": "car",
+"t": 0,
+"src": "Emerg Pediatr 2022 (consenso 2016)",
+"v": "Niña de 10 años con miocardiopatía dilatada en shock cardiogénico, con dobutamina a 10 µg/kg/min. Persiste hipotensa y la evaluación sugiere resistencias vasculares sistémicas bajas.",
+"q": "El siguiente paso MÁS adecuado según el algoritmo es:",
+"o": [
+"Añadir noradrenalina",
+"Añadir vasopresina",
+"Añadir levosimendán",
+"Cambiar dobutamina por milrinona",
+"Dar furosemida 1 mg/kg"
+],
+"e": "Con bajo gasto, RVS bajas e hipotensión persistente, el consenso recomienda noradrenalina como primera línea vasopresora (recomendación fuerte). Si persiste: milrinona más adrenalina y luego adrenalina; la vasopresina queda como última opción.",
+"w": [
+"La vasopresina es la última opción, para el shock cardiogénico resistente a vasopresores, no el primer vasopresor.",
+"El levosimendán es un inotrópico de segunda línea que baja RVS y PAM: empeoraría la hipotensión.",
+"La milrinona disminuye RVS y PAM; con hipotensión y resistencias bajas agravaría el cuadro.",
+"La furosemida trata la sobrecarga de volumen; aquí el problema es la hipotensión con RVS bajas y la diuresis bajaría más la PA."
+]
+},
+{
+"c": "car",
+"t": 0,
+"src": "Emerg Pediatr 2022",
+"v": "Lactante de 8 meses con shock cardiogénico e hipotensión en urgencias; tras dos intentos fallidos de vía central, tiene una vía periférica funcionante.",
+"q": "Respecto a la administración del vasoactivo, lo MÁS CORRECTO es:",
+"o": [
+"Iniciarlo por la vía periférica: es seguro y evita retrasos",
+"Esperar la vía central: por vía periférica está contraindicado",
+"Iniciarlo por vía periférica si es dobutamina, pero no si es adrenalina",
+"Diferirlo hasta completar 40 mL/kg de cristaloides en bolos",
+"Darlo en bolos intermitentes por la periférica hasta tener la central"
+],
+"e": "La vía periférica permite un acceso seguro y rápido, ya que obtener una vía central puede retrasar el tratamiento; varios estudios muestran seguridad y pocos efectos adversos con adrenalina, noradrenalina, milrinona y dopamina por vía periférica.",
+"w": [
+"La fuente considera segura la vía periférica; esperar la central retrasa el soporte en un niño hipotenso.",
+"La seguridad por vía periférica se ha descrito precisamente con adrenalina, noradrenalina, milrinona y dopamina.",
+"En el shock cardiogénico los líquidos van con cautela en alícuotas de 5–10 mL/kg; 40 mL/kg favorece edema pulmonar.",
+"Los vasoactivos se dan en infusión continua titulada; los bolos intermitentes producen picos y caídas de la PA."
+]
+},
+{
+"c": "car",
+"t": 1,
+"src": "Emerg Pediatr 2022",
+"q": "Respecto al ECMO en el shock cardiogénico pediátrico, según Aranzazu y Galvis, lo MÁS CORRECTO es:",
+"o": [
+"Se recomienda iniciarlo con pH > 7,2 y lactato < 9 mmol/L",
+"Se recomienda iniciarlo con pH < 7,0 y lactato > 15 mmol/L",
+"Se recomienda iniciarlo con pH > 7,35 y lactato < 2 mmol/L",
+"Se recomienda iniciarlo con pH > 7,2 y lactato < 4 mmol/L",
+"Se contraindica en arritmias intratables y en RCP en curso"
+],
+"e": "Se indica en alto requerimiento inotrópico, daño o falla multiorgánica, arritmias intratables, síndrome poscardiotomía y RCP, y se recomienda iniciarlo con pH > 7,2 y lactato < 9 mmol/L, antes de que la hipoperfusión sea irreversible.",
+"w": [
+"Esperar a pH < 7,0 y lactato > 15 mmol/L es llegar tarde, ya en fase irreversible; la fuente pide pH > 7,2 y lactato < 9.",
+"pH > 7,35 y lactato < 2 son valores casi normales que no justifican soporte extracorpóreo; el corte es pH > 7,2 y lactato < 9.",
+"El pH es correcto, pero el corte de lactato es < 9 mmol/L; 4 mmol/L es un umbral propio de la sepsis.",
+"Las arritmias intratables y la RCP son INDICACIONES de ECMO en la fuente, no contraindicaciones."
+]
+},
+{
 "c": "ana",
 "t": 1,
 "src": "SEUP 2024",
@@ -606,6 +1769,455 @@ const Q = [
 "Urticaria + vómitos tras un alérgeno = 2 sistemas = anafilaxia: el tratamiento es adrenalina IM, no antihistamínico.",
 "La bifásica ocurre en ~5 % y casi siempre en las primeras 6–8 h (hasta 24 h); por eso se observa al menos 6 h si recibió 2 dosis.",
 "Con β-bloqueadores la adrenalina funciona mal; se agrega glucagón 20–30 µg/kg (máx 1 mg)."
+]
+},
+{
+"c": "ana",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto a la definición y la epidemiología de la anafilaxia pediátrica, señale lo MÁS CORRECTO:",
+"o": [
+"Se atiende ~1 caso por cada 1000 visitas a urgencias y la mortalidad es < 1 %",
+"Se atiende ~1 caso por cada 100 visitas a urgencias y la mortalidad es < 1 %",
+"Se atiende ~1 caso por cada 1000 visitas a urgencias y la mortalidad llega a ~10 %",
+"Es una entidad sobrediagnosticada y, por tanto, sobretratada con adrenalina",
+"Afecta casi solo a niños con cardiopatía o inmunodeficiencia de base"
+],
+"e": "SEUP 2024: en urgencias de pediatría se atiende ~1 anafilaxia por cada 1000 visitas, y la muerte es muy infrecuente (< 1 % de los casos). Es una reacción multisistémica grave, de inicio rápido, que afecta a niños jóvenes y sanos.",
+"w": [
+"1 por cada 100 sería 10 veces lo descrito; la cifra de SEUP es ~1 por cada 1000 visitas (en Europa, 1 de cada 300 personas la sufrirá en su vida).",
+"La mortalidad es < 1 %; aunque es potencialmente mortal, la muerte es muy infrecuente.",
+"Es al revés: es una entidad infradiagnosticada y, por tanto, infratratada.",
+"Puede afectar a individuos jóvenes y sanos; el factor individual predisponente es el fenotipo atópico (asma, rinitis, dermatitis atópica)."
+]
+},
+{
+"c": "ana",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Sobre los cofactores de la anafilaxia, señale lo MÁS CORRECTO:",
+"o": [
+"Un niño que tolera un alimento puede reaccionar si lo come junto con ejercicio o un AINE",
+"Los cofactores solo modifican la gravedad, nunca la probabilidad de que ocurra la reacción",
+"El cofactor más frecuente es la vacunación reciente, sobre todo con vacunas vivas",
+"Si el niño tolera habitualmente un alimento, queda descartada la alergia a ese alimento",
+"Los cofactores actúan generando una IgE propia, independiente de la del alérgeno"
+],
+"e": "SEUP: los cofactores (ejercicio, estrés emocional, fármacos, infecciones, alcohol, estado premenstrual) aumentan el riesgo de que ocurra la anafilaxia o su gravedad. Por eso quien tolera un alimento puede reaccionar si la ingesta se asocia a un cofactor.",
+"w": [
+"Aumentan tanto el riesgo de que la reacción ocurra como su gravedad.",
+"La vacunación no figura entre los cofactores citados; los más frecuentes son ejercicio, estrés, fármacos, infecciones, alcohol y estado premenstrual.",
+"Justamente con un cofactor (ejercicio, AINE, infección) un alimento habitualmente tolerado puede desencadenar la reacción.",
+"Actúan como inductores por mecanismos desconocidos; no generan una IgE propia."
+]
+},
+{
+"c": "ana",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto a los desencadenantes de anafilaxia según la edad (SEUP 2024), señale lo MÁS CORRECTO:",
+"o": [
+"En menores de 6 años predominan los alimentos; leche y huevo destacan en preescolares",
+"En menores de 6 años predominan los fármacos, sobre todo los antibióticos betalactámicos",
+"En adolescentes los alimentos casi desaparecen y el cacahuete deja de ser causa relevante",
+"En adolescentes predominan los alimentos (93 %) y los insectos son excepcionales (4 %)",
+"En todas las edades pediátricas la causa principal son las picaduras de avispa y abeja"
+],
+"e": "Tabla 1 de SEUP: en < 6 años los alimentos causan el 93 % (leche 16 %, huevo 14 %, cacahuete 24 %). Con la edad bajan los alimentos y suben los insectos (40 % en 13–17 años) y los fármacos (9 %), un patrón parecido al del adulto.",
+"w": [
+"En < 6 años los fármacos causan solo el 2 % (antibióticos 1 %); fármacos e insectos son las causas principales en el adulto, no en el niño pequeño.",
+"En adolescentes los alimentos siguen causando el 43 %, y el cacahuete aparece en todas las edades con un porcentaje similar.",
+"93 % y 4 % son las cifras de los menores de 6 años; en 13–17 años los alimentos son el 43 % y los insectos el 40 %.",
+"Los insectos solo causan el 4 % en < 6 años; en el total pediátrico la causa principal son los alimentos (70 %)."
+]
+},
+{
+"c": "ana",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto a los mecanismos de la anafilaxia, señale lo MÁS CORRECTO:",
+"o": [
+"Opioides y vancomicina pueden activar el mastocito directamente, sin participación de IgE",
+"La vía no inmunológica es la más frecuente y la más estudiada en la edad pediátrica",
+"La anafilaxia idiopática es la que ocurre sin cofactores, aunque el alérgeno sea conocido",
+"En la vía IgE, la IgE se une a receptores de baja afinidad de neutrófilos y eosinófilos",
+"El ejercicio y el frío desencadenan la anafilaxia por un mecanismo mediado por IgE"
+],
+"e": "SEUP: las anafilaxias no inmunológicas se deben a estímulos físicos o a fármacos como opiáceos o vancomicina, que activan mastocitos y basófilos de forma directa (sin IgE) y liberan histamina. La vía más frecuente sigue siendo la mediada por IgE.",
+"w": [
+"La más frecuente y estudiada es la vía inmunológica mediada por IgE.",
+"La idiopática es aquella en la que, tras un estudio alergológico completo, no se identifica el agente causal.",
+"La IgE específica se une a receptores de alta afinidad de mastocitos y basófilos; los eosinófilos se reclutan después y amplifican la reacción.",
+"Los estímulos físicos (ejercicio, frío) se clasifican como mecanismo no inmunológico, no mediado por IgE."
+]
+},
+{
+"c": "ana",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto a la clínica de la anafilaxia en niños, señale lo MÁS CORRECTO:",
+"o": [
+"La hipotensión es rara, pero se asocia a peor evolución e ingreso en UCIP",
+"La afectación digestiva es la más frecuente y aparece en ~90 % de los casos",
+"La afectación respiratoria es rara (~10 %) y se limita al estridor laríngeo",
+"La hipotensión es el hallazgo más frecuente y el que define el cuadro en niños",
+"La piel se afecta en ~50 % de los casos, por lo que lo habitual es que falte"
+],
+"e": "SEUP: piel ~90 %, respiratorio ~80 %, digestivo ~50 %. La afectación cardiovascular se expresa sobre todo con mareo, síncope o menor nivel de alerta; la hipotensión registrada es poco frecuente, pero se asocia a evolución tórpida e ingreso en cuidados intensivos.",
+"w": [
+"Los síntomas digestivos aparecen en casi la mitad (~50 %); el ~90 % corresponde a la piel.",
+"El respiratorio se afecta en ~80 %: disnea, sibilancias, opresión torácica, tos, estridor o parada respiratoria.",
+"La hipotensión es poco frecuente en niños; el cuadro típico es piel más respiratorio o digestivo.",
+"La piel se afecta en ~90 %; su ausencia es la excepción, aunque posible (por eso existe el criterio 3)."
+]
+},
+{
+"c": "ana",
+"t": 1,
+"src": "SEUP 2024 (NIAID/FAAN)",
+"v": "Niño de 6 años, alérgico conocido a la picadura de avispa, consulta 20 minutos después de ser picado. Está pálido y decaído, sin lesiones en la piel ni dificultad respiratoria.",
+"q": "Según el criterio 3 NIAID/FAAN, ¿qué presión arterial sistólica define hipotensión y, por tanto, anafilaxia en este niño?",
+"o": [
+"PAS < 82 mmHg, que es 70 + (2 × edad en años)",
+"PAS < 70 mmHg, el mismo umbral que en el lactante",
+"PAS < 90 mmHg, el umbral de los mayores de 10 años",
+"PAS < 76 mmHg, que es 70 + (edad en años)",
+"PAS < 94 mmHg, que es 70 + (4 × edad en años)"
+],
+"e": "Criterio 3: hipotensión tras exposición a un alérgeno conocido, aunque no haya piel. En 1–10 años es PAS < 70 + (2 × edad): 70 + 12 = 82 mmHg.",
+"w": [
+"PAS < 70 mmHg es el umbral del lactante; a los 6 años subestimaría la hipotensión.",
+"PAS < 90 mmHg (o descenso > 30 % sobre la basal) corresponde a los mayores de 10 años.",
+"Olvida multiplicar la edad por 2; a los 6 años el umbral es 82, no 76.",
+"Multiplica la edad por 4; sobrestima el umbral y etiquetaría como hipotensas presiones normales."
+]
+},
+{
+"c": "ana",
+"t": 0,
+"src": "SEUP 2024 (NIAID/FAAN)",
+"q": "Respecto a la utilidad de los criterios diagnósticos NIAID/FAAN, señale lo MÁS CORRECTO:",
+"o": [
+"Son sensibles (95 %) pero poco específicos (70 %); no reemplazan el juicio clínico",
+"Son específicos (95 %) pero poco sensibles (70 %); no reemplazan al juicio clínico",
+"Tienen sensibilidad y especificidad del 100 % y reemplazan al juicio clínico",
+"Por su alto valor predictivo negativo, el infradiagnóstico es excepcional",
+"En el lactante resultan más fáciles de aplicar que en el niño mayor"
+],
+"e": "Validación prospectiva: sensibilidad 95 % y VPN 96 %, pero especificidad 70 % y VPP 64 %. Son útiles pero no reemplazan el juicio clínico; aun así se escapan lactantes, casos sin piel y el asma grave con rash, que también se beneficia de adrenalina.",
+"w": [
+"Invierte las cifras: la sensibilidad es la alta (95 %) y la especificidad la baja (70 %).",
+"Ningún criterio ni prueba tiene sensibilidad y especificidad del 100 %; por eso no sustituyen el juicio clínico.",
+"Pese al VPN alto, el infradiagnóstico es frecuente (lactantes, casos sin piel, asma grave con rash).",
+"En el lactante la valoración clínica es más difícil, por lo que es un reto diagnóstico."
+]
+},
+{
+"c": "ana",
+"t": 0,
+"src": "SEUP 2024",
+"v": "Niña de 8 años con urticaria, edema de labios, sibilancias y tiraje tras comer anacardos. TEP: dificultad respiratoria. Ya se pidió la adrenalina IM.",
+"q": "Mientras tanto, ¿en qué posición es MÁS CORRECTO colocarla?",
+"o": [
+"Sentada o semiincorporada, por la dificultad respiratoria",
+"En decúbito supino con las piernas elevadas, por riesgo de shock",
+"En decúbito lateral de seguridad, por el riesgo de vómito",
+"En decúbito prono, para facilitar la expansión pulmonar",
+"En decúbito supino estricto, porque toda anafilaxia es inestable"
+],
+"e": "La primera línea de SEUP indica decúbito supino excepto si hay dificultad respiratoria; con TEP de dificultad respiratoria se la deja sentada o en la posición en que respire mejor, porque tumbarla aumenta el trabajo respiratorio.",
+"w": [
+"El supino se reserva para el compromiso hemodinámico sin dificultad respiratoria; aquí empeoraría la disnea.",
+"El lateral de seguridad se usa en el paciente con bajo nivel de conciencia que respira; no es lo que indica el protocolo aquí.",
+"El prono no está indicado: dificulta la vigilancia, el acceso a la vía aérea y la administración de fármacos.",
+"La dificultad respiratoria es justamente la excepción al decúbito supino que recoge el protocolo."
+]
+},
+{
+"c": "ana",
+"t": 0,
+"src": "SEUP 2024",
+"q": "¿Por qué se prefiere la adrenalina intramuscular en la cara anterolateral del muslo?",
+"o": [
+"Da picos más rápidos que la SC y hay menos riesgo de lesionar nervios o vasos",
+"Da picos plasmáticos más lentos que la IV, y con ello evita la reacción bifásica",
+"Da picos plasmáticos más rápidos que la IV y por eso se usa también en el paro",
+"Permite usar adrenalina diluida 1:10 000, que es más segura que la 1:1000",
+"Es la única vía permitida, porque la vía IV está contraindicada en anafilaxia"
+],
+"e": "SEUP: por vía IM se consiguen picos plasmáticos más rápidos que por vía SC, y la cara anterolateral del muslo es la zona con menor probabilidad de alcanzar nervios o vasos principales.",
+"w": [
+"La vía IM no previene la reacción bifásica; lo que evita frente a la IV es el riesgo de sobredosis y arritmias.",
+"La vía IV es la más rápida; en el paro se usa adrenalina IV o IO, no IM.",
+"La IM se pone sin diluir (1:1000 = 1 mg/mL, 0,01 mL/kg); la 1:10 000 es la presentación para uso IV.",
+"La IV no está contraindicada: se usa en perfusión si no responde a 2 dosis IM; no hay contraindicaciones absolutas."
+]
+},
+{
+"c": "ana",
+"t": 0,
+"src": "SEUP 2024 + farmacología estándar",
+"q": "Respecto a los efectos de la adrenalina en la anafilaxia, señale la asociación MÁS CORRECTA:",
+"o": [
+"β2: broncodilatación y menor liberación de mediadores del mastocito",
+"α1: broncodilatación y menor liberación de mediadores del mastocito",
+"β1: vasoconstricción periférica y menor edema de las mucosas",
+"β2: inotropismo positivo y aumento del gasto cardiaco",
+"α1: inotropismo positivo y aumento de la frecuencia cardiaca"
+],
+"e": "SEUP describe tres efectos: vasoconstricción e inotropismo (↑ PA, ↑ gasto, ↓ edema), broncodilatación y supresión de mediadores. Por receptores (farmacología estándar): α1 vasoconstricción, β1 inotropismo, β2 broncodilatación y estabilización del mastocito.",
+"w": [
+"El α1 produce vasoconstricción (↑ PA y ↓ edema de mucosas); la broncodilatación es efecto β2.",
+"La vasoconstricción y la reducción del edema de mucosas son efecto α1; el β1 actúa sobre el corazón.",
+"El inotropismo y el aumento del gasto cardiaco son efecto β1; el β2 actúa sobre bronquios y mastocitos.",
+"El α1 no es inotrópico: produce vasoconstricción; el efecto cardiaco corresponde al β1."
+]
+},
+{
+"c": "ana",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto a la seguridad de la adrenalina en la anafilaxia pediátrica, señale lo MÁS CORRECTO:",
+"o": [
+"No tiene contraindicaciones absolutas; las arritmias graves suelen deberse a sobredosis IV",
+"Está contraindicada en cardiópatas, porque a dosis IM las arritmias graves son frecuentes",
+"Sus efectos adversos IM habituales son las arritmias ventriculares y el edema pulmonar",
+"Ante la duda diagnóstica conviene esperar la triptasa antes de exponer al niño a adrenalina",
+"La palidez y el temblor tras la dosis IM indican sobredosis y obligan a no repetirla"
+],
+"e": "SEUP: no hay contraindicaciones absolutas y la IM a dosis apropiadas es segura; sus efectos adversos (palidez, temblor, palpitaciones) son infrecuentes, leves y transitorios. Arritmias, crisis hipertensiva y edema pulmonar se deben a sobredosis por cualquier vía, sobre todo IV. Ante la duda, tratar.",
+"w": [
+"No hay contraindicaciones absolutas; a dosis IM apropiadas las arritmias graves son excepcionales.",
+"Arritmias ventriculares y edema pulmonar son efectos graves de la sobredosis, no los habituales de la dosis IM.",
+"La triptasa nunca debe retrasar el tratamiento; la recomendación es ante la duda, tratar.",
+"Palidez, temblor y palpitaciones son efectos leves y transitorios esperables; si no hay respuesta se repite la dosis a los 5–15 min."
+]
+},
+{
+"c": "ana",
+"t": 1,
+"src": "SEUP 2024",
+"v": "Adolescente de 14 años y 60 kg con edema de labios, disnea y sibilancias tras una picadura de abeja.",
+"q": "Según el protocolo SEUP 2024 de anafilaxia (Olabarri), la dosis de adrenalina IM MÁS CORRECTA es:",
+"o": [
+"0,5 mg (0,5 mL de 1:1000), repetible cada 5–15 minutos",
+"0,6 mg (0,6 mL de 1:1000), repetible cada 5–15 minutos",
+"0,3 mg (0,3 mL de 1:1000), repetible cada 5–15 minutos",
+"0,5 mg (5 mL de 1:10 000), repetible cada 5–15 minutos",
+"0,5 mg (0,5 mL de 1:1000), repetible cada 30–60 minutos"
+],
+"e": "0,01 mg/kg × 60 kg = 0,6 mg, pero el protocolo SEUP de anafilaxia fija un máximo de 0,5 mg (0,5 mL de adrenalina 1:1000 sin diluir), repetible cada 5–15 min si la respuesta es insuficiente.",
+"w": [
+"Supera el máximo de 0,5 mg del protocolo de anafilaxia; el cálculo por peso se limita a ese tope.",
+"0,3 mg es el máximo que cita el protocolo SEUP de shock (y la dosis del autoinyector > 25 kg), no el de anafilaxia.",
+"La vía IM usa adrenalina sin diluir (1:1000); la 1:10 000 es para uso IV y 5 mL es un volumen inadecuado para el músculo.",
+"El intervalo de repetición es cada 5–15 minutos; esperar 30–60 min deja progresar la reacción."
+]
+},
+{
+"c": "ana",
+"t": 0,
+"src": "SEUP 2024",
+"v": "Niño de 4 años y 16 kg con anafilaxia por huevo. Tras la adrenalina IM sigue pálido, con relleno capilar de 4 s, pulsos débiles y PAS de 64 mmHg.",
+"q": "Según el protocolo SEUP 2024 de anafilaxia, además de revalorar el ABCDE, ¿qué es lo MÁS CORRECTO?",
+"o": [
+"Segundo acceso venoso o intraóseo y bolo de SSF 20 mL/kg",
+"Segundo acceso venoso o intraóseo y bolo de SSF 10 mL/kg",
+"Bolo de adrenalina IV 0,01 mg/kg de 1:10 000 en 1 minuto",
+"Hidrocortisona IV 10 mg/kg y esperar 30 minutos su efecto",
+"Albúmina al 5 % 10 mL/kg, porque el cristaloide se fuga al intersticio"
+],
+"e": "Segunda línea de SEUP en fallo cardiovascular o shock descompensado: segundo acceso venoso o intraóseo y expansión con SSF 20 mL/kg; si no responde en 5 min, repetir adrenalina IM y líquidos. La vasodilatación y la fuga capilar masivas generan hipovolemia relativa.",
+"w": [
+"10 mL/kg es el bolo del protocolo SEUP de shock general; el protocolo de anafilaxia indica SSF 20 mL/kg.",
+"El bolo IV fuera del paro expone a arritmias y crisis hipertensiva; si no responde, se usa perfusión IV tras 2 dosis IM.",
+"Los corticoides no son de primera ni segunda línea, son lentos y no revierten el shock.",
+"El protocolo expande con suero salino fisiológico; la albúmina no forma parte de la segunda línea."
+]
+},
+{
+"c": "ana",
+"t": 1,
+"src": "SEUP 2024",
+"v": "Niño de 3 años y 14 kg con urticaria y estridor inspiratorio tras comer cacahuete. Ya recibió adrenalina IM y persiste el estridor.",
+"q": "¿Cuál es la medida de segunda línea MÁS CORRECTA según SEUP 2024?",
+"o": [
+"Adrenalina nebulizada 0,5 mg/kg; en este niño, 5 mg (máximo)",
+"Adrenalina nebulizada 0,5 mg/kg; en este niño, 7 mg (sin tope)",
+"Salbutamol nebulizado 2,5 mg, porque pesa menos de 20 kg",
+"Dexametasona VO 0,15 mg/kg, como en la laringitis leve",
+"Adrenalina nebulizada 0,05 mg/kg; en este niño, 0,7 mg"
+],
+"e": "Obstrucción de la vía aérea superior (estridor): adrenalina nebulizada 0,5 mg/kg con máximo de 5 mg; 14 × 0,5 = 7 mg, que se limita a 5 mg. El efecto α1 reduce el edema de la mucosa laríngea.",
+"w": [
+"La dosis tiene un máximo de 5 mg; 7 mg lo supera.",
+"El salbutamol se usa en la obstrucción de la vía aérea inferior (broncoespasmo), no en el estridor.",
+"Los corticoides no son segunda línea en la anafilaxia; la laringitis es un diagnóstico diferencial, no el manejo.",
+"0,05 mg/kg es la décima parte de la dosis correcta (0,5 mg/kg) y sería insuficiente."
+]
+},
+{
+"c": "ana",
+"t": 1,
+"src": "SEUP 2024",
+"q": "Según SEUP 2024, ante broncoespasmo que persiste tras la adrenalina IM en la anafilaxia, señale lo MÁS CORRECTO:",
+"o": [
+"Salbutamol 5–10 puff o nebulizado: 2,5 mg si < 20 kg y 5 mg si > 20 kg",
+"Salbutamol 2–4 puff o nebulizado: 5 mg si < 20 kg y 10 mg si > 20 kg",
+"Salbutamol 5–10 puff o nebulizado: 2,5 mg si < 10 kg y 5 mg si > 10 kg",
+"Adrenalina nebulizada 0,5 mg/kg (máx 5 mg) en lugar del salbutamol",
+"Bromuro de ipratropio solo, porque el salbutamol empeora la taquicardia"
+],
+"e": "Obstrucción de la vía aérea inferior: broncodilatadores igual que en la crisis asmática, salbutamol inhalado 5–10 puff o nebulizado (< 20 kg: 2,5 mg; > 20 kg: 5 mg). Si no responde en 5 min, se repiten y se pasa a tercera línea.",
+"w": [
+"Las dosis nebulizadas son 2,5 y 5 mg, no 5 y 10 mg, y el MDI es de 5–10 puff.",
+"El punto de corte por peso es 20 kg, no 10 kg.",
+"La adrenalina nebulizada se indica en el estridor (vía aérea superior); para el broncoespasmo se usa salbutamol.",
+"El protocolo indica salbutamol; el ipratropio solo no figura y la taquicardia no lo contraindica."
+]
+},
+{
+"c": "ana",
+"t": 1,
+"src": "SEUP 2024",
+"v": "Niña de 7 años y 25 kg con anafilaxia por picadura de avispa. Tras 2 dosis de adrenalina IM, 2 bolos de SSF y oxígeno sigue hipotensa y con sibilancias.",
+"q": "¿Cuál es la conducta MÁS CORRECTA según SEUP 2024?",
+"o": [
+"Perfusión IV de adrenalina a 0,1–1 µg/kg/min y contactar con UCIP",
+"Perfusión IV de adrenalina a 1–10 µg/kg/min y contactar con UCIP",
+"Tercera dosis IM y alta a las 2 h si responde a esta última dosis",
+"Bolo IV de 0,5 mg de adrenalina sin diluir y contactar con UCIP",
+"Perfusión IV de dopamina a 5–10 µg/kg/min y contactar con UCIP"
+],
+"e": "Si persisten síntomas respiratorios o cardiovasculares tras 2 dosis IM, SEUP indica preparar perfusión IV de adrenalina 0,1–1 µg/kg/min (1 mg en 100 mL de SSF), contactar con UCIP y preparar secuencia rápida de intubación.",
+"w": [
+"1–10 µg/kg/min es 10 veces el rango indicado y expone a arritmias y crisis hipertensiva.",
+"Con más de 2 dosis de adrenalina la observación mínima es de 12 h, no 2 h.",
+"El bolo IV sin diluir es una sobredosis: es la principal causa de arritmias ventriculares y edema pulmonar.",
+"En la anafilaxia el vasoactivo de elección es la adrenalina; la dopamina no figura en el protocolo."
+]
+},
+{
+"c": "ana",
+"t": 1,
+"src": "SEUP 2024",
+"v": "Adolescente de 15 años y 50 kg en tratamiento con propranolol, con anafilaxia por amoxicilina. Sigue hipotenso y bradicárdico pese a 2 dosis de adrenalina IM y líquidos.",
+"q": "Además de preparar la perfusión de adrenalina, ¿qué fármaco y dosis es lo MÁS CORRECTO?",
+"o": [
+"Glucagón IV 20–30 µg/kg (máx 1 mg), luego perfusión a 5–15 µg/min",
+"Glucagón IV 0,5 mg/kg (máx 5 mg), luego perfusión a 5–15 µg/min",
+"Glucagón IV 0,1–1 µg/kg/min desde el inicio, sin bolo previo",
+"Atropina IV 0,02 mg/kg, porque la bradicardia es de origen vagal",
+"Dexclorfeniramina IV 0,15 mg/kg (máx 5 mg) en bolo lento"
+],
+"e": "SEUP: el glucagón está indicado en la anafilaxia resistente a la adrenalina en pacientes con β-bloqueantes, que pueden tener hipotensión y bradicardia prolongadas; dosis 20–30 µg/kg (máx 1 mg) y luego perfusión 5–15 µg/min. Actúa por su propio receptor, sin depender del receptor β bloqueado.",
+"w": [
+"0,5 mg/kg es una sobredosis de más de 15 veces; la dosis es 20–30 µg/kg con máximo de 1 mg.",
+"0,1–1 µg/kg/min es el rango de la perfusión de adrenalina; el glucagón empieza con un bolo de 20–30 µg/kg.",
+"La bradicardia aquí se explica por el β-bloqueo; el protocolo indica glucagón, no atropina.",
+"El antihistamínico es lento y solo alivia los síntomas cutáneos; no revierte el shock."
+]
+},
+{
+"c": "ana",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto a antihistamínicos y corticoides en la anafilaxia (SEUP 2024), señale lo MÁS CORRECTO:",
+"o": [
+"El corticoide solo se indica en asma mal controlada o refractaria a 2 dosis de adrenalina",
+"El antihistamínico H1 es de primera línea si la adrenalina IM no está disponible al instante",
+"El corticoide se reserva para la urticaria extensa, porque acelera la resolución cutánea",
+"El antihistamínico IV revierte la hipotensión, aunque tarde más que la adrenalina IM",
+"El corticoide se da a todos porque reduce las reconsultas a urgencias tras el alta"
+],
+"e": "SEUP: los corticoides se recomiendan únicamente en asma mal controlada o anafilaxia refractaria a 2 dosis de adrenalina, prolongándolos 3 días VO. Los antihistamínicos (dexclorfeniramina 0,15 mg/kg, máx 5 mg) son lentos y quedan para los síntomas cutáneos.",
+"w": [
+"Ni antihistamínicos ni corticoides son alternativa a la adrenalina ni deben retrasarla.",
+"Para la urticaria se usa el antihistamínico; el corticoide no se indica por síntomas cutáneos.",
+"Por su lento inicio de acción los antihistamínicos quedan relegados a los síntomas cutáneos; no revierten la hipotensión.",
+"Los estudios mostraron menor estancia, pero no menos reconsultas ni menos reacciones bifásicas."
+]
+},
+{
+"c": "ana",
+"t": 1,
+"src": "SEUP 2024",
+"q": "Respecto a la triptasa sérica en la anafilaxia pediátrica, señale lo MÁS CORRECTO:",
+"o": [
+"Sube entre 15 y 180 min; se mide seriada (0, 120 min y 24 h) y rinde poco en niños",
+"Sube entre 15 y 180 min; se mide antes de la adrenalina para no falsear el resultado",
+"Sube a las 6–8 h; se mide al alta para descartar una reacción bifásica",
+"Sube entre 15 y 180 min y se eleva más en la anafilaxia por alimentos",
+"Sube entre 15 y 180 min; una triptasa normal descarta la anafilaxia en niños"
+],
+"e": "SEUP: es la prueba de laboratorio más útil, pero nunca debe retrasar el tratamiento. Se eleva entre 15 y 180 min, por lo que se recomiendan determinaciones seriadas (0, 120 min y 24 h); se eleva menos en niños, por alimentos y sin hipotensión, así que su rendimiento pediátrico es pobre.",
+"w": [
+"Su medición nunca debe retrasar la adrenalina.",
+"6–8 h es el momento típico de la reacción bifásica, no de la elevación de triptasa, que no la predice.",
+"Es al revés: en la anafilaxia por alimentos la triptasa se eleva con menos frecuencia.",
+"Por su bajo rendimiento en pediatría, una triptasa normal no descarta la anafilaxia; el diagnóstico es clínico."
+]
+},
+{
+"c": "ana",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto al diagnóstico diferencial de la anafilaxia, señale lo MÁS CORRECTO:",
+"o": [
+"La escombroidosis la simula por la histamina del pescado mal conservado",
+"La urticaria aislada, sin otro sistema afectado, cumple criterios de anafilaxia",
+"La laringitis aguda se distingue porque nunca produce estridor inspiratorio",
+"La invaginación intestinal se distingue porque no produce palidez ni letargia",
+"Un asma grave con rash cutáneo excluye la anafilaxia y no requiere adrenalina"
+],
+"e": "SEUP incluye en el diferencial urticaria, angioedema, crisis de asma, ansiedad, laringitis, disfunción de cuerdas vocales, invaginación, gastroenteritis, intoxicación alimentaria y escombroidosis. La escombroidosis se debe a histamina formada en el pescado mal conservado (referencia estándar), por eso imita la clínica.",
+"w": [
+"La piel sola es un único sistema: sin compromiso respiratorio, hemodinámico ni otro sistema tras el alérgeno no cumple criterios.",
+"La laringitis sí produce estridor; por eso está en el diferencial del edema laríngeo anafiláctico.",
+"La invaginación puede dar palidez, letargia y vómitos (referencia estándar), y por eso se confunde con anafilaxia.",
+"El asma grave con rash puede ser una anafilaxia infradiagnosticada y se beneficia de adrenalina."
+]
+},
+{
+"c": "ana",
+"t": 0,
+"src": "SEUP 2024",
+"v": "Niño de 9 años con anafilaxia por nueces que necesitó 2 dosis de adrenalina IM. A los 30 minutos está asintomático. Consultó a las 15:00 y vive cerca del hospital.",
+"q": "Según SEUP 2024, ¿cuánto tiempo mínimo debe permanecer en observación?",
+"o": [
+"Al menos 6 h tras la resolución, por el riesgo de reacción bifásica",
+"Al menos 2 h tras la resolución, porque respondió en 30 minutos",
+"Al menos 12 h tras la resolución, porque necesitó más de una dosis",
+"Al menos 24 h, porque la reacción bifásica suele aparecer al día siguiente",
+"Puede irse ya, porque la adrenalina IM previene la reacción bifásica"
+],
+"e": "Tabla 4: si precisó 2 dosis de adrenalina o tuvo bifásicas previas, mínimo 6 h de observación tras la resolución. La bifásica (recurrencia sin nueva exposición, ~5 %) aparece sobre todo en las primeras 6–8 h.",
+"w": [
+"El alta a las 2 h exige una única dosis con buena respuesta, resolución completa y autoinyector con entrenamiento.",
+"12 h se reservan para más de 2 dosis, asma grave, absorción continuada, consulta de noche o difícil acceso a urgencias.",
+"La mayoría de las bifásicas ocurre en 6–8 h; se han descrito hasta 24 h, pero no es lo habitual.",
+"La adrenalina no previene la bifásica; por eso se observa al paciente tras controlar los síntomas."
+]
+},
+{
+"c": "ana",
+"t": 1,
+"src": "SEUP 2024",
+"v": "Niña de 5 años y 19 kg que se va de alta tras una anafilaxia por leche, ya resuelta y observada el tiempo indicado.",
+"q": "Al alta, ¿qué es lo MÁS CORRECTO según SEUP 2024?",
+"o": [
+"Autoinyector de 0,15 mg, entrenamiento en su uso y derivación a Alergología",
+"Autoinyector de 0,3 mg, entrenamiento en su uso y derivación a Alergología",
+"Autoinyector de 0,15 mg y derivación a Alergología solo si repite el episodio",
+"Antihistamínico VO a demanda; el autoinyector solo se da si pesa más de 25 kg",
+"Autoinyector de 0,5 mg, entrenamiento en su uso y derivación a Alergología infantil"
+],
+"e": "Al alta, todos: evitar el alérgeno, autoinyector de adrenalina con entrenamiento y derivación a Alergología Infantil. Presentaciones: 0,15 mg para 10–25 kg y 0,3 mg para > 25 kg; en < 10 kg se valora riesgo-beneficio.",
+"w": [
+"0,3 mg corresponde a > 25 kg; con 19 kg le toca 0,15 mg.",
+"La derivación a Alergología es para todos tras una anafilaxia, no solo si repite.",
+"El autoinyector es para todos, con 0,15 mg entre 10 y 25 kg; el antihistamínico no trata la anafilaxia.",
+"No existe autoinyector de 0,5 mg en las presentaciones citadas (0,15 y 0,3 mg); 0,5 mg es la dosis IM máxima hospitalaria."
 ]
 },
 {
@@ -687,6 +2299,435 @@ const Q = [
 "90 es la PAS mínima de los mayores de 10 años, no la base de la fórmula; < 60 es el corte de bradicardia en niños, no en neonatos.",
 "La fórmula es correcta, pero < 60 es el corte de bradicardia para niños; en el neonato es < 100.",
 "La base de la fórmula es 70, no 80; el corte neonatal sí es < 100."
+]
+},
+{
+"c": "tep",
+"t": 0,
+"src": "SEUP 2024",
+"q": "¿Cuál de los siguientes hallazgos altera el lado de la APARIENCIA del TEP?",
+"o": [
+"Mirada perdida o fija",
+"Cabeceo en el lactante",
+"Postura en trípode",
+"Piel moteada en el tronco",
+"Quejido espiratorio"
+],
+"e": "La apariencia se valora con TICLS: tono, interacción/reactividad, consuelo, mirada (look) y lenguaje/llanto (speech). Una mirada perdida o fija indica disfunción del SNC, por mala perfusión u oxigenación cerebral o por una causa primaria.",
+"w": [
+"El cabeceo es un signo visual del lado RESPIRATORIO (uso de musculatura accesoria), más frecuente en lactantes; no es una alteración del tono.",
+"La postura en trípode, como la de olfateo o rechazar el decúbito, es un signo del lado RESPIRATORIO.",
+"La piel moteada altera el lado CIRCULATORIO: la piel es de los primeros órganos que reflejan la mala perfusión.",
+"El quejido espiratorio es un ruido del lado RESPIRATORIO y orienta a patología alveolar."
+]
+},
+{
+"c": "tep",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto a los ruidos respiratorios del TEP y la zona que orientan, señale lo MÁS CORRECTO:",
+"o": [
+"Quejido espiratorio: patología alveolar",
+"Estridor: obstrucción bronquial o traqueal",
+"Sibilancias: obstrucción de la vía aérea alta",
+"Ronquido: patología alveolar con colapso",
+"Disfonía: obstrucción bronquial difusa"
+],
+"e": "El quejido es un cierre de la glotis al final de la espiración que aumenta la presión teleespiratoria y ayuda a mantener abiertos los alveolos; por eso orienta a patología alveolar.",
+"w": [
+"El estridor, como el gruñido, el ronquido y la disfonía, orienta a obstrucción de la vía aérea ALTA; las sibilancias son las de obstrucción bronquial o traqueal.",
+"Las sibilancias orientan a obstrucción bronquial o traqueal; la vía aérea alta da estridor, ronquido, gruñido o disfonía.",
+"El ronquido orienta a obstrucción de la vía aérea alta; el ruido que orienta a patología alveolar es el quejido.",
+"La disfonía es un signo de obstrucción de la vía aérea ALTA (laringe); la obstrucción bronquial da sibilancias."
+]
+},
+{
+"c": "tep",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto al lado circulatorio del TEP, señale lo MÁS CORRECTO:",
+"o": [
+"La piel moteada no debe confundirse con la cutis marmorata fisiológica",
+"La palidez es específica de shock, porque la anemia no la produce",
+"La cianosis es el primer signo de mala perfusión en el niño con shock",
+"Se valora con el relleno capilar y la palpación de los pulsos centrales",
+"La piel se afecta tarde, recién cuando ya hay alteración de la apariencia"
+],
+"e": "El lado circulatorio se valora solo mirando la piel (palidez, moteado, cianosis), uno de los primeros órganos afectados cuando cae el gasto cardiaco. El moteado patológico debe distinguirse de la cutis marmorata fisiológica de lactantes y algunos escolares.",
+"w": [
+"La palidez puede deberse a mala perfusión o a anemia; no es específica de shock.",
+"La cianosis es un signo TARDÍO en el shock y además puede ser secundaria a una alteración respiratoria.",
+"El TEP se hace sin tocar al paciente; el relleno capilar y los pulsos se valoran después, en la C del ABCDE.",
+"La piel es de los PRIMEROS órganos afectados; por eso el circulatorio puede alterarse con apariencia normal (shock compensado)."
+]
+},
+{
+"c": "tep",
+"t": 0,
+"src": "SEUP 2024",
+"v": "Niño de 3 años, previamente sano, con 2 días de vómitos y poca ingesta. Llega hipoactivo, hipotónico y con la mirada perdida; respira sin esfuerzo ni ruidos y su piel es rosada.",
+"q": "¿Cuál es el diagnóstico fisiopatológico y la acción inmediata MÁS CORRECTA?",
+"o": [
+"Disfunción del SNC; medir la glucemia capilar de inmediato",
+"Shock descompensado; bolo de cristaloide de 20 mL/kg",
+"Disfunción del SNC; TAC craneal antes de colocar la vía",
+"Insuficiencia respiratoria; intubación en secuencia rápida",
+"Disfunción del SNC; considerarlo estable por tener un solo lado"
+],
+"e": "Solo la apariencia alterada = disfunción del SNC. Junto con O₂, vía y monitorización se mide la glucemia capilar, sobre todo si la apariencia está alterada, porque la causa sistémica más frecuente de esa alteración es la hipoglucemia.",
+"w": [
+"El lado circulatorio es normal (piel rosada); el shock descompensado exige circulatorio y apariencia alterados.",
+"Las pruebas dirigidas al diagnóstico etiológico son de la evaluación terciaria; primero se estabiliza (O₂, vía, monitor, glucemia).",
+"La insuficiencia respiratoria exige el lado respiratorio alterado, y este niño respira sin esfuerzo ni ruidos.",
+"Con UN solo lado alterado el paciente ya se considera inestable y requiere medidas inmediatas."
+]
+},
+{
+"c": "tep",
+"t": 0,
+"src": "SEUP 2024",
+"v": "Preescolar asmático. Está alerta, interactúa con su madre y habla con normalidad; presenta tiraje subcostal, taquipnea y sibilancias audibles; el color de su piel es normal.",
+"q": "Según el TEP, el diagnóstico fisiopatológico MÁS CORRECTO es:",
+"o": [
+"Dificultad respiratoria",
+"Insuficiencia respiratoria",
+"Fallo cardiorrespiratorio",
+"Shock compensado",
+"Disfunción del SNC"
+],
+"e": "Solo el lado respiratorio está alterado (tiraje, taquipnea, sibilancias) con apariencia y circulatorio normales: dificultad respiratoria. La apariencia normal indica que la oxigenación cerebral todavía se mantiene.",
+"w": [
+"La insuficiencia respiratoria exige además la apariencia alterada: el problema respiratorio ya afecta al cerebro.",
+"El fallo cardiorrespiratorio requiere los tres lados alterados; aquí apariencia y circulatorio son normales.",
+"El shock compensado es la alteración aislada del lado circulatorio; aquí la piel es normal.",
+"La disfunción del SNC es la apariencia alterada aislada; este niño está alerta e interactúa."
+]
+},
+{
+"c": "tep",
+"t": 0,
+"src": "SEUP 2024",
+"v": "Lactante de 12 meses con diarrea profusa. Está alerta y sigue con la mirada, respira sin esfuerzo, pero está pálido y con la piel moteada. PAS 80 mmHg.",
+"q": "¿Cuál es la interpretación y la conducta MÁS CORRECTA?",
+"o": [
+"Shock compensado; O₂, vía periférica, bolo de cristaloide",
+"Paciente estable; la PAS normal descarta shock, vía oral",
+"Shock descompensado; bolo de suero glucosado al 5 %",
+"Shock compensado; bolo de suero salino hipotónico al 0,45 %",
+"Disfunción del SNC; glucemia y observación sin vía venosa"
+],
+"e": "Circulatorio alterado aislado (palidez, moteado) con apariencia normal = shock compensado. La hipotensión es un signo tardío: una PAS normal (> 70 mmHg entre 3 meses y 2 años) no lo descarta; se indican O₂, vía y bolos de cristaloide balanceado.",
+"w": [
+"Con un solo lado alterado ya es inestable, y una PA normal es compatible con shock compensado porque la hipotensión es tardía.",
+"No es descompensado porque la apariencia es normal; además, el suero glucosado debe evitarse como líquido de expansión.",
+"Los líquidos hipotónicos deben evitarse en la estabilización inicial; se usan cristaloides balanceados.",
+"La apariencia es normal (alerta, sigue con la mirada); el lado alterado es el circulatorio y necesita vía para líquidos."
+]
+},
+{
+"c": "tep",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Ante un niño con el TEP alterado de forma significativa, las medidas inmediatas prioritarias son:",
+"o": [
+"O₂ con mascarilla con reservorio, vía periférica y monitorización",
+"O₂ con gafas nasales a 2 L/min, vía periférica y monitorización",
+"Anamnesis SAMPLE, vía periférica y monitorización de signos vitales",
+"O₂ con mascarilla Venturi al 28 %, vía central y ECG de 12 derivaciones",
+"Gasometría arterial, vía intraósea directa y radiografía de tórax"
+],
+"e": "Todo paciente inestable recibe de inmediato O₂ a alta concentración (mascarilla con reservorio), vía venosa periférica y monitorización de FC, FR, SatO₂, PA y glucemia capilar. Solo con una alteración leve de un lado puede no aplicarse de entrada.",
+"w": [
+"Las gafas nasales dan baja concentración; se empieza con alta concentración y se retira de forma progresiva (Venturi o gafas) si mejora.",
+"La anamnesis SAMPLE es de la evaluación secundaria; hacerla antes de estabilizar retrasa la atención inmediata.",
+"La vía central es el último recurso, y en la evaluación inicial basta el ECG del monitor, no el de 12 derivaciones.",
+"La gasometría arterial aporta poco frente a sus riesgos (basta la venosa al canalizar) y la intraósea se usa si no hay vía periférica en ≤ 5 min."
+]
+},
+{
+"c": "tep",
+"t": 1,
+"src": "SEUP 2024",
+"q": "Tras iniciar O₂ a alta concentración en un niño inestable, según SEUP 2024 la saturación debe optimizarse entre:",
+"o": [
+"94 y 98 %, evitando la hiperoxia prolongada",
+"92 y 96 %, evitando la hiperoxia prolongada",
+"98 y 100 %, para asegurar la reserva de O₂",
+"90 y 94 %, para evitar la toxicidad por O₂",
+"88 y 92 %, como en el retenedor crónico de CO₂"
+],
+"e": "SEUP 2024 indica optimizar la SatO₂ entre 94 y 98 % y retirar el O₂, total o progresivamente, cuando el niño mejora, porque la hiperoxia prolongada se asocia a peor pronóstico.",
+"w": [
+"92–96 % no es el objetivo de SEUP 2024: su límite inferior queda por debajo de 94 %, sin oxigenación optimizada en el niño inestable.",
+"Mantener 98–100 % de forma prolongada es hiperoxia, que se relaciona con peor pronóstico.",
+"Por debajo de 94 % no se ha optimizado la oxigenación del niño inestable; el objetivo es 94–98 %.",
+"88–92 % es la meta del adulto con EPOC retenedor de CO₂ (otra población), no la del niño grave."
+]
+},
+{
+"c": "tep",
+"t": 1,
+"src": "SEUP 2024",
+"q": "Durante la ventilación con bolsa autoinflable de un lactante de 6 meses, la frecuencia adecuada según SEUP 2024 es:",
+"o": [
+"20 rpm, evitando hiperventilar",
+"30 rpm, igual que en el neonato",
+"12–15 rpm, como en el adolescente",
+"40 rpm, según su FR normal por edad",
+"60 rpm, para compensar la acidosis"
+],
+"e": "SEUP recomienda 30 rpm en recién nacidos y menores de 3 meses, 20 rpm en lactantes mayores de 3 meses y preescolares, y 12–15 rpm en adolescentes. La hiperventilación con bolsa es frecuente y muy perjudicial, y debe evitarse.",
+"w": [
+"30 rpm corresponde a recién nacidos y menores de 3 meses; este lactante tiene 6 meses.",
+"12–15 rpm es la frecuencia para adolescentes; en un lactante resulta insuficiente.",
+"La FR espontánea normal (24–40 a esta edad) no es la frecuencia de ventilación asistida; 40 rpm con bolsa sería hiperventilar.",
+"60 rpm es hiperventilación, que puede ser muy perjudicial; la acidosis se corrige asegurando ventilación, oxigenación y perfusión."
+]
+},
+{
+"c": "tep",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto a la evaluación y el manejo de la B según SEUP 2024, señale lo MÁS CORRECTO:",
+"o": [
+"Se coloca sonda nasogástrica porque en la VBM parte del aire fuga al esófago",
+"La saturación se correlaciona directamente con el grado de trabajo respiratorio",
+"La capnografía disminuye en la hipoventilación y aumenta en la alteración V/Q",
+"La ventilación con bolsa y mascarilla idealmente la realiza una sola persona",
+"La gasometría arterial es preferible a la venosa en la sala de emergencias"
+],
+"e": "Durante la ventilación con bolsa y mascarilla parte del aire pasa al esófago y distiende el estómago, lo que dificulta la ventilación; por eso se considera una sonda nasogástrica para descomprimirlo (también tras intubar).",
+"w": [
+"No se correlaciona: la oxigenación puede mantenerse a costa de aumentar el trabajo respiratorio.",
+"Es al revés: el CO₂ espirado aumenta en la hipoventilación y disminuye o es normal en la alteración ventilación/perfusión.",
+"La VBM idealmente la realizan DOS personas, para sellar bien la mascarilla y ventilar.",
+"La muestra arterial ofrece pocos beneficios frente a sus riesgos en la urgencia; basta una venosa obtenida al canalizar la vía."
+]
+},
+{
+"c": "tep",
+"t": 1,
+"src": "SEUP 2024",
+"q": "Según SEUP 2024, si en un niño se palpan los pulsos centrales pero NO los periféricos, la PAS aproximada es:",
+"o": [
+"Mayor de 50 mmHg, pero probablemente menor de 90",
+"Mayor de 90 mmHg, pero probablemente menor de 110",
+"Mayor de 70 mmHg, pero probablemente menor de 90",
+"Menor de 50 mmHg; corresponde iniciar RCP inmediata",
+"Mayor de 60 mmHg, pero probablemente menor de 80"
+],
+"e": "Aproximación de SEUP: pulsos periféricos palpables = PAS > 90 mmHg; solo pulsos centrales = PAS > 50 mmHg; sin pulsos = PAS < 50 mmHg. La ausencia de pulso periférico puede ser un signo de shock.",
+"w": [
+"PAS > 90 mmHg es la que se asocia a pulsos PERIFÉRICOS palpables, que aquí no se palpan.",
+"70 mmHg es la PAS mínima normal de 3 meses a 2 años (y la base de la fórmula 70 + 2 × edad), no el umbral del pulso central.",
+"PAS < 50 mmHg corresponde a ausencia de pulsos; aquí el pulso central está presente, así que no es indicación de RCP.",
+"60 mmHg es la PAS mínima normal de 0 a 3 meses; el umbral asociado al pulso central palpable es 50 mmHg."
+]
+},
+{
+"c": "tep",
+"t": 1,
+"src": "SEUP 2024",
+"v": "Niño de 4 años (16 kg) con shock séptico: pálido, moteado y somnoliento. Ya tiene dos vías periféricas.",
+"q": "Según el protocolo SEUP 2024 de estabilización inicial (TEP-ABCDE), la carga de líquidos MÁS CORRECTA es:",
+"o": [
+"Cristaloide balanceado 10–20 mL/kg en ≤ 20 min y reevaluar",
+"Suero glucosado al 5 % 20 mL/kg en ≤ 20 min y reevaluar",
+"Cristaloide balanceado 60 mL/kg en 20 min sin reevaluar",
+"Suero salino al 0,45 % 10–20 mL/kg en ≤ 20 min y reevaluar",
+"Cristaloide balanceado 5 mL/kg en 60 min por riesgo de edema"
+],
+"e": "Bolos de 10–20 mL/kg en máximo 20 minutos, hasta 60 mL/kg en una hora, buscando signos de sobrecarga hídrica tras cada bolo. Se usan cristaloides balanceados y se evitan los hipotónicos y el glucosado.",
+"w": [
+"El suero glucosado debe evitarse: se comporta como agua libre, no expande bien el intravascular y altera la glucemia.",
+"60 mL/kg es el máximo acumulado en UNA hora, administrado en bolos de 10–20 mL/kg con reevaluación tras cada uno.",
+"El salino al 0,45 % es hipotónico y debe evitarse en la estabilización inicial.",
+"5 mL/kg en una hora es insuficiente: los líquidos son el principal tratamiento del shock y se dan en bolos rápidos."
+]
+},
+{
+"c": "tep",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto a los tratamientos de la C según SEUP 2024, señale lo MÁS CORRECTO:",
+"o": [
+"La adenosina está indicada en la taquicardia supraventricular",
+"La amiodarona es de elección en la taquicardia supraventricular",
+"La noradrenalina es el vasoactivo de primera elección en el niño",
+"Los vasoactivos requieren siempre una vía venosa central previa",
+"El bicarbonato se usa sistemáticamente para corregir la acidosis"
+],
+"e": "SEUP cita la adenosina para la taquicardia supraventricular y la amiodarona para la fibrilación o taquicardia ventricular sin pulso. Los vasoactivos se inician precozmente si no hay respuesta a líquidos.",
+"w": [
+"La amiodarona se reserva para la fibrilación o la taquicardia ventricular sin pulso; en la TSV se usa adenosina.",
+"La adrenalina es la de primera elección; la noradrenalina es la otra de uso más aceptado.",
+"Cualquiera de los vasoactivos puede usarse por vía periférica o intraósea, sin esperar una vía central.",
+"No se recomienda el bicarbonato sistemático; la acidosis se corrige asegurando ventilación, oxigenación y perfusión."
+]
+},
+{
+"c": "tep",
+"t": 1,
+"src": "SEUP 2024",
+"v": "Escolar de 8 años con fiebre, tranquilo y bien perfundido. FR 26 rpm y FC 115 lpm.",
+"q": "Según las tablas de SEUP 2024, la interpretación MÁS CORRECTA es:",
+"o": [
+"FR y FC dentro del rango normal para su edad",
+"FR alta (normal 12–16) y FC normal para su edad",
+"FR normal y FC alta (normal 60–100) para su edad",
+"FR y FC ambas elevadas para un niño de 8 años",
+"FR normal y FC baja (normal 120–160) para su edad"
+],
+"e": "En el escolar la FR normal es 18–30 rpm y la FC 70–120 lpm, así que ambas son normales. Hay que recordar que la fiebre, el dolor y la ansiedad pueden elevarlas.",
+"w": [
+"12–16 rpm es la FR normal del ADOLESCENTE; en el escolar el rango es 18–30 rpm.",
+"60–100 lpm es la FC normal del adolescente; en el escolar es 70–120 lpm.",
+"Con los rangos del escolar (FR 18–30, FC 70–120), ninguno de los dos valores está elevado.",
+"No existe un rango 120–160 en la tabla (100–160 es el de 0 a 3 meses), y 115 lpm no es bradicardia en un escolar."
+]
+},
+{
+"c": "tep",
+"t": 0,
+"src": "SEUP 2024",
+"v": "Niño de 6 años tras un traumatismo craneal. No abre los ojos ni contesta al hablarle; solo retira el brazo y se queja al estímulo doloroso.",
+"q": "Señale la interpretación y la conducta MÁS CORRECTA:",
+"o": [
+"AVPU P, GCS ≈ 8: valorar el manejo instrumental de la vía aérea",
+"AVPU V, GCS ≈ 13: observar y repetir el AVPU en una hora",
+"AVPU U, GCS ≈ 3: iniciar RCP aunque tenga pulso central",
+"AVPU P, GCS ≈ 12: oxígeno con gafas nasales y observación",
+"AVPU A, GCS ≈ 15: el dolor no modifica la clasificación"
+],
+"e": "Responder solo al dolor es la P del AVPU, que se aproxima a GCS 8. Con respuesta al dolor o GCS ≤ 8 se valora el manejo instrumental de la vía aérea (cánula, VBM o intubación); el coma es indicación de intubación.",
+"w": [
+"V es responder a estímulos verbales (≈ GCS 13); este niño no responde al hablarle, solo al dolor.",
+"U es no responder a nada (≈ GCS 3); además, la RCP se indica por ausencia de pulso central, no por el nivel de consciencia.",
+"La P equivale a GCS ≈ 8, no a 12; con ese nivel la vía aérea está en riesgo y no basta con gafas nasales.",
+"A es alerta (≈ GCS 15); un niño que solo responde al dolor no está alerta."
+]
+},
+{
+"c": "tep",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto a la evaluación neurológica (D) del niño inestable según SEUP 2024, señale lo MÁS CORRECTO:",
+"o": [
+"Las pupilas valoran el tronco encefálico y se evalúan siempre",
+"El AVPU y el TEP valoran sobre todo la función del tronco encefálico",
+"La escala de Glasgow es la más usada en urgencias por ser más rápida",
+"Hay una escala validada única para valorar rápido la consciencia",
+"Los sedantes y paralizantes no alteran la valoración neurológica"
+],
+"e": "La respuesta pupilar a la luz valora el tronco encefálico y debe evaluarse siempre; puede alterarse en intoxicaciones, hipoxia, convulsión o herniación cerebral.",
+"w": [
+"El AVPU y el TEP valoran la actividad CORTICAL; el tronco encefálico se explora con las pupilas.",
+"La GCS se usa menos que el AVPU porque requiere más tiempo y puede ser difícil; está validada en el traumatismo craneal.",
+"No existe una escala validada para la valoración rápida de la consciencia; se combinan el TEP, el AVPU, las pupilas y la actividad motora.",
+"Los sedantes y paralizantes SÍ alteran la valoración neurológica, lo que debe tenerse en cuenta al interpretarla."
+]
+},
+{
+"c": "tep",
+"t": 0,
+"src": "SEUP 2024",
+"v": "Escolar atropellado, con collarín cervical. A, B y C ya fueron estabilizados y la D es normal. Al desvestirlo se observa una herida en el muslo con sangrado activo.",
+"q": "En la E, la conducta MÁS CORRECTA es:",
+"o": [
+"Controlar el sangrado con compresión o torniquete y luego cubrirlo",
+"Retirar ya el collarín, porque la vía aérea es permeable y la D normal",
+"Usar sueros a temperatura ambiente para no enmascarar la fiebre",
+"Diferir la eco-FAST a la evaluación terciaria por ser prueba de imagen",
+"Dejarlo descubierto hasta completar la evaluación secundaria"
+],
+"e": "En la E se desviste por completo, se controlan las hemorragias (compresión o incluso torniquete), se estabilizan las fracturas de huesos largos y luego se vuelve a tapar al niño, con O₂ y sueros calentados para evitar la hipotermia.",
+"w": [
+"La inmovilización cervical no se retira hasta completar la evaluación, con pruebas de imagen si es necesario.",
+"Se recomiendan sueros calentados y oxígeno calentado y humidificado para evitar que el niño se enfríe.",
+"La eco-FAST a pie de cama puede incorporarse ya en la evaluación primaria del traumatizado, si se dispone de ella.",
+"Al terminar la E hay que volver a cubrir al niño para evitar la hipotermia, no esperar a la evaluación secundaria."
+]
+},
+{
+"c": "tep",
+"t": 1,
+"src": "SEUP 2024",
+"v": "Niño de 4 años que requiere intubación. Se usará un tubo con balón.",
+"q": "Según SEUP 2024, el calibre y la profundidad desde la comisura bucal MÁS CORRECTOS son:",
+"o": [
+"Tubo 4,5 con balón, introducido a 14 cm",
+"Tubo 5,0 con balón, introducido a 15 cm",
+"Tubo 4,0 con balón, introducido a 12 cm",
+"Tubo 5,5 con balón, introducido a 16 cm",
+"Tubo 4,5 con balón, introducido a 13,5 cm"
+],
+"e": "Con balón: 3,5 + (edad/4) = 3,5 + 1 = 4,5. Profundidad: (edad/2) + 12 = 14 cm (la regla calibre × 3 es para tubo sin balón). Se preparan además un tubo mayor y uno menor que el calculado.",
+"w": [
+"5,0 sale de la fórmula SIN balón, 4 + (edad/4), y 15 cm de multiplicarlo por 3; con balón el tubo es medio número menor.",
+"4,0 es el tubo menor que se deja preparado de reserva, no el calculado; y 12 cm omite el término edad/2 de la fórmula.",
+"5,5 con balón correspondería a un niño de 8 años, y 16 cm dejaría el tubo demasiado profundo.",
+"13,5 cm aplica calibre × 3, regla de los tubos SIN balón; para este tubo se usa (edad/2) + 12 = 14 cm."
+]
+},
+{
+"c": "tep",
+"t": 1,
+"src": "SEUP 2024",
+"v": "Niña de 5 años con shock séptico refractario a líquidos y potasio de 6,8 mEq/L, que requiere intubación.",
+"q": "Según la tabla de SRI de SEUP 2024, la combinación MÁS CORRECTA es:",
+"o": [
+"Ketamina 1–2 mg/kg y rocuronio 0,6–1,2 mg/kg",
+"Etomidato 0,3 mg/kg y rocuronio 0,6–1,2 mg/kg",
+"Ketamina 1–2 mg/kg y succinilcolina 1–2 mg/kg",
+"Propofol 1–4 mg/kg y rocuronio 0,6–1,2 mg/kg",
+"Midazolam 0,2–0,3 mg/kg y vecuronio 0,1–0,2 mg/kg"
+],
+"e": "La ketamina no provoca depresión respiratoria ni alteración hemodinámica, por lo que conviene en el shock; el rocuronio es el paralizante más usado en emergencias. La succinilcolina está contraindicada en hiperpotasemia, aplastamiento o enfermedad neuromuscular (SEUP añade que en shock grave puede ser preferible no sedar).",
+"w": [
+"El etomidato aumenta la mortalidad en niños con shock séptico porque causa supresión adrenal.",
+"La ketamina es adecuada, pero la succinilcolina está contraindicada en la hiperpotasemia porque eleva aún más el potasio.",
+"El propofol tiene importantes efectos adversos hemodinámicos y su papel en la SRI no está claro.",
+"El midazolam es de elección en convulsiones y con escasa repercusión hemodinámica, no en un shock refractario."
+]
+},
+{
+"c": "tep",
+"t": 1,
+"src": "SEUP 2024",
+"q": "Según SEUP 2024, la premedicación con atropina en la secuencia rápida de intubación está indicada en:",
+"o": [
+"Menores de 1 año, bradicardia previa o uso de succinilcolina",
+"Menores de 5 años, bradicardia previa o uso de succinilcolina",
+"Toda SRI pediátrica, para prevenir la bradicardia por laringoscopia",
+"Menores de 1 año, taquicardia previa o uso de rocuronio",
+"Sospecha de shock séptico, en lugar del sedante habitual"
+],
+"e": "No se recomienda la atropina sistemática en cada SRI; se reserva para menores de 1 año, bradicardia previa al procedimiento o uso de succinilcolina. En sospecha de hipertensión intracraneal puede valorarse premedicar con atropina, lidocaína o fentanilo.",
+"w": [
+"El corte de edad de SEUP es menor de 1 año, no de 5 años; los otros dos criterios sí son correctos.",
+"SEUP no recomienda la atropina sistemática en cada SRI; se reserva para tres situaciones concretas.",
+"El criterio es la bradicardia previa (no la taquicardia) y el uso de succinilcolina, no de rocuronio.",
+"La atropina no reemplaza al sedante: salvo excepciones, en la SRI se usa siempre un sedante y un paralizante muscular."
+]
+},
+{
+"c": "tep",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto a las evaluaciones secundaria y terciaria según SEUP 2024, señale lo MÁS CORRECTO:",
+"o": [
+"En el SAMPLE, la P incluye patologías previas y la vacunación",
+"En el SAMPLE, la L se refiere a los laboratorios previos del niño",
+"La anamnesis SAMPLE se hace antes del ABCDE para orientar la causa",
+"Las pruebas para el diagnóstico etiológico son de la secundaria",
+"En el SAMPLE, la E corresponde a la exploración física dirigida"
+],
+"e": "SAMPLE: Signos y síntomas, Alergias, Medicaciones, Patologías previas (incluida la vacunación), Last oral intake (última ingesta) y Eventos. Forma parte de la evaluación secundaria, tras la estabilización.",
+"w": [
+"La L es la última ingesta (last oral intake): hora aproximada de la última toma sólida o líquida.",
+"La secundaria va DESPUÉS del TEP y el ABCDE; hacerla antes es un error frecuente que retrasa la atención inmediata.",
+"Las pruebas complementarias para el diagnóstico etiológico son de la evaluación TERCIARIA, con el paciente estable.",
+"La E son los Eventos que pudieron conducir al estado actual; la exploración física dirigida se hace aparte."
 ]
 }
 ];
@@ -850,7 +2891,7 @@ Lee todo el PPT, incluido el texto pequeño de imágenes, tablas y notas al pie.
 
 /* ---------- estado ---------- */
 Q.forEach((x,i)=>{ x.id = x.c + '-' + i; });
-const KEY = 'banqueo-emergencia-v1';
+const KEY = 'banqueo-emergencia-v2';
 let saved = {};
 try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){ saved = {}; }
 function persist(){ try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch(e){} }
