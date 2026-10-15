@@ -646,28 +646,28 @@ const Q = [
 "c": "ane",
 "t": 0,
 "src": "PPT + NTS",
-"v": "Lactante de 14 meses que vive en Lima (a nivel del mar), asintomática, con Hb de 10,3 g/dL.",
+"v": "Lactante de 14 meses, asintomática, con Hb de 10,3 g/dL.",
 "q": "Según la NTS MINSA 2024 con los cortes OMS 2024 (RM 251-2024-MINSA), señale lo MÁS CORRECTO:",
 "o": [
 "Anemia leve: en 6–23 meses el corte es < 10,5 y leve es 9,5–10,4",
 "Anemia leve: en 6–23 meses el corte es < 11 y leve es 10–10,9",
 "Sin anemia: en 6–23 meses el corte es < 10 y 10,3 lo supera",
 "Anemia moderada: en 6–23 meses la moderada va de 7 a 10,4",
-"Sin anemia: en Lima se corrige sumando 0,4 g/dL a la Hb medida"
+"Anemia severa: en 6–23 meses la severa es toda Hb < 10,5"
 ],
-"e": "Con la OMS 2024 (RM 251-2024-MINSA), en 6–23 meses hay anemia si la Hb es < 10,5 g/dL: leve 9,5–10,4, moderada 7,0–9,4 y severa < 7. Lima está por debajo de 500 msnm, no lleva ajuste, y 10,3 es anemia leve.",
+"e": "Con la OMS 2024 (RM 251-2024-MINSA), en 6–23 meses hay anemia si la Hb es < 10,5 g/dL: leve 9,5–10,4, moderada 7,0–9,4 y severa < 7. Con 10,3 g/dL es anemia leve.",
 "w": [
 "Ese es el corte anterior (RM 363-2022 / OMS 2011): < 11 para 6–59 meses. La OMS 2024 lo bajó a < 10,5 en 6–23 meses, y la leve de esta edad es 9,5–10,4, no 10–10,9.",
 "No existe un corte de 10 g/dL para 6–23 meses; el vigente es < 10,5 y 10,3 queda por debajo, así que sí tiene anemia.",
 "En 6–23 meses la moderada es 7,0–9,4 g/dL; 10,3 cae en el rango leve (9,5–10,4).",
-"Lima está por debajo de 500 msnm (ajuste 0). Además, el ajuste por altitud se resta a la Hb medida (o se suma al punto de corte); nunca se suma a la Hb."
+"La anemia severa es Hb < 7 g/dL a cualquier edad entre 6 y 59 meses; < 10,5 es el corte para decir que hay anemia, no su gravedad."
 ]
 },
 {
 "c": "ane",
 "t": 0,
 "src": "NTS",
-"q": "Niño de 3 años que vive a nivel del mar, con Hb de 9,5 g/dL. Según la NTS MINSA 2024, su clasificación es:",
+"q": "Niño de 3 años con Hb de 9,5 g/dL. Según la NTS MINSA 2024, su clasificación es:",
 "o": [
 "Anemia moderada (24–59 meses: 7–9,9)",
 "Anemia leve (usa el rango 9,5–10,4 de 6–23 meses)",
@@ -675,7 +675,7 @@ const Q = [
 "Anemia severa (en 24–59 meses la severa es < 10)",
 "Sin anemia (en 24–59 meses el corte es < 9,5)"
 ],
-"e": "En 24–59 meses el corte sigue siendo < 11 g/dL (la OMS 2024 no lo cambió): leve 10–10,9, moderada 7–9,9 y severa < 7. A nivel del mar no hay ajuste, así que 9,5 es anemia moderada.",
+"e": "En 24–59 meses el corte sigue siendo < 11 g/dL (la OMS 2024 no lo cambió): leve 10–10,9, moderada 7–9,9 y severa < 7. Por eso 9,5 es anemia moderada.",
 "w": [
 "9,5–10,4 es la anemia leve de 6–23 meses; a los 3 años la leve es 10–10,9 y 9,5 ya es moderada.",
 "En 24–59 meses la anemia leve empieza en 10 g/dL (10–10,9); por debajo de 10 ya es moderada.",
@@ -685,43 +685,44 @@ const Q = [
 },
 {
 "c": "ane",
-"t": 1,
-"src": "Apuntes + OMS",
-"v": "Niño de 3 años que vive en Puno (3800 msnm) desde hace 2 años, con Hb medida de 12,9 g/dL.",
-"q": "Según la NTS MINSA 2024 (ajuste por altitud OMS 2024), señale lo MÁS CORRECTO:",
+"t": 0,
+"src": "NTS + apuntes",
+"v": "Niña de 18 meses con anemia leve que inicia sulfato ferroso en jarabe.",
+"q": "Respecto a cómo indicar el sulfato ferroso, señale lo MÁS CORRECTO:",
 "o": [
-"Ajuste 2,5 g/dL: Hb corregida 10,4 → anemia leve",
-"Ajuste 3,3 g/dL: Hb corregida 9,6 → anemia moderada",
-"Ajuste 2,1 g/dL: Hb corregida 10,8 → anemia leve",
-"Ajuste 2,9 g/dL: Hb corregida 10,0 → anemia leve",
-"Sin ajuste: 12,9 supera el corte de 11 → no tiene anemia"
+"Separado de comidas, con jugo cítrico; no con leche, té ni café",
+"Junto con la leche del desayuno para que le cause menos molestias",
+"Mezclado en 2 cucharadas de comida tibia, como los micronutrientes",
+"Con una infusión de anís o manzanilla para mejorar el sabor",
+"Suspenderlo si las heces salen negras porque indica sangrado"
 ],
-"e": "Entre 3500 y 3999 msnm el ajuste es 2,5 g/dL, y se usa la residencia habitual de los últimos 4 meses (vive en Puno hace 2 años). 12,9 − 2,5 = 10,4: en 24–59 meses eso es anemia leve (10–10,9).",
+"e": "El hierro no hem del sulfato se absorbe mejor con el estómago vacío y en medio ácido: la vitamina C de los cítricos lo mantiene en forma ferrosa (Fe²⁺), que es la que se absorbe. El calcio de la leche y los taninos del té, café e infusiones lo bloquean.",
 "w": [
-"3,3 g/dL es el ajuste para 4500–4999 msnm; a 3800 msnm corresponde 2,5 g/dL.",
-"2,1 g/dL es el ajuste para 3000–3499 msnm (el del ejemplo de 3400 msnm); Puno a 3800 msnm está en el tramo 3500–3999, con 2,5.",
-"2,9 g/dL es el ajuste para 4000–4499 msnm; a 3800 msnm se restan 2,5 g/dL.",
-"Desde los 500 msnm la Hb se ajusta, porque en altura es fisiológicamente mayor; sin corregirla se subdiagnostica la anemia."
+"El calcio y la caseína de la leche inhiben la absorción del hierro; darlo con leche reduce mucho lo que se absorbe. Si hay molestias, se puede dar con un poco de comida o cambiar a polimaltosado.",
+"Eso es para los sobres de micronutrientes, que se mezclan en 2 cucharadas de la comida tibia. El sulfato ferroso en jarabe o gotas se da directo, separado de las comidas.",
+"Las infusiones (té, anís, manzanilla) y el café tienen taninos y polifenoles que forman complejos con el hierro y bloquean su absorción.",
+"Las heces negras son un efecto esperado del sulfato ferroso (hierro no absorbido), no un sangrado. Se avisa a la madre para que no lo suspenda."
 ]
 },
 {
 "c": "ane",
-"t": 1,
-"src": "Apuntes",
-"q": "Para el ajuste de la Hb por altitud según la NTS MINSA 2024, ¿qué lugar de residencia se considera?",
+"t": 0,
+"src": "NTS",
+"v": "Lactante de 6 meses, a término, que recibe gotas de hierro desde los 4 meses. Hoy su Hb es 11,4 g/dL.",
+"q": "Según la NTS MINSA 2024, ¿cuál es la conducta MÁS CORRECTA?",
 "o": [
-"La residencia habitual de los últimos 4 meses",
-"El lugar de nacimiento del niño",
-"La residencia habitual del último mes",
-"La residencia habitual de los últimos 12 meses",
-"La altitud del establecimiento donde se toma la muestra"
+"Seguir con micronutrientes, 1 sobre al día hasta 360 sobres",
+"Suspender el hierro porque ya no tiene anemia y empieza a comer",
+"Iniciar tratamiento con 3 mg/kg/día de sulfato ferroso por 6 meses",
+"Dar micronutrientes 2 sobres al día durante 6 meses al año",
+"Mantener las gotas de 2 mg/kg/día solo si la ferritina sale baja"
 ],
-"e": "La NTS indica usar la residencia habitual de los últimos 4 meses, tiempo en que la eritropoyesis ya se adaptó a esa altitud (el hematíe vive unos 120 días). Luego: Hb corregida = Hb medida − ajuste, que empieza a los 500 msnm.",
+"e": "A los 6 meses se hace el primer descarte de anemia. Con 11,4 g/dL no tiene anemia (corte < 10,5 en 6–23 meses), así que continúa la PREVENCIÓN: micronutrientes 1 sobre diario hasta completar 360 sobres, o hierro en gotas o jarabe. A los 6 meses justamente empieza la alimentación complementaria y la reserva del nacimiento ya se acabó.",
 "w": [
-"El lugar de nacimiento no refleja la adaptación actual: un niño nacido en Cusco que vive en Lima hace 2 años ya no tiene la Hb de altura.",
-"Un mes es poco para que la Hb se adapte a una nueva altitud; la norma pide la residencia de los últimos 4 meses.",
-"La norma no exige 12 meses; con la residencia habitual de los últimos 4 meses ya se aplica el ajuste de esa altitud.",
-"Importa dónde vive el niño, no dónde se toma la muestra: un niño de Puno atendido en Lima se ajusta por la altitud de Puno."
+"La prevención no termina a los 6 meses: es la edad en que más riesgo hay, porque la reserva del nacimiento se agotó y la leche materna no cubre lo que necesita. Por eso sigue con micronutrientes.",
+"3 mg/kg/día por 6 meses es la dosis de TRATAMIENTO; solo se indica si la Hb está por debajo del corte (< 10,5 en 6–23 meses).",
+"2 sobres al día, 6 meses al año, es el esquema preventivo de 24–35 meses; entre 6 y 23 meses es 1 sobre diario.",
+"La norma no pide ferritina para decidir la prevención: todo niño la recibe. La ferritina tampoco es necesaria para empezar el tratamiento."
 ]
 },
 {
@@ -964,6 +965,27 @@ const Q = [
 "El pinzamiento tardío es una medida preventiva: transfiere sangre placentaria y aumenta las reservas de hierro del RN.",
 "La sangrecita (29,5 mg/100 g) y el hígado de pollo (8,5 mg/100 g) aportan hierro hemínico, que se absorbe mejor; previenen la anemia.",
 "El FR es la fórmula NO suplementada con hierro; la fórmula fortificada previene la ferropenia."
+]
+},
+{
+"c": "ane",
+"t": 0,
+"src": "PPT + apuntes",
+"v": "Niño de 2 años, con sobrepeso y pálido, que toma 4 biberones de leche de vaca al día (cerca de 1 litro) y come muy poco. Hb 9,6 g/dL.",
+"q": "¿Cuál es el mecanismo MÁS CORRECTO de su anemia?",
+"o": [
+"La leche desplaza alimentos con hierro y su calcio bloquea la absorción",
+"La obesidad baja la hepcidina y el hierro queda atrapado en los macrófagos",
+"La lactosa le produce diarrea crónica y pierde el hierro por las heces",
+"La leche tiene hierro hem en exceso, que satura e inhibe la eritropoyesis",
+"Es anemia por déficit de vitamina B12, por la proteína de la leche de vaca"
+],
+"e": "Más de 600 mL de leche de vaca al día es factor de riesgo después del año: el niño se llena con leche y deja de comer carnes y vísceras, la leche tiene poco hierro y su calcio y caseína inhiben la absorción del que come. Por eso un niño gordito puede estar anémico (el niño “lechero”).",
+"w": [
+"Es al revés: la inflamación (también la de la obesidad) SUBE la hepcidina, que bloquea la absorción y atrapa el hierro en los macrófagos. Puede sumar, pero el mecanismo principal aquí es la dieta.",
+"El cuadro no tiene diarrea. Además, la intolerancia a la lactosa causa diarrea osmótica, no pérdida de hierro en las heces.",
+"La leche de vaca tiene poco hierro y es no hem; el hierro hem está en la sangrecita, el bazo, el hígado y las carnes. El exceso de hierro no inhibe la eritropoyesis.",
+"La leche de vaca no causa déficit de B12 (más bien la contiene), y esa anemia sería macrocítica; la del niño lechero es ferropénica y microcítica."
 ]
 },
 {
@@ -2471,8 +2493,12 @@ const REPASO = {
 "< 11,5 · severa < 8"
 ],
 [
-"Altitud",
-"Residencia <mark>últimos 4 meses</mark> · 3000–3499: 2,1 · 3500–3999: 2,5 · 4000–4499: 2,9"
+"Cómo darlo",
+"Separado de comidas, con cítricos · <mark>no con leche, té ni café</mark> · heces negras: normal"
+],
+[
+"Niño lechero",
+"> 600 mL de leche/día después del año: desplaza alimentos y el calcio bloquea el hierro"
 ],
 [
 "Preventivo",
@@ -2674,7 +2700,7 @@ Lee todo el PPT, incluido el texto pequeño de imágenes, tablas y notas al pie.
 
 /* ---------- estado ---------- */
 Q.forEach((x,i)=>{ x.id = x.c + '-' + i; });
-const KEY = 'banqueo-sem8-v2';
+const KEY = 'banqueo-sem8-v3';
 let saved = {};
 try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){ saved = {}; }
 function persist(){ try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch(e){} }
