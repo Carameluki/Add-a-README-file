@@ -1,0 +1,1026 @@
+<title>Banqueo Emergencia Pediátrica</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Zilla+Slab:wght@500;700&display=swap">
+<style>
+/* Layout: una columna tipo hoja de examen, barra de filtros pegajosa, viñeta clínica + 5 alternativas como en el examen teórico final */
+:root{
+  --paper:#F2F5F6; --card:#FFFFFF; --ink:#14222E; --muted:#56687A; --line:#D3DDE3;
+  --accent:#0D6670; --accent-soft:#E0EFF0;
+  --mark:#FFE14D; --mark-ink:#2E2600;
+  --ok:#1C7343; --ok-soft:#E1F3E8; --bad:#B0261C; --bad-soft:#FBE6E4;
+  --vig:#F7F9FA;
+  --c-des:#9A4A3F; --c-obe:#A86A12; --c-cf:#B8336A; --c-enc:#6655A0; --c-an:#2A7894;
+  --f-display:"Zilla Slab", Georgia, "Times New Roman", serif;
+  --f-body:"Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#0E161C; --card:#15212A; --ink:#E4ECF0; --muted:#93A5B2; --line:#26343F;
+  --accent:#5EC2CB; --accent-soft:#16343A;
+  --mark:#C9A635; --mark-ink:#171200;
+  --ok:#62CF8F; --ok-soft:#14301F; --bad:#FF8B80; --bad-soft:#3A1916;
+  --vig:#111B22;
+  --c-des:#E08B7E; --c-obe:#E3A94D; --c-cf:#F07AA8; --c-enc:#A898E6; --c-an:#6CC1DD;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#0E161C; --card:#15212A; --ink:#E4ECF0; --muted:#93A5B2; --line:#26343F;
+  --accent:#5EC2CB; --accent-soft:#16343A;
+  --mark:#C9A635; --mark-ink:#171200;
+  --ok:#62CF8F; --ok-soft:#14301F; --bad:#FF8B80; --bad-soft:#3A1916;
+  --vig:#111B22;
+  --c-des:#E08B7E; --c-obe:#E3A94D; --c-cf:#F07AA8; --c-enc:#A898E6; --c-an:#6CC1DD;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 48px}
+.wrap{max-width:820px;margin:0 auto}
+header.top{padding-block:28px 18px;display:grid;gap:10px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(30px,6vw,44px);line-height:1.05;margin:0;text-wrap:balance}
+h1 .hl{background:linear-gradient(transparent 58%, var(--mark) 58%, var(--mark) 92%, transparent 92%);padding:0 4px;color:inherit}
+.lede{margin:0;color:var(--muted);max-width:62ch}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:8px}
+.stat{border:1px solid var(--line);background:var(--card);border-radius:6px;padding:10px 12px;display:grid;gap:6px;min-width:0}
+.stat .nm{font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px}
+.dot{width:9px;height:9px;border-radius:50%;flex:none}
+.stat .nums{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{height:4px;background:var(--line);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok)}
+
+nav.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-top:10px;overflow-x:auto}
+nav.tabs button{font:inherit;font-weight:700;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:10px 12px;cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+
+.controls{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--paper);padding-block:12px;display:grid;gap:10px;border-bottom:1px solid var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:13px;font-weight:700;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 11px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{font:inherit;font-size:13px;font-weight:700;background:var(--card);color:var(--muted);border:0;padding:6px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--paper)}
+.btn{font:inherit;font-size:13px;font-weight:700;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;padding:6px 12px;cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+.toggle{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;cursor:pointer;user-select:none}
+.toggle input{accent-color:var(--accent);width:16px;height:16px}
+.count{font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-left:auto}
+
+.list{display:grid;gap:14px;margin-top:16px}
+.q{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;display:grid;gap:12px;min-width:0}
+.qhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px}
+.case{font-weight:700;display:inline-flex;align-items:center;gap:6px}
+.src{font-family:var(--f-mono);color:var(--muted);border:1px solid var(--line);border-radius:3px;padding:1px 6px}
+.tiny{background:var(--mark);color:var(--mark-ink);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:2px;transform:rotate(-1deg)}
+.qnum{font-family:var(--f-mono);color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}
+.vig{margin:0;background:var(--vig);border:1px solid var(--line);border-radius:6px;padding:10px 12px;font-size:15px;text-wrap:pretty}
+.qtext{font-weight:700;font-size:17px;margin:0;text-wrap:pretty}
+.opts{display:grid;gap:6px}
+.opt{font:inherit;text-align:left;display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:start;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:9px 10px;cursor:pointer}
+.opt:hover:not([disabled]){border-color:var(--accent)}
+.opt .l{font-family:var(--f-mono);font-weight:500;color:var(--muted)}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--ok-soft);border-color:var(--ok)}
+.opt.right .l{color:var(--ok)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.opt.wrong .l{color:var(--bad)}
+.opt.picked{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.expl{border-left:3px solid var(--accent);background:var(--accent-soft);padding:9px 12px;border-radius:0 6px 6px 0;font-size:15px}
+.expl b{color:var(--accent)}
+.why{display:block;margin-top:6px;padding-top:6px;border-top:1px dashed var(--line);font-size:14px;color:var(--muted)}
+.opt.right .why{color:var(--ink)}
+.why b{font-weight:700}
+.opt.right .why b{color:var(--ok)}
+.opt:not(.right) .why b{color:var(--bad)}
+.verdict{font-weight:700;font-size:14px}
+.verdict.ok{color:var(--ok)} .verdict.no{color:var(--bad)}
+
+.exambar{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}
+.score{font-family:var(--f-display);font-size:28px;font-weight:700}
+
+.repaso{display:grid;gap:16px;margin-top:16px}
+.rcard{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;min-width:0}
+.rcard h2{font-family:var(--f-display);font-size:24px;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.dl{display:grid;grid-template-columns:minmax(120px,30%) 1fr;border-top:1px solid var(--line)}
+.dl dt,.dl dd{margin:0;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+.dl dt{font-weight:700;padding-right:12px;color:var(--muted)}
+.dl dd{font-variant-numeric:tabular-nums}
+.dl dd mark{background:var(--mark);color:var(--mark-ink);padding:0 3px}
+
+.prompt{margin-top:16px;display:grid;gap:12px}
+.prompt p{margin:0;max-width:65ch}
+pre.ptxt{white-space:pre-wrap;word-wrap:break-word;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;font-family:var(--f-mono);font-size:13px;line-height:1.55;margin:0}
+.copied{font-size:13px;color:var(--ok);font-weight:700}
+
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:520px){
+  .dl{grid-template-columns:1fr}
+  .dl dt{border-bottom:0;padding-bottom:0}
+  .count{margin-left:0;width:100%}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Emergencia pediátrica · Sepsis · Shock · Cardiogénico · Anafilaxia · TEP</div>
+    <h1>Banqueo de <span class="hl">la enfermedad</span></h1>
+    <p class="lede">25 preguntas al estilo “señale lo MÁS CORRECTO” con distractores hechos para confundir: cortes cercanos, la dosis de otra guía, la definición antigua. Sepsis con las definiciones actuales de la GPC INSN 2024 (sin calcular SOFA ni qSOFA), shock y TEP con los protocolos SEUP 2024. Al responder, cada alternativa muestra por qué está bien o mal. Las marcadas con resaltador son <strong>detalles finos</strong>.</p>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="tab-q" aria-selected="true" data-tab="q">Preguntas</button>
+    <button role="tab" id="tab-r" aria-selected="false" data-tab="r">Lo que hay que saber</button>
+    <button role="tab" id="tab-p" aria-selected="false" data-tab="p">Prompt para otros temas</button>
+  </nav>
+
+  <section id="panel-q">
+    <div class="controls">
+      <div class="chips" id="caseChips"></div>
+      <div class="row">
+        <div class="seg" role="group" aria-label="Modo">
+          <button id="mode-study" aria-pressed="true">Estudio</button>
+          <button id="mode-exam" aria-pressed="false">Simulacro de 20</button>
+        </div>
+        <label class="toggle"><input type="checkbox" id="onlyTiny"> Solo detalles finos</label>
+        <label class="toggle"><input type="checkbox" id="onlyWrong"> Solo las que fallé</label>
+        <button class="btn" id="shuffle">Barajar</button>
+        <button class="btn" id="reset">Borrar progreso</button>
+        <span class="count" id="count"></span>
+      </div>
+    </div>
+    <div id="examTop"></div>
+    <div class="list" id="list"></div>
+    <div id="examBottom"></div>
+  </section>
+
+  <section id="panel-r" hidden>
+    <div class="repaso" id="repaso"></div>
+  </section>
+
+  <section id="panel-p" hidden>
+    <div class="prompt">
+      <p>Copia este prompt y pégalo junto con los PDF o PPT de los demás temas. Ya está ajustado al estilo de tu doctor: casos nuevos, 5 alternativas y preguntas sobre la enfermedad, no sobre los datos del paciente del PPT.</p>
+      <div class="row"><button class="btn primary" id="copyPrompt">Copiar prompt</button><span class="copied" id="copied" hidden>Copiado</span></div>
+      <pre class="ptxt" id="promptText"></pre>
+    </div>
+  </section>
+</div>
+
+<script>
+const CASES = {
+  sep:{name:'Sepsis y shock séptico', short:'Sepsis', color:'var(--c-cf)'},
+  shk:{name:'Shock', short:'Shock', color:'var(--c-des)'},
+  car:{name:'Shock cardiogénico', short:'Cardiogénico', color:'var(--c-an)'},
+  ana:{name:'Anafilaxia', short:'Anafilaxia', color:'var(--c-obe)'},
+  tep:{name:'TEP y ABCDE', short:'TEP', color:'var(--c-enc)'}
+};
+const Q = [
+{
+"c": "sep",
+"t": 0,
+"src": "GPC INSN 2024",
+"q": "Según las definiciones ACTUALES que recoge la GPC INSN 2024, sepsis es:",
+"o": [
+"Disfunción orgánica potencialmente mortal por respuesta desregulada del huésped a la infección",
+"Infección sospechada o confirmada más ≥ 2 criterios de SIRS, uno de ellos temperatura o leucocitos",
+"Infección con disfunción cardiovascular o SDRA, o con ≥ 2 disfunciones de otros órganos",
+"Respuesta inflamatoria sistémica por bacterias viables en sangre, con o sin disfunción de órganos",
+"Infección con hipotensión que persiste a pesar de una reanimación adecuada con líquidos"
+],
+"e": "Es la definición actual (Sepsis-3) que adopta la GPC: lo central es la DISFUNCIÓN ORGÁNICA causada por una respuesta desregulada del huésped. Ya no basta con inflamación (SIRS) + infección.",
+"w": [
+"Es la definición ANTIGUA (Barcelona 2005): SIRS + infección. La GPC dice que hoy quedó en segundo plano por su baja sensibilidad y especificidad.",
+"Esa era la definición antigua de SEPSIS GRAVE, término que desapareció con las definiciones actuales.",
+"Eso mezcla SIRS con bacteriemia. La bacteriemia no es sinónimo de sepsis: solo está en ~50 % de sepsis grave y shock, y puede ser transitoria y asintomática.",
+"Esa era la definición antigua de SHOCK SÉPTICO (hipotensión pese a líquidos), no la de sepsis."
+]
+},
+{
+"c": "sep",
+"t": 0,
+"src": "GPC INSN 2024",
+"q": "Respecto al cambio a las definiciones actuales de sepsis según la GPC INSN 2024, señale lo MÁS CORRECTO:",
+"o": [
+"Desaparece la sepsis grave y el concepto de shock séptico no se modificó",
+"Desaparece la sepsis grave y el SIRS pasa a ser el criterio central de sepsis",
+"Se mantiene la sepsis grave, pero ahora se define con disfunción orgánica",
+"Desaparece el shock séptico como entidad y se incluye dentro de la sepsis",
+"Desaparece el SIRS y la bacteriemia pasa a ser sinónimo de sepsis"
+],
+"e": "La GPC lo resume así: el concepto de sepsis severa desaparece, la sepsis como SIRS + infección queda en segundo plano, la sepsis se une a la disfunción orgánica, y NO se modificó el concepto de shock séptico.",
+"w": [
+"Es al revés: el SIRS quedó en segundo plano por su baja sensibilidad y especificidad; lo central ahora es la disfunción orgánica.",
+"La sepsis grave SÍ desapareció: con la definición actual toda sepsis ya implica disfunción orgánica, así que el término sobra.",
+"El shock séptico se mantiene como entidad; la GPC dice explícitamente que su concepto no se modificó.",
+"El SIRS no desaparece como concepto (se sigue describiendo), y la bacteriemia nunca es sinónimo de sepsis."
+]
+},
+{
+"c": "sep",
+"t": 1,
+"src": "GPC INSN 2024",
+"q": "Según las definiciones actuales recogidas en la GPC INSN 2024, el shock séptico se identifica por:",
+"o": [
+"Sepsis con hipotensión que requiere vasopresores para PAM ≥ 65 y lactato > 2 mmol/L pese a volumen adecuado",
+"Sepsis con hipotensión que requiere vasopresores para PAM ≥ 65 y lactato > 4 mmol/L pese a un volumen adecuado",
+"Sepsis con hipotensión que responde a bolos de 20 mL/kg y lactato > 2 mmol/L sin necesidad de vasopresores",
+"Sepsis con lactato > 2 mmol/L aunque la presión arterial se mantenga normal y sin requerir vasopresores",
+"Sepsis con PAM < 65 y lactato > 2 mmol/L medidos antes de iniciar la reanimación con líquidos"
+],
+"e": "Hipotensión persistente que necesita vasopresores para mantener PAM ≥ 65 mmHg + lactato > 2 mmol/L (18 mg/dL), a pesar de una reanimación con volumen adecuado. Con estos criterios la mortalidad supera el 40 %.",
+"w": [
+"El punto de corte del lactato es > 2 mmol/L (18 mg/dL), no > 4. El 4 era el corte de hipoperfusión de las guías antiguas de adultos.",
+"Si la hipotensión responde a los bolos y no necesita vasopresores, no cumple la definición: el requisito es necesitar vasopresores pese a volumen adecuado.",
+"El lactato alto solo indica hipoperfusión; sin hipotensión que requiera vasopresores no se habla de shock séptico según esta definición.",
+"Los criterios se evalúan DESPUÉS de una reanimación con volumen adecuado; antes de los líquidos aún no se sabe si la hipotensión persiste."
+]
+},
+{
+"c": "sep",
+"t": 0,
+"src": "GPC INSN 2024",
+"v": "Lactante de 10 meses con sospecha de shock séptico que, tras recibir más de 60 mL/kg de cristaloides en la primera hora, persiste hipotenso y con relleno capilar de 4 s.",
+"q": "Según la GPC INSN 2024, esta situación se denomina:",
+"o": [
+"Shock séptico refractario a fluidos",
+"Shock séptico resistente a catecolaminas",
+"Shock séptico compensado",
+"Sepsis grave con disfunción cardiovascular",
+"Shock séptico irreversible"
+],
+"e": "Refractario a fluidos = el shock persiste pese a > 60 mL/kg en la primera hora. Es la señal para iniciar inotrópicos (por vía periférica o central) dentro de la primera hora.",
+"w": [
+"Resistente a catecolaminas es cuando persiste pese a dopamina ≥ 10 µg/kg/min o adrenalina/noradrenalina; este paciente todavía no recibe vasoactivos.",
+"Compensado es con PA normal; este lactante está hipotenso, así que no está compensado.",
+"Sepsis grave es un término antiguo que ya no se usa, y no describe la falta de respuesta a los líquidos.",
+"Irreversible es la fase final con falla multiorgánica pese a todo tratamiento; aquí aún falta escalar a inotrópicos."
+]
+},
+{
+"c": "sep",
+"t": 1,
+"src": "GPC INSN 2024",
+"q": "Según la GPC INSN 2024, el shock séptico es resistente a catecolaminas cuando persiste a pesar de:",
+"o": [
+"Dopamina ≥ 10 µg/kg/min o adrenalina o noradrenalina",
+"Dobutamina ≥ 20 µg/kg/min o milrinona en perfusión",
+"Dopamina ≥ 5 µg/kg/min mantenida durante más de 6 horas",
+"Más de 60 mL/kg de cristaloides en la primera hora",
+"Adrenalina más hidrocortisona a dosis de estrés"
+],
+"e": "Resistente a catecolaminas: persiste con dopamina ≥ 10 µg/kg/min o con catecolaminas de acción directa (adrenalina, noradrenalina). En ese punto se considera insuficiencia suprarrenal y se da hidrocortisona.",
+"w": [
+"Es el distractor clásico de los bancos: la dobutamina y la milrinona son inotrópicos o inodilatadores, no definen la resistencia a catecolaminas.",
+"El corte de dopamina es ≥ 10 µg/kg/min, y la definición no exige un tiempo de 6 horas.",
+"Eso define el shock REFRACTARIO A FLUIDOS, el paso anterior.",
+"La hidrocortisona es el TRATAMIENTO del shock resistente a catecolaminas, no parte de su definición."
+]
+},
+{
+"c": "sep",
+"t": 0,
+"src": "GPC INSN 2024",
+"v": "Niño de 6 años con leucemia en quimioterapia, fiebre de 38,8 °C, taquicardia y taquipnea. Está despierto, con PA normal y relleno capilar de 2 s.",
+"q": "Según la GPC INSN 2024, ¿qué hacer con el código sepsis?",
+"o": [
+"Activarlo: con factor de riesgo bastan 2 ítems y fiebre",
+"No activarlo: se necesitan al menos 3 ítems además de la fiebre",
+"No activarlo: sin hipotensión ni alteración mental no hay sepsis",
+"Activarlo solo si el lactato es > 2 mmol/L o la PCR está elevada",
+"Activarlo solo cuando el hemocultivo inicial resulte positivo"
+],
+"e": "El código se activa con fiebre + ≥ 3 ítems (alteración mental, taquicardia o bradicardia, taquipnea, hipotensión, relleno > 3 s, pulsos alterados, piel moteada o púrpura). Si el paciente tiene FACTORES DE RIESGO (inmunodeprimido, oncológico, catéter, < 1 año, etc.) bastan 2. También se activa con fiebre + hipotensión.",
+"w": [
+"Tres ítems es el requisito del niño SIN factores de riesgo; este paciente es oncológico en quimioterapia, así que bastan 2.",
+"La hipotensión es un signo tardío; el código busca detectar ANTES de que aparezca. Esperarla es llegar tarde.",
+"El diagnóstico de sospecha es clínico; ninguna prueba debe retrasar la activación ni el antibiótico.",
+"Esperar el hemocultivo (24–48 h) retrasaría el antibiótico, que debe darse en la primera hora."
+]
+},
+{
+"c": "sep",
+"t": 1,
+"src": "GPC INSN 2024",
+"q": "Según la GPC INSN 2024, los tiempos objetivo del manejo inicial del niño con sepsis y shock son:",
+"o": [
+"Acceso vascular en 5 min, líquidos en 15 min, antibiótico e inotrópicos en 60 min",
+"Acceso vascular en 15 min, líquidos en 30 min, antibiótico e inotrópicos en 60 min",
+"Acceso vascular en 5 min, líquidos en 15 min y antibiótico recién con los cultivos",
+"Acceso vascular en 5 min, antibiótico en 15 min e inotrópicos solo por vía central",
+"Acceso vascular en 90 s, líquidos en 5 min y antibiótico al tener el hemocultivo"
+],
+"e": "Objetivos de la GPC: acceso venoso o intraóseo en 5 min, fluidoterapia en 15 min, antibiótico empírico en 60 min (hemocultivo solo si no lo retrasa) e inotrópicos, por vía central o PERIFÉRICA, en 60 min.",
+"w": [
+"Los tiempos son más cortos: el acceso vascular debe estar en 5 min y los líquidos en 15 min.",
+"El cultivo se toma si no retrasa el antibiótico; nunca se espera el resultado para iniciarlo.",
+"El antibiótico va en la primera hora (no a los 15 min), y los inotrópicos se pueden iniciar por vía periférica sin esperar la central.",
+"Los 90 s son el plazo para intentar la vía periférica antes de pasar a intraósea, no el objetivo del acceso; y el antibiótico no espera el hemocultivo."
+]
+},
+{
+"c": "sep",
+"t": 0,
+"src": "GPC INSN 2024",
+"q": "Respecto al SIRS según la GPC INSN 2024, señale lo MÁS CORRECTO:",
+"o": [
+"Requiere ≥ 2 de 4 criterios; uno debe ser temperatura o leucocitos",
+"Requiere ≥ 2 de 4 criterios y uno debe ser la taquicardia o la taquipnea",
+"Requiere ≥ 3 de 4 criterios, siempre con temperatura > 38,5 °C o < 36 °C",
+"Hoy es el criterio central para definir sepsis por su alta especificidad",
+"Siempre se asocia a infección, por eso equivale a bacteriemia demostrada"
+],
+"e": "SIRS = ≥ 2 de 4: temperatura central > 38,5 o < 36 °C; taquicardia (o bradicardia en < 1 año); taquipnea; leucocitosis, leucopenia o > 10 % de inmaduros. Uno debe ser OBLIGATORIAMENTE la temperatura o los leucocitos.",
+"w": [
+"El criterio obligatorio es la temperatura o el recuento leucocitario, no la FC ni la FR (que suben con dolor, llanto o ansiedad).",
+"Bastan 2 de 4 criterios, no 3.",
+"Es al revés: la GPC dice que el SIRS es poco útil por su baja sensibilidad y especificidad y quedó en segundo plano.",
+"El SIRS puede o no asociarse a infección (quemaduras, pancreatitis, trauma), y la bacteriemia no es sinónimo de sepsis."
+]
+},
+{
+"c": "sep",
+"t": 0,
+"src": "GPC INSN 2024",
+"v": "Niño de 4 años con shock séptico, sin crepitantes, galope ni hepatomegalia, que ya tiene una vía periférica.",
+"q": "Según la GPC INSN 2024, la fluidoterapia inicial MÁS CORRECTA es:",
+"o": [
+"Cristaloide 20 mL/kg en 5 min, repitiendo hasta 60 mL/kg y reevaluando",
+"Cristaloide 10 mL/kg en 20 min, repitiendo hasta 40 mL/kg y reevaluando",
+"Dextrosa 5 % en SSF 20 mL/kg en 1 h, repitiendo hasta mejorar perfusión",
+"Albúmina 5 % 20 mL/kg como primera elección por quedarse en el vaso",
+"Ringer lactato 20 mL/kg obligatorio, porque el SSF está contraindicado"
+],
+"e": "La GPC INSN indica bolos de cristaloide de 20 mL/kg en 5 min (o lo más rápido posible), repetidos hasta 60 mL/kg en la primera hora, vigilando signos de sobrecarga. No hay preferencia entre SSF y Ringer.",
+"w": [
+"Ojo con las fuentes: 10 mL/kg es lo que usa el protocolo SEUP 2024 de shock en general. Para sepsis, la GPC INSN dice 20 mL/kg en 5 min hasta 60 mL/kg.",
+"No se usan soluciones con dextrosa ni hipotónicas para expandir: no se quedan en el vaso y causan hiperglucemia o hiponatremia.",
+"La albúmina al 5 % es opción solo si no mejora con los cristaloides iniciales y hay hipoalbuminemia o acidosis hiperclorémica; no es la primera elección.",
+"La GPC dice que no hay evidencia suficiente para preferir SSF o Ringer; ninguno está contraindicado."
+]
+},
+{
+"c": "shk",
+"t": 0,
+"src": "SEUP 2024",
+"q": "En pediatría, el tipo de shock MÁS frecuente es:",
+"o": [
+"Hipovolémico",
+"Séptico (distributivo)",
+"Cardiogénico",
+"Anafiláctico",
+"Obstructivo"
+],
+"e": "El hipovolémico (vómitos, diarrea, hemorragia, quemaduras) es el más frecuente en niños. El séptico es el segundo y el de mayor mortalidad.",
+"w": [
+"El séptico es el segundo más frecuente y el más grave, pero no el primero.",
+"El cardiogénico es poco frecuente (5–13 % de los shocks en urgencias pediátricas).",
+"El anafiláctico es distributivo y raro como causa de shock (la hipotensión es poco frecuente en la anafilaxia pediátrica).",
+"El obstructivo (neumotórax a tensión, taponamiento) es el menos frecuente."
+]
+},
+{
+"c": "shk",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto a la clínica del shock en el niño, señale lo MÁS CORRECTO:",
+"o": [
+"La taquicardia es el signo más precoz, aunque es poco específica",
+"La hipotensión es el signo más precoz y define al shock compensado",
+"La cianosis central es el primer signo de mala perfusión periférica",
+"La bradicardia aparece temprano como mecanismo de compensación",
+"Con PA normal para la edad se descarta el shock en el niño"
+],
+"e": "El niño compensa subiendo la FC y las resistencias vasculares, por eso la taquicardia es lo primero (muy sensible, poco específica: también la causan fiebre, dolor y ansiedad) y la PA se mantiene hasta tarde.",
+"w": [
+"La hipotensión es TARDÍA: define el shock DEScompensado. En el compensado la PA es normal.",
+"La cianosis es un signo tardío; lo primero en la piel es palidez, frialdad y piel moteada.",
+"La bradicardia es un signo PREterminal (paro inminente), no de compensación.",
+"Es justamente la trampa: el shock compensado tiene PA normal; si esperas la hipotensión, llegas tarde."
+]
+},
+{
+"c": "shk",
+"t": 1,
+"src": "SEUP 2024",
+"v": "Lactante de 8 meses en shock séptico que no mejora tras 60 mL/kg de cristaloides. Piel fría y moteada, relleno de 5 s y pulsos débiles. Solo tiene una vía periférica.",
+"q": "Según el protocolo SEUP 2024, la conducta MÁS CORRECTA es:",
+"o": [
+"Iniciar adrenalina 0,05–0,3 µg/kg/min por la vía periférica",
+"Iniciar noradrenalina 0,05 µg/kg/min por la vía periférica",
+"Canalizar una vía central antes de iniciar cualquier inotrópico",
+"Iniciar dobutamina 10 µg/kg/min como primer vasoactivo",
+"Dar un bolo más de 20 mL/kg y reevaluar antes del inotrópico"
+],
+"e": "Es un shock FRÍO (vasoconstricción, bajo gasto) refractario a fluidos: el vasoactivo de inicio es la adrenalina, por vía periférica o intraósea, sin esperar la vía central.",
+"w": [
+"La noradrenalina es para el shock CALIENTE (piel caliente, pulsos saltones, vasodilatación); este es frío.",
+"SEUP y la GPC INSN insisten: los inotrópicos se inician por vía periférica o IO; buscar la central retrasa el tratamiento.",
+"La dobutamina es segunda opción según la clínica (o primera en el cardiogénico con PA normal), no el vasoactivo inicial del shock séptico frío.",
+"Ya recibió 60 mL/kg: es refractario a fluidos y lo indicado son los inotrópicos; más volumen arriesga sobrecarga."
+]
+},
+{
+"c": "shk",
+"t": 0,
+"src": "SEUP 2024",
+"v": "Lactante de 3 meses en shock, con hepatomegalia de 4 cm, crepitantes bibasales y ritmo de galope.",
+"q": "Según el algoritmo del protocolo SEUP 2024, ¿qué hacer con los líquidos?",
+"o": [
+"No dar bolos y pasar a inotrópicos, sospechando causa cardiogénica",
+"Dar un bolo de 20 mL/kg rápido y reevaluar a los 5 minutos",
+"Dar bolos de 10 mL/kg hasta completar 40–60 mL/kg en 1 hora",
+"Dar albúmina al 5 % en lugar de cristaloide por los crepitantes",
+"Restringir líquidos y esperar el ecocardiograma para decidir"
+],
+"e": "El algoritmo SEUP pregunta primero: ¿hepatomegalia o crepitantes? Si los hay, NO se dan bolos y se pasa a inotrópicos, porque el corazón no tolera más volumen (piensa en cardiogénico).",
+"w": [
+"Hepatomegalia, crepitantes y galope son signos de sobrecarga: más volumen empeoraría el edema pulmonar.",
+"Ese es el esquema SEUP para el niño SIN signos de sobrecarga; con hepatomegalia y crepitantes no se dan bolos.",
+"La albúmina sigue siendo volumen; no soluciona la sobrecarga y puede empeorar el edema pulmonar.",
+"No se espera ninguna prueba para tratar: se inician inotrópicos mientras se hace la ecografía a pie de cama."
+]
+},
+{
+"c": "shk",
+"t": 0,
+"src": "SEUP 2024 + GPC INSN",
+"q": "En la secuencia rápida de intubación de un niño en shock séptico, señale lo MÁS CORRECTO:",
+"o": [
+"Ketamina: mantiene o eleva las resistencias vasculares",
+"Etomidato, porque es el sedante con más estabilidad hemodinámica",
+"Midazolam, porque además controla una posible convulsión",
+"Propofol, porque es de acción corta y fácil de titular",
+"Tiopental, porque protege el cerebro y baja la presión intracraneal"
+],
+"e": "La ketamina es el sedante de primera elección: mantiene o incluso aumenta las resistencias vasculares sistémicas y no deprime al corazón. Se recomienda carga de volumen e inotrópico antes de intubar.",
+"w": [
+"Parece estable, pero el etomidato suprime la suprarrenal (inhibe el cortisol) y está contraindicado en el shock séptico (SEUP); la GPC lo deja solo si no hay ketamina.",
+"El midazolam produce hipotensión; SEUP no lo recomienda en el shock.",
+"El propofol causa vasodilatación e hipotensión; la GPC no lo recomienda.",
+"Los barbitúricos (tiopental) causan hipotensión marcada; la GPC no los recomienda en sepsis."
+]
+},
+{
+"c": "shk",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto a lo que NO se debe hacer en el shock pediátrico según SEUP 2024, señale lo MÁS CORRECTO:",
+"o": [
+"No dar bicarbonato: no reduce la mortalidad y altera los electrolitos",
+"Dar bicarbonato 1 mEq/kg si el pH es < 7,25 para mejorar la contractilidad",
+"Esperar la gasometría y el lactato antes de iniciar los bolos de líquido",
+"Hacer la punción lumbar antes del antibiótico si se sospecha meningitis",
+"Dar suero glucosado al 5 % en bolo para prevenir la hipoglucemia"
+],
+"e": "SEUP: el bicarbonato no ha demostrado reducir la morbimortalidad en la acidosis metabólica del paciente crítico y puede causar hipernatremia, hipopotasemia e hipocalcemia.",
+"w": [
+"No hay beneficio demostrado del bicarbonato para la contractilidad; además empeora el calcio iónico, que el corazón necesita.",
+"Los exámenes nunca retrasan el tratamiento: los bolos empiezan apenas hay acceso vascular.",
+"La punción lumbar está contraindicada en el paciente inestable: se difiere y el antibiótico no espera.",
+"Las soluciones glucosadas son hipotónicas al metabolizarse y no expanden; la hipoglucemia se corrige con dextrosa 10 % 2–5 mL/kg aparte."
+]
+},
+{
+"c": "car",
+"t": 0,
+"src": "Emerg Pediatr 2022",
+"v": "Escolar de 8 años con miocarditis viral: taquicardia, galope, hepatomegalia y extremidades frías, con PA normal para la edad.",
+"q": "Según Aranzazu y Galvis 2022, el inotrópico de PRIMERA línea es:",
+"o": [
+"Dobutamina 5–20 µg/kg/min",
+"Noradrenalina 0,05 µg/kg/min",
+"Milrinona 0,5–0,75 µg/kg/min",
+"Vasopresina 0,05 U/kg/h",
+"Levosimendán 0,1–0,2 µg/kg/min"
+],
+"e": "Con PA conservada, la primera línea es la dobutamina: aumenta la contractilidad y baja la poscarga, así el corazón débil bombea más con menos esfuerzo.",
+"w": [
+"La noradrenalina es vasopresora: se reserva para la hipotensión con resistencias bajas; aumentar la poscarga a un corazón débil empeora el gasto.",
+"La milrinona es la ALTERNATIVA a la dobutamina (posoperatorio, falla de VD, hipertensión pulmonar), no la primera línea.",
+"La vasopresina es la última opción en el shock cardiogénico.",
+"El levosimendán es de segunda línea."
+]
+},
+{
+"c": "car",
+"t": 0,
+"src": "Emerg Pediatr 2022",
+"q": "En el shock cardiogénico, el manejo MÁS CORRECTO de la precarga es:",
+"o": [
+"Bolos de 5–10 mL/kg con cautela y furosemida si hay sobrecarga",
+"Bolos de 20 mL/kg hasta 60 mL/kg, igual que en el shock séptico",
+"Restricción absoluta de líquidos y furosemida en todos los casos",
+"Bolos de 10 mL/kg de albúmina 5 % para no sobrecargar el pulmón",
+"Bolos de 5–10 mL/kg y nitroprusiato si aparecen crepitantes"
+],
+"e": "Líquidos con cautela, en alícuotas de 5–10 mL/kg, reevaluando signos de sobrecarga; si hay sobrecarga, furosemida 0,5–2 mg/kg/dosis.",
+"w": [
+"El corazón que falla no tolera grandes volúmenes: 20 mL/kg hasta 60 mL/kg provoca edema pulmonar y hepatomegalia.",
+"No todos están sobrecargados (pueden tener hipovolemia asociada por vómitos o mala ingesta); por eso se dan alícuotas pequeñas con cautela.",
+"La albúmina también es volumen: no evita la sobrecarga y no está indicada en este escenario.",
+"La sobrecarga de volumen se trata con diurético de asa (furosemida); el nitroprusiato baja la poscarga y puede causar hipotensión."
+]
+},
+{
+"c": "car",
+"t": 1,
+"src": "Emerg Pediatr 2022 + SEUP",
+"v": "RN de 6 días, previamente bien, que llega en shock súbito con pulsos femorales ausentes, hepatomegalia y acidosis.",
+"q": "La medida específica MÁS importante es:",
+"o": [
+"Prostaglandina E1 en infusión para reabrir el ductus",
+"Indometacina para cerrar el ductus arterioso persistente",
+"Bolos de 20 mL/kg hasta 60 mL/kg y antibióticos",
+"Adenosina en bolo rápido por probable taquicardia",
+"Oxígeno al 100 % para subir la saturación preductal"
+],
+"e": "Primera semana + shock + pulsos femorales ausentes = cardiopatía con circulación sistémica ductus dependiente (p. ej., coartación crítica) que se descompensa al cerrarse el ductus. La PGE1 lo reabre y salva la vida.",
+"w": [
+"La indometacina CIERRA el ductus: en una lesión ductus dependiente sería mortal.",
+"Los antibióticos se dan porque la sepsis es el diferencial, pero los bolos grandes empeoran a un corazón que falla; lo específico es la PGE1.",
+"No hay datos de taquiarritmia; los pulsos femorales ausentes orientan a obstrucción del lado izquierdo.",
+"El oxígeno a alta concentración favorece el cierre del ductus; en estas cardiopatías se usa con cautela."
+]
+},
+{
+"c": "ana",
+"t": 1,
+"src": "SEUP 2024",
+"v": "Niño de 20 kg con urticaria generalizada, sibilancias y vómitos 10 minutos después de comer maní.",
+"q": "Según el protocolo SEUP 2024 de anafilaxia, el tratamiento inicial MÁS CORRECTO es:",
+"o": [
+"Adrenalina 1:1000 IM 0,2 mL en la cara anterolateral del muslo",
+"Adrenalina 1:1000 SC 0,2 mL en la región deltoidea",
+"Adrenalina 1:10 000 IV 2 mL en bolo lento",
+"Clorfenamina 0,15 mg/kg IV más hidrocortisona 10 mg/kg IV",
+"Adrenalina 1:1000 IM 0,5 mL en la cara anterolateral del muslo"
+],
+"e": "Adrenalina IM 0,01 mg/kg = 0,01 mL/kg de 1:1000 sin diluir: 20 kg × 0,01 = 0,2 mL. En el muslo (vasto lateral), repetible cada 5–15 min. Máximo 0,5 mg en el protocolo de anafilaxia.",
+"w": [
+"La vía SC y el deltoides dan picos más lentos; la IM en el muslo alcanza niveles más rápido.",
+"La adrenalina IV en bolo se reserva para el paro; en perfusión, si no responde a 2 dosis IM. En bolo causa arritmias y crisis hipertensiva.",
+"Antihistamínicos y corticoides NO son primera línea: son lentos, no revierten el shock ni el broncoespasmo y no deben retrasar la adrenalina.",
+"0,5 mL es la dosis MÁXIMA (para ≥ 50 kg); a este niño de 20 kg le corresponden 0,2 mL."
+]
+},
+{
+"c": "ana",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto al diagnóstico de anafilaxia, señale lo MÁS CORRECTO:",
+"o": [
+"Es clínico; sin lesiones en la piel basta la hipotensión tras un alérgeno conocido",
+"Requiere siempre lesiones en la piel, que aparecen en todos los casos de anafilaxia",
+"Se confirma con una triptasa elevada, que debe tenerse antes de dar la adrenalina",
+"Requiere hipotensión; sin ella se maneja como una reacción alérgica leve o moderada",
+"Exige compromiso respiratorio y digestivo a la vez para considerar que es anafilaxia"
+],
+"e": "El diagnóstico es puramente clínico (criterios NIAID/FAAN, basta uno). La piel está en ~90 %, pero puede faltar: el criterio 3 es solo hipotensión tras exposición a un alérgeno conocido.",
+"w": [
+"La piel aparece en ~90 %, no en todos; por eso hay un criterio sin piel y hay casos que se escapan.",
+"La triptasa es la prueba más útil, pero nunca retrasa el tratamiento y en niños o por alimentos sube poco.",
+"La hipotensión es poco frecuente en niños; piel + respiratorio ya cumple el criterio 1 sin hipotensión.",
+"Basta ≥ 2 sistemas cualquiera tras un alérgeno probable (por ejemplo, piel + digestivo); no tienen que ser esos dos."
+]
+},
+{
+"c": "ana",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto a la segunda línea y la reacción bifásica en la anafilaxia, señale lo MÁS CORRECTO:",
+"o": [
+"Los corticoides no se usan de rutina y no previenen la reacción bifásica",
+"Los corticoides se dan a todos porque previenen la reacción bifásica",
+"El antihistamínico basta si solo hay urticaria y vómitos tras el alérgeno",
+"La reacción bifásica ocurre en ~50 % y casi siempre después de las 24 h",
+"Si toma β-bloqueadores se duplica la adrenalina en lugar del glucagón"
+],
+"e": "SEUP: los corticoides ya no se recomiendan de rutina (solo asma mal controlada o refractaria a 2 dosis de adrenalina) porque no previenen la bifásica. La bifásica ocurre en ~5 %, casi siempre en 6–8 h.",
+"w": [
+"Era la práctica antigua; los estudios recientes no muestran que prevengan la bifásica e incluso se asocian a más mortalidad.",
+"Urticaria + vómitos tras un alérgeno = 2 sistemas = anafilaxia: el tratamiento es adrenalina IM, no antihistamínico.",
+"La bifásica ocurre en ~5 % y casi siempre en las primeras 6–8 h (hasta 24 h); por eso se observa al menos 6 h si recibió 2 dosis.",
+"Con β-bloqueadores la adrenalina funciona mal; se agrega glucagón 20–30 µg/kg (máx 1 mg)."
+]
+},
+{
+"c": "tep",
+"t": 0,
+"src": "SEUP 2024",
+"v": "Escolar con palidez y piel moteada, letárgico, que no reconoce a sus padres; respira sin tiraje, sin ruidos ni aleteo.",
+"q": "Según el TEP, el diagnóstico fisiopatológico MÁS CORRECTO es:",
+"o": [
+"Shock descompensado",
+"Shock compensado",
+"Fallo cardiorrespiratorio",
+"Disfunción del SNC",
+"Insuficiencia respiratoria"
+],
+"e": "Circulatorio alterado (palidez, moteado) + apariencia alterada (letárgico, no reconoce) con respiratorio normal = shock DESCOMPENSADO: la mala perfusión ya afecta al cerebro.",
+"w": [
+"Compensado es solo el lado circulatorio; aquí también está alterada la apariencia.",
+"Fallo cardiorrespiratorio exige los 3 lados alterados; el respiratorio es normal.",
+"Disfunción del SNC es apariencia alterada SOLA; aquí el circulatorio también está alterado.",
+"Insuficiencia respiratoria es respiratorio + apariencia; aquí el lado respiratorio es normal."
+]
+},
+{
+"c": "tep",
+"t": 0,
+"src": "SEUP 2024",
+"q": "Respecto al triángulo de evaluación pediátrica (TEP), señale lo MÁS CORRECTO:",
+"o": [
+"No se toca al paciente ni se miden signos vitales; toma segundos",
+"Incluye la saturación y la frecuencia cardiaca para clasificar la gravedad",
+"El lado circulatorio es el más importante porque refleja el gasto cardiaco",
+"La cianosis es un signo precoz del lado circulatorio en el niño con shock",
+"Con 2 de sus 3 lados normales, el paciente se considera todavía estable"
+],
+"e": "El TEP es visual y auditivo: sin tocar, sin signos vitales ni saturación, en segundos (máx. 1 min). Su objetivo es decidir si hay que estabilizar, no hacer el diagnóstico.",
+"w": [
+"El TEP no mide signos vitales ni saturación; eso se hace en el ABCDE.",
+"El lado más importante es la APARIENCIA, porque refleja la perfusión y oxigenación cerebral.",
+"La cianosis es un signo TARDÍO en el shock (y puede ser de causa respiratoria).",
+"Con UN solo lado alterado el paciente ya se considera inestable."
+]
+},
+{
+"c": "tep",
+"t": 1,
+"src": "SEUP 2024",
+"q": "Respecto a la evaluación primaria ABCDE según SEUP 2024, señale lo MÁS CORRECTO:",
+"o": [
+"Sin vía periférica en 5 min, la intraósea va antes que la central",
+"En la A la cabeza va lateralizada y en hiperextensión en el lactante",
+"La saturación no se altera con el movimiento ni con la mala perfusión",
+"En la D, la P del AVPU corresponde a la respuesta de las pupilas",
+"En la E se descubre solo la zona afectada para evitar la hipotermia"
+],
+"e": "En la C: dos vías periféricas; si no se consiguen en ≤ 5 min (inmediato si está muy grave) se usa la intraósea. La vía central es el último recurso.",
+"w": [
+"La cabeza va en posición NEUTRA (leve hiperextensión solo en escolares y adolescentes) con maniobra frente-mentón; lateralizarla no abre la vía aérea.",
+"SÍ se altera: el movimiento y la mala perfusión dan lecturas erróneas, y es normal en intoxicación por CO o metahemoglobinemia.",
+"La P es PAIN (respuesta al dolor), equivalente a Glasgow ~8. Las pupilas se valoran aparte, siempre.",
+"En la E se desviste COMPLETAMENTE para no perder lesiones, y luego se vuelve a tapar."
+]
+},
+{
+"c": "tep",
+"t": 1,
+"src": "SEUP 2024",
+"q": "Respecto a los signos vitales en el niño grave según SEUP 2024, señale lo MÁS CORRECTO:",
+"o": [
+"PAS mínima 70 + 2 × edad; bradicardia crítica < 100 en el neonato",
+"PAS mínima 60 + 2 × edad; bradicardia crítica < 80 en el neonato",
+"PAS mínima 90 + 2 × edad; bradicardia crítica < 60 en el neonato",
+"PAS mínima 70 + 2 × edad; bradicardia crítica < 60 en el neonato",
+"PAS mínima 80 + 2 × edad; bradicardia crítica < 100 en el neonato"
+],
+"e": "PAS aceptable = 70 + (2 × edad en años) entre 1 y 10 años. La bradicardia es un estado crítico si es < 60 lpm en niños y < 100 lpm en neonatos.",
+"w": [
+"La fórmula usa 70, no 60, y en el neonato el corte de bradicardia crítica es < 100, no < 80 (distractores de los bancos).",
+"90 es la PAS mínima de los mayores de 10 años, no la base de la fórmula; < 60 es el corte de bradicardia en niños, no en neonatos.",
+"La fórmula es correcta, pero < 60 es el corte de bradicardia para niños; en el neonato es < 100.",
+"La base de la fórmula es 70, no 80; el corte neonatal sí es < 100."
+]
+}
+];
+const REPASO = {
+"sep": [
+[
+"Sepsis (actual)",
+"Disfunción orgánica potencialmente mortal por <mark>respuesta desregulada</mark> del huésped a la infección"
+],
+[
+"Cambio",
+"Desaparece <mark>sepsis grave</mark> · SIRS en segundo plano · shock séptico <mark>no cambió</mark>"
+],
+[
+"Shock séptico",
+"Vasopresor para PAM ≥ 65 + lactato <mark>&gt; 2 mmol/L</mark> pese a volumen"
+],
+[
+"Refractario a fluidos",
+"Persiste tras <mark>&gt; 60 mL/kg</mark> en la 1.ª hora"
+],
+[
+"Resistente a catecolaminas",
+"Dopamina <mark>≥ 10</mark> o adrenalina/noradrenalina → hidrocortisona"
+],
+[
+"SIRS",
+"≥ 2 de 4 · uno <mark>temperatura o leucocitos</mark>"
+],
+[
+"Código sepsis",
+"Fiebre + ≥ 3 ítems · con factor de riesgo <mark>≥ 2</mark> · fiebre + hipotensión"
+],
+[
+"Tiempos",
+"Acceso 5 min · líquidos 15 min · ATB e inotrópicos 60 min"
+],
+[
+"Bolos INSN",
+"Cristaloide <mark>20 mL/kg en 5 min</mark> hasta 60 mL/kg"
+]
+],
+"shk": [
+[
+"Más frecuente",
+"Hipovolémico · 2.º séptico"
+],
+[
+"Primer signo",
+"Taquicardia · hipotensión = tardía (descompensado)"
+],
+[
+"Bolos SEUP",
+"10 mL/kg rápidos hasta 40–60 mL/kg · <mark>no si hepatomegalia o crepitantes</mark>"
+],
+[
+"Vasoactivos",
+"Frío: <mark>adrenalina</mark> · caliente: noradrenalina · por vía periférica/IO"
+],
+[
+"Intubación",
+"<mark>Ketamina</mark> · no etomidato (suprarrenal), no midazolam ni propofol"
+],
+[
+"No hacer",
+"Bicarbonato · hipotónicos · PL inestable · esperar exámenes"
+]
+],
+"car": [
+[
+"1.ª línea",
+"<mark>Dobutamina</mark> 5–20 · alternativa milrinona"
+],
+[
+"Líquidos",
+"<mark>5–10 mL/kg</mark> con cautela · furosemida si sobrecarga"
+],
+[
+"Hipotensión",
+"Noradrenalina · vasopresina al final"
+],
+[
+"Neonato ductus",
+"<mark>PGE1</mark> · oxígeno con cautela"
+]
+],
+"ana": [
+[
+"Diagnóstico",
+"Clínico · piel ~90 % · sin piel: hipotensión tras alérgeno conocido"
+],
+[
+"Adrenalina",
+"IM <mark>0,01 mg/kg</mark> 1:1000 muslo · máx 0,5 mg · cada 5–15 min"
+],
+[
+"No 1.ª línea",
+"Antihistamínicos y corticoides · no previenen bifásica"
+],
+[
+"Bifásica",
+"~5 % · 6–8 h"
+],
+[
+"β-bloqueador",
+"Glucagón 20–30 µg/kg"
+]
+],
+"tep": [
+[
+"TEP",
+"Sin tocar, sin signos vitales · segundos · 1 lado alterado = inestable"
+],
+[
+"Circ + apariencia",
+"<mark>Shock descompensado</mark>"
+],
+[
+"Resp + apariencia",
+"Insuficiencia respiratoria"
+],
+[
+"ABCDE",
+"Cabeza neutra · SatO₂ engaña · IO antes que central · AVPU P = dolor · desvestir completo"
+],
+[
+"Vitales",
+"PAS <mark>70 + 2 × edad</mark> · bradicardia &lt; 60 niños, <mark>&lt; 100 neonatos</mark>"
+]
+]
+};
+
+const PROMPT = `Actúa como el docente que arma el EXAMEN TEÓRICO FINAL del externado de Pediatría. Te paso:
+(1) las presentaciones (PDF/PPT) de los casos clínicos que expusieron mis compañeros en la SEMANA __, y
+(2) bancos de exámenes anteriores para que copies el estilo.
+
+QUÉ PREGUNTA EL DOCTOR
+- NO pregunta datos de identidad del paciente del PPT (nombre, procedencia, edad exacta, ocupación de los padres).
+- SÍ pregunta sobre la ENFERMEDAD de cada caso: definición, epidemiología con cifras, fisiopatología, clasificación y puntos de corte, criterios diagnósticos, signos y epónimos (aunque salgan chiquitos en una imagen, como el signo de Wimberger), exámenes y su interpretación, diagnósticos diferenciales, tratamiento con dosis (mg/kg, frecuencia, duración, máximo), lo que NO se debe hacer, complicaciones, pronóstico y prevención.
+- El caso del PPT cambia cada ciclo, pero la enfermedad no. Usa el PPT para saber qué temas y qué datos se expusieron, y complétalo con las guías vigentes (OMS, MINSA/Norma Técnica, AAP, DSM-5-TR, ILAE, etc.).
+
+ESTILO DE LAS PREGUNTAS (igual que los bancos)
+- Viñeta clínica NUEVA, corta y realista (edad, tiempo de enfermedad, signos vitales, hallazgos y exámenes clave), distinta al paciente del PPT.
+- Enunciado tipo: “Señale lo MÁS CORRECTO”, “¿Cuál es el diagnóstico MÁS probable?”, “Marque la intervención MÁS ADECUADA”.
+- 5 alternativas (a–e), una sola correcta, todas de longitud y estructura parecidas: la correcta NO puede ser siempre la más larga (que lo sea en no más de 1 de cada 4 preguntas). Distractores con errores sutiles: un número cambiado (0,09 % vs 0,9 %; 20 vs 40 mL/kg), conceptos invertidos (IgA vs IgM, aguda vs crónica, P/E vs P/T), cortes de adulto en vez de pediátricos o una enfermedad parecida.
+- También preguntas sin viñeta, de enunciados sobre la enfermedad.
+
+QUÉ ENTREGAR
+1. Por cada enfermedad, mínimo 20 preguntas con este formato:
+   N. [Enfermedad] [Fuente: PPT / Guía / PPT + guía] [DETALLE FINO si aplica]
+   Viñeta (si hay)
+   Pregunta
+   a) … b) … c) … d) … e) …
+   Respuesta: letra
+   Explicación: por qué es la correcta y, alternativa por alternativa, por qué cada distractor está mal (cuál es el dato real o de dónde sale el error).
+   Si el PPT contradice la guía, dilo con “Ojo:”.
+2. Al menos 30 % de preguntas de DETALLE FINO (cortes numéricos, signos con nombre propio, dosis, excepciones).
+3. Al final de cada enfermedad, una tabla “Lo que hay que saber” (concepto | dato clave) con todos los puntos de corte, criterios, dosis y signos.
+
+Lee todo el PPT, incluido el texto pequeño de imágenes, tablas y notas al pie. No inventes datos: si no estás seguro de un dato de guía, dilo. Responde en español.`;
+
+/* ---------- estado ---------- */
+Q.forEach((x,i)=>{ x.id = x.c + '-' + i; });
+const KEY = 'banqueo-emergencia-v1';
+let saved = {};
+try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){ saved = {}; }
+function persist(){ try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch(e){} }
+
+const state = { cases:new Set(), tiny:false, wrong:false, mode:'study', order:Q.map(q=>q.id), exam:null };
+const optOrder = new Map();
+function shuffle(a){ const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; }
+function orderFor(q){ if(!optOrder.has(q.id)) optOrder.set(q.id, shuffle(q.o.map((_,i)=>i))); return optOrder.get(q.id); }
+const byId = Object.fromEntries(Q.map(q=>[q.id,q]));
+
+function filtered(){
+  return state.order.map(id=>byId[id]).filter(q=>
+    (state.cases.size===0 || state.cases.has(q.c)) &&
+    (!state.tiny || q.t) &&
+    (!state.wrong || (q.id in saved && saved[q.id]!==0))
+  );
+}
+
+/* ---------- stats ---------- */
+function renderStats(){
+  document.getElementById('stats').innerHTML = Object.keys(CASES).map(k=>{
+    const qs = Q.filter(q=>q.c===k);
+    const done = qs.filter(q=>q.id in saved).length;
+    const ok = qs.filter(q=>saved[q.id]===0).length;
+    const pct = qs.length ? Math.round(ok/qs.length*100) : 0;
+    return `<div class="stat"><div class="nm"><span class="dot" style="background:${CASES[k].color}"></span>${CASES[k].short}</div>
+      <div class="nums">${ok}/${qs.length} bien · ${done} hechas</div><div class="bar"><i style="width:${pct}%"></i></div></div>`;
+  }).join('');
+}
+
+/* ---------- chips ---------- */
+function renderChips(){
+  const el = document.getElementById('caseChips');
+  const all = `<button class="chip" aria-pressed="${state.cases.size===0}" data-case="">Todos <span class="src">${Q.length}</span></button>`;
+  el.innerHTML = all + Object.keys(CASES).map(k=>{
+    const n = Q.filter(q=>q.c===k).length;
+    return `<button class="chip" aria-pressed="${state.cases.has(k)}" data-case="${k}"><span class="dot" style="background:${CASES[k].color}"></span>${CASES[k].short} <span class="src">${n}</span></button>`;
+  }).join('');
+}
+document.getElementById('caseChips').addEventListener('click', e=>{
+  const b = e.target.closest('[data-case]'); if(!b) return;
+  const k = b.dataset.case;
+  if(!k) state.cases.clear(); else if(state.cases.has(k)) state.cases.delete(k); else state.cases.add(k);
+  if(state.mode==='exam') newExam();
+  renderChips(); renderList();
+});
+
+/* ---------- tarjetas ---------- */
+const L = ['a','b','c','d','e'];
+function card(q, n, opts){
+  const ord = orderFor(q);
+  const chosen = opts.chosen;
+  const reveal = opts.reveal;
+  const btns = ord.map((oi,pos)=>{
+    let cls = 'opt';
+    if(reveal){ if(oi===0) cls+=' right'; else if(oi===chosen) cls+=' wrong'; }
+    else if(oi===chosen) cls+=' picked';
+    const why = reveal && q.w ? `<span class="why">${oi===0 ? '<b>Correcta:</b> '+q.e : '<b>No:</b> '+q.w[oi-1]}</span>` : '';
+    return `<button class="${cls}" data-q="${q.id}" data-o="${oi}" ${reveal?'disabled':''}><span class="l">${L[pos]}.</span><span>${q.o[oi]}${why}</span></button>`;
+  }).join('');
+  let after = '';
+  if(reveal){
+    const corr = L[ord.indexOf(0)];
+    if(chosen===undefined) after = `<div class="verdict no">Sin responder · la correcta es la ${corr}</div>`;
+    else after = `<div class="verdict ${chosen===0?'ok':'no'}">${chosen===0?'Correcto':'Incorrecto · la correcta es la '+corr}</div>`;
+  }
+  return `<article class="q" id="q-${q.id}">
+    <div class="qhead"><span class="case" style="color:${CASES[q.c].color}"><span class="dot" style="background:${CASES[q.c].color}"></span>${CASES[q.c].short}</span>
+      <span class="src">${q.src}</span>${q.t?'<span class="tiny">Detalle fino</span>':''}<span class="qnum">#${n}</span></div>
+    ${q.v?`<p class="vig">${q.v}</p>`:''}
+    <p class="qtext">${q.q}</p>
+    <div class="opts">${btns}</div>${after}</article>`;
+}
+
+function examStatus(){
+  const ex = state.exam, answered = Object.keys(ex.ans).length;
+  return `<div class="exambar"><span>Respondidas ${answered}/${ex.ids.length}. Las respuestas se muestran al calificar.</span></div>`;
+}
+function renderList(){
+  const list = document.getElementById('list');
+  const top = document.getElementById('examTop');
+  const bottom = document.getElementById('examBottom');
+  if(state.mode==='study'){
+    top.innerHTML=''; bottom.innerHTML='';
+    const qs = filtered();
+    document.getElementById('count').textContent = qs.length + ' preguntas';
+    list.innerHTML = qs.length ? qs.map((q,i)=>card(q,i+1,{chosen:saved[q.id], reveal:(q.id in saved)})).join('')
+      : '<p class="lede">No hay preguntas con estos filtros. Si marcaste “Solo las que fallé”, todavía no has fallado ninguna de este grupo.</p>';
+  } else {
+    const ex = state.exam;
+    document.getElementById('count').textContent = ex.ids.length + ' preguntas del simulacro';
+    if(ex.graded){
+      const ok = ex.ids.filter(id=>ex.ans[id]===0).length;
+      top.innerHTML = `<div class="exambar"><span class="score">${ok}/${ex.ids.length}</span><span>Nota: ${(ok/ex.ids.length*20).toFixed(1)} / 20</span><button class="btn primary" data-act="newexam" style="margin-left:auto">Nuevo simulacro</button></div>`;
+      bottom.innerHTML = '';
+    } else {
+      top.innerHTML = examStatus();
+      bottom.innerHTML = `<div class="exambar"><button class="btn primary" data-act="grade">Calificar simulacro</button></div>`;
+    }
+    list.innerHTML = ex.ids.map((id,i)=>card(byId[id],i+1,{chosen:ex.ans[id], reveal:ex.graded})).join('');
+  }
+  renderStats();
+}
+
+document.getElementById('panel-q').addEventListener('click', e=>{
+  const act = e.target.closest('[data-act]');
+  if(act){
+    if(act.dataset.act==='grade'){
+      state.exam.graded = true;
+      Object.entries(state.exam.ans).forEach(([id,o])=>{ saved[id]=o; }); persist();
+      renderList(); document.getElementById('panel-q').scrollIntoView({behavior:'smooth'});
+    } else if(act.dataset.act==='newexam'){ newExam(); renderList(); }
+    return;
+  }
+  const b = e.target.closest('.opt'); if(!b || b.disabled) return;
+  const id = b.dataset.q, o = +b.dataset.o;
+  const n = b.closest('.q').querySelector('.qnum').textContent.slice(1);
+  if(state.mode==='study'){
+    saved[id]=o; persist();
+    b.closest('.q').outerHTML = card(byId[id], n, {chosen:o, reveal:true});
+    renderStats();
+  } else if(!state.exam.graded){
+    state.exam.ans[id]=o;
+    b.closest('.q').outerHTML = card(byId[id], n, {chosen:o, reveal:false});
+    document.getElementById('examTop').innerHTML = examStatus();
+  }
+});
+
+function newExam(){
+  const pool = shuffle(filtered().map(q=>q.id));
+  state.exam = { ids: pool.slice(0,20), ans:{}, graded:false };
+  state.exam.ids.forEach(id=>optOrder.set(id, shuffle(byId[id].o.map((_,i)=>i))));
+}
+function setMode(){
+  document.getElementById('mode-study').setAttribute('aria-pressed', state.mode==='study');
+  document.getElementById('mode-exam').setAttribute('aria-pressed', state.mode==='exam');
+  renderList();
+}
+document.getElementById('mode-study').addEventListener('click',()=>{ state.mode='study'; setMode(); });
+document.getElementById('mode-exam').addEventListener('click',()=>{ state.mode='exam'; newExam(); setMode(); });
+document.getElementById('onlyTiny').addEventListener('change',e=>{ state.tiny=e.target.checked; if(state.mode==='exam') newExam(); renderList(); });
+document.getElementById('onlyWrong').addEventListener('change',e=>{ state.wrong=e.target.checked; if(state.mode==='exam') newExam(); renderList(); });
+document.getElementById('shuffle').addEventListener('click',()=>{ state.order = shuffle(state.order); optOrder.clear(); if(state.mode==='exam') newExam(); renderList(); });
+const resetBtn = document.getElementById('reset');
+let resetArmed = false;
+resetBtn.addEventListener('click',()=>{
+  if(!resetArmed){ resetArmed=true; resetBtn.textContent='¿Seguro? Toca otra vez'; setTimeout(()=>{ resetArmed=false; resetBtn.textContent='Borrar progreso'; },3000); return; }
+  saved = {}; persist(); resetArmed=false; resetBtn.textContent='Borrar progreso'; renderList();
+});
+
+/* ---------- repaso ---------- */
+document.getElementById('repaso').innerHTML = Object.keys(REPASO).map(k=>
+  `<section class="rcard"><h2><span class="dot" style="background:${CASES[k].color};width:12px;height:12px"></span>${CASES[k].name}</h2>
+    <dl class="dl">${REPASO[k].map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl></section>`
+).join('');
+
+/* ---------- prompt ---------- */
+document.getElementById('promptText').textContent = PROMPT;
+document.getElementById('copyPrompt').addEventListener('click',()=>{
+  const done = ()=>{ const c=document.getElementById('copied'); c.hidden=false; setTimeout(()=>c.hidden=true,2000); };
+  const fallback = ()=>{ const r=document.createRange(); r.selectNodeContents(document.getElementById('promptText')); const s=getSelection(); s.removeAllRanges(); s.addRange(r); };
+  try { navigator.clipboard.writeText(PROMPT).then(done, fallback); } catch(e){ fallback(); }
+});
+
+/* ---------- tabs ---------- */
+document.querySelector('nav.tabs').addEventListener('click',e=>{
+  const b = e.target.closest('[data-tab]'); if(!b) return;
+  document.querySelectorAll('nav.tabs button').forEach(x=>x.setAttribute('aria-selected', x===b));
+  ['q','r','p'].forEach(t=>{ document.getElementById('panel-'+t).hidden = (t!==b.dataset.tab); });
+});
+
+renderChips(); renderList();
+</script>
