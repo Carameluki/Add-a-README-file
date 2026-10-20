@@ -41,6 +41,14 @@ No se piden nombres, DNI ni número de historia clínica, en línea con los aspe
   También marca `sb_discordante` si el puntaje calculado no coincide con el de la HC y
   `n_digitaciones` (= 2 cuando ambos investigadores ya registraron ese código, según la doble digitación del protocolo).
 - **Diccionario**: nombre y codificación de cada variable.
+- **Concordancia**: una fila por cada código registrado por ambos digitadores; cada variable muestra `OK`
+  o el desacuerdo (`valor investigador 1 ≠ valor investigador 2`, en rojo) y `n_discrepancias` cuenta cuántas hay.
+  Corrija las discrepancias revisando la historia clínica y editando la respuesta equivocada.
+- **Concordancia_resumen**: % de concordancia por variable y global (para reportar en la tesis) y la lista de
+  códigos pendientes de segunda digitación con quién ya los registró.
+
+Si ya había creado el formulario antes de que existiera la concordancia, pegue al final de su script la
+sección "Concordancia de la doble digitación" de `crear_formulario.gs` y ejecute `crearHojaConcordancia`.
 
 Para pasar a STATA: *Archivo → Descargar → Microsoft Excel (.xlsx)* y en STATA
 `import excel "archivo.xlsx", sheet("Variables") firstrow clear`.

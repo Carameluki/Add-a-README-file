@@ -101,7 +101,7 @@ function crearFormulario() {
     .setRequired(true);
   form.addMultipleChoiceItem()
     .setTitle(T.digitador)
-    .setChoiceValues(['Investigador 1 – Cartagena Vela', 'Investigador 2 – Paz Orihuela'])
+    .setChoiceValues(DIGITADORES)
     .setRequired(true);
   form.addDateItem().setTitle(T.fechaIngreso).setRequired(true);
   const incluido = form.addMultipleChoiceItem()
@@ -224,8 +224,10 @@ function crearFormulario() {
 
   try {
     crearHojaVariables();
+    crearHojaConcordancia();
   } catch (e) {
-    Logger.log('No se pudo crear la hoja "Variables" todavía (%s). Ejecute crearHojaVariables() en un minuto.', e.message);
+    Logger.log('No se pudieron crear las hojas "Variables" y "Concordancia" todavía (%s). ' +
+      'Ejecute crearHojaVariables() y luego crearHojaConcordancia() en un minuto.', e.message);
   }
 
   Logger.log('Formulario (para llenar): %s', form.getPublishedUrl());
@@ -381,4 +383,97 @@ function letra_(n) {
     n = Math.floor((n - 1) / 26);
   }
   return s;
+}
+
+// ── Concordancia de la doble digitación ─────────────────────────────────────
+
+const DIGITADORES = ['Investigador 1 – Cartagena Vela', 'Investigador 2 – Paz Orihuela'];
+
+// Texto libre: una redacción distinta no es un error de digitación
+const NO_COMPARAR = ['codigo', 'digitador', 'n_digitaciones', 'com_otra', 'motivo_otro', 'observaciones'];
+const FECHAS = ['fecha_ingreso_uci', 'fecha_egreso_uci', 'fecha_fallecimiento'];
+
+/**
+ * Crea/rehace las hojas "Concordancia" (comparación ficha a ficha entre ambos digitadores)
+ * y "Concordancia_resumen" (% de acuerdo por variable y fichas pendientes de segunda digitación).
+ * Se actualizan solas con cada respuesta nueva.
+ */
+function crearHojaConcordancia() {
+  const ss = SpreadsheetApp.openById(PropertiesService.getScriptProperties().getProperty('SS_ID'));
+  const vars = ss.getSheetByName('Variables');
+  if (!vars) throw new Error('Primero ejecute crearHojaVariables().');
+  const names = vars.getRange(1, 1, 1, vars.getLastColumn()).getValues()[0];
+  const col = name => {
+    const L = letra_(names.indexOf(name) + 1);
+    return `Variables!${L}2:${L}`;
+  };
+  const cod = col('codigo');
+  const dig = col('digitador');
+  const [d1, d2] = DIGITADORES.map(d => `"${d}"`);
+
+  // Busca el valor que registró el digitador n (1 o 2) para cada código de la columna A
+  const ficha = (c, n) =>
+    `IFERROR(VLOOKUP(A2:A&"|${n}",{${cod}&"|"&IF(${dig}=${d1},1,IF(${dig}=${d2},2,0)),${c}},2,FALSE),"")`;
+
+  const comparar = names.filter(n => n && !NO_COMPARAR.includes(n));
+
+  // Hoja Concordancia: una fila por código registrado por ambos digitadores
+  let sh = ss.getSheetByName('Concordancia');
+  if (sh) sh.clear(); else sh = ss.insertSheet('Concordancia');
+  sh.clearConditionalFormatRules();
+  const headers = ['codigo', 'n_discrepancias', ...comparar];
+  sh.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight('bold');
+
+  const formulas = [
+    `=ARRAYFORMULA(IFERROR(SORT(UNIQUE(FILTER(${cod},${dig}=${d1},ISNUMBER(MATCH(${cod},FILTER(${cod},${dig}=${d2}),0))))),""))`,
+    '=ARRAYFORMULA(IF(A2:A="","",' +
+      comparar.map((_, i) => { const L = letra_(i + 3); return `(${L}2:${L}<>"OK")`; }).join('+') + '))',
+    ...comparar.map(n => {
+      const fmt = x => FECHAS.includes(n) ? `TEXT(${x},"yyyy-mm-dd")` : x;
+      const v1 = fmt(ficha(col(n), 1));
+      const v2 = fmt(ficha(col(n), 2));
+      return `=ARRAYFORMULA(IF(A2:A="","",IF(${v1}&""=${v2}&"","OK",${v1}&" ≠ "&${v2})))`;
+    }),
+  ];
+  sh.getRange(2, 1, 1, formulas.length).setFormulas([formulas]);
+
+  const ultima = letra_(headers.length);
+  sh.setConditionalFormatRules([
+    SpreadsheetApp.newConditionalFormatRule()
+      .whenFormulaSatisfied('=AND(C2<>"",C2<>"OK")')
+      .setBackground('#f4c7c3')
+      .setRanges([sh.getRange(`C2:${ultima}`)])
+      .build(),
+    SpreadsheetApp.newConditionalFormatRule()
+      .whenNumberGreaterThan(0)
+      .setBackground('#f4c7c3')
+      .setRanges([sh.getRange('B2:B')])
+      .build(),
+  ]);
+  sh.setFrozenRows(1);
+  sh.setFrozenColumns(2);
+
+  // Hoja Concordancia_resumen
+  let res = ss.getSheetByName('Concordancia_resumen');
+  if (res) res.clear(); else res = ss.insertSheet('Concordancia_resumen');
+  res.getRange(1, 1, 1, 4).setValues([['variable', 'n_comparados', 'n_concordantes', '% concordancia']]);
+  const filas = comparar.map((n, i) => {
+    const L = letra_(i + 3);
+    const r = i + 2;
+    return [n, '=COUNTIF(Concordancia!A2:A,"?*")', `=COUNTIF(Concordancia!${L}2:${L},"OK")`, `=IF(B${r}=0,"",C${r}/B${r})`];
+  });
+  const fin = filas.length + 1;
+  filas.push(['GLOBAL (todas las variables)', `=SUM(B2:B${fin})`, `=SUM(C2:C${fin})`, `=IF(B${fin + 1}=0,"",C${fin + 1}/B${fin + 1})`]);
+  res.getRange(2, 1, filas.length, 4).setValues(filas);
+  res.getRange(`D2:D${fin + 1}`).setNumberFormat('0.0%');
+  res.getRange(fin + 1, 1, 1, 4).setFontWeight('bold');
+
+  res.getRange('F1:G1').setValues([['pendiente_segunda_digitacion', 'registrado_por']]);
+  res.getRange('F2:G2').setFormulas([[
+    `=IFERROR(SORT(UNIQUE(FILTER(${cod},${col('n_digitaciones')}=1))),"")`,
+    `=ARRAYFORMULA(IF(F2:F="","",IFERROR(VLOOKUP(F2:F,{${cod},${dig}},2,FALSE),"")))`,
+  ]]);
+  res.getRange('A1:G1').setFontWeight('bold');
+  res.setFrozenRows(1);
+  res.autoResizeColumns(1, 7);
 }
