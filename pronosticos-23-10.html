@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jornada 23/10 · Pronósticos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: marcador de estadio — cabecera tipo tablero, luego gráficos en tarjetas y fichas por partido */
+:root {
+  --bg: #f3f5f2; --panel: #ffffff; --fg: #18211c; --muted: #5d6b63; --line: #dde3de; --grid: #e8ede9;
+  --accent: #0f7a4f; --accent-2: #2f6fd6; --away: #c4532c; --draw: #a9b5ad; --over: #7b4fd1; --btts: #d19a1f;
+  --ok: #0f7a4f; --warn: #a86b00; --bad: #c0392b;
+  --font-display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1512; --panel: #17201b; --fg: #e6ece8; --muted: #93a39a; --line: #26322b; --grid: #1f2a24;
+  --accent: #35c48a; --accent-2: #6d9ef0; --away: #ec7b55; --draw: #4f5f56; --over: #a585ee; --btts: #e8b84a;
+  --ok: #35c48a; --warn: #e8b84a; --bad: #f07167; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f1512; --panel: #17201b; --fg: #e6ece8; --muted: #93a39a; --line: #26322b; --grid: #1f2a24;
+  --accent: #35c48a; --accent-2: #6d9ef0; --away: #ec7b55; --draw: #4f5f56; --over: #a585ee; --btts: #e8b84a;
+  --ok: #35c48a; --warn: #e8b84a; --bad: #f07167; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 48px; }
+.wrap { max-width: 1180px; margin-inline: auto; display: flex; flex-direction: column; gap: 40px; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+.eyebrow { font: 600 13px/1 var(--font-display); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+h1 { font: 700 clamp(36px, 6vw, 60px)/1 var(--font-display); letter-spacing: .01em; text-transform: uppercase; }
+.lede { color: var(--muted); max-width: 68ch; margin: 0; }
+.warn { font-size: 13px; color: var(--muted); margin: 0; max-width: 80ch; }
+header { display: flex; flex-direction: column; gap: 12px; }
+h2 { font: 600 26px/1.1 var(--font-display); text-transform: uppercase; letter-spacing: .02em; }
+h3 { font-size: 16px; font-weight: 600; }
+.note { font-size: 13px; color: var(--muted); margin: 0; }
+section { display: flex; flex-direction: column; gap: 16px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; }
+.kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.kpi .l { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.kpi .v { font: 700 44px/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.kpi .n { font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 16px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; gap: 12px; min-width: 0; position: relative; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.rows { display: flex; flex-direction: column; gap: 10px; }
+.row { display: flex; flex-direction: column; gap: 4px; }
+.row-top { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; }
+.row-top .nm { min-width: 0; overflow-wrap: anywhere; }
+.row-top .nm b { font-weight: 600; }
+.row-top .nm span { color: var(--muted); }
+.row-top .vl { font-family: var(--font-mono); font-size: 12px; white-space: nowrap; }
+.track { position: relative; height: 10px; border-radius: 5px; background: var(--grid); overflow: hidden; }
+.fill { position: absolute; inset: 0 auto 0 0; border-radius: 5px; }
+.stackwrap { position: relative; }
+.stack { display: flex; height: 12px; border-radius: 4px; overflow: hidden; }
+.stack > div { height: 100%; }
+.mk { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--fg); }
+.dots { position: relative; height: 16px; }
+.dots .ln { position: absolute; top: 7px; left: 0; right: 0; height: 2px; background: var(--grid); }
+.dots .ref { position: absolute; top: 0; bottom: 0; left: 50%; border-left: 1px dashed var(--muted); }
+.dots .dt { position: absolute; top: 2px; width: 12px; height: 12px; border-radius: 50%; margin-left: -6px; border: 2px solid var(--panel); }
+.tip { position: absolute; z-index: 5; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 6px 20px rgb(0 0 0 / .18); padding: 6px 10px; font-size: 12px; pointer-events: none; max-width: 240px; }
+.tip .t { color: var(--muted); }
+.svgbox { position: relative; }
+.svgbox svg { display: block; width: 100%; height: auto; }
+.svgbox text { fill: var(--muted); font: 11px var(--font-body); }
+.combos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+.combo .nums { display: flex; gap: 28px; }
+.combo .nums div { display: flex; flex-direction: column; }
+.combo .nums .l { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.combo .nums .v { font: 700 38px/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.combo ul { margin: 0; padding-left: 18px; font-size: 13px; display: flex; flex-direction: column; gap: 2px; }
+.tablebox { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+th { text-align: left; font-weight: 600; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+th button { all: unset; cursor: pointer; }
+th button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+td { padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.num { text-align: right; font-family: var(--font-mono); font-size: 12px; }
+.pill { display: inline-block; padding: 1px 9px; border-radius: 999px; font-size: 12px; border: 1px solid currentColor; white-space: nowrap; }
+.pill.alta { color: var(--ok); } .pill.media { color: var(--warn); } .pill.baja { color: var(--bad); }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button { font: 500 13px var(--font-body); color: var(--fg); background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--panel); }
+.filters button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.matches { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px; }
+.m-meta { font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; }
+.m-meta .hr { font-family: var(--font-mono); }
+.teams { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; font: 600 20px/1.2 var(--font-display); text-transform: uppercase; letter-spacing: .01em; }
+.teams .pos { font: 400 12px var(--font-mono); color: var(--muted); text-align: right; align-self: center; white-space: nowrap; text-transform: none; }
+.pick { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; }
+.pick b { font-weight: 600; font-size: 15px; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; font-size: 12px; }
+.stats div { display: flex; flex-direction: column; min-width: 0; }
+.stats .k { color: var(--muted); }
+.stats .v { font-family: var(--font-mono); font-size: 13px; overflow-wrap: anywhere; }
+.ctx { font-size: 13px; line-height: 1.55; margin: 0; }
+.src { font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+.src:hover { color: var(--accent); }
+.method { font-size: 13px; color: var(--muted); line-height: 1.6; max-width: 80ch; margin: 0; }
+@media (max-width: 520px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Viernes 23 de octubre de 2026 · 17 partidos · 9 ligas</span>
+    <h1>Jornada 23/10 · Pronósticos</h1>
+    <p class="lede" id="lede"></p>
+    <p class="warn">Son probabilidades, no certezas: incluso un pick al 75% falla 1 de cada 4 veces. Apostá solo lo que estés dispuesto a perder.</p>
+  </header>
+
+  <div class="kpis" id="kpis"></div>
+
+  <section>
+    <h2>Lo más probable en cada partido</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Probabilidad del pronóstico</h3>
+        <p class="note">Resultado más probable según el modelo. Si ningún resultado pasa el 50%, se usa la doble oportunidad (1X o X2).</p>
+        <div class="legend" id="leg-conf"></div>
+        <div class="rows" id="ch-picks"></div>
+      </div>
+      <div class="card">
+        <h3>1X2: modelo frente a la casa</h3>
+        <p class="note">Barras: reparto local / empate / visita del modelo. La marca vertical es la probabilidad de victoria local que paga la casa (sin margen). Si el verde pasa la marca, el modelo ve al local más fuerte que la cuota.</p>
+        <div class="legend" id="leg-1x2"></div>
+        <div class="rows" id="ch-1x2"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Valor y goles</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>¿Dónde paga más de lo que debería?</h3>
+        <p class="note">Cada punto es un pronóstico. Eje X: probabilidad que implica la cuota (1 ÷ cuota). Eje Y: probabilidad del modelo. Arriba de la diagonal hay valor.</p>
+        <div class="svgbox" id="ch-valor"></div>
+      </div>
+      <div class="card">
+        <h3>Mercado de goles</h3>
+        <p class="note">Probabilidad de más de 2,5 goles y de que marquen ambos. La línea punteada es el 50%.</p>
+        <div class="legend" id="leg-goles"></div>
+        <div class="rows" id="ch-goles"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Combinadas sugeridas</h2>
+    <p class="note">La probabilidad de una combinada es el producto de la de cada pick, por eso baja rápido. Cuota = producto de las cuotas de la captura.</p>
+    <div class="combos" id="ch-combos"></div>
+  </section>
+
+  <section>
+    <h2>Todos los partidos</h2>
+    <p class="note">Tocá un encabezado para ordenar.</p>
+    <div class="card">
+      <div class="tablebox">
+        <table id="tb">
+          <thead><tr></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Ficha de cada partido</h2>
+    <div class="filters" id="filters" role="group" aria-label="Filtrar por confianza"></div>
+    <div class="matches" id="ch-fichas"></div>
+  </section>
+
+  <section>
+    <h2>Cómo se calculó</h2>
+    <p class="method">1. Se parte de las cuotas de las capturas y se les quita el margen de la casa para obtener probabilidades “justas”. 2. Se ajustan unos puntos según la tabla actual, la racha reciente, el historial entre ambos y las bajas encontradas (por ejemplo, +4 puntos al local en Al-Qadsiah vs Al-Hilal porque es el líder y juega en casa). 3. Con un modelo de Poisson y el promedio de goles de cada liga se estiman los goles esperados de cada equipo; de ahí salen el marcador más probable, +2,5 y ambos marcan. Los datos de tabla vienen de búsquedas del 21 al 23 de octubre de 2026; cuando las fuentes no coincidían se usó la más reciente. No incluye alineaciones confirmadas. Algunas fuentes ubican Al-Ahli vs Al-Khaleej el 22/10 y Västerås vs Halmstad e IDV vs Católica el 25/10: confirmá la fecha en tu casa de apuestas.</p>
+  </section>
+</div>
+
+<script>
+const PARTIDOS = [{"id": 1, "partido": "UTC Cajamarca vs FBC Melgar", "local": "UTC Cajamarca", "visitante": "FBC Melgar", "liga": "Perú · Liga 1", "hora": "13:00", "cuota_1": 6.0, "cuota_x": 4.55, "cuota_2": 1.57, "pos_local": "19º", "pts_local": null, "pos_visitante": "5º", "pts_visitante": 22, "contexto": "UTC es último del Clausura tras una resta de 5 puntos; Melgar pelea arriba con 22 pts. En el historial Melgar ganó 12 de 24 (UTC solo 4). Último cruce: Melgar 2-0 UTC (3 may 2026).", "fuente": "https://libero.pe/futbol-peruano/liga-1/2026/10/16/tabla-de-posiciones-del-torneo-clausura-liga-1-clasificacion-en-fecha-12-1060980"}, {"id": 2, "partido": "VfB Stuttgart vs Borussia Mönchengladbach", "local": "VfB Stuttgart", "visitante": "Borussia Mönchengladbach", "liga": "Alemania · Bundesliga", "hora": "13:30", "cuota_1": 1.42, "cuota_x": 5.8, "cuota_2": 6.9, "pos_local": "13º", "pts_local": 6, "pos_visitante": "18º", "pts_visitante": 0, "contexto": "Gladbach no ha sumado ni un punto (L-L-L-L-L), con 20 goles en contra en 6 partidos y nuevo técnico (Blessin). Stuttgart alterna, pero en casa le ganó 4-1 al Köln.", "fuente": "https://www.bundesliga.com/en/bundesliga/table"}, {"id": 3, "partido": "Deportivo Alavés vs Málaga CF", "local": "Deportivo Alavés", "visitante": "Málaga CF", "liga": "España · LaLiga", "hora": "14:00", "cuota_1": 1.72, "cuota_x": 3.7, "cuota_2": 5.7, "pos_local": "2º", "pts_local": 10, "pos_visitante": "18º", "pts_visitante": 2, "contexto": "Alavés arranca arriba de la tabla; Málaga, recién ascendido, está en zona de descenso con 2 puntos. LaLiga es de pocos goles y Mendizorrotza es un campo difícil.", "fuente": "https://www.comuniate.com/partido/26/4/10/alaves-malaga"}, {"id": 4, "partido": "Atlético Grau vs ADT Tarma", "local": "Atlético Grau", "visitante": "ADT Tarma", "liga": "Perú · Liga 1", "hora": "15:15", "cuota_1": 1.75, "cuota_x": 3.9, "cuota_2": 5.1, "pos_local": "11º", "pts_local": 17, "pos_visitante": "15º", "pts_visitante": 6, "contexto": "ADT es penúltimo con 6 pts y perdió 2-1 con Los Chankas en la fecha 12. Ojo: ADT le ganó 1-0 a Grau en el Apertura (en Tarma); en Sullana Grau ganó 2-0 en 2025.", "fuente": "https://www.futbolperuano.com/liga-1/clausura/tabla-de-posiciones"}, {"id": 5, "partido": "Cruzeiro vs Remo", "local": "Cruzeiro", "visitante": "Remo", "liga": "Brasil · Serie A", "hora": "18:00", "cuota_1": 1.42, "cuota_x": 5.2, "cuota_2": 8.0, "pos_local": "7º", "pts_local": 48, "pos_visitante": "19º", "pts_visitante": 25, "contexto": "Cruzeiro viene de ganar 4-2 al Grêmio (triplete de Kaio Jorge). Remo está en descenso y empató 1-1 con Bragantino. En la ida Cruzeiro ganó 1-0. El modelo Monte Carlo de ValorFinal da 52,9% al Cruzeiro y 1-1 como marcador más probable.", "fuente": "https://valorfinal.com.br/brasileirao/2026/jogos/cruzeiro-x-remo"}, {"id": 6, "partido": "Ipswich Town vs Nottingham Forest", "local": "Ipswich Town", "visitante": "Nottingham Forest", "liga": "Inglaterra · Premier League", "hora": "14:00", "cuota_1": 3.3, "cuota_x": 3.5, "cuota_2": 2.3, "pos_local": "10º", "pts_local": 9, "pos_visitante": "19º", "pts_visitante": 5, "contexto": "Forest perdió sus últimos 3 y solo hizo 5 goles, aunque por xG debería estar mucho más arriba. Ipswich no tiene ni una valla invicta en 9 partidos. En 5 de los últimos 7 cruces marcaron ambos.", "fuente": "https://www.thestatszone.com/ipswich-vs-nottingham-forest-preview-team-news-prediction-2026-27-english-premier-league-231602"}, {"id": 7, "partido": "Al Faisaly vs Al-Nassr FC", "local": "Al Faisaly", "visitante": "Al-Nassr FC", "liga": "Arabia Saudita · Pro League", "hora": "08:30", "cuota_1": 10.0, "cuota_x": 6.0, "cuota_2": 1.27, "pos_local": "15º", "pts_local": 7, "pos_visitante": "3º", "pts_visitante": 22, "contexto": "Al-Nassr es 3º con 22 pts en 9 partidos; Al Faisaly está abajo con 7 pts en 10. Diferencia de plantel enorme.", "fuente": "https://en.wikipedia.org/wiki/2026%E2%80%9327_Saudi_Pro_League"}, {"id": 8, "partido": "Al-Ahli SFC vs Al-Khaleej FC", "local": "Al-Ahli SFC", "visitante": "Al-Khaleej FC", "liga": "Arabia Saudita · Pro League", "hora": "13:00", "cuota_1": 1.35, "cuota_x": 5.2, "cuota_2": 8.75, "pos_local": "5º", "pts_local": null, "pos_visitante": "11º", "pts_visitante": 9, "contexto": "Al-Ahli viene de golear 4-0 al Al Fateh e Ivan Toney lleva 11 goles (goleador de la liga). Al-Ahli ganó todos los cruces recientes (4-1 en mayo 2026). Al-Khaleej viene de ganar 2-0.", "fuente": "https://ontourfootball.com/fixtures/al-ahli-jeddah-vs-al-khaleej-saihat-2026-10-22"}, {"id": 9, "partido": "Torino FC vs AC Monza", "local": "Torino FC", "visitante": "AC Monza", "liga": "Italia · Serie A", "hora": "13:45", "cuota_1": 2.12, "cuota_x": 3.45, "cuota_2": 3.45, "pos_local": "10º", "pts_local": 10, "pos_visitante": "14º", "pts_visitante": 7, "contexto": "Torino ganó al Parma; Monza goleó 4-0 al Cagliari y le ganó 1-0 al Torino en Coppa Italia en septiembre. Monza promedia casi 4 goles por partido entre a favor y en contra.", "fuente": "https://www.infobetting.com/blog/torino-monza-23-10-2026-formazioni-quote-pronostici-20262027-serie-a/"}, {"id": 10, "partido": "Al-Qadsiah FC vs Al-Hilal SFC", "local": "Al-Qadsiah FC", "visitante": "Al-Hilal SFC", "liga": "Arabia Saudita · Pro League", "hora": "13:00", "cuota_1": 3.25, "cuota_x": 4.0, "cuota_2": 2.05, "pos_local": "1º", "pts_local": 25, "pos_visitante": "2º", "pts_visitante": 24, "contexto": "Duelo por el liderato: Al-Qadsiah es 1º con 25 pts y Al-Hilal 2º con 24 (con un partido menos). Al-Hilal ganó los últimos cruces, pero Al-Qadsiah llega como líder y en casa.", "fuente": "https://www.goal.com/en-sa/saudi-pro-league/table/ea0h6cf3bhl698hkxhpulh2zz"}, {"id": 11, "partido": "Vitória Guimarães vs CS Marítimo", "local": "Vitória Guimarães", "visitante": "CS Marítimo", "liga": "Portugal · Primeira Liga", "hora": "14:45", "cuota_1": 1.7, "cuota_x": 3.85, "cuota_2": 5.7, "pos_local": "14º", "pts_local": null, "pos_visitante": "11º", "pts_visitante": null, "contexto": "Vitória viene de una racha de 5 sin ganar, cortada con una victoria corta, y perdió 2-0 con Benfica. Marítimo, recién ascendido, está por encima en la tabla. Ndoye (Vitória) suspendido.", "fuente": "https://www.whoscored.com/matches/1997625/preview/portugal-liga-portugal-2026-2027-vitoria-de-guimaraes-maritimo"}, {"id": 12, "partido": "Independiente del Valle vs Universidad Católica", "local": "Independiente del Valle", "visitante": "Universidad Católica", "liga": "Ecuador · LigaPro", "hora": "15:30", "cuota_1": 1.65, "cuota_x": 4.0, "cuota_2": 4.75, "pos_local": "1º", "pts_local": 77, "pos_visitante": "4º", "pts_visitante": 52, "contexto": "IDV domina la LigaPro (77 pts, +40 de diferencia) y llegó a cuartos de Libertadores. Católica es 4º con 52. El último cruce terminó 2-2 y cortó una racha de 11 victorias de IDV.", "fuente": "https://www.teleamazonas.com/deportes/futbol/ligapro/independiente-valle-empate-universidad-catolica-ligapro-126620/"}, {"id": 13, "partido": "Stade Brestois 29 vs OGC Niza", "local": "Stade Brestois 29", "visitante": "OGC Niza", "liga": "Francia · Ligue 1", "hora": "13:45", "cuota_1": 2.22, "cuota_x": 3.5, "cuota_2": 3.2, "pos_local": "11º", "pts_local": 5, "pos_visitante": "14º", "pts_visitante": 5, "contexto": "Igualados en puntos. En los últimos 6 cruces hubo 3 empates (Brest 1, Niza 2); el último fue 2-2 en febrero 2026. Forma: Brest 1G-2E-2P, Niza 2G-1E-2P.", "fuente": "https://foot-africa.com/match/brest-vs-nice/"}, {"id": 14, "partido": "Al-Ittihad Club vs Diriyah Club", "local": "Al-Ittihad Club", "visitante": "Diriyah Club", "liga": "Arabia Saudita · Pro League", "hora": "10:30", "cuota_1": 1.95, "cuota_x": 3.95, "cuota_2": 3.5, "pos_local": "4º", "pts_local": null, "pos_visitante": "—", "pts_visitante": null, "contexto": "Al-Ittihad promedia 1,8 goles por partido en sus últimos 10 (En-Nesyri), aunque perdió con Al-Hilal (2-3) y Shabab Al-Ahli (1-2). Diriyah apenas hace 0,9 por partido y perdió 3-0 con Al-Nassr.", "fuente": "https://foot-africa.com/en/match/al-diraiyah-vs-al-ittihad-2/"}, {"id": 15, "partido": "Västerås SK vs Halmstads BK", "local": "Västerås SK", "visitante": "Halmstads BK", "liga": "Suecia · Allsvenskan", "hora": "12:00", "cuota_1": 1.7, "cuota_x": 3.9, "cuota_2": 4.5, "pos_local": "6º", "pts_local": 38, "pos_visitante": "16º", "pts_visitante": 14, "contexto": "Västerås, recién ascendido, es 6º con 38 pts; Halmstad es último con 14 pts y -29 de diferencia de goles (16 derrotas en 24).", "fuente": "https://allsvenskanfotboll.se/tabell"}, {"id": 16, "partido": "Go Ahead Eagles vs SC Telstar", "local": "Go Ahead Eagles", "visitante": "SC Telstar", "liga": "Países Bajos · Eredivisie", "hora": "13:00", "cuota_1": 1.62, "cuota_x": 4.35, "cuota_2": 5.6, "pos_local": "9º", "pts_local": 11, "pos_visitante": "16º", "pts_visitante": 6, "contexto": "Telstar lleva 8 partidos sin ganar en liga, pero Go Ahead empata mucho (5 de 9) y no deja la valla en cero hace 9 partidos. Telstar le ganó los dos últimos cruces (4-2 en liga y 2-1 en copa).", "fuente": "https://www.whoscored.com/matches/1982322/preview/netherlands-eredivisie-2026-2027-go-ahead-eagles-telstar"}, {"id": 17, "partido": "FC Dynamo Kyiv vs FK Kudrivka", "local": "FC Dynamo Kyiv", "visitante": "FK Kudrivka", "liga": "Ucrania · Premier Liga", "hora": "05:00", "cuota_1": 1.17, "cuota_x": 6.6, "cuota_2": 12.5, "pos_local": "3º", "pts_local": 16, "pos_visitante": "16º", "pts_visitante": 5, "contexto": "Dynamo es 3º con 16 pts en 7 partidos; Kudrivka es 16º con 5 pts y 21 goles en contra en 9. En el último cruce Dynamo ganó 3-2.", "fuente": "https://www.apwin.com/league/ukraine/ukrainian-premier-league/"}];
+const MODELO = [{"id": 1, "partido": "UTC Cajamarca vs FBC Melgar", "p_local": 0.143, "p_empate": 0.215, "p_visitante": 0.642, "goles_esp_local": 0.7, "goles_esp_visitante": 1.8, "p_mas_25": 0.456, "p_ambos_marcan": 0.419, "marcador_probable": "0-1", "p_marcador": 0.148, "pronostico": "Gana FBC Melgar", "tipo": "1X2", "p_pronostico": 0.642, "cuota_pronostico": 1.57, "confianza": "Media", "mercado_goles": "Ambos marcan: no", "p_mercado_goles": 0.581}, {"id": 2, "partido": "VfB Stuttgart vs Borussia Mönchengladbach", "p_local": 0.719, "p_empate": 0.159, "p_visitante": 0.122, "goles_esp_local": 2.36, "goles_esp_visitante": 0.84, "p_mas_25": 0.62, "p_ambos_marcan": 0.514, "marcador_probable": "2-0", "p_marcador": 0.114, "pronostico": "Gana VfB Stuttgart", "tipo": "1X2", "p_pronostico": 0.719, "cuota_pronostico": 1.42, "confianza": "Alta", "mercado_goles": "Más de 2,5 goles", "p_mercado_goles": 0.62}, {"id": 3, "partido": "Deportivo Alavés vs Málaga CF", "p_local": 0.596, "p_empate": 0.263, "p_visitante": 0.141, "goles_esp_local": 1.63, "goles_esp_visitante": 0.67, "p_mas_25": 0.404, "p_ambos_marcan": 0.392, "marcador_probable": "1-0", "p_marcador": 0.163, "pronostico": "Gana Deportivo Alavés", "tipo": "1X2", "p_pronostico": 0.596, "cuota_pronostico": 1.72, "confianza": "Media", "mercado_goles": "Ambos marcan: no", "p_mercado_goles": 0.608}, {"id": 4, "partido": "Atlético Grau vs ADT Tarma", "p_local": 0.588, "p_empate": 0.25, "p_visitante": 0.161, "goles_esp_local": 1.66, "goles_esp_visitante": 0.74, "p_mas_25": 0.43, "p_ambos_marcan": 0.425, "marcador_probable": "1-0", "p_marcador": 0.15, "pronostico": "Gana Atlético Grau", "tipo": "1X2", "p_pronostico": 0.588, "cuota_pronostico": 1.75, "confianza": "Media", "mercado_goles": "Ambos marcan: no", "p_mercado_goles": 0.575}, {"id": 5, "partido": "Cruzeiro vs Remo", "p_local": 0.659, "p_empate": 0.208, "p_visitante": 0.132, "goles_esp_local": 1.78, "goles_esp_visitante": 0.62, "p_mas_25": 0.43, "p_ambos_marcan": 0.386, "marcador_probable": "1-0", "p_marcador": 0.161, "pronostico": "Gana Cruzeiro", "tipo": "1X2", "p_pronostico": 0.659, "cuota_pronostico": 1.42, "confianza": "Media", "mercado_goles": "Ambos marcan: no", "p_mercado_goles": 0.614}, {"id": 6, "partido": "Ipswich Town vs Nottingham Forest", "p_local": 0.336, "p_empate": 0.289, "p_visitante": 0.375, "goles_esp_local": 1.26, "goles_esp_visitante": 1.34, "p_mas_25": 0.482, "p_ambos_marcan": 0.529, "marcador_probable": "1-1", "p_marcador": 0.125, "pronostico": "Nottingham Forest o empate (X2)", "tipo": "Doble oportunidad", "p_pronostico": 0.664, "cuota_pronostico": 1.39, "confianza": "Media", "mercado_goles": "Ambos marcan: sí", "p_mercado_goles": 0.529}, {"id": 7, "partido": "Al Faisaly vs Al-Nassr FC", "p_local": 0.095, "p_empate": 0.158, "p_visitante": 0.747, "goles_esp_local": 0.71, "goles_esp_visitante": 2.39, "p_mas_25": 0.599, "p_ambos_marcan": 0.464, "marcador_probable": "0-2", "p_marcador": 0.128, "pronostico": "Gana Al-Nassr FC", "tipo": "1X2", "p_pronostico": 0.747, "cuota_pronostico": 1.27, "confianza": "Alta", "mercado_goles": "Más de 2,5 goles", "p_mercado_goles": 0.599}, {"id": 8, "partido": "Al-Ahli SFC vs Al-Khaleej FC", "p_local": 0.707, "p_empate": 0.184, "p_visitante": 0.109, "goles_esp_local": 2.3, "goles_esp_visitante": 0.8, "p_mas_25": 0.599, "p_ambos_marcan": 0.495, "marcador_probable": "2-0", "p_marcador": 0.119, "pronostico": "Gana Al-Ahli SFC", "tipo": "1X2", "p_pronostico": 0.707, "cuota_pronostico": 1.35, "confianza": "Alta", "mercado_goles": "Más de 2,5 goles", "p_mercado_goles": 0.599}, {"id": 9, "partido": "Torino FC vs AC Monza", "p_local": 0.429, "p_empate": 0.276, "p_visitante": 0.296, "goles_esp_local": 1.6, "goles_esp_visitante": 1.3, "p_mas_25": 0.554, "p_ambos_marcan": 0.581, "marcador_probable": "1-1", "p_marcador": 0.114, "pronostico": "Torino FC o empate (1X)", "tipo": "Doble oportunidad", "p_pronostico": 0.704, "cuota_pronostico": 1.31, "confianza": "Alta", "mercado_goles": "Ambos marcan: sí", "p_mercado_goles": 0.581}, {"id": 10, "partido": "Al-Qadsiah FC vs Al-Hilal SFC", "p_local": 0.334, "p_empate": 0.239, "p_visitante": 0.427, "goles_esp_local": 1.39, "goles_esp_visitante": 1.61, "p_mas_25": 0.577, "p_ambos_marcan": 0.601, "marcador_probable": "1-1", "p_marcador": 0.111, "pronostico": "Al-Hilal SFC o empate (X2)", "tipo": "Doble oportunidad", "p_pronostico": 0.666, "cuota_pronostico": 1.36, "confianza": "Media", "mercado_goles": "Ambos marcan: sí", "p_mercado_goles": 0.601}, {"id": 11, "partido": "Vitória Guimarães vs CS Marítimo", "p_local": 0.545, "p_empate": 0.274, "p_visitante": 0.181, "goles_esp_local": 1.58, "goles_esp_visitante": 0.82, "p_mas_25": 0.43, "p_ambos_marcan": 0.443, "marcador_probable": "1-0", "p_marcador": 0.144, "pronostico": "Gana Vitória Guimarães", "tipo": "1X2", "p_pronostico": 0.545, "cuota_pronostico": 1.7, "confianza": "Baja", "mercado_goles": "Menos de 2,5 goles", "p_mercado_goles": 0.57}, {"id": 12, "partido": "Independiente del Valle vs Universidad Católica", "p_local": 0.598, "p_empate": 0.224, "p_visitante": 0.177, "goles_esp_local": 1.88, "goles_esp_visitante": 0.92, "p_mas_25": 0.531, "p_ambos_marcan": 0.509, "marcador_probable": "1-0", "p_marcador": 0.114, "pronostico": "Gana Independiente del Valle", "tipo": "1X2", "p_pronostico": 0.598, "cuota_pronostico": 1.65, "confianza": "Media", "mercado_goles": "Más de 2,5 goles", "p_mercado_goles": 0.531}, {"id": 13, "partido": "Stade Brestois 29 vs OGC Niza", "p_local": 0.42, "p_empate": 0.292, "p_visitante": 0.288, "goles_esp_local": 1.44, "goles_esp_visitante": 1.16, "p_mas_25": 0.482, "p_ambos_marcan": 0.524, "marcador_probable": "1-1", "p_marcador": 0.124, "pronostico": "Stade Brestois 29 o empate (1X)", "tipo": "Doble oportunidad", "p_pronostico": 0.712, "cuota_pronostico": 1.36, "confianza": "Alta", "mercado_goles": "Ambos marcan: sí", "p_mercado_goles": 0.524}, {"id": 14, "partido": "Al-Ittihad Club vs Diriyah Club", "p_local": 0.528, "p_empate": 0.241, "p_visitante": 0.232, "goles_esp_local": 1.73, "goles_esp_visitante": 1.07, "p_mas_25": 0.531, "p_ambos_marcan": 0.54, "marcador_probable": "1-1", "p_marcador": 0.112, "pronostico": "Gana Al-Ittihad Club", "tipo": "1X2", "p_pronostico": 0.528, "cuota_pronostico": 1.95, "confianza": "Baja", "mercado_goles": "Ambos marcan: sí", "p_mercado_goles": 0.54}, {"id": 15, "partido": "Västerås SK vs Halmstads BK", "p_local": 0.591, "p_empate": 0.23, "p_visitante": 0.178, "goles_esp_local": 1.87, "goles_esp_visitante": 0.93, "p_mas_25": 0.531, "p_ambos_marcan": 0.512, "marcador_probable": "1-0", "p_marcador": 0.114, "pronostico": "Gana Västerås SK", "tipo": "1X2", "p_pronostico": 0.591, "cuota_pronostico": 1.7, "confianza": "Media", "mercado_goles": "Más de 2,5 goles", "p_mercado_goles": 0.531}, {"id": 16, "partido": "Go Ahead Eagles vs SC Telstar", "p_local": 0.582, "p_empate": 0.254, "p_visitante": 0.164, "goles_esp_local": 1.94, "goles_esp_visitante": 0.96, "p_mas_25": 0.554, "p_ambos_marcan": 0.529, "marcador_probable": "1-0", "p_marcador": 0.107, "pronostico": "Gana Go Ahead Eagles", "tipo": "1X2", "p_pronostico": 0.582, "cuota_pronostico": 1.62, "confianza": "Media", "mercado_goles": "Más de 2,5 goles", "p_mercado_goles": 0.554}, {"id": 17, "partido": "FC Dynamo Kyiv vs FK Kudrivka", "p_local": 0.797, "p_empate": 0.139, "p_visitante": 0.064, "goles_esp_local": 2.46, "goles_esp_visitante": 0.54, "p_mas_25": 0.577, "p_ambos_marcan": 0.382, "marcador_probable": "2-0", "p_marcador": 0.151, "pronostico": "Gana FC Dynamo Kyiv", "tipo": "1X2", "p_pronostico": 0.797, "cuota_pronostico": 1.17, "confianza": "Alta", "mercado_goles": "Ambos marcan: no", "p_mercado_goles": 0.618}];
+</script>
+<script>
+(function () {
+  const pctF = new Intl.NumberFormat('es', { style: 'percent', maximumFractionDigits: 0 });
+  const pct = v => pctF.format(v);
+  const f2 = v => v.toLocaleString('es', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const f1 = v => v.toLocaleString('es', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  const css = n => `var(--${n})`;
+  const confColor = { Alta: css('accent'), Media: css('accent-2'), Baja: css('draw') };
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+  const byId = Object.fromEntries(PARTIDOS.map(p => [p.id, p]));
+
+  // derived
+  const mercado = Object.fromEntries(PARTIDOS.map(p => {
+    const s = 1 / p.cuota_1 + 1 / p.cuota_x + 1 / p.cuota_2;
+    return [p.id, { l: (1 / p.cuota_1) / s, x: (1 / p.cuota_x) / s, v: (1 / p.cuota_2) / s, margen: s - 1 }];
+  }));
+  const sorted = MODELO.slice().sort((a, b) => b.p_pronostico - a.p_pronostico);
+  const simples = sorted.filter(m => m.tipo === '1X2');
+  const ev = m => m.p_pronostico * m.cuota_pronostico;
+  const conValor = MODELO.filter(m => ev(m) > 1.02).sort((a, b) => ev(b) - ev(a)).slice(0, 3);
+  const combo = (nombre, nota, sel) => ({ nombre, nota, sel, prob: sel.reduce((s, m) => s * m.p_pronostico, 1), cuota: sel.reduce((s, m) => s * m.cuota_pronostico, 1) });
+  const combos = [combo('Segura', 'Los 3 favoritos más claros', simples.slice(0, 3)), combo('Moderada', 'Los 5 picks simples más probables', simples.slice(0, 5)), combo('Con valor', 'Picks donde el modelo ve más que la cuota', conValor)];
+  const top = sorted[0];
+  const golesProm = MODELO.reduce((s, m) => s + m.goles_esp_local + m.goles_esp_visitante, 0) / MODELO.length;
+
+  // tooltip
+  function tipFor(box) {
+    const tip = el('div', 'tip'); tip.hidden = true; box.appendChild(tip);
+    return {
+      show(e, lines) {
+        tip.replaceChildren(...lines.map((l, i) => el('div', i === 0 ? 't' : '', l)));
+        tip.hidden = false;
+        const r = box.getBoundingClientRect();
+        let x = e.clientX - r.left + 12, y = e.clientY - r.top + 12;
+        if (x + tip.offsetWidth > box.clientWidth) x = Math.max(0, e.clientX - r.left - tip.offsetWidth - 12);
+        tip.style.left = x + 'px'; tip.style.top = y + 'px';
+      },
+      hide() { tip.hidden = true; }
+    };
+  }
+  function legend(id, items) {
+    document.getElementById(id).replaceChildren(...items.map(([c, t]) => { const s = el('span'); const sw = el('i', 'sw'); sw.style.background = c; s.append(sw, t); return s; }));
+  }
+  function row(parts, value) {
+    const r = el('div', 'row'), t = el('div', 'row-top'), nm = el('span', 'nm');
+    parts.forEach(([txt, bold]) => nm.appendChild(el(bold ? 'b' : 'span', '', txt)));
+    t.append(nm, el('span', 'vl', value)); r.appendChild(t); return r;
+  }
+  function stack(m) {
+    const st = el('div', 'stack');
+    [[m.p_local, css('accent')], [m.p_empate, css('draw')], [m.p_visitante, css('away')]].forEach(([v, c]) => { const s = el('div'); s.style.width = v * 100 + '%'; s.style.background = c; st.appendChild(s); });
+    return st;
+  }
+
+  // header + KPIs
+  document.getElementById('lede').textContent = `El pick más fiable es “${top.pronostico}” (${pct(top.p_pronostico)}). La combinada segura de ${combos[0].sel.length} favoritos paga ${f2(combos[0].cuota)} y acierta alrededor del ${pct(combos[0].prob)} de las veces.`;
+  const kpis = [
+    ['Partidos analizados', String(MODELO.length), 'De las 3 capturas de la casa de apuestas'],
+    ['Pick más fiable', pct(top.p_pronostico), top.pronostico],
+    ['Picks de confianza alta', String(MODELO.filter(m => m.p_pronostico >= 0.7).length), '70% o más, incluye dobles oportunidades'],
+    ['Goles esperados por partido', f1(golesProm), 'Promedio del modelo en los 17 partidos']
+  ];
+  document.getElementById('kpis').replaceChildren(...kpis.map(([l, v, n]) => { const k = el('div', 'kpi'); k.append(el('span', 'l', l), el('span', 'v', v), el('span', 'n', n)); return k; }));
+
+  legend('leg-conf', [[confColor.Alta, 'Alta (≥70%)'], [confColor.Media, 'Media (55–69%)'], [confColor.Baja, 'Baja (<55%)']]);
+  legend('leg-1x2', [[css('accent'), 'Local'], [css('draw'), 'Empate'], [css('away'), 'Visita']]);
+  legend('leg-goles', [[css('over'), 'Más de 2,5 goles'], [css('btts'), 'Ambos marcan']]);
+
+  // picks
+  const cp = document.getElementById('ch-picks'); const tp = tipFor(cp.parentElement);
+  sorted.forEach(m => {
+    const r = row([[m.pronostico, true], [' · ' + m.partido, false]], pct(m.p_pronostico) + ' · @' + f2(m.cuota_pronostico));
+    const tr = el('div', 'track'), fl = el('div', 'fill'); fl.style.width = m.p_pronostico * 100 + '%'; fl.style.background = confColor[m.confianza];
+    tr.appendChild(fl); r.appendChild(tr);
+    r.addEventListener('mousemove', e => tp.show(e, [m.partido, m.pronostico + ' (' + m.tipo + ')', 'Probabilidad: ' + pct(m.p_pronostico), 'Cuota: ' + f2(m.cuota_pronostico), 'Confianza: ' + m.confianza]));
+    r.addEventListener('mouseleave', () => tp.hide());
+    cp.appendChild(r);
+  });
+
+  // 1X2
+  const c1 = document.getElementById('ch-1x2'); const t1 = tipFor(c1.parentElement);
+  MODELO.forEach(m => {
+    const k = mercado[m.id];
+    const r = row([[m.partido, false]], `${pct(m.p_local)} · ${pct(m.p_empate)} · ${pct(m.p_visitante)}`);
+    const w = el('div', 'stackwrap'), mk = el('div', 'mk'); mk.style.left = `calc(${k.l * 100}% - 1px)`;
+    w.append(stack(m), mk); r.appendChild(w);
+    r.addEventListener('mousemove', e => t1.show(e, [m.partido, `Modelo: ${pct(m.p_local)} / ${pct(m.p_empate)} / ${pct(m.p_visitante)}`, `Casa: ${pct(k.l)} / ${pct(k.x)} / ${pct(k.v)}`, `Margen de la casa: ${pct(k.margen)}`]));
+    r.addEventListener('mouseleave', () => t1.hide());
+    c1.appendChild(r);
+  });
+
+  // scatter
+  const cv = document.getElementById('ch-valor'); const tv = tipFor(cv);
+  const NS = 'http://www.w3.org/2000/svg';
+  const sv = (tag, attrs, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); parent.appendChild(n); return n; };
+  const W = 460, H = 320, mg = { t: 12, r: 16, b: 44, l: 48 }, lo = 0.3, hi = 0.9;
+  const X = v => mg.l + (Math.min(hi, Math.max(lo, v)) - lo) / (hi - lo) * (W - mg.l - mg.r);
+  const Y = v => H - mg.b - (Math.min(hi, Math.max(lo, v)) - lo) / (hi - lo) * (H - mg.t - mg.b);
+  const svg = sv('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Dispersión de probabilidad del modelo frente a la cuota' }, cv);
+  [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9].forEach(t => {
+    sv('line', { x1: mg.l, x2: W - mg.r, y1: Y(t), y2: Y(t), stroke: 'var(--grid)' }, svg);
+    sv('text', { x: mg.l - 6, y: Y(t) + 4, 'text-anchor': 'end' }, svg).textContent = pct(t);
+    sv('text', { x: X(t), y: H - mg.b + 16, 'text-anchor': 'middle' }, svg).textContent = pct(t);
+  });
+  sv('line', { x1: X(lo), y1: Y(lo), x2: X(hi), y2: Y(hi), stroke: 'var(--muted)', 'stroke-dasharray': '4 4' }, svg);
+  sv('text', { x: (mg.l + W - mg.r) / 2, y: H - 6, 'text-anchor': 'middle' }, svg).textContent = 'Probabilidad según la cuota';
+  sv('text', { transform: `translate(13,${(mg.t + H - mg.b) / 2}) rotate(-90)`, 'text-anchor': 'middle' }, svg).textContent = 'Modelo';
+  MODELO.forEach(m => {
+    const pc = 1 / m.cuota_pronostico, d = m.p_pronostico - pc;
+    const c = sv('circle', { cx: X(pc), cy: Y(m.p_pronostico), r: 6, fill: d > 0.02 ? 'var(--accent)' : 'var(--draw)', 'fill-opacity': 0.9, stroke: 'var(--panel)', 'stroke-width': 1.5 }, svg);
+    c.style.cursor = 'default';
+    c.addEventListener('mousemove', e => tv.show(e, [m.partido, m.pronostico + ' @ ' + f2(m.cuota_pronostico), 'Modelo: ' + pct(m.p_pronostico), 'Cuota implica: ' + pct(pc), 'Ventaja: ' + (d >= 0 ? '+' : '') + f1(d * 100) + ' pts']));
+    c.addEventListener('mouseleave', () => tv.hide());
+  });
+
+  // goles
+  const cg = document.getElementById('ch-goles'); const tg = tipFor(cg.parentElement);
+  MODELO.slice().sort((a, b) => b.p_mas_25 - a.p_mas_25).forEach(m => {
+    const r = row([[m.partido, false]], '+2,5 ' + pct(m.p_mas_25) + ' · ambos ' + pct(m.p_ambos_marcan));
+    const d = el('div', 'dots'); d.append(el('div', 'ln'), el('div', 'ref'));
+    [[m.p_mas_25, css('over')], [m.p_ambos_marcan, css('btts')]].forEach(([v, c]) => { const dt = el('div', 'dt'); dt.style.left = v * 100 + '%'; dt.style.background = c; d.appendChild(dt); });
+    r.appendChild(d);
+    r.addEventListener('mousemove', e => tg.show(e, [m.partido, 'Más de 2,5: ' + pct(m.p_mas_25), 'Ambos marcan: ' + pct(m.p_ambos_marcan), 'Goles esperados: ' + f1(m.goles_esp_local) + ' – ' + f1(m.goles_esp_visitante), 'Marcador más probable: ' + m.marcador_probable]));
+    r.addEventListener('mouseleave', () => tg.hide());
+    cg.appendChild(r);
+  });
+
+  // combinadas
+  document.getElementById('ch-combos').replaceChildren(...combos.map(c => {
+    const card = el('div', 'card combo'); const nums = el('div', 'nums');
+    [['Cuota', f2(c.cuota)], ['Prob. de acierto', pct(c.prob)]].forEach(([l, v]) => { const d = el('div'); d.append(el('span', 'l', l), el('span', 'v', v)); nums.appendChild(d); });
+    const ul = el('ul'); c.sel.forEach(m => ul.appendChild(el('li', '', `${m.pronostico} @ ${f2(m.cuota_pronostico)} (${pct(m.p_pronostico)})`)));
+    card.append(el('h3', '', c.nombre), el('p', 'note', c.nota), nums, ul); return card;
+  }));
+
+  // tabla ordenable
+  const cols = [
+    ['id', '#', v => String(v), 1], ['hora', 'Hora', v => v, 0], ['partido', 'Partido', v => v, 0], ['pronostico', 'Pronóstico', v => v, 0],
+    ['p_pronostico', 'Prob.', pct, 1], ['cuota_pronostico', 'Cuota', f2, 1], ['confianza', 'Confianza', null, 0],
+    ['marcador_probable', 'Marcador', v => v, 1], ['p_mas_25', '+2,5', pct, 1], ['p_ambos_marcan', 'Ambos', pct, 1]
+  ];
+  const rows = MODELO.map(m => ({ ...m, hora: byId[m.id].hora }));
+  let sortKey = 'p_pronostico', sortDir = -1;
+  const headRow = document.querySelector('#tb thead tr'), body = document.querySelector('#tb tbody');
+  function drawTable() {
+    headRow.replaceChildren(...cols.map(([k, label, , num]) => {
+      const th = el('th', num ? 'num' : ''); const b = el('button', '', label + (k === sortKey ? (sortDir > 0 ? ' ↑' : ' ↓') : ''));
+      th.setAttribute('aria-sort', k === sortKey ? (sortDir > 0 ? 'ascending' : 'descending') : 'none');
+      b.addEventListener('click', () => { if (sortKey === k) sortDir = -sortDir; else { sortKey = k; sortDir = typeof rows[0][k] === 'number' ? -1 : 1; } drawTable(); });
+      th.appendChild(b); return th;
+    }));
+    const rs = rows.slice().sort((a, b) => { const x = a[sortKey], y = b[sortKey]; return (typeof x === 'number' ? x - y : String(x).localeCompare(String(y), 'es')) * sortDir; });
+    body.replaceChildren(...rs.map(r => {
+      const tr = el('tr');
+      cols.forEach(([k, , fmt, num]) => {
+        const td = el('td', num ? 'num' : '');
+        if (!fmt) td.appendChild(el('span', 'pill ' + r.confianza.toLowerCase(), r.confianza)); else td.textContent = fmt(r[k]);
+        tr.appendChild(td);
+      });
+      return tr;
+    }));
+  }
+  drawTable();
+
+  // fichas con filtro
+  const cf = document.getElementById('ch-fichas'), fl = document.getElementById('filters');
+  let filtro = 'Todas';
+  function drawFichas() {
+    fl.replaceChildren(...['Todas', 'Alta', 'Media', 'Baja'].map(f => { const b = el('button', '', f === 'Todas' ? 'Todas' : 'Confianza ' + f.toLowerCase()); b.setAttribute('aria-pressed', String(f === filtro)); b.addEventListener('click', () => { filtro = f; drawFichas(); }); return b; }));
+    cf.replaceChildren(...PARTIDOS.filter(p => filtro === 'Todas' || MODELO.find(m => m.id === p.id).confianza === filtro).map(p => {
+      const m = MODELO.find(x => x.id === p.id);
+      const card = el('article', 'card'); card.id = 'partido-' + p.id;
+      const meta = el('div', 'm-meta'); meta.append(el('span', '', p.liga), el('span', 'hr', p.hora));
+      const teams = el('div', 'teams');
+      [[p.local, p.pos_local, p.pts_local], [p.visitante, p.pos_visitante, p.pts_visitante]].forEach(([n, pos, pts]) => teams.append(el('span', '', n), el('span', 'pos', pos + (pts == null ? '' : ' · ' + pts + ' pts'))));
+      const pick = el('div', 'pick'); pick.append(el('b', '', m.pronostico), el('span', '', pct(m.p_pronostico) + ' · @' + f2(m.cuota_pronostico)), el('span', 'pill ' + m.confianza.toLowerCase(), m.confianza));
+      const stats = el('div', 'stats');
+      [['1 · X · 2', `${pct(m.p_local)} · ${pct(m.p_empate)} · ${pct(m.p_visitante)}`], ['Goles esperados', f1(m.goles_esp_local) + ' – ' + f1(m.goles_esp_visitante)], ['Marcador probable', `${m.marcador_probable} (${pct(m.p_marcador)})`],
+       ['Más de 2,5', pct(m.p_mas_25)], ['Ambos marcan', pct(m.p_ambos_marcan)], ['Mejor de goles', `${m.mercado_goles} ${pct(m.p_mercado_goles)}`]]
+        .forEach(([k, v]) => { const d = el('div'); d.append(el('span', 'k', k), el('span', 'v', v)); stats.appendChild(d); });
+      const src = el('a', 'src', 'Fuente: ' + new URL(p.fuente).hostname); src.href = p.fuente; src.target = '_blank'; src.rel = 'noopener';
+      card.append(meta, teams, pick, stack(m), stats, el('p', 'ctx', p.contexto), src);
+      return card;
+    }));
+  }
+  drawFichas();
+})();
+</script>
+</body>
+</html>
