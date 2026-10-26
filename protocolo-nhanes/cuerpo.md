@@ -8,21 +8,25 @@ Existen mecanismos plausibles que vinculan ambas condiciones. La hipoxia intermi
 
 El cuestionario STOP-BANG es una herramienta de tamizaje breve, validada y ampliamente usada para identificar a personas con alto riesgo de AOS, compuesta por ocho ítems dicotómicos: ronquido, cansancio, apneas observadas, presión arterial alta, índice de masa corporal, edad, circunferencia de cuello y sexo (9). La Encuesta Nacional de Salud y Nutrición de Estados Unidos (NHANES) 2017–marzo 2020 incluye preguntas sobre la frecuencia de ronquido, de resoplidos o pausas respiratorias y de somnolencia diurna, además de datos de presión arterial, índice de masa corporal, edad y sexo, y el PHQ-9 (10–12). Esta combinación permite construir una versión adaptada del STOP-BANG y evaluar su asociación con síntomas depresivos en una muestra representativa a nivel nacional.
 
+Esta asociación ya fue explorada con el STOP-BANG en la Encuesta Nacional de Salud y Nutrición de Corea (KNHANES). En 8,030 adultos de la edición 2019–2020, el alto riesgo de AOS se asoció con mayor probabilidad de síntomas depresivos según el PHQ-9 (OR 4.31) (22), y en 4,352 adultos de 40 años o más de la edición 2020, con puntajes más altos de PHQ-9 en ambos sexos (23). Sin embargo, estos hallazgos provienen de una población étnicamente homogénea, con una prevalencia de obesidad y una distribución de factores de riesgo distintas a las de poblaciones multiétnicas como la estadounidense o la latinoamericana.
+
 # 2. Justificación
 
 La justificación de este estudio se apoya en tres ejes.
 
 **Magnitud del problema.** La AOS y la depresión son condiciones frecuentes, ambas subdiagnosticadas y con un impacto importante en la calidad de vida, la productividad y el uso de servicios de salud (1,3). Si el alto riesgo de AOS se asocia con síntomas depresivos, una parte de estos podría estar relacionada con un trastorno del sueño tratable que pasa desapercibido.
 
-**Vacío de conocimiento.** Los estudios poblacionales previos en NHANES evaluaron síntomas aislados de AOS, como el ronquido o las pausas respiratorias, en ciclos anteriores a 2009 (6). En la literatura revisada para este protocolo no se identificó un estudio que evalúe la asociación entre un puntaje compuesto de tamizaje basado en el STOP-BANG y los síntomas depresivos en el ciclo NHANES 2017–marzo 2020, el último que incluye preguntas sobre síntomas de AOS (11,16).
+**Vacío de conocimiento.** La asociación entre el alto riesgo de AOS según el STOP-BANG y los síntomas depresivos se ha descrito en encuestas nacionales de Corea (22,23), pero no se ha confirmado en poblaciones multiétnicas. En Estados Unidos, los estudios poblacionales en NHANES evaluaron síntomas aislados de AOS, como el ronquido o las pausas respiratorias, en ciclos anteriores a 2009 (6). En la literatura revisada para este protocolo no se identificó un estudio que evalúe esta asociación con un puntaje compuesto basado en el STOP-BANG en el ciclo NHANES 2017–marzo 2020, el último que incluye preguntas sobre síntomas de AOS (11,16), ni que la examine en adultos hispanos, cuyo perfil es más cercano al de la población latinoamericana.
 
 **Utilidad práctica.** El STOP-BANG es una herramienta sencilla que puede aplicarse en la atención primaria (9). Demostrar su asociación con síntomas depresivos apoyaría un tamizaje cruzado: buscar síntomas depresivos en personas con alto riesgo de AOS y evaluar el riesgo de AOS en personas con depresión. Además, el uso de una base de datos pública permite realizar el estudio en un tiempo corto, sin costos de recolección y con una muestra representativa.
+
+**Relevancia para el Perú.** En el Perú no existe una encuesta nacional que incluya preguntas sobre síntomas de AOS: la Encuesta Demográfica y de Salud Familiar (ENDES) incluye el PHQ-9, pero no preguntas sobre ronquido, apneas observadas ni somnolencia. Por ello, el análisis del subgrupo de adultos hispanos de NHANES ofrece la evidencia poblacional disponible más cercana a la población peruana, y sus resultados podrán justificar la inclusión de estas preguntas en encuestas nacionales y el diseño de estudios primarios en el país.
 
 # 3. Problema de investigación
 
 ## 3.1 Planteamiento del problema
 
-La AOS y la depresión comparten síntomas, factores de riesgo y posibles mecanismos fisiopatológicos, pero ambas suelen evaluarse por separado en la práctica clínica (5–8). La mayoría de la evidencia poblacional proviene de síntomas aislados de AOS y de ciclos antiguos de NHANES (6). No se conoce con precisión si el alto riesgo de AOS, definido mediante un puntaje compuesto de tamizaje, se asocia con síntomas depresivos clínicamente relevantes en una muestra nacional reciente, después de considerar las características sociodemográficas y clínicas de los participantes.
+La AOS y la depresión comparten síntomas, factores de riesgo y posibles mecanismos fisiopatológicos, pero ambas suelen evaluarse por separado en la práctica clínica (5–8). La evidencia poblacional con el STOP-BANG proviene principalmente de Corea (22,23), y la evidencia en Estados Unidos, de síntomas aislados de AOS en ciclos antiguos de NHANES (6). No se conoce con precisión si el alto riesgo de AOS, definido mediante un puntaje compuesto de tamizaje, se asocia con síntomas depresivos clínicamente relevantes en una muestra nacional multiétnica y reciente, ni si esta asociación se mantiene en adultos hispanos, después de considerar las características sociodemográficas y clínicas de los participantes.
 
 ## 3.2 Formulación de la pregunta de investigación
 
@@ -53,6 +57,8 @@ Determinar la asociación entre el alto riesgo de AOS, según una versión adapt
 - Estimar la prevalencia ponderada del alto riesgo de AOS y de los síntomas depresivos clínicamente relevantes.
 - Estimar las razones de prevalencia crudas y ajustadas de síntomas depresivos clínicamente relevantes entre los participantes con alto y bajo riesgo de AOS.
 - Evaluar la existencia de un gradiente en la prevalencia de síntomas depresivos según el puntaje del STOP-BANG adaptado (0–2, 3–4 y 5–7 puntos).
+- Evaluar la consistencia de la asociación con una versión reducida del STOP-BANG validada frente a la polisomnografía (SOPBAG) y con el índice multivariable de predicción de apnea (MAP).
+- Estimar la asociación en el subgrupo de adultos hispanos.
 - Explorar si la asociación difiere según el sexo.
 
 # 5. Hipótesis
@@ -105,6 +111,13 @@ Se construirá una versión adaptada del STOP-BANG con los siete ítems disponib
 | **G** – Sexo | RIAGENDR (P_DEMO) | Sexo | Masculino (código 1) |
 
 Se considerará **alto riesgo de AOS** un puntaje de 3 o más, y **bajo riesgo** un puntaje de 0 a 2, en concordancia con el punto de corte del cuestionario original (9). Para el análisis de gradiente, el puntaje se agrupará en 0–2, 3–4 y 5–7 puntos. Las respuestas "No sabe" (9) o "Rechazado" (7) se considerarán datos faltantes.
+
+La omisión del cuello tiene respaldo empírico. En 541 pacientes evaluados con polisomnografía, una versión reducida que excluye la circunferencia de cuello y el cansancio (SOPBAG) tuvo un área bajo la curva de 0.811, equivalente a la del STOP-BANG completo (0.809) (24). Por ello, se prespecifican dos definiciones complementarias de la exposición:
+
+- **SOPBAG (exposición secundaria prespecificada):** los ítems S, O, P, B, A y G (0 a 6 puntos), sin el ítem de cansancio. Para mantener la comparabilidad con la exposición principal se usará el punto de corte de 3 o más, y además el puntaje continuo. Esta versión, además de estar validada frente a la polisomnografía, elimina el ítem que se superpone con el PHQ-9.
+- **Índice MAP (análisis de sensibilidad):** probabilidad estimada de AOS según la ecuación de Maislin et al., validada frente a la polisomnografía, que combina la frecuencia de síntomas nocturnos (SLQ030 y SLQ040, reescalados a la escala original de 0 a 4), el IMC, la edad y el sexo (25). Se analizará como variable continua (por cada aumento de 0.1) y en terciles.
+
+Ninguna de estas versiones reemplaza la polisomnografía: miden riesgo de AOS y no su diagnóstico, por lo que los resultados se interpretarán siempre en esos términos.
 
 ### 6.5.2 Variable de desenlace: síntomas depresivos clínicamente relevantes
 
@@ -163,6 +176,8 @@ De manera preliminar, la comparación no ponderada del desenlace según la expos
 
 Con una prueba de comparación de dos proporciones y un nivel de significancia bilateral de 0.05, la potencia para detectar esta diferencia fue mayor de 99%, incluso al asumir un efecto de diseño de 2, lo que equivale a reducir a la mitad el tamaño efectivo de la muestra. En los 6,885 participantes con covariables completas hubo 588 casos; con 21 parámetros en el modelo ajustado, se dispone de unos 28 eventos por parámetro, por encima del mínimo de 10.
 
+Con la versión SOPBAG, 2,818 participantes (40.6%) tuvieron alto riesgo, con una prevalencia no ponderada de síntomas depresivos de 11.3%, frente a 6.8% en los de bajo riesgo. El subgrupo hispano (mexicano-americano y otro hispano) incluyó 1,509 participantes y 143 casos (14.2% en alto riesgo y 6.1% en bajo riesgo). Como el modelo ajustado sin la variable raza/etnia tiene unos 16 parámetros, el subgrupo dispone de alrededor de 9 eventos por parámetro; por ello, su análisis se considerará exploratorio y, de ser necesario, se reducirá el número de covariables según su relevancia clínica.
+
 Estas estimaciones solo verifican la factibilidad y no constituyen el análisis final. Las razones de prevalencia ponderadas, crudas y ajustadas, y su interpretación se obtendrán después, según la metodología de este protocolo, para evitar modificar las hipótesis o la estrategia analítica en función de los datos explorados.
 
 ## 6.7 Instrumentos y procedimientos
@@ -179,7 +194,7 @@ El estudio no requiere un instrumento de recolección propio. Se usarán los cue
 
 **Sesgo de información.** Los síntomas de sueño, la hipertensión y los antecedentes clínicos son autorreportados, y el STOP-BAG adaptado no ha sido validado frente a la polisomnografía en NHANES. Esto puede producir una clasificación incorrecta de la exposición, probablemente no diferencial, que tendería a subestimar la asociación.
 
-**Superposición de síntomas.** La somnolencia diurna (ítem T) se parece a los ítems de problemas de sueño (DPQ030) y de cansancio (DPQ040) del PHQ-9. Para evitar que esta superposición explique la asociación, se prespecifican análisis de sensibilidad sin estos ítems (sección 6.9).
+**Superposición de síntomas.** La somnolencia diurna (ítem T) se parece a los ítems de problemas de sueño (DPQ030) y de cansancio (DPQ040) del PHQ-9. Para evitar que esta superposición explique la asociación, se usará como exposición secundaria el SOPBAG, que no incluye el ítem de cansancio (24), y se prespecifican análisis con un puntaje PHQ-9 sin los ítems de sueño y cansancio (sección 6.9).
 
 **Sesgo de selección y no respuesta.** Se usarán los pesos, estratos y unidades primarias de muestreo oficiales, que incorporan la probabilidad de selección y los ajustes por no respuesta (15). Aun así, puede persistir un sesgo residual.
 
@@ -201,15 +216,18 @@ Todos los análisis se realizarán en Stata 18 (21). El diseño muestral complej
 
 **Gradiente.** Se estimarán las RP de las categorías 3–4 y 5–7 frente a 0–2, y la tendencia se evaluará incorporando el puntaje agrupado como término ordinal (p de tendencia).
 
+**Exposición secundaria y subgrupo hispano.** El análisis multivariado se repetirá con el SOPBAG como exposición y en el subgrupo de adultos hispanos, definido como una subpoblación del diseño muestral (opción subpop()), sin la variable raza/etnia en el modelo.
+
 **Modificación del efecto.** Se evaluará la interacción entre el riesgo de AOS y el sexo con la prueba de Wald ajustada; si es significativa, se reportarán las RP por sexo.
 
 **Análisis de sensibilidad prespecificados:**
 
-1. Exposición sin el ítem de cansancio (STOP-BAG sin T, 0 a 6 puntos, alto riesgo ≥ 3).
+1. Exposición definida por el índice MAP, como variable continua y en terciles (25).
 2. Desenlace con el puntaje PHQ-9 sin los ítems de sueño y cansancio (DPQ030 y DPQ040), analizado como variable continua mediante regresión lineal.
 3. Desenlace con el PHQ-8 ≥ 10 (sin el ítem de ideación suicida), versión validada para estudios poblacionales (17).
 4. Exposición definida solo por síntomas nocturnos: ronquido o resoplidos/pausas respiratorias 3 o más noches por semana.
 5. Modelo principal con ajuste adicional por categorías de IMC.
+6. Puntos de corte alternativos del STOP-BAG (2 o más y 4 o más).
 
 El nivel de significancia será p < 0.05 (bilateral). Los resultados se reportarán según la guía STROBE (13) y se interpretarán como asociaciones.
 
@@ -224,14 +242,16 @@ El protocolo será presentado al Subcomité de Ética en Investigación de la Fa
 - Usa una muestra nacional con diseño probabilístico complejo, que permite obtener estimaciones representativas de la población civil no institucionalizada de Estados Unidos.
 - El desenlace se mide con el PHQ-9, un instrumento validado y ampliamente usado (4).
 - Emplea un puntaje compuesto de tamizaje basado en el STOP-BANG, en lugar de síntomas aislados, lo que lo acerca a la práctica clínica (9).
+- Evalúa la exposición con tres instrumentos complementarios (STOP-BAG, SOPBAG e índice MAP), dos de ellos validados frente a la polisomnografía.
 - Incluye análisis de sensibilidad prespecificados para controlar la superposición de síntomas entre la exposición y el desenlace.
+- Analiza a los adultos hispanos, la población de NHANES más cercana a la peruana.
 - La factibilidad se verificó con los datos reales de NHANES 2017–marzo 2020 antes del análisis final.
 
 # 9. Limitaciones
 
-- **Validez externa:** los resultados serán generalizables a la población de Estados Unidos y no directamente a la población peruana.
-- **Exposición indirecta:** el STOP-BAG adaptado no incluye la circunferencia de cuello ni confirma la AOS con polisomnografía; mide riesgo, no diagnóstico.
-- **Diseño transversal:** no permite establecer causalidad ni la dirección de la asociación.
+- **Validez externa:** los resultados serán generalizables a la población de Estados Unidos y no directamente a la población peruana. Para acercarlos a la realidad latinoamericana se analizará el subgrupo hispano, aunque con menor precisión.
+- **Exposición indirecta:** el STOP-BAG adaptado no incluye la circunferencia de cuello ni confirma la AOS con polisomnografía; mide riesgo, no diagnóstico. Para reducir esta limitación se usarán dos instrumentos validados frente a la polisomnografía, el SOPBAG y el índice MAP (24,25). La clasificación incorrecta de la exposición, probablemente no diferencial, tendería a subestimar la asociación.
+- **Diseño transversal:** no permite establecer causalidad ni la dirección de la asociación; la depresión podría aumentar la percepción de somnolencia o de los síntomas nocturnos. El gradiente según el puntaje y la consistencia entre instrumentos apoyarán la coherencia de la asociación, pero no su causalidad.
 - **Autorreporte:** varios datos dependen del recuerdo de los participantes.
 - **Confusión residual:** no se ajustará por el uso de antidepresivos, hipnóticos ni por actividad física, que podrían influir en ambas variables.
 - **Antigüedad relativa:** los datos son previos a la pandemia de COVID-19, que pudo modificar la prevalencia de síntomas depresivos.
@@ -275,6 +295,10 @@ El estudio será autofinanciado por los investigadores. Los datos de NHANES son 
 19. Rao JNK, Scott AJ. On chi-squared tests for multiway contingency tables with cell proportions estimated from survey data. Ann Stat. 1984;12(1):46-60.
 20. National Center for Health Statistics. NCHS Ethics Review Board (ERB) approval [Internet]. Hyattsville (MD): CDC [citado oct 2026]. Disponible en el sitio web oficial de NHANES.
 21. StataCorp. Stata Statistical Software: Release 18. College Station (TX): StataCorp LLC; 2023.
+22. Lee MR, Jung SM. Obstructive sleep apnea related to mental health, health-related quality of life and multimorbidity: a nationwide survey of a representative sample in Republic of Korea. PLoS One. 2023;18(6):e0287182.
+23. Lee MS, Lee H. The risk of obstructive sleep apnea is highly correlated with depressive symptoms among the Korean adults population: results from the 2020 Korea National Health and Nutrition Examination Survey. BMC Psychiatry. 2023;23. doi:10.1186/s12888-023-04983-7
+24. Kim KT, Cho YW. Real-world STOPBANG: how useful is STOPBANG for sleep clinics? Sleep Breath. 2019. doi:10.1007/s11325-019-01806-6
+25. Maislin G, Pack AI, Kribbs NB, Smith PL, Schwartz AR, Kline LR, et al. A survey screen for prediction of apnea. Sleep. 1995;18(3):158-66.
 
 # Anexo 1. Código de Stata para la construcción de la base y la verificación de factibilidad
 
