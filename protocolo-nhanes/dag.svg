@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780" font-family="Liberation Sans, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333"/>
+    </marker>
+    <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2E8B3A"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="780" fill="#EEEEEE"/>
+
+  <!-- Confusoras -->
+  <g font-size="22" text-anchor="middle">
+    <rect x="80" y="40" width="220" height="70" fill="#D9D9D9" stroke="#333" stroke-width="1.5"/>
+    <text x="190" y="82">Edad y sexo</text>
+    <rect x="370" y="40" width="460" height="70" fill="#D9D9D9" stroke="#333" stroke-width="1.5"/>
+    <text x="600" y="69">Raza/etnia, nivel educativo,</text>
+    <text x="600" y="96">ingreso/pobreza y estado civil</text>
+    <rect x="900" y="40" width="220" height="70" fill="#D9D9D9" stroke="#333" stroke-width="1.5"/>
+    <text x="1010" y="82">Tabaquismo</text>
+  </g>
+
+  <!-- Exposición y desenlace -->
+  <g font-size="24" font-weight="bold" text-anchor="middle">
+    <rect x="40" y="320" width="360" height="92" fill="#C8D94B" stroke="#333" stroke-width="2"/>
+    <text x="220" y="358">Alto riesgo de AOS</text>
+    <text x="220" y="390">(STOP-BAG ≥ 3)</text>
+    <rect x="800" y="320" width="360" height="92" fill="#4FB6E3" stroke="#333" stroke-width="2"/>
+    <text x="980" y="358">Síntomas depresivos</text>
+    <text x="980" y="390">(PHQ-9 ≥ 10)</text>
+  </g>
+
+  <!-- Componentes del puntaje y comorbilidades -->
+  <g font-size="21" text-anchor="middle">
+    <rect x="40" y="560" width="160" height="62" fill="#F1E9A6" stroke="#333" stroke-width="1.5"/>
+    <text x="120" y="598">IMC</text>
+    <rect x="240" y="560" width="210" height="62" fill="#F1E9A6" stroke="#333" stroke-width="1.5"/>
+    <text x="345" y="586">Hipertensión</text>
+    <text x="345" y="610">arterial</text>
+    <rect x="640" y="560" width="220" height="62" fill="#BFE3F2" stroke="#333" stroke-width="1.5"/>
+    <text x="750" y="598">Diabetes mellitus</text>
+    <rect x="900" y="560" width="260" height="62" fill="#BFE3F2" stroke="#333" stroke-width="1.5"/>
+    <text x="1030" y="586">Enfermedad</text>
+    <text x="1030" y="610">cardiovascular</text>
+  </g>
+
+  <!-- Flechas de confusoras -->
+  <g stroke="#333" stroke-width="1.6" fill="none" marker-end="url(#a)">
+    <line x1="190" y1="110" x2="190" y2="318"/>
+    <line x1="260" y1="110" x2="880" y2="318"/>
+    <line x1="520" y1="110" x2="300" y2="318"/>
+    <line x1="680" y1="110" x2="930" y2="318"/>
+    <line x1="950" y1="110" x2="370" y2="318"/>
+    <line x1="1030" y1="110" x2="1030" y2="318"/>
+    <!-- Componentes del puntaje -->
+    <line x1="120" y1="560" x2="120" y2="414"/>
+    <line x1="330" y1="560" x2="310" y2="414"/>
+    <line x1="200" y1="591" x2="238" y2="591"/>
+    <line x1="200" y1="566" x2="858" y2="414" stroke-dasharray="7 5"/>
+    <!-- Comorbilidades -->
+    <line x1="750" y1="560" x2="900" y2="414"/>
+    <line x1="1030" y1="560" x2="1030" y2="414"/>
+    <path d="M120,622 L120,668 L750,668 L750,624"/>
+    <path d="M400,622 L400,700 L1030,700 L1030,624"/>
+  </g>
+
+  <!-- Efecto de interés -->
+  <line x1="400" y1="366" x2="796" y2="366" stroke="#2E8B3A" stroke-width="4" marker-end="url(#g)"/>
+  <text x="598" y="352" font-size="19" fill="#2E8B3A" text-anchor="middle" font-style="italic">asociación de interés</text>
+
+  <!-- Leyenda -->
+  <g font-size="17">
+    <rect x="40" y="735" width="22" height="22" fill="#C8D94B" stroke="#333"/><text x="70" y="752">Exposición</text>
+    <rect x="175" y="735" width="22" height="22" fill="#4FB6E3" stroke="#333"/><text x="205" y="752">Desenlace</text>
+    <rect x="305" y="735" width="22" height="22" fill="#D9D9D9" stroke="#333"/><text x="335" y="752">Confusora ajustada</text>
+    <rect x="510" y="735" width="22" height="22" fill="#BFE3F2" stroke="#333"/><text x="540" y="752">Comorbilidad ajustada</text>
+    <rect x="735" y="735" width="22" height="22" fill="#F1E9A6" stroke="#333"/><text x="765" y="752">Componente del puntaje (no ajustado)</text>
+  </g>
+</svg>
