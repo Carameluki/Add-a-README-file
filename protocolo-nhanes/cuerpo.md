@@ -138,17 +138,32 @@ No se realizará un cálculo de tamaño de muestra orientado al reclutamiento, p
 
 Se descargarán los archivos públicos P_DEMO, P_SLQ, P_DPQ, P_BPQ, P_BMX, P_DIQ, P_MCQ, P_SMQ y P_HIQ desde el repositorio oficial del CDC y se aplicarán de forma secuencial los criterios de selección. El flujo de participantes se reportará así:
 
-| Paso | Participantes (n) |
-| --- | --- |
-| Participantes del archivo P_DEMO | [n] |
-| De 20 años o más | [n] |
-| Examinados en el MEC | [n] |
-| Sin embarazo al momento del examen | [n] |
-| Con puntaje STOP-BAG válido | [n] |
-| Con PHQ-9 completo (población analítica) | [n] |
-| Con covariables completas (análisis de casos completos) | [n] |
+| Paso | Participantes (n) | Excluidos (n) |
+| --- | --- | --- |
+| Participantes del archivo P_DEMO | 15,560 | — |
+| De 20 años o más | 9,232 | 6,328 |
+| Examinados en el MEC | 8,544 | 688 |
+| Sin embarazo al momento del examen | 8,457 | 87 |
+| Con puntaje STOP-BAG válido | 7,435 | 1,022 |
+| Con PHQ-9 completo (población analítica) | 6,938 | 497 |
+| Con covariables completas (análisis de casos completos) | 6,885 | 53 |
 
-Con estos datos se estimarán la prevalencia no ponderada y ponderada del alto riesgo de AOS y de los síntomas depresivos clínicamente relevantes, y el número de eventos por parámetro del modelo ajustado. Se considerará adecuado un mínimo de 10 eventos por parámetro. El código de Stata para la construcción de la base y la verificación de factibilidad se presenta en el Anexo 1.
+La población analítica quedó constituida por 6,938 participantes. La principal causa de exclusión fue la falta de un puntaje STOP-BAG válido (1,022 participantes), sobre todo por respuestas "No sabe" a la pregunta de ronquido (SLQ030), lo que podría reflejar a personas que duermen solas. La razón ingreso/pobreza no estuvo disponible en 872 participantes (12.6%), que se analizarán como una categoría propia ("no reportado") para no reducir la muestra.
+
+De los 6,938 participantes, 3,222 (46.4%) tuvieron alto riesgo de AOS y 597 (8.6%) síntomas depresivos clínicamente relevantes. La prevalencia ponderada del alto riesgo de AOS fue 42.6% (IC 95%: 39.8% a 45.5%; efecto de diseño 5.31) y la de síntomas depresivos, 8.0% (IC 95%: 7.2% a 8.8%; efecto de diseño 1.56). Se usó el peso WTMECPRP, la linealización de Taylor e intervalos logit con 25 grados de libertad de diseño (24 estratos y 49 unidades primarias de muestreo). El código de Stata para la construcción de la base y la verificación de factibilidad se presenta en el Anexo 1.
+
+### 6.6.3 Distribución preliminar del desenlace y potencia exploratoria
+
+De manera preliminar, la comparación no ponderada del desenlace según la exposición mostró la siguiente distribución:
+
+| Grupo | n | Casos (PHQ-9 ≥ 10) | Prevalencia | RP cruda |
+| --- | --- | --- | --- | --- |
+| Alto riesgo de AOS (STOP-BAG ≥ 3) | 3,222 | 383 | 11.9% | 2.06 |
+| Bajo riesgo de AOS (STOP-BAG 0–2) | 3,716 | 214 | 5.8% | Referencia |
+
+Con una prueba de comparación de dos proporciones y un nivel de significancia bilateral de 0.05, la potencia para detectar esta diferencia fue mayor de 99%, incluso al asumir un efecto de diseño de 2, lo que equivale a reducir a la mitad el tamaño efectivo de la muestra. En los 6,885 participantes con covariables completas hubo 588 casos; con 21 parámetros en el modelo ajustado, se dispone de unos 28 eventos por parámetro, por encima del mínimo de 10.
+
+Estas estimaciones solo verifican la factibilidad y no constituyen el análisis final. Las razones de prevalencia ponderadas, crudas y ajustadas, y su interpretación se obtendrán después, según la metodología de este protocolo, para evitar modificar las hipótesis o la estrategia analítica en función de los datos explorados.
 
 ## 6.7 Instrumentos y procedimientos
 
@@ -210,7 +225,7 @@ El protocolo será presentado al Subcomité de Ética en Investigación de la Fa
 - El desenlace se mide con el PHQ-9, un instrumento validado y ampliamente usado (4).
 - Emplea un puntaje compuesto de tamizaje basado en el STOP-BANG, en lugar de síntomas aislados, lo que lo acerca a la práctica clínica (9).
 - Incluye análisis de sensibilidad prespecificados para controlar la superposición de síntomas entre la exposición y el desenlace.
-- La factibilidad se verificará con los datos reales antes del análisis final.
+- La factibilidad se verificó con los datos reales de NHANES 2017–marzo 2020 antes del análisis final.
 
 # 9. Limitaciones
 

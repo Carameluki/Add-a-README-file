@@ -41,7 +41,7 @@ function table(rows) {
   // Ancho de cada columna proporcional al largo promedio de su texto
   const weights = Array.from({ length: ncol }, (_, j) => {
     const avg = cells.reduce((s, r) => s + (r[j] || '').length, 0) / cells.length;
-    return Math.min(Math.max(avg, j === 0 ? 20 : 6), 70);
+    return Math.min(Math.max(avg, j === 0 ? 20 : 11), 70);
   });
   const total = weights.reduce((a, b) => a + b, 0);
   const widths = weights.map(w => Math.round((w / total) * TEXT_WIDTH));
