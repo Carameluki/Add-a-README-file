@@ -17,7 +17,7 @@ const DOUBLE = { line: 480 };
 function runs(text, opts = {}) {
   return text.split(/(\*\*[^*]+\*\*)/).filter(Boolean).map(part =>
     part.startsWith('**')
-      ? new TextRun({ text: part.slice(2, -2), bold: true, ...opts })
+      ? new TextRun({ ...opts, text: part.slice(2, -2), bold: true })
       : new TextRun({ text: part, ...opts }));
 }
 
@@ -46,6 +46,8 @@ function table(rows) {
   const total = weights.reduce((a, b) => a + b, 0);
   const widths = weights.map(w => Math.round((w / total) * TEXT_WIDTH));
   widths[ncol - 1] += TEXT_WIDTH - widths.reduce((a, b) => a + b, 0);
+  // Tabla de operacionalización (formato UPC): anchos fijos para que "Unidad" no parta palabras
+  if (ncol === 6) widths.splice(0, 6, 1500, 1700, 1750, 1400, 1450, 987);
   const border = { style: BorderStyle.SINGLE, size: 4, color: '000000' };
   const borders = { top: border, bottom: border, left: border, right: border };
   return new Table({
@@ -63,7 +65,7 @@ function table(rows) {
         children: [new Paragraph({
           alignment: c === 'X' ? AlignmentType.CENTER : AlignmentType.LEFT,
           spacing: { line: 240 },
-          children: runs(c, { size: 20, bold: i === 0 ? true : undefined }),
+          children: runs(c, { size: ncol >= 6 ? 18 : 20, bold: i === 0 ? true : undefined }),
         })],
       })),
     })),
@@ -83,6 +85,24 @@ function parse(md) {
       // Las secciones principales y los anexos empiezan en página nueva solo si son anexos/referencias
       if (level === 1 && /^(Referencias|Anexo)/.test(m[2])) out.push(new Paragraph({ children: [new PageBreak()] }));
       out.push(heading(level, m[2]));
+      i++;
+    } else if ((m = line.match(/^!\[(.*)\]\((.*)\)$/))) {
+      // Imagen con leyenda en negrita cursiva, como en el formato de la UPC
+      const [num, ...rest] = m[1].split('. ');
+      out.push(new Paragraph({
+        keepNext: true,
+        spacing: { before: 120, after: 120 },
+        children: [new TextRun({ text: `${num}. `, bold: true, italics: true }), new TextRun({ text: rest.join('. '), italics: true })],
+      }));
+      out.push(new Paragraph({
+        alignment: AlignmentType.CENTER,
+        spacing: { after: 240 },
+        children: [new ImageRun({
+          type: 'png',
+          data: fs.readFileSync(path.join(DIR, m[2])),
+          transformation: { width: 590, height: 384 },
+        })],
+      }));
       i++;
     } else if (line.startsWith('```')) {
       const code = [];

@@ -123,23 +123,38 @@ Ninguna de estas versiones reemplaza la polisomnografía: miden riesgo de AOS y 
 
 Se definirán a partir del PHQ-9 del archivo P_DPQ (4,12). Cada uno de los nueve ítems (DPQ010 a DPQ090) se puntúa de 0 ("para nada") a 3 ("casi todos los días") según la frecuencia de cada síntoma en las dos semanas previas, y la suma va de 0 a 27. Se considerarán **síntomas depresivos clínicamente relevantes** un puntaje total de 10 o más (4). Como variables secundarias se usarán el puntaje total continuo y las categorías de severidad: mínima (0–4), leve (5–9), moderada (10–14), moderadamente grave (15–19) y grave (20–27).
 
-### 6.5.3 Covariables
+### 6.5.3 Tabla de operacionalización de variables
 
-| Variable | Tipo / escala | Variable NHANES | Categorías (referencia en negrita) |
-| --- | --- | --- | --- |
-| Edad | Cualitativa ordinal | RIDAGEYR (P_DEMO) | **20–39**, 40–59, ≥ 60 años (las edades ≥ 80 están codificadas como 80) |
-| Sexo | Cualitativa nominal | RIAGENDR (P_DEMO) | **Femenino**, masculino |
-| Raza/etnia | Cualitativa nominal | RIDRETH3 (P_DEMO) | Mexicano-americano, otro hispano, **blanco no hispano**, negro no hispano, asiático no hispano, otra o multirracial |
-| Nivel educativo | Cualitativa ordinal | DMDEDUC2 (P_DEMO) | Sin secundaria completa (1–2), secundaria completa o superior incompleta (3–4), **superior completa** (5) |
-| Razón ingreso familiar/pobreza | Cualitativa ordinal | INDFMPIR (P_DEMO) | < 1.30, 1.30–3.49, **≥ 3.50**, no reportado |
-| Estado civil | Cualitativa nominal | DMDMARTZ (P_DEMO) | **Casado o conviviente**, viudo/divorciado/separado, nunca casado |
-| Tabaquismo | Cualitativa nominal | SMQ020, SMQ040 (P_SMQ) | **Nunca fumador**, exfumador, fumador actual |
-| Diabetes mellitus | Cualitativa dicotómica | DIQ010 (P_DIQ) | **No**, sí (diagnóstico médico autorreportado) |
-| Enfermedad cardiovascular | Cualitativa dicotómica | MCQ160B, C, D, E, F (P_MCQ) | **No**, sí (insuficiencia cardíaca, enfermedad coronaria, angina, infarto o ACV) |
-| Seguro de salud | Cualitativa dicotómica | HIQ011 (P_HIQ) | **Sí**, no |
-| IMC (solo análisis de sensibilidad) | Cualitativa ordinal | BMXBMI (P_BMX) | **< 25**, 25–29.9, ≥ 30 kg/m² |
+| Variable | Definición conceptual | Definición operacional | Tipo / Escala | Categorías / Rangos | Unidad |
+| --- | --- | --- | --- | --- | --- |
+| **Síntomas depresivos clínicamente relevantes (desenlace principal)** | Presencia de síntomas depresivos de intensidad compatible con un episodio depresivo mayor | Puntaje PHQ-9 ≥ 10 (suma de DPQ010 a DPQ090) (4) | Dependiente, cualitativa dicotómica | Sí / No | — |
+| **Puntaje PHQ-9 (desenlace secundario)** | Severidad de los síntomas depresivos en las dos semanas previas | Suma de los nueve ítems del PHQ-9 (P_DPQ) | Dependiente, cuantitativa discreta | 0–27; mínima, leve, moderada, moderadamente grave, grave | Puntos |
+| **Alto riesgo de AOS: STOP-BAG (exposición principal)** | Probabilidad elevada de AOS según un cuestionario de tamizaje | Puntaje de 0 a 7 con los ítems S, T, O, P, B, A y G (sección 6.5.1); alto riesgo ≥ 3 | Independiente, cualitativa dicotómica; ordinal para el gradiente | Alto (≥ 3) / Bajo (0–2); 0–2, 3–4, 5–7 | — |
+| **Alto riesgo de AOS: SOPBAG (exposición secundaria)** | Versión reducida del STOP-BANG validada frente a la polisomnografía (24) | Puntaje de 0 a 6 con los ítems S, O, P, B, A y G; alto riesgo ≥ 3 | Independiente, cualitativa dicotómica | Alto (≥ 3) / Bajo (0–2) | — |
+| **Índice MAP (análisis de sensibilidad)** | Probabilidad estimada de AOS según síntomas nocturnos y características antropométricas (25) | Ecuación de Maislin et al. con SLQ030, SLQ040, IMC, edad y sexo | Independiente, cuantitativa continua | 0–1; terciles | — |
+| **Edad** | Tiempo de vida del participante | Años cumplidos al momento de la entrevista (RIDAGEYR) | Confusora, cualitativa ordinal | 20–39, 40–59, ≥ 60 | Años |
+| **Sexo** | Característica biológica | Registrado en la entrevista (RIAGENDR) | Confusora, cualitativa dicotómica | Masculino / Femenino | — |
+| **Raza/etnia** | Grupo racial o étnico autoidentificado | Variable RIDRETH3 | Confusora, cualitativa nominal | Mexicano-americano, otro hispano, blanco no hispano, negro no hispano, asiático no hispano, otra o multirracial | — |
+| **Nivel educativo** | Máximo nivel de estudios alcanzado | Variable DMDEDUC2 | Confusora, cualitativa ordinal | Sin secundaria completa / Secundaria completa o superior incompleta / Superior completa | — |
+| **Razón ingreso familiar/pobreza** | Ingreso familiar en relación con la línea de pobreza | Variable INDFMPIR | Confusora, cualitativa ordinal | < 1.30 / 1.30–3.49 / ≥ 3.50 / No reportado | Razón |
+| **Estado civil** | Situación conyugal del participante | Variable DMDMARTZ | Confusora, cualitativa nominal | Casado o conviviente / Viudo, divorciado o separado / Nunca casado | — |
+| **Tabaquismo** | Consumo de cigarrillos a lo largo de la vida | Al menos 100 cigarrillos en la vida (SMQ020) y consumo actual (SMQ040) | Confusora, cualitativa nominal | Nunca fumador / Exfumador / Fumador actual | — |
+| **Diabetes mellitus** | Comorbilidad metabólica asociada a AOS y depresión | Diagnóstico médico autorreportado (DIQ010) | Confusora, cualitativa dicotómica | Sí / No | — |
+| **Enfermedad cardiovascular** | Antecedente de enfermedad cardiovascular establecida | Insuficiencia cardíaca, enfermedad coronaria, angina, infarto o ACV autorreportados (MCQ160B a MCQ160F) | Confusora, cualitativa dicotómica | Sí / No | — |
+| **Seguro de salud** | Cobertura de atención sanitaria | Cobertura actual por seguro o plan de salud (HIQ011) | Confusora, cualitativa dicotómica | Sí / No | — |
+| **Índice de masa corporal** | Relación peso-talla asociada a adiposidad | Peso (kg) / talla (m)² medidos en el MEC (BMXBMI) | Componente de la exposición (ítem B); covariable solo en el análisis de sensibilidad | < 25 / 25–29.9 / ≥ 30 | kg/m² |
+| **Hipertensión arterial** | Comorbilidad cardiovascular frecuente en AOS | Diagnóstico médico autorreportado (BPQ020) | Componente de la exposición (ítem P); no se ajusta | Sí / No | — |
+| **Subgrupo hispano** | Población de origen latinoamericano en Estados Unidos | Mexicano-americano u otro hispano (RIDRETH3 = 1 o 2) | Variable de estratificación, cualitativa dicotómica | Sí / No | — |
 
 En todas las variables, los códigos 7 (rechazado) y 9 (no sabe) se considerarán datos faltantes. La edad, el sexo, la hipertensión y el IMC forman parte del puntaje de exposición; por ello, la hipertensión y el IMC no se incluirán en el modelo principal para evitar un sobreajuste, mientras que la edad y el sexo se mantendrán por su fuerte relación con la depresión, evaluando previamente la colinealidad (sección 6.9).
+
+### 6.5.4 Diagrama acíclico dirigido (DAG)
+
+La selección de las covariables de ajuste se basó en el siguiente diagrama acíclico dirigido, que representa las relaciones causales supuestas entre la exposición, el desenlace y las demás variables:
+
+![Imagen 1. Diagrama acíclico dirigido (DAG)](dag.png)
+
+Las características sociodemográficas y el tabaquismo se consideran confusoras, porque pueden influir tanto en el riesgo de AOS como en los síntomas depresivos, y se incluirán en el modelo ajustado. La diabetes y la enfermedad cardiovascular se asocian con los síntomas depresivos y comparten factores de riesgo con la AOS, por lo que también se ajustarán. El IMC y la hipertensión forman parte del puntaje de exposición; ajustarlos en el modelo principal eliminaría parte de la variación que define la exposición, por lo que el IMC se evaluará solo en un análisis de sensibilidad (línea discontinua).
 
 ## 6.6 Muestreo y tamaño de muestra
 
