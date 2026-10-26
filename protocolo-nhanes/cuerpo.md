@@ -1,0 +1,325 @@
+# 1. Introducción
+
+La apnea obstructiva del sueño (AOS) es un trastorno respiratorio caracterizado por episodios repetidos de obstrucción de la vía aérea superior durante el sueño, que producen hipoxia intermitente y fragmentación del sueño (2). Se estima que afecta a cerca de 936 millones de adultos de 30 a 69 años en el mundo, de los cuales 425 millones tendrían una forma moderada a grave (1). Una gran proporción de estos casos permanece sin diagnóstico, porque la polisomnografía es costosa y de acceso limitado (1,2).
+
+La depresión es uno de los trastornos mentales más frecuentes y una de las principales causas de discapacidad en el mundo; la Organización Mundial de la Salud estima que afecta a más de 280 millones de personas (3). En estudios poblacionales, los síntomas depresivos suelen medirse con el Cuestionario de Salud del Paciente de 9 ítems (PHQ-9), cuyo punto de corte de 10 o más tiene una sensibilidad y una especificidad de 88% para depresión mayor (4).
+
+Existen mecanismos plausibles que vinculan ambas condiciones. La hipoxia intermitente, la fragmentación del sueño, la inflamación sistémica y la somnolencia diurna podrían afectar el estado de ánimo y la función cognitiva (5,7). En la cohorte de Wisconsin, el empeoramiento de los trastornos respiratorios del sueño se asoció con un mayor riesgo de desarrollar depresión (5). En NHANES 2005–2008, la frecuencia de ronquidos con resoplidos o pausas respiratorias durante el sueño se asoció con depresión probable según el PHQ-9 (6). Asimismo, las revisiones sistemáticas reportan una elevada frecuencia de síntomas depresivos en pacientes con AOS y de AOS en pacientes con depresión (7,8).
+
+El cuestionario STOP-BANG es una herramienta de tamizaje breve, validada y ampliamente usada para identificar a personas con alto riesgo de AOS, compuesta por ocho ítems dicotómicos: ronquido, cansancio, apneas observadas, presión arterial alta, índice de masa corporal, edad, circunferencia de cuello y sexo (9). La Encuesta Nacional de Salud y Nutrición de Estados Unidos (NHANES) 2017–marzo 2020 incluye preguntas sobre la frecuencia de ronquido, de resoplidos o pausas respiratorias y de somnolencia diurna, además de datos de presión arterial, índice de masa corporal, edad y sexo, y el PHQ-9 (10–12). Esta combinación permite construir una versión adaptada del STOP-BANG y evaluar su asociación con síntomas depresivos en una muestra representativa a nivel nacional.
+
+# 2. Justificación
+
+La justificación de este estudio se apoya en tres ejes.
+
+**Magnitud del problema.** La AOS y la depresión son condiciones frecuentes, ambas subdiagnosticadas y con un impacto importante en la calidad de vida, la productividad y el uso de servicios de salud (1,3). Si el alto riesgo de AOS se asocia con síntomas depresivos, una parte de estos podría estar relacionada con un trastorno del sueño tratable que pasa desapercibido.
+
+**Vacío de conocimiento.** Los estudios poblacionales previos en NHANES evaluaron síntomas aislados de AOS, como el ronquido o las pausas respiratorias, en ciclos anteriores a 2009 (6). En la literatura revisada para este protocolo no se identificó un estudio que evalúe la asociación entre un puntaje compuesto de tamizaje basado en el STOP-BANG y los síntomas depresivos en el ciclo NHANES 2017–marzo 2020, el último que incluye preguntas sobre síntomas de AOS (11,16).
+
+**Utilidad práctica.** El STOP-BANG es una herramienta sencilla que puede aplicarse en la atención primaria (9). Demostrar su asociación con síntomas depresivos apoyaría un tamizaje cruzado: buscar síntomas depresivos en personas con alto riesgo de AOS y evaluar el riesgo de AOS en personas con depresión. Además, el uso de una base de datos pública permite realizar el estudio en un tiempo corto, sin costos de recolección y con una muestra representativa.
+
+# 3. Problema de investigación
+
+## 3.1 Planteamiento del problema
+
+La AOS y la depresión comparten síntomas, factores de riesgo y posibles mecanismos fisiopatológicos, pero ambas suelen evaluarse por separado en la práctica clínica (5–8). La mayoría de la evidencia poblacional proviene de síntomas aislados de AOS y de ciclos antiguos de NHANES (6). No se conoce con precisión si el alto riesgo de AOS, definido mediante un puntaje compuesto de tamizaje, se asocia con síntomas depresivos clínicamente relevantes en una muestra nacional reciente, después de considerar las características sociodemográficas y clínicas de los participantes.
+
+## 3.2 Formulación de la pregunta de investigación
+
+En adultos de 20 años o más participantes de NHANES 2017–marzo 2020, ¿el alto riesgo de AOS según una versión adaptada del cuestionario STOP-BANG se asocia con la presencia de síntomas depresivos clínicamente relevantes?
+
+## 3.3 Estructura PECO
+
+| Componente | Definición |
+| --- | --- |
+| **Población (P)** | Adultos de 20 años o más que participaron en NHANES 2017–marzo 2020, con información completa del cuestionario de sueño (P_SLQ) y del PHQ-9 (P_DPQ). |
+| **Exposición (E)** | Alto riesgo de AOS: puntaje de 3 o más en la versión adaptada del STOP-BANG (STOP-BAG, 0 a 7 puntos). |
+| **Comparación (C)** | Bajo riesgo de AOS: puntaje de 0 a 2. |
+| **Desenlace (O)** | Síntomas depresivos clínicamente relevantes: puntaje PHQ-9 de 10 o más. |
+
+## 3.4 Nota sobre la naturaleza secundaria del estudio
+
+Este protocolo no plantea el reclutamiento de participantes ni la aplicación de instrumentos propios. La población de estudio ya fue evaluada por el National Center for Health Statistics (NCHS) de Estados Unidos entre 2017 y marzo de 2020, y sus microdatos están disponibles públicamente (10). Por ello, no se requiere una fase de recolección primaria de información, y la disponibilidad de los datos permite verificar la factibilidad antes del análisis estadístico final.
+
+# 4. Objetivos
+
+## 4.1 Objetivo general
+
+Determinar la asociación entre el alto riesgo de AOS, según una versión adaptada del cuestionario STOP-BANG, y los síntomas depresivos clínicamente relevantes en adultos de 20 años o más, según NHANES 2017–marzo 2020.
+
+## 4.2 Objetivos específicos
+
+- Describir las características sociodemográficas y clínicas de la población de estudio según su nivel de riesgo de AOS.
+- Estimar la prevalencia ponderada del alto riesgo de AOS y de los síntomas depresivos clínicamente relevantes.
+- Estimar las razones de prevalencia crudas y ajustadas de síntomas depresivos clínicamente relevantes entre los participantes con alto y bajo riesgo de AOS.
+- Evaluar la existencia de un gradiente en la prevalencia de síntomas depresivos según el puntaje del STOP-BANG adaptado (0–2, 3–4 y 5–7 puntos).
+- Explorar si la asociación difiere según el sexo.
+
+# 5. Hipótesis
+
+**Hipótesis nula (H0):** no existe asociación entre el alto riesgo de AOS según la versión adaptada del STOP-BANG y los síntomas depresivos clínicamente relevantes en adultos de 20 años o más, según NHANES 2017–marzo 2020.
+
+**Hipótesis alterna (H1):** el alto riesgo de AOS según la versión adaptada del STOP-BANG se asocia con una mayor prevalencia de síntomas depresivos clínicamente relevantes en adultos de 20 años o más, según NHANES 2017–marzo 2020, independientemente de las características sociodemográficas y clínicas evaluadas.
+
+# 6. Metodología
+
+## 6.1 Diseño de estudio
+
+Estudio observacional, analítico, de corte transversal, mediante análisis secundario de los datos de NHANES 2017–marzo 2020, que emplea un diseño de muestreo probabilístico complejo, estratificado y multietápico (10,15). El ciclo 2019–2020 se interrumpió en marzo de 2020 por la pandemia de COVID-19; por ello, el NCHS combinó sus datos con los del ciclo 2017–2018 en un archivo prepandémico representativo a nivel nacional, con pesos muestrales propios (10,15). El reporte del estudio seguirá la guía STROBE para estudios observacionales (13).
+
+Se optó por este ciclo porque es el más reciente que incluye preguntas sobre síntomas de AOS: en el ciclo agosto 2021–agosto 2023, el cuestionario de sueño solo registró los horarios habituales de sueño (16).
+
+## 6.2 Población
+
+**Población diana:** adultos de 20 años o más de la población civil no institucionalizada de Estados Unidos.
+
+**Población accesible:** participantes de NHANES 2017–marzo 2020 de 20 años o más que completaron la entrevista domiciliaria y el examen en el Centro de Examen Móvil (MEC), donde se aplicó el PHQ-9 (12).
+
+## 6.3 Criterios de inclusión
+
+- Tener 20 años o más al momento de la entrevista (RIDAGEYR ≥ 20).
+- Haber sido examinado en el MEC (RIDSTATR = 2).
+- Tener respuestas válidas a las tres preguntas de síntomas de sueño usadas para el STOP-BANG adaptado (SLQ030, SLQ040 y SLQ120).
+- Tener respuestas válidas (0 a 3) a los nueve ítems del PHQ-9 (DPQ010 a DPQ090).
+
+## 6.4 Criterios de exclusión
+
+- Mujeres embarazadas al momento del examen (RIDEXPRG = 1), porque el embarazo modifica el índice de masa corporal y el riesgo de síntomas depresivos.
+- Respuestas "No sabe" o "Rechazado" en las variables que componen la exposición o el desenlace.
+- Datos faltantes en alguna de las covariables del modelo ajustado. El análisis principal será de casos completos.
+
+## 6.5 Variables y operacionalización
+
+### 6.5.1 Variable de exposición: alto riesgo de AOS
+
+Se construirá una versión adaptada del STOP-BANG con los siete ítems disponibles en NHANES 2017–marzo 2020 (9). El ítem de circunferencia de cuello (N) no puede incluirse porque no se mide en el examen físico de este ciclo, por lo que la escala resultante (STOP-BAG) va de 0 a 7 puntos. Cada ítem positivo suma un punto:
+
+| Ítem | Variable NHANES | Pregunta o medición | Criterio de positividad |
+| --- | --- | --- | --- |
+| **S** – Ronquido | SLQ030 (P_SLQ) | ¿Con qué frecuencia ronca mientras duerme? | 3 o más noches por semana (códigos 2 y 3) |
+| **T** – Cansancio | SLQ120 (P_SLQ) | ¿Con qué frecuencia se siente excesivamente somnoliento durante el día? | 5 o más veces al mes (códigos 3 y 4) |
+| **O** – Apneas observadas | SLQ040 (P_SLQ) | ¿Con qué frecuencia resopla, jadea o deja de respirar mientras duerme? | 3 o más noches por semana (códigos 2 y 3) |
+| **P** – Presión arterial | BPQ020 (P_BPQ) | ¿Alguna vez un médico le dijo que tiene presión arterial alta? | Respuesta "Sí" (código 1) |
+| **B** – IMC | BMXBMI (P_BMX) | Índice de masa corporal medido en el MEC | Mayor de 35 kg/m² |
+| **A** – Edad | RIDAGEYR (P_DEMO) | Edad en años cumplidos | Mayor de 50 años |
+| **G** – Sexo | RIAGENDR (P_DEMO) | Sexo | Masculino (código 1) |
+
+Se considerará **alto riesgo de AOS** un puntaje de 3 o más, y **bajo riesgo** un puntaje de 0 a 2, en concordancia con el punto de corte del cuestionario original (9). Para el análisis de gradiente, el puntaje se agrupará en 0–2, 3–4 y 5–7 puntos. Las respuestas "No sabe" (9) o "Rechazado" (7) se considerarán datos faltantes.
+
+### 6.5.2 Variable de desenlace: síntomas depresivos clínicamente relevantes
+
+Se definirán a partir del PHQ-9 del archivo P_DPQ (4,12). Cada uno de los nueve ítems (DPQ010 a DPQ090) se puntúa de 0 ("para nada") a 3 ("casi todos los días") según la frecuencia de cada síntoma en las dos semanas previas, y la suma va de 0 a 27. Se considerarán **síntomas depresivos clínicamente relevantes** un puntaje total de 10 o más (4). Como variables secundarias se usarán el puntaje total continuo y las categorías de severidad: mínima (0–4), leve (5–9), moderada (10–14), moderadamente grave (15–19) y grave (20–27).
+
+### 6.5.3 Covariables
+
+| Variable | Tipo / escala | Variable NHANES | Categorías (referencia en negrita) |
+| --- | --- | --- | --- |
+| Edad | Cualitativa ordinal | RIDAGEYR (P_DEMO) | **20–39**, 40–59, ≥ 60 años (las edades ≥ 80 están codificadas como 80) |
+| Sexo | Cualitativa nominal | RIAGENDR (P_DEMO) | **Femenino**, masculino |
+| Raza/etnia | Cualitativa nominal | RIDRETH3 (P_DEMO) | Mexicano-americano, otro hispano, **blanco no hispano**, negro no hispano, asiático no hispano, otra o multirracial |
+| Nivel educativo | Cualitativa ordinal | DMDEDUC2 (P_DEMO) | Sin secundaria completa (1–2), secundaria completa o superior incompleta (3–4), **superior completa** (5) |
+| Razón ingreso familiar/pobreza | Cualitativa ordinal | INDFMPIR (P_DEMO) | < 1.30, 1.30–3.49, **≥ 3.50**, no reportado |
+| Estado civil | Cualitativa nominal | DMDMARTZ (P_DEMO) | **Casado o conviviente**, viudo/divorciado/separado, nunca casado |
+| Tabaquismo | Cualitativa nominal | SMQ020, SMQ040 (P_SMQ) | **Nunca fumador**, exfumador, fumador actual |
+| Diabetes mellitus | Cualitativa dicotómica | DIQ010 (P_DIQ) | **No**, sí (diagnóstico médico autorreportado) |
+| Enfermedad cardiovascular | Cualitativa dicotómica | MCQ160B, C, D, E, F (P_MCQ) | **No**, sí (insuficiencia cardíaca, enfermedad coronaria, angina, infarto o ACV) |
+| Seguro de salud | Cualitativa dicotómica | HIQ011 (P_HIQ) | **Sí**, no |
+| IMC (solo análisis de sensibilidad) | Cualitativa ordinal | BMXBMI (P_BMX) | **< 25**, 25–29.9, ≥ 30 kg/m² |
+
+En todas las variables, los códigos 7 (rechazado) y 9 (no sabe) se considerarán datos faltantes. La edad, el sexo, la hipertensión y el IMC forman parte del puntaje de exposición; por ello, la hipertensión y el IMC no se incluirán en el modelo principal para evitar un sobreajuste, mientras que la edad y el sexo se mantendrán por su fuerte relación con la depresión, evaluando previamente la colinealidad (sección 6.9).
+
+## 6.6 Muestreo y tamaño de muestra
+
+### 6.6.1 Naturaleza de la muestra en un estudio secundario
+
+No se realizará un cálculo de tamaño de muestra orientado al reclutamiento, porque la muestra ya está determinada por el diseño y la ejecución de NHANES 2017–marzo 2020 (15). La población analítica estará constituida por todos los participantes que cumplan los criterios de selección. La evaluación de factibilidad se orientará a verificar, con los datos reales, el número de participantes disponibles, la frecuencia de la exposición y del desenlace, y el número de eventos por parámetro del modelo ajustado.
+
+### 6.6.2 Verificación con datos reales de NHANES 2017–marzo 2020
+
+Se descargarán los archivos públicos P_DEMO, P_SLQ, P_DPQ, P_BPQ, P_BMX, P_DIQ, P_MCQ, P_SMQ y P_HIQ desde el repositorio oficial del CDC y se aplicarán de forma secuencial los criterios de selección. El flujo de participantes se reportará así:
+
+| Paso | Participantes (n) |
+| --- | --- |
+| Participantes del archivo P_DEMO | [n] |
+| De 20 años o más | [n] |
+| Examinados en el MEC | [n] |
+| Sin embarazo al momento del examen | [n] |
+| Con puntaje STOP-BAG válido | [n] |
+| Con PHQ-9 completo (población analítica) | [n] |
+| Con covariables completas (análisis de casos completos) | [n] |
+
+Con estos datos se estimarán la prevalencia no ponderada y ponderada del alto riesgo de AOS y de los síntomas depresivos clínicamente relevantes, y el número de eventos por parámetro del modelo ajustado. Se considerará adecuado un mínimo de 10 eventos por parámetro. El código de Stata para la construcción de la base y la verificación de factibilidad se presenta en el Anexo 1.
+
+## 6.7 Instrumentos y procedimientos
+
+El estudio no requiere un instrumento de recolección propio. Se usarán los cuestionarios y mediciones estandarizados de NHANES 2017–marzo 2020, administrados por el NCHS de los Centers for Disease Control and Prevention (CDC) (10). No se realizará validación de contenido ni prueba piloto, porque la información ya fue recolectada con instrumentos estandarizados cuya documentación oficial describe cada pregunta, sus códigos de respuesta y sus frecuencias (11,12).
+
+1. Se descargarán los archivos públicos indicados en la sección 6.6.2 desde el repositorio oficial del CDC.
+2. Se integrarán mediante el identificador único del participante (SEQN) y se verificarán la estructura, los códigos de respuesta y los valores perdidos.
+3. Se construirán el puntaje STOP-BAG, el puntaje PHQ-9 y las covariables según la sección 6.5.
+4. Se declarará el diseño muestral complejo sobre la base completa de P_DEMO, sin eliminar observaciones, y la población analítica se identificará con una variable indicadora para que la estimación de la varianza refleje el diseño completo (15).
+5. Se realizará el análisis descriptivo, bivariado y multivariado de la sección 6.9.
+
+## 6.8 Evaluación y control del sesgo
+
+**Sesgo de información.** Los síntomas de sueño, la hipertensión y los antecedentes clínicos son autorreportados, y el STOP-BAG adaptado no ha sido validado frente a la polisomnografía en NHANES. Esto puede producir una clasificación incorrecta de la exposición, probablemente no diferencial, que tendería a subestimar la asociación.
+
+**Superposición de síntomas.** La somnolencia diurna (ítem T) se parece a los ítems de problemas de sueño (DPQ030) y de cansancio (DPQ040) del PHQ-9. Para evitar que esta superposición explique la asociación, se prespecifican análisis de sensibilidad sin estos ítems (sección 6.9).
+
+**Sesgo de selección y no respuesta.** Se usarán los pesos, estratos y unidades primarias de muestreo oficiales, que incorporan la probabilidad de selección y los ajustes por no respuesta (15). Aun así, puede persistir un sesgo residual.
+
+**Confusión.** Se controlará mediante el ajuste multivariable por las covariables definidas a priori.
+
+**Temporalidad.** Por el diseño transversal, no puede establecerse la secuencia temporal entre la exposición y el desenlace; la depresión también podría aumentar la percepción de somnolencia. Los resultados se interpretarán como asociaciones y no como relaciones causales.
+
+**Datos faltantes.** El análisis principal será de casos completos. Se reportará el número de exclusiones por variable y se compararán las características de los participantes incluidos y excluidos.
+
+## 6.9 Análisis estadístico
+
+Todos los análisis se realizarán en Stata 18 (21). El diseño muestral complejo se declarará con el comando svyset, usando SDMVPSU como unidad primaria de muestreo, SDMVSTRA como estrato y WTMECPRP como peso, porque el PHQ-9 se aplicó en el MEC (15). La varianza se estimará por linealización de Taylor y todas las estimaciones se restringirán a la población analítica con la opción subpop().
+
+**Análisis descriptivo.** Para las variables cualitativas se reportarán frecuencias absolutas no ponderadas y porcentajes ponderados con su intervalo de confianza del 95% (IC 95%); para las cuantitativas, la mediana ponderada y el rango intercuartílico. La confiabilidad de cada proporción se evaluará con los estándares de presentación del NCHS (18).
+
+**Análisis bivariado.** Se compararán las características según el riesgo de AOS y la prevalencia del desenlace según cada covariable con la prueba de chi-cuadrado con corrección de Rao-Scott (19).
+
+**Análisis multivariado.** Se estimarán razones de prevalencia (RP) con IC 95% mediante regresión de Poisson con varianza robusta, recomendada para desenlaces binarios frecuentes en estudios transversales (14). Se estimará primero la RP cruda y luego un modelo ajustado por edad, sexo, raza/etnia, nivel educativo, razón ingreso/pobreza, estado civil, tabaquismo, diabetes, enfermedad cardiovascular y seguro de salud. Antes de interpretarlo se evaluará la colinealidad con el factor de inflación de la varianza en un modelo lineal auxiliar no ponderado; un valor mayor de 10 se considerará colinealidad importante.
+
+**Gradiente.** Se estimarán las RP de las categorías 3–4 y 5–7 frente a 0–2, y la tendencia se evaluará incorporando el puntaje agrupado como término ordinal (p de tendencia).
+
+**Modificación del efecto.** Se evaluará la interacción entre el riesgo de AOS y el sexo con la prueba de Wald ajustada; si es significativa, se reportarán las RP por sexo.
+
+**Análisis de sensibilidad prespecificados:**
+
+1. Exposición sin el ítem de cansancio (STOP-BAG sin T, 0 a 6 puntos, alto riesgo ≥ 3).
+2. Desenlace con el puntaje PHQ-9 sin los ítems de sueño y cansancio (DPQ030 y DPQ040), analizado como variable continua mediante regresión lineal.
+3. Desenlace con el PHQ-8 ≥ 10 (sin el ítem de ideación suicida), versión validada para estudios poblacionales (17).
+4. Exposición definida solo por síntomas nocturnos: ronquido o resoplidos/pausas respiratorias 3 o más noches por semana.
+5. Modelo principal con ajuste adicional por categorías de IMC.
+
+El nivel de significancia será p < 0.05 (bilateral). Los resultados se reportarán según la guía STROBE (13) y se interpretarán como asociaciones.
+
+# 7. Aspectos éticos
+
+El estudio es un análisis secundario de archivos públicos, anonimizados y de libre acceso de NHANES 2017–marzo 2020, que no contienen identificadores personales. El protocolo de NHANES fue aprobado por el NCHS Ethics Review Board y la recolección original incluyó el consentimiento informado de los participantes (20). Los investigadores no tendrán contacto con los participantes ni realizarán una nueva recolección de información, por lo que no se solicitará un nuevo consentimiento informado.
+
+El protocolo será presentado al Subcomité de Ética en Investigación de la Facultad de Ciencias de la Salud de la Universidad Peruana de Ciencias Aplicadas, según los procedimientos institucionales vigentes para Tesis 2. Los resultados se presentarán de manera agregada, sin posibilidad de identificación individual. Los investigadores declaran no tener conflictos de interés y el estudio no cuenta con financiamiento externo.
+
+# 8. Fortalezas
+
+- Usa una muestra nacional con diseño probabilístico complejo, que permite obtener estimaciones representativas de la población civil no institucionalizada de Estados Unidos.
+- El desenlace se mide con el PHQ-9, un instrumento validado y ampliamente usado (4).
+- Emplea un puntaje compuesto de tamizaje basado en el STOP-BANG, en lugar de síntomas aislados, lo que lo acerca a la práctica clínica (9).
+- Incluye análisis de sensibilidad prespecificados para controlar la superposición de síntomas entre la exposición y el desenlace.
+- La factibilidad se verificará con los datos reales antes del análisis final.
+
+# 9. Limitaciones
+
+- **Validez externa:** los resultados serán generalizables a la población de Estados Unidos y no directamente a la población peruana.
+- **Exposición indirecta:** el STOP-BAG adaptado no incluye la circunferencia de cuello ni confirma la AOS con polisomnografía; mide riesgo, no diagnóstico.
+- **Diseño transversal:** no permite establecer causalidad ni la dirección de la asociación.
+- **Autorreporte:** varios datos dependen del recuerdo de los participantes.
+- **Confusión residual:** no se ajustará por el uso de antidepresivos, hipnóticos ni por actividad física, que podrían influir en ambas variables.
+- **Antigüedad relativa:** los datos son previos a la pandemia de COVID-19, que pudo modificar la prevalencia de síntomas depresivos.
+
+# 10. Cronograma y presupuesto
+
+El estudio puede completarse en cuatro meses, con la base de datos lista para febrero de 2027.
+
+| Actividad | Nov 2026 | Dic 2026 | Ene 2027 | Feb 2027 |
+| --- | --- | --- | --- | --- |
+| Revisión del protocolo con el asesor y aprobación del cambio de tema | X | | | |
+| Presentación y aprobación del Subcomité de Ética de la UPC | X | X | | |
+| Descarga de los archivos y verificación de factibilidad | X | | | |
+| Construcción y depuración de la base analítica | | X | | |
+| Análisis estadístico | | X | X | |
+| Interpretación de resultados y redacción del informe | | | X | X |
+| Entrega de la base de datos y del informe para Tesis 2 | | | | X |
+
+El estudio será autofinanciado por los investigadores. Los datos de NHANES son gratuitos y no hay costos de recolección; los gastos se limitan a la impresión de documentos y a materiales administrativos. El software estadístico estará a cargo de los investigadores o de la universidad.
+
+# Referencias
+
+1. Benjafield AV, Ayas NT, Eastwood PR, Heinzer R, Ip MSM, Morrell MJ, et al. Estimation of the global prevalence and burden of obstructive sleep apnoea: a literature-based analysis. Lancet Respir Med. 2019;7(8):687-98. doi:10.1016/S2213-2600(19)30198-5
+2. Kapur VK, Auckley DH, Chowdhuri S, Kuhlmann DC, Mehra R, Ramar K, et al. Clinical practice guideline for diagnostic testing for adult obstructive sleep apnea: an American Academy of Sleep Medicine clinical practice guideline. J Clin Sleep Med. 2017;13(3):479-504.
+3. World Health Organization. Depressive disorder (depression) [Internet]. Ginebra: WHO; 2023 [citado oct 2026]. Disponible en: https://www.who.int/news-room/fact-sheets/detail/depression
+4. Kroenke K, Spitzer RL, Williams JB. The PHQ-9: validity of a brief depression severity measure. J Gen Intern Med. 2001;16(9):606-13.
+5. Peppard PE, Szklo-Coxe M, Hla KM, Young T. Longitudinal association of sleep-related breathing disorder and depression. Arch Intern Med. 2006;166(16):1709-15.
+6. Wheaton AG, Perry GS, Chapman DP, Croft JB. Sleep disordered breathing and depression among U.S. adults: National Health and Nutrition Examination Survey, 2005-2008. Sleep. 2012;35(4):461-7.
+7. Garbarino S, Bardwell WA, Guglielmi O, Chiorri C, Bonanni E, Magnavita N. Association of anxiety and depression in obstructive sleep apnea patients: a systematic review and meta-analysis. Behav Sleep Med. 2020;18(1):35-57.
+8. Stubbs B, Vancampfort D, Veronese N, Solmi M, Gaughran F, Manu P, et al. The prevalence and predictors of obstructive sleep apnea in major depressive disorder, bipolar disorder and schizophrenia: a systematic review and meta-analysis. J Affect Disord. 2016;197:259-67.
+9. Chung F, Abdullah HR, Liao P. STOP-Bang questionnaire: a practical approach to screen for obstructive sleep apnea. Chest. 2016;149(3):631-8. doi:10.1378/chest.15-0903
+10. Stierman B, Afful J, Carroll MD, Chen TC, Davy O, Fink S, et al. National Health and Nutrition Examination Survey 2017–March 2020 prepandemic data files: development of files and prevalence estimates for selected health outcomes. Natl Health Stat Report. 2021;(158).
+11. National Center for Health Statistics. NHANES 2017–March 2020 pre-pandemic. Sleep Disorders (P_SLQ): data documentation, codebook, and frequencies [Internet]. Hyattsville (MD): CDC [citado oct 2026]. Disponible en: https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/P_SLQ.htm
+12. National Center for Health Statistics. NHANES 2017–March 2020 pre-pandemic. Mental Health – Depression Screener (P_DPQ): data documentation, codebook, and frequencies [Internet]. Hyattsville (MD): CDC [citado oct 2026]. Disponible en: https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/P_DPQ.htm
+13. von Elm E, Altman DG, Egger M, Pocock SJ, Gøtzsche PC, Vandenbroucke JP. The Strengthening the Reporting of Observational Studies in Epidemiology (STROBE) statement: guidelines for reporting observational studies. Lancet. 2007;370(9596):1453-7.
+14. Barros AJ, Hirakata VN. Alternatives for logistic regression in cross-sectional studies: an empirical comparison of models that directly estimate the prevalence ratio. BMC Med Res Methodol. 2003;3:21.
+15. Akinbami LJ, Chen TC, Davy O, Ogden CL, Fink S, Clark J, et al. National Health and Nutrition Examination Survey, 2017–March 2020 prepandemic file: sample design, estimation, and analytic guidelines. Vital Health Stat 1. 2022;(190):1-36.
+16. National Center for Health Statistics. NHANES August 2021–August 2023. Sleep Disorders (SLQ_L): data documentation, codebook, and frequencies [Internet]. Hyattsville (MD): CDC [citado oct 2026]. Disponible en: https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2021/DataFiles/SLQ_L.htm
+17. Kroenke K, Strine TW, Spitzer RL, Williams JB, Berry JT, Mokdad AH. The PHQ-8 as a measure of current depression in the general population. J Affect Disord. 2009;114(1-3):163-73.
+18. Parker JD, Talih M, Malec DJ, Beresovsky V, Carroll M, Gonzalez JF Jr, et al. National Center for Health Statistics data presentation standards for proportions. Vital Health Stat 2. 2017;(175):1-22.
+19. Rao JNK, Scott AJ. On chi-squared tests for multiway contingency tables with cell proportions estimated from survey data. Ann Stat. 1984;12(1):46-60.
+20. National Center for Health Statistics. NCHS Ethics Review Board (ERB) approval [Internet]. Hyattsville (MD): CDC [citado oct 2026]. Disponible en el sitio web oficial de NHANES.
+21. StataCorp. Stata Statistical Software: Release 18. College Station (TX): StataCorp LLC; 2023.
+
+# Anexo 1. Código de Stata para la construcción de la base y la verificación de factibilidad
+
+```
+* NHANES 2017-marzo 2020: armado de la base y verificacion de factibilidad
+clear all
+set more off
+local url "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles"
+local files P_DEMO P_SLQ P_DPQ P_BPQ P_BMX P_DIQ P_MCQ P_SMQ P_HIQ
+
+foreach f of local files {
+    import sasxport5 "`url'/`f'.xpt", clear
+    rename *, lower
+    sort seqn
+    tempfile `f'
+    save ``f''
+}
+use `P_DEMO', clear
+foreach f in P_SLQ P_DPQ P_BPQ P_BMX P_DIQ P_MCQ P_SMQ P_HIQ {
+    merge 1:1 seqn using ``f'', nogenerate
+}
+
+* Exposicion: STOP-BAG adaptado (0 a 7 puntos)
+foreach v in slq030 slq040 slq120 bpq020 {
+    replace `v' = . if inlist(`v', 7, 9)
+}
+gen sb_s = inlist(slq030, 2, 3) if !missing(slq030)
+gen sb_t = inlist(slq120, 3, 4) if !missing(slq120)
+gen sb_o = inlist(slq040, 2, 3) if !missing(slq040)
+gen sb_p = (bpq020 == 1)        if !missing(bpq020)
+gen sb_b = (bmxbmi > 35)        if !missing(bmxbmi)
+gen sb_a = (ridageyr > 50)
+gen sb_g = (riagendr == 1)
+egen sb_nmiss   = rowmiss(sb_s sb_t sb_o sb_p sb_b)
+egen sb_puntaje = rowtotal(sb_s sb_t sb_o sb_p sb_b sb_a sb_g) if sb_nmiss == 0
+gen sb_alto = (sb_puntaje >= 3) if !missing(sb_puntaje)
+
+* Desenlace: PHQ-9 >= 10
+foreach v of varlist dpq010-dpq090 {
+    replace `v' = . if inlist(`v', 7, 9)
+}
+egen phq_nmiss = rowmiss(dpq010-dpq090)
+egen phq9 = rowtotal(dpq010-dpq090) if phq_nmiss == 0
+gen dep = (phq9 >= 10) if !missing(phq9)
+
+* Flujo de participantes
+count
+count if ridageyr >= 20
+count if ridageyr >= 20 & ridstatr == 2
+count if ridageyr >= 20 & ridstatr == 2 & ridexprg != 1
+count if ridageyr >= 20 & ridstatr == 2 & ridexprg != 1 & !missing(sb_puntaje)
+gen elegible = ridageyr >= 20 & ridstatr == 2 & ridexprg != 1 ///
+    & !missing(sb_puntaje) & !missing(dep)
+count if elegible
+
+* Prevalencias no ponderadas y ponderadas
+tab dep sb_alto if elegible, col
+svyset sdmvpsu [pw = wtmecprp], strata(sdmvstra) vce(linearized) singleunit(centered)
+svy, subpop(elegible): proportion sb_alto
+svy, subpop(elegible): proportion dep, over(sb_alto)
+
+save "nhanes_aos_depresion.dta", replace
+```
